@@ -40,7 +40,7 @@ spec:
           main:
             image:
               repository: huntarr/huntarr
-              tag: 7.6.9@sha256:fddc3c80b8e8a3d8fbb61fa077531b1b790d98383d1c4fc191023350e8fd0647
+              tag: 8.0.1@sha256:cf86e40883492ef85b17d80a6d046de1df8c00f106185154fef8ed82bf168021
             env:
               TZ: ${TIMEZONE}
             resources:
