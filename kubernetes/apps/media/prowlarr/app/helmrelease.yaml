@@ -121,11 +121,6 @@ spec:
         annotations:
           external-dns.home.arpa/enabled: "false"
           auth.home.arpa/enabled: "true"
-          nginx.ingress.kubernetes.io/auth-snippet: |-
-            proxy_set_header X-Forwarded-Method $request_method;
-            if ( $http_user_agent ~* "(Sonarr|Radarr|Readarr)" ) {
-              return 200;
-            }
           hajimari.io/enable: 'true'
           hajimari.io/icon: mdi:movie-search
           hajimari.io/group: Media
