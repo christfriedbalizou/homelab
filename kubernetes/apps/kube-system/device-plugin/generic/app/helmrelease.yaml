@@ -32,6 +32,13 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           priorityClassName: system-node-critical
+          affinity:
+            nodeAffinity:
+                requiredDuringSchedulingIgnoredDuringExecution:
+                  nodeSelectorTerms:
+                    - matchExpressions:
+                        - key: node-role.kubernetes.io/control-plane
+                          operator: Exists
         containers:
           app:
             image:
@@ -70,10 +77,3 @@ spec:
       var-lib-kubelet-device-plugins:
         type: hostPath
         hostPath: /var/lib/kubelet/device-plugins
-    affinity:
-      nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: node-role.kubernetes.io/control-plane
-                    operator: Exists
