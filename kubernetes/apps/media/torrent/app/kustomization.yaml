@@ -9,6 +9,9 @@ configMapGenerator:
   - name: qbittorrent-dnsdist
     files:
       - dnsdist.conf=./config/dnsdist.conf
+  - name: qbittorrent-gluetun
+    files:
+      - auth.toml=./config/gluetun.toml
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
