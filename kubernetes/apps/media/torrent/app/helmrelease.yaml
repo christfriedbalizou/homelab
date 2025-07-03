@@ -38,6 +38,7 @@ spec:
             image:
               repository: docker.io/powerdns/dnsdist-19
               tag: 1.9.10@sha256:7495affd85c450050eb2fce1cb99964cb439482ffada22e9d312a761b6bf138d
+            restartPolicy: Always
           gluetun:
             dependsOn:
               - dnsdist
@@ -68,9 +69,10 @@ spec:
                     - "-c"
                     - "(ip rule del table 51820; ip -6 rule del table 51820) || true"
             securityContext:
-              capabilities: { add: ["NET_ADMIN"] }
+              capabilities:
+                add:
+                  - NET_ADMIN
               allowPrivilegeEscalation: false
-            restartPolicy: Always
             resources:
               limits:
                 squat.ai/tun: "1"
