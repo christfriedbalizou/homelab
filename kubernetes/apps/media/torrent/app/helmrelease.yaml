@@ -71,6 +71,7 @@ spec:
             securityContext:
               capabilities: { add: ["NET_ADMIN"] }
               allowPrivilegeEscalation: false
+            restartPolicy: Always
             resources:
               limits:
                 squat.ai/tun: "1"
