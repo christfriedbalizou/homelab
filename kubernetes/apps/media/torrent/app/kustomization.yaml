@@ -6,11 +6,10 @@ resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: qbittorrent-dnsdist
+  - name: qbittorrent-coredns
     files:
-      - dnsdist.conf=./config/dnsdist.conf
-  - name: qbittorrent-gluetun
-    files:
-      - auth.toml=./config/gluetun.toml
+      - Corefile=./config/Corefile
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled

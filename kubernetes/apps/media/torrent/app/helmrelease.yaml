@@ -34,14 +34,15 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
           terminationGracePeriodSeconds: 120
         initContainers:
-          dnsdist:
+          coredns:
             image:
-              repository: docker.io/powerdns/dnsdist-19
-              tag: 1.9.10@sha256:7495affd85c450050eb2fce1cb99964cb439482ffada22e9d312a761b6bf138d
+              repository: mirror.gcr.io/coredns/coredns
+              tag: 1.12.2
+            args: ["-conf", "/etc/coredns/Corefile"]
             restartPolicy: Always
           gluetun:
             dependsOn:
-              - dnsdist
+              - coredns
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.40.0@sha256:2b42bfa046757145a5155acece417b65b4443c8033fb88661a8e9dcf7fda5a00
@@ -174,18 +175,18 @@ spec:
           qbittorrent:
             port-forward:
               - path: /config
-      dnsdist:
+      coredns:
         type: configMap
-        name: qbittorrent-dnsdist
+        name: qbittorrent-coredns
         advancedMounts:
           qbittorrent:
-            dnsdist:
-              - path: /etc/dnsdist/dnsdist.conf
-                subPath: dnsdist.conf
+            coredns:
+              - path: /etc/coredns/Corefile
+                subPath: Corefile
                 readOnly: true
       gluetun-auth:
-        type: configMap
-        name: qbittorrent-gluetun
+        type: secret
+        name: qbittorrent
         advancedMounts:
           qbittorrent:
             gluetun:
