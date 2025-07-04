@@ -33,6 +33,7 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
           terminationGracePeriodSeconds: 120
+          restartPolicy: Always
         initContainers:
           coredns:
             image:
