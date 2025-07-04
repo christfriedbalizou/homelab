@@ -38,7 +38,9 @@ spec:
             image:
               repository: mirror.gcr.io/coredns/coredns
               tag: 1.12.2
-            args: ["-conf", "/etc/coredns/Corefile"]
+            args: 
+              - -conf
+              - /etc/coredns/Corefile
             restartPolicy: Always
           gluetun:
             dependsOn:
@@ -46,7 +48,6 @@ spec:
             image:
               repository: ghcr.io/qdm12/gluetun
               tag: v3.40.0@sha256:2b42bfa046757145a5155acece417b65b4443c8033fb88661a8e9dcf7fda5a00
-            restartPolicy: Always
             env:
               DOT: "off"
               DNS_ADDRESS: 127.0.0.2
@@ -66,9 +67,10 @@ spec:
               postStart:
                 exec:
                   command:
-                    - "/bin/sh"
-                    - "-c"
-                    - "(ip rule del table 51820; ip -6 rule del table 51820) || true"
+                      - /bin/sh
+                      - -c
+                      - (ip rule del table 51820; ip -6 rule del table 51820) || true
+            restartPolicy: Always
             securityContext:
               capabilities:
                 add:
@@ -77,6 +79,7 @@ spec:
             resources:
               limits:
                 squat.ai/tun: "1"
+                memory: 128Mi
         containers:
           app:
             nameOverride: qbittorrent
