@@ -1,8 +1,0 @@
-[[roles]]
-name = "gluetun-qb-port-sync"
-routes = [
-  "GET /v1/publicip/ip",
-  "GET /v1/openvpn/portforwarded"
-]
-auth = "apikey"
-apikey = "{{ GLUETUN_CONTROL_SERVER_API_KEY }}"
