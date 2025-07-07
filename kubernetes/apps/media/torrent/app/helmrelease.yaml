@@ -38,7 +38,7 @@ spec:
             image:
               repository: mirror.gcr.io/coredns/coredns
               tag: 1.12.2
-            args: 
+            args:
               - -conf
               - /etc/coredns/Corefile
             restartPolicy: Always
@@ -57,7 +57,7 @@ spec:
               VPN_INTERFACE: wg0
               WIREGUARD_ENDPOINT_PORT: 51820
               VPN_PORT_FORWARDING: on
-              VPN_PORT_FORWARDING_PROVIDER: nordvpn
+              VPN_PORT_FORWARDING_PROVIDER: protonvpn
               FIREWALL_INPUT_PORTS: &port 8080
               FIREWALL_OUTBOUND_SUBNETS: ${K8S_CLUSTER_CIDR},${K8S_SERVICE_CIDR}
             envFrom:
