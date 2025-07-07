@@ -29,6 +29,7 @@ spec:
         annotations:
           secret.reloader.stakater.com/reload: qbittorrent,qbittorrent-gluetun
         pod:
+          restartPolicy: Always
           securityContext:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
