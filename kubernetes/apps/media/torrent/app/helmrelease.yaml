@@ -32,6 +32,8 @@ spec:
           securityContext:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
+            supplementalGroups:
+              - 568
           terminationGracePeriodSeconds: 120
         initContainers:
           coredns:
