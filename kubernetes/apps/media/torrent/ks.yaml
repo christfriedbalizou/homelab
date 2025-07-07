@@ -8,22 +8,18 @@ metadata:
     substitution.flux.home.arpa/enabled: "true"
 spec:
   path: ./kubernetes/apps/media/torrent/app
-  prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta2
-      kind: HelmRelease
-      name: &app torrent
-      namespace: &namespace media
+  prune: true
+  wait: false
   interval: 30m
   retryInterval: 1m
   timeout: 3m
   postBuild:
     substitute:
-      APP: *app
-      NAMESPACE: *namespace
+      APP: torrent
+      NAMESPACE: media
     substituteFrom:
       - kind: Secret
         name: cluster-secrets
