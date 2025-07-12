@@ -25,7 +25,7 @@ spec:
           main:
             image:
               repository: shuaiscott/zap2xml
-              tag: latest@sha256:ffcb45211ac8f2eeaa7e7b323625d6261ee8e223e0169f082cd2101a9b77317f
+              tag: latest@sha256:0fbbb754f720060c32ca20759ebc2e3e14ce29bc3fa700db3e9ce85bce426620
             command:
               - "/bin/sh"
               - "-c"
