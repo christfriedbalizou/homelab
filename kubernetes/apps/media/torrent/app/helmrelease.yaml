@@ -190,3 +190,8 @@ spec:
             gluetun:
               - path: *gluetunAuthPath
                 subPath: auth.toml
+      add-ons:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /add-ons
