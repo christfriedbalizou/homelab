@@ -58,3 +58,7 @@ megalinter-reports
 
 # private key
 .*.pem
+
+# Template config files
+/cluster.yaml
+/nodes.yaml
