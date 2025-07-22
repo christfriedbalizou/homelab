@@ -44,14 +44,6 @@ tasks:
       - .venv/bin/python3 -m pip install --upgrade --requirement '{{.ROOT_DIR}}/requirements.txt'
       - .venv/bin/ansible-galaxy install --role-file '{{.ROOT_DIR}}/requirements.yaml' --force
 
-  configure:
-    desc: Configure repository from Ansible vars
-    summary: task {{.TASK}}
-    dir: '{{.BOOTSTRAP_DIR}}'
-    cmd: ansible-playbook configure.yaml
-    env:
-      ANSIBLE_DISPLAY_SKIPPED_HOSTS: 'false'
-
   reconcile:
     desc: Force Flux to pull in changes from your Git repository
     cmd: flux --namespace flux-system reconcile kustomization flux-system --with-source
