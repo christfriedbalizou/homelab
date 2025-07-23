@@ -60,5 +60,5 @@ megalinter-reports
 .*.pem
 
 # Template config files
-/cluster.yaml
-/nodes.yaml
+/cloudflare-tunnel.json
+/github-push-token.txt
