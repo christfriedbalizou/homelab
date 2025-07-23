@@ -1,9 +1,9 @@
 [makejinja]
-inputs = ["./templates/overrides","./templates/config"]
+inputs = ["./bootstrap/templates"]
 output = "./"
 exclude_patterns = ["*.partial.yaml.j2"]
-data = ["./cluster.yaml", "./nodes.yaml"]
-import_paths = ["./templates/scripts"]
+data = ["./bootstrap/vars/config.yaml"]
+import_paths = ["./scripts"]
 loaders = ["plugin:Plugin"]
 jinja_suffix = ".j2"
 copy_metadata = true
@@ -15,5 +15,5 @@ block_start = "#%"
 block_end = "%#"
 comment_start = "#|"
 comment_end = "#|"
-variable_start = "#{"
-variable_end = "}#"
+variable_start = "{{"
+variable_end = "}}"

@@ -1,30 +1,16 @@
+#jinja2: trim_blocks: True, lstrip_blocks: True
 ---
 kubernetes:
   children:
-    controllers:
-      hosts:
-        k8s-3:
-          ansible_user: ubuntu
-          ansible_host: 192.168.1.122
-        k8s-4:
-          ansible_user: ubuntu
-          ansible_host: 192.168.1.123
-        k8s-5:
-          ansible_user: ubuntu
-          ansible_host: 192.168.1.124
-    workers:
-      hosts:
-        k8s-0:
-          ansible_user: pi
-          ansible_host: 192.168.1.119
-        k8s-1:
-          ansible_user: pi
-          ansible_host: 192.168.1.120
-        k8s-2:
-          ansible_user: ubuntu
-          ansible_host: 192.168.1.121
     raspberrypi:
       hosts:
-        pihole:
-          ansible_user: pi.hole
-          ansible_host: 192.168.1.114
+      {% for item in bootstrap_nodes.raspberrypi %}
+        {{ item.name }}:
+          ansible_user: {{ item.username }}
+      {% if item.external_address is defined %}
+          ansible_host: {{ item.external_address }}
+      {% else %}
+          ansible_host: {{ item.address }}
+      {% endif %}
+      {% endfor %}
+    {% endif %}

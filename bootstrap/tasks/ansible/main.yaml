@@ -41,6 +41,6 @@
         content_yaml: "{{ lookup('ansible.builtin.template', 'templates/node.sops.yaml.j2', template_vars=dict(password=item.password, user=item.username)) | from_yaml }}"
         mode: "0644"
         force: true
-      loop: "{{ bootstrap_nodes.master + bootstrap_nodes.worker + bootstrap_nodes.raspberrypi | default([]) }}"
+      loop: "{{ raspberrypies | default([]) }}"
       loop_control:
         label: "{{ item.address }}"

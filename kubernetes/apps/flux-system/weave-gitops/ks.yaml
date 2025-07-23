@@ -2,21 +2,33 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-weave-gitops
-  namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
+  name: &app weave-gitops
+  namespace: &namespace flux-system
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  interval: 30m
   path: ./kubernetes/apps/flux-system/weave-gitops/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
   prune: true
+  retryInterval: 2m
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: false
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
       name: weave-gitops
       namespace: flux-system
-  interval: 30m
-  retryInterval: 1m
-  timeout: 3m

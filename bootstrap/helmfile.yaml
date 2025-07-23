@@ -26,7 +26,6 @@ releases:
     values: ['../kubernetes/apps/kube-system/coredns/app/helm/values.yaml']
     needs: ['kube-system/cilium']
 
-  #% if spegel_enabled %#
   - name: spegel
     namespace: kube-system
     atomic: true
@@ -34,7 +33,6 @@ releases:
     version: 0.3.0
     values: ['../kubernetes/apps/kube-system/spegel/app/helm/values.yaml']
     needs: ['kube-system/coredns']
-  #% endif %#
 
   - name: cert-manager
     namespace: cert-manager
@@ -42,11 +40,7 @@ releases:
     chart: oci://quay.io/jetstack/charts/cert-manager
     version: v1.18.2
     values: ['../kubernetes/apps/cert-manager/cert-manager/app/helm/values.yaml']
-    #% if spegel_enabled %#
     needs: ['kube-system/spegel']
-    #% else %#
-    needs: ['kube-system/coredns']
-    #% endif %#
 
   - name: flux-operator
     namespace: flux-system

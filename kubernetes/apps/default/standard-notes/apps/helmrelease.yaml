@@ -43,7 +43,7 @@ spec:
         
       web:
         controller: web
-        ports: 8080
+        ports:
           http:
             port: 8080
 

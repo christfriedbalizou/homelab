@@ -4,7 +4,7 @@ version: '3'
 
 vars:
   MAKEJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/makejinja.toml'
-  TEMPLATE_DIR: '{{.ROOT_DIR}}/templates'
+  TEMPLATE_DIR: '{{.ROOT_DIR}}/bootstrap/templates'
   TEMPLATE_RESOURCES_DIR: '{{.ROOT_DIR}}/.taskfiles/template/resources'
   TEMPLATE_CONFIG_FILE: '{{.ROOT_DIR}}/cluster.yaml'
   TEMPLATE_NODE_CONFIG_FILE: '{{.ROOT_DIR}}/nodes.yaml'
@@ -54,7 +54,6 @@ tasks:
     desc: Render and validate configuration files
     prompt: Any conflicting files in the kubernetes directory will be overwritten... continue?
     cmds:
-      - task: validate-schemas
       - task: render-configs
       - task: encrypt-secrets
       - task: validate-kubernetes-config
@@ -62,22 +61,6 @@ tasks:
     preconditions:
       - msg: An existing Age key interferes with the age key in this repository, rename or delete ~/.config/sops/age/keys.txt
         sh: '! test -f ~/.config/sops/age/keys.txt'
-      - msg: File cluster.yaml not found, did you run `task init`?
-        sh: test -f {{.TEMPLATE_CONFIG_FILE}}
-      - msg: File nodes.yaml not found, did you run `task init`?
-        sh: test -f {{.TEMPLATE_NODE_CONFIG_FILE}}
-      - msg: File cloudflare-tunnel.json not found, see the README for information on creating it.
-        sh: test -f {{.ROOT_DIR}}/cloudflare-tunnel.json
-
-  validate-schemas:
-    internal: true
-    cmds:
-      - cue vet {{.TEMPLATE_CONFIG_FILE}} {{.TEMPLATE_RESOURCES_DIR}}/cluster.schema.cue
-      - cue vet {{.TEMPLATE_NODE_CONFIG_FILE}} {{.TEMPLATE_RESOURCES_DIR}}/nodes.schema.cue
-    preconditions:
-      - test -f {{.TEMPLATE_RESOURCES_DIR}}/cluster.schema.cue
-      - test -f {{.TEMPLATE_RESOURCES_DIR}}/nodes.schema.cue
-      - which cue
 
   render-configs:
     internal: true
@@ -85,7 +68,7 @@ tasks:
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     preconditions:
-      - test -f {{.TEMPLATE_DIR}}/scripts/plugin.py
+      - test -f {{.ROOT_DIR}}/scripts/plugin.py
       - test -f {{.MAKEJINJA_CONFIG_FILE}}
       - which makejinja
 
@@ -99,7 +82,7 @@ tasks:
           fi
     vars:
       SECRET_FILES:
-        sh: find "{{.BOOTSTRAP_DIR}}" "{{.KUBERNETES_DIR}}" "{{.TALOS_DIR}}" -type f -name "*.sops.*" -print
+        sh: find "{{.ANSIBLE_DIR}}" "{{.KUBERNETES_DIR}}" "{{.TALOS_DIR}}" -type f -name "*.sops.*" -print
     preconditions:
       - test -f {{.SOPS_AGE_KEY_FILE}}
       - test -f {{.ROOT_DIR}}/.sops.yaml
