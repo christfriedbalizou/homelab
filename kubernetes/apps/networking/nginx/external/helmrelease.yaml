@@ -35,14 +35,12 @@ spec:
       replicaCount: 2
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: "ipv4.${SECRET_DOMAIN}"
-          lbipam.cilium.io/ips: |-
-            ${METALLB_EXTERNAL_INGRESS_ADDR}
-        externalTrafficPolicy: Cluster
+          external-dns.alpha.kubernetes.io/hostname: "external.${SECRET_DOMAIN}"
+          lbipam.cilium.io/ips: ${METALLB_EXTERNAL_INGRESS_ADDR}
       ingressClassResource:
         name: external
         default: false
-        controllerValue: k8s.io/external
+        controllerValue: k8s.io/ingress-nginx-external
       admissionWebhooks:
         objectSelector:
           matchExpressions:
