@@ -77,7 +77,7 @@ spec:
       namespace: storage
   dependsOn:
     - name: cloudnative-pg
-      namespace: flux-system
+      namespace: storage
   prune: true
   wait: false
   interval: 30m
