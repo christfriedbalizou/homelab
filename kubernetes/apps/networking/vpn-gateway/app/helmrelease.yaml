@@ -101,3 +101,7 @@ spec:
       gatewayAnnotation: setGateway
       namespaceSelector:
         label: vpn-routed-gateway
+    persistence:
+      data:
+        enabled: true
+        type: emptyDir
