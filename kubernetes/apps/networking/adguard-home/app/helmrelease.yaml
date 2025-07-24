@@ -59,12 +59,16 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: apps-networking-adguard-data
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/networking/adguard/data
         globalMounts:
           - path: /opt/adguardhome/work
       conf:
         enabled: true
-        existingClaim: apps-networking-adguard-conf
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/networking/adguard/conf
         globalMounts:
           - path: /opt/adguardhome/conf
       tls:
