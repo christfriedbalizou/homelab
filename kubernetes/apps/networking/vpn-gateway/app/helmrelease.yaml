@@ -20,9 +20,10 @@ spec:
       tag: v1.7.0
     addons:
       securityContext:
+        runAsUser: 568
+        runAsGroup: 568
         capabilities:
-          add:
-            - NET_ADMIN
+          drop:
             - SYS_MODULE
       vpn:
         enabled: true
