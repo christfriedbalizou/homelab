@@ -1,4 +1,3 @@
-#% if spegel_enabled %#
 ---
 spegel:
   containerdSock: /run/containerd/containerd.sock
@@ -10,4 +9,3 @@ serviceMonitor:
   enabled: true
 grafanaDashboard:
   enabled: true
-#% endif %#
