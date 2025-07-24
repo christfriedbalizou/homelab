@@ -3,15 +3,26 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-cloudnative-pg
+  name: &app cloudnative-pg
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   path: ./kubernetes/apps/storage/cloudnative-pg/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  targetNamespace: storage
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+    namespace: flux-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
@@ -27,15 +38,26 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-cloudnative-pg-cluster
+  name: &app2 cloudnative-pg-cluster
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app2
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   path: ./kubernetes/apps/storage/cloudnative-pg/cluster
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  targetNamespace: storage
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+    namespace: flux-system
   healthChecks:
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
@@ -54,7 +76,7 @@ spec:
       name: cloudnative-pg
       namespace: storage
   dependsOn:
-    - name: cluster-apps-cloudnative-pg
+    - name: cloudnative-pg
       namespace: flux-system
   prune: true
   wait: false

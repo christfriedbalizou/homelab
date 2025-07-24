@@ -1,12 +1,13 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: storage
+components:
+  - ../../components/common
 resources:
-  - ./namespace.yaml
   - ./pvc.yaml
   - ./cloudnative-pg/ks.yaml
   - ./pgadmin/ks.yaml
   - ./minio/ks.yaml
   - ./emqx/ks.yaml
   - ./dragonfly/ks.yaml
-  - ./nocodb/ks.yaml

@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: mazanoke
-  namespace: default
 spec:
   interval: 10m
   chart:

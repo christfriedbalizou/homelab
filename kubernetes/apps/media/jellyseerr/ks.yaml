@@ -2,11 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-jellyseerr
+  name: &app jellyseerr
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   path: ./kubernetes/apps/media/jellyseerr/app
   prune: true
   sourceRef:
@@ -20,6 +25,7 @@ spec:
   interval: 30m
   retryInterval: 1m
   timeout: 3m
+  targetNamespace: media
   postBuild:
     substitute:
       APP: *app

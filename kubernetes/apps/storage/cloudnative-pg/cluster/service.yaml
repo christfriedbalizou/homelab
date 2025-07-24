@@ -6,8 +6,7 @@ metadata:
   namespace: storage
   annotations:
     external-dns.alpha.kubernetes.io/hostname: postgres-lb.storage.svc.cluster.local
-    metallb.universe.tf/loadBalancerIPs: ${POSTGRES_IP}
-    metallb.universe.tf/ip-allocated-from-pool: default-pool
+    lbipam.cilium.io/ips: "${POSTGRES_IP}"
 spec:
   type: LoadBalancer
   ports:

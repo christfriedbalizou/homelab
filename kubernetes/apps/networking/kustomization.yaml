@@ -1,14 +1,15 @@
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+namespace: networking
+components:
+  - ../../components/common
 resources:
-  - ./namespace.yaml
   - ./pvc.yaml
   - ./external-dns/ks.yaml
   - ./cloudflared/ks.yaml
   - ./nginx/ks.yaml
   - ./k8s-gateway/ks.yaml
-  - ./metallb/ks.yaml
   - ./vpn-gateway/ks.yaml
   - ./pihole/ks.yaml
   - ./smtp-relay/ks.yaml

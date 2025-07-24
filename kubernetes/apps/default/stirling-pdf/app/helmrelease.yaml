@@ -3,7 +3,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: stirling-pdf
-  namespace: default
 spec:
   interval: 10m
   chart:
@@ -87,7 +86,7 @@ spec:
           - hosts:
               - *host
             secretName: pdf-production-tls
-    
+
     persistence:
       temporary:
         type: emptyDir

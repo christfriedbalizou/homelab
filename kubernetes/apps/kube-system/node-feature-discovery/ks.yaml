@@ -5,8 +5,6 @@ kind: Kustomization
 metadata:
   name: &app node-feature-discovery
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
   commonMetadata:
     labels:

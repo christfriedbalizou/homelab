@@ -2,10 +2,22 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-kyverno
+  name: &app kyverno
   namespace: flux-system
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   path: ./kubernetes/apps/kyverno/kyverno/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  targetNamespace: kyverno
   prune: true
   sourceRef:
     kind: GitRepository
@@ -22,14 +34,25 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-kyverno-policies
+  name: &app2 kyverno-policies
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
   dependsOn:
-    - name: cluster-apps-kyverno
+    - name: kyverno
+      namespace: kyverno
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app2
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   path: ./kubernetes/apps/kyverno/kyverno/policies
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  targetNamespace: kyverno
   prune: true
   sourceRef:
     kind: GitRepository

@@ -71,8 +71,7 @@ spec:
         controller: jellyfin
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "${JELLYFIN_IP}"
-          metallb.universe.tf/ip-allocated-from-pool: default-pool
+          lbipam.cilium.io/ips: "${JELLYFIN_IP}"
         ports:
           http:
             port: 8096
