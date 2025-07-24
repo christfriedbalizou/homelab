@@ -52,6 +52,9 @@ spec:
       - name: cluster-secrets
         kind: Secret
   targetNamespace: storage
+  dependsOn:
+    - name: emqx
+      namespace: storage
   prune: true
   sourceRef:
     kind: GitRepository
