@@ -13,10 +13,6 @@ spec:
     secretRef:
       name: sops-age
   path: ./kubernetes/apps/media/jellyfin/app
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
   targetNamespace: media
   prune: true
   sourceRef:
