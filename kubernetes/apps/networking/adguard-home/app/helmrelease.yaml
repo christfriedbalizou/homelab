@@ -71,12 +71,6 @@ spec:
         path: /volume1/apps/networking/adguard/conf
         globalMounts:
           - path: /opt/adguardhome/conf
-      tls:
-        type: secret
-        name: adguard-home-production-tls
-        globalMounts:
-          - path: /etc/doh
-
     ingress:
       app:
         className: "external"
