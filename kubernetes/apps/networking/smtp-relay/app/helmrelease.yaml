@@ -63,8 +63,7 @@ spec:
         controller: main
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: "${SMTP_RELAY_ADDR}"
-          metallb.universe.tf/ip-allocated-from-pool: default-pool
+          lbipam.cilium.io/ips: "${SMTP_RELAY_ADDR}"
         externalTrafficPolicy: Local
         ports:
           http:

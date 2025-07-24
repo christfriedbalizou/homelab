@@ -36,7 +36,7 @@ spec:
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: "ipv4.${SECRET_DOMAIN}"
-          metallb.universe.tf/loadBalancerIPs: |-
+          lbipam.cilium.io/ips: |-
             ${METALLB_EXTERNAL_INGRESS_ADDR}
         externalTrafficPolicy: Cluster
       ingressClassResource:

@@ -28,6 +28,9 @@ spec:
       kind: HelmRelease
       name: cloudnative-pg
       namespace: storage
+  dependsOn:
+    - name: minio
+      namespace: storage
   prune: true
   wait: false
   interval: 30m
