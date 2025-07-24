@@ -8,12 +8,17 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+  components:
+    - ../../../../components/persistence
   decryption:
     provider: sops
     secretRef:
       name: sops-age
   path: ./kubernetes/apps/storage/minio/app
   postBuild:
+    substitute:
+      APP: *app
+      PATH: storage
     substituteFrom:
       - name: cluster-secrets
         kind: Secret

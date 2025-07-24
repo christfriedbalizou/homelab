@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: storage
 components:
   - ../../components/common
-  - ./pvc.yaml
 resources:
   - ./cloudnative-pg/ks.yaml
   - ./pgadmin/ks.yaml
