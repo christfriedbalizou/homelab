@@ -41,7 +41,7 @@ metadata:
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *apps
+      app.kubernetes.io/name: *app2
   decryption:
     provider: sops
     secretRef:
