@@ -99,7 +99,7 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: storage
+        existingClaim: minio
         globalMounts:
           - subPath: minio
             path: /data
