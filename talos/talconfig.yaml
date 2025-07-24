@@ -39,6 +39,25 @@ nodes:
         mtu: 1500
         vip:
           ip: "192.168.1.155"
+  - hostname: "k8s-5"
+    ipAddress: "192.168.1.124"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "c0:3f:d5:64:95:ae"
+        dhcp: false
+        addresses:
+          - "192.168.1.124/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "192.168.1.1"
+        mtu: 1500
+        vip:
+          ip: "192.168.1.155"
 
 # Global patches
 patches:
