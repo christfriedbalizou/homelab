@@ -74,7 +74,9 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: storage
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/storage
         globalMounts:
           - subPath: pgadmin
             path: /var/lib/pgadmin

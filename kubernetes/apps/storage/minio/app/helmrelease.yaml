@@ -99,7 +99,9 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: minio
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/storage
         globalMounts:
           - subPath: minio
             path: /data
