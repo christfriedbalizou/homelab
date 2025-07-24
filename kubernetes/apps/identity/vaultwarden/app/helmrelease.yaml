@@ -111,6 +111,8 @@ spec:
     persistence:
       data:
         enabled: true
-        existingClaim: apps-identity
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/identity
         globalMounts:
           - subPath: vaultwarden
