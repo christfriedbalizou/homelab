@@ -25,6 +25,8 @@ spec:
         capabilities:
           drop:
             - SYS_MODULE
+          add:
+            - NET_ADMIN
       vpn:
         enabled: true
         type: wireguard
