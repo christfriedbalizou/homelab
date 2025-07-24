@@ -19,6 +19,11 @@ spec:
       repository: ghcr.io/k8s-at-home/pod-gateway
       tag: v1.7.0
     addons:
+      securityContext:
+        capabilities:
+          add:
+            - NET_ADMIN
+            - SYS_MODULE
       vpn:
         enabled: true
         type: wireguard
