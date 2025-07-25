@@ -23,3 +23,7 @@ spec:
                 name: hyperoptic
                 port:
                   number: 80
+  tls:
+    - hosts:
+        - *host
+      secretName: hyperoptic-production-tls
