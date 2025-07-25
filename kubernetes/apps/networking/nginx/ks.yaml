@@ -2,6 +2,45 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: &app nginx-shared
+  namespace: flux-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  path: ./kubernetes/apps/networking/nginx/shared
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+      - name: cluster-settings
+        kind: ConfigMap
+  targetNamespace: &namespace networking
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+    namespace: flux-system
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
+  healthChecks:
+    - apiVersion: cert-manager.io/v1
+      kind: Certificate
+      name: *app
+      namespace: *namespace
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m
+
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: &app nginx-external
   namespace: flux-system
 spec:
@@ -19,17 +58,20 @@ spec:
         kind: Secret
       - name: cluster-settings
         kind: ConfigMap
-  targetNamespace: networking
+  targetNamespace: &namespace networking
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
     namespace: flux-system
+  dependsOn:
+    - name: nginx-shared
+      namespace: *namespace
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
-      name: nginx-external
-      namespace: networking
+      name: *app
+      namespace: *namespace
   interval: 30m
   retryInterval: 1m
   timeout: 3m
@@ -38,12 +80,12 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &appi nginx-internal
+  name: &app nginx-internal
   namespace: flux-system
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: *appi
+      app.kubernetes.io/name: *app
   decryption:
     provider: sops
     secretRef:
@@ -55,17 +97,20 @@ spec:
         kind: Secret
       - name: cluster-settings
         kind: ConfigMap
-  targetNamespace: networking
+  targetNamespace: &namespace networking
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
     namespace: flux-system
+  dependsOn:
+    - name: nginx-shared
+      namespace: *namespace
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
       name: nginx-internal
-      namespace: networking
+      namespace: *namespace
   interval: 30m
   retryInterval: 1m
   timeout: 3m
