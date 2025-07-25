@@ -85,7 +85,7 @@ spec:
     routed_namespaces:
       - media
     settings:
-      VPN_INTERFACE: wg0
+      VPN_INTERFACE: wg1
       VPN_BLOCK_OTHER_TRAFFIC: true
       VPN_TRAFFIC_PORT: ${VPN_PORT}
       NOT_ROUTED_TO_GATEWAY_CIDRS: ${K8S_CLUSTER_CIDR} ${K8S_SERVICE_CIDR} ${SERVER_CIDR}
