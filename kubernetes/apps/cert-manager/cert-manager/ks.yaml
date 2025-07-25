@@ -56,7 +56,7 @@ spec:
         kind: Secret
       - name: cluster-settings
         kind: ConfigMap
-  targetNamespace: *app
+  targetNamespace: cert-manager
   prune: true
   sourceRef:
     kind: GitRepository
