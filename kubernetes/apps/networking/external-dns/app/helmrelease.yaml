@@ -37,10 +37,10 @@ spec:
             name: external-dns-secret
             key: api-key
     extraArgs:
-      - --cloudflare-proxied
-      - --crd-source-kind=DNSEndpoint
-      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
       - --ingress-class=external
+      - --cloudflare-proxied
+      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+      - --crd-source-kind=DNSEndpoint
     policy: sync
     sources:
       - "crd"
