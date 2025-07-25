@@ -23,8 +23,6 @@ spec:
         runAsUser: 568
         runAsGroup: 568
         capabilities:
-          drop:
-            - SYS_MODULE
           add:
             - NET_ADMIN
       vpn:
