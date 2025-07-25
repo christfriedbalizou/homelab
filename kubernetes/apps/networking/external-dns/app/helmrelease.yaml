@@ -31,11 +31,11 @@ spec:
           secretKeyRef:
             name: external-dns-secret
             key: email
-      - name: CF_API_TOKEN
+      - name: CF_API_KEY
         valueFrom:
           secretKeyRef:
             name: external-dns-secret
-            key: api-token
+            key: api-key
     extraArgs:
       - --cloudflare-proxied
       - --events
