@@ -19,12 +19,6 @@ spec:
       repository: ghcr.io/k8s-at-home/pod-gateway
       tag: v1.7.0
     addons:
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        capabilities:
-          add:
-            - NET_ADMIN
       vpn:
         enabled: true
         type: wireguard
@@ -35,6 +29,12 @@ spec:
         env:
           IPTABLES_BACKEND: nft
           KILLSWITCH: "false"
+        securityContext:
+          runAsUser: 568
+          runAsGroup: 568
+          capabilities:
+            add:
+              - NET_ADMIN
         configFile: |-
             [Interface]
             PrivateKey = ${VPN_INTERFACE_PRIVATE_KEY}
