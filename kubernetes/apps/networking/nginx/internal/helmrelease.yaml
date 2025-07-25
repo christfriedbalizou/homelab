@@ -82,8 +82,6 @@ spec:
           enabled: true
           namespaceSelector:
             any: true
-      publishService:
-        enabled: false
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
