@@ -82,8 +82,6 @@ spec:
           enabled: true
           namespaceSelector:
             any: true
-      extraArgs:
-        default-ssl-certificate: network/${SECRET_DOMAIN/./-}-production-tls
       publishService:
         enabled: false
       topologySpreadConstraints:
