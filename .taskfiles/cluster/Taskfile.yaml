@@ -19,6 +19,12 @@ tasks:
       - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux suspend hr $0 -n $1'
       - kubectl get hr --all-namespaces | grep False | awk '{print $2, $1}' | xargs -L1 bash -c 'flux resume hr $0 -n $1'
 
+  hr-reload:
+    desc: Reload a Heml Release
+    cmds:
+      - flux suspend hr {{.CLI_ARGS}}
+      - flux resume hr {{.CLI_ARGS}}
+
   nodes:
     desc: List all the nodes in your cluster
     cmd: kubectl get nodes {{.CLI_ARGS | default "-o wide"}}
