@@ -23,7 +23,3 @@ spec:
                 name: pihole
                 port:
                   number: 80
-  tls:
-    - hosts:
-        - *host
-      secretName: pihole-production-tls

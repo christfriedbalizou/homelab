@@ -89,7 +89,3 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: adguard-home-production-tls
