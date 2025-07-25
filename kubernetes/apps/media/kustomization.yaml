@@ -7,7 +7,6 @@ components:
 resources:
   - ./secret.sops.yaml
   - ./pvc.yaml
-  - ./torrent/ks.yaml
   - ./sonarr/ks.yaml
   - ./radarr/ks.yaml
   - ./flaresolverr/ks.yaml
