@@ -35,7 +35,7 @@ spec:
       replicaCount: 2
       service:
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: &hostname "ipv4.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/hostname: "ipv4.${SECRET_DOMAIN}"
           lbipam.cilium.io/ips: ${METALLB_EXTERNAL_INGRESS_ADDR}
       ingressClassResource:
         name: external
@@ -83,9 +83,6 @@ spec:
             any: true
       extraArgs:
         default-ssl-certificate: networking/${SECRET_DOMAIN/./-}-production-tls
-        publish-status-address: *hostname
-      publishService:
-        enabled: false
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
