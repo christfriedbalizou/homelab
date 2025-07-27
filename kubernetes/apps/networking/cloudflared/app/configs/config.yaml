@@ -1,6 +1,6 @@
 ---
 originRequest:
-  originServerName: ingress.local
+  originServerName: "ipv4.${SECRET_DOMAIN}"
 
 ingress:
   - hostname: ${SECRET_DOMAIN}
