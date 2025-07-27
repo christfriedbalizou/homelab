@@ -35,7 +35,7 @@ spec:
       replicaCount: 1
       service:
         annotations:
-          internal-dns.alpha.kubernetes.io/hostname: "internal.${SECRET_DOMAIN}"
+          internal-dns.alpha.kubernetes.io/hostname: &hostname "internal.${SECRET_DOMAIN}"
           lbipam.cilium.io/ips: |-
             ${METALLB_INTERNAL_INGRESS_ADDR}
         internalTrafficPolicy: Cluster
@@ -82,6 +82,8 @@ spec:
           enabled: true
           namespaceSelector:
             any: true
+      extraArgs:
+        default-ssl-certificate: networking/${SECRET_DOMAIN/./-}-production-tls
       topologySpreadConstraints:
         - maxSkew: 1
           topologyKey: kubernetes.io/hostname
