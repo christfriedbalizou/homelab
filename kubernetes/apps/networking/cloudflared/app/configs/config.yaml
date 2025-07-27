@@ -7,6 +7,7 @@ ingress:
     service: &service https://nginx-external-controller.networking.svc.cluster.local:443
     originRequest: &origin
       originServerName: ingress.local
+      noTLSVerify: true
   - hostname: ${SECRET_DOMAIN}
     service: *service
     originRequest: *origin
