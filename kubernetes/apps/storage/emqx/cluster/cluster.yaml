@@ -26,7 +26,7 @@ spec:
             enable = true
           }
         ]
-        no_match: "deny"
+        no_match = "deny"
       }
   coreTemplate:
     metadata:
