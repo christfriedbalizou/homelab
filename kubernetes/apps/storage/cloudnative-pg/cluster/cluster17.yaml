@@ -44,6 +44,12 @@ spec:
       serverName: postgres17-v2
 
   bootstrap:
-    barmanObjectStore:
-      <<: *barmanObjectStore
-      serverName: postgres17-v1
+    initdb: {}
+    recovery:
+      source: &previousCluster postgres17-v1
+  # NOTE: externalClusters is needed when recovering from an existing cnpg cluster
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster
