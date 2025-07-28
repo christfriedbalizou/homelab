@@ -33,6 +33,25 @@ nodes:
     #% endif %#
     machineSpec:
       secureboot: {{ (true if item.secureboot else false) | string | lower }}
+    schematic:
+      customization:
+        extraKernelArgs:
+          - -init_on_alloc # Less security, faster puter
+          - -init_on_free # Less security, faster puter
+          - -selinux # Less security, faster puter
+          - apparmor=0 # Less security, faster puter
+          - init_on_alloc=0 # Less security, faster puter
+          - init_on_free=0 # Less security, faster puter
+          - intel_iommu=on # PCI Passthrough
+          - iommu=pt # PCI Passthrough
+          - mitigations=off # Less security, faster puter
+          - security=none # Less security, faster puter
+          - talos.auditd.disabled=1 # Less security, faster puter
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/gasket-driver
     talosImageURL: factory.talos.dev/installer{{ "-secureboot" if item.secureboot | default(false, true) }}/{{ item.schematic_id }}
     controlPlane: {{ (item.controller) | string | lower }}
     networkInterfaces:
