@@ -17,7 +17,7 @@ spec:
   values:
     controllers:
       main:
-        annotation:
+        annotations:
           reloader.stakater.com/auto: "true"
         containers:
           app:
@@ -54,7 +54,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: external
+        className: external
         annotations:
           external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
@@ -66,4 +66,6 @@ spec:
           - host: &host "status.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
