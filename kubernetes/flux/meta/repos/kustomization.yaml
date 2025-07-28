@@ -19,3 +19,4 @@ resources:
   - ./home-operations.yaml
   - ./bjw-s.yaml
   - ./external-dns.yaml
+  - ./ingress-nginx.yaml
