@@ -8,25 +8,49 @@ spec:
   interval: 10m
   chart:
     spec:
-      chart: uptime-kuma
-      version: 1.4.2
+      chart: app-template
+      version: 3.7.3
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: bjw-s
         namespace: flux-system
   values:
-    env:
-      TZ: "${TIMEZONE}"
-      PGID: ${PGID}
-      PUID: ${PUID}
-    image:
-      repository: louislam/uptime-kuma
-      tag: 1.23.16
+    controllers:
+      main:
+        annotation:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: louislam/uptime-kuma
+              tag: 1.23.16
+            env:
+              TZ: "${TIMEZONE}"
+              PGID: ${PGID}
+              PUID: ${PUID}
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+    service:
+      app:
+        ports:
+          http:
+            port: 3001
+
     persistence:
       data:
         enabled: true
-        existingClaim: monitoring
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/monitoring
         subPath: uptime-kuma
+
     ingress:
       main:
         enabled: true
@@ -43,7 +67,3 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-            secretName: uptime-kuma-production-tls
