@@ -44,6 +44,7 @@ spec:
       serverName: postgres17-v2
 
   bootstrap:
+    initdb: {}
     recovery:
       source: &previousCluster postgres17-v1
   # NOTE: externalClusters is needed when recovering from an existing cnpg cluster
