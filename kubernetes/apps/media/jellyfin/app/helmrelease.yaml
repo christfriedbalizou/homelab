@@ -63,7 +63,6 @@ spec:
                 cpu: 100m
                 memory: 8Gi
               limits:
-                gpu.intel.com/i915: 1
                 memory: 16Gi
     service:
       app:
