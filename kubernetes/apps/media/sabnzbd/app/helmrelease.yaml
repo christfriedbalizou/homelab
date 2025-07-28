@@ -23,9 +23,6 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-   - name: vpn-gateway
-     namespace: networking
   values:
     controllers:
       sabnzbd:
@@ -69,8 +66,6 @@ spec:
               limits:
                 memory: 8Gi
     defaultPodOptions:
-      annotations:
-        setGateway: "true"
       securityContext:
         runAsNonRoot: true
         runAsUser: 568
@@ -101,19 +96,19 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: sabnzbd-production-tls
     persistence:
       config:
         enabled: true
-        existingClaim: apps-media
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/media
         globalMounts:
           - subPath: sabnzbd
       media:
         enabled: true
-        existingClaim: media
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/media
       logs:
         type: emptyDir
         globalMounts:

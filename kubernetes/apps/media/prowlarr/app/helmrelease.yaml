@@ -132,16 +132,16 @@ spec:
                 service:
                   identifier: main
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: prowlarr-production-tls
     persistence:
       config:
         enabled: true
-        existingClaim: apps-media
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/media
         globalMounts:
           - subPath: prowlarr
       media:
         enabled: true
-        existingClaim: media
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/media

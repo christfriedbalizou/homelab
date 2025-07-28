@@ -151,14 +151,12 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: torrent-production-tls
     persistence:
       config:
         enabled: true
-        existingClaim: apps-media
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/media
         advancedMounts:
           qbittorrent:
             app:
@@ -166,7 +164,9 @@ spec:
                 subPath: qbittorrent
       media:
         enabled: true
-        existingClaim: media
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/media
       empty-config:
         type: emptyDir
         advancedMounts:

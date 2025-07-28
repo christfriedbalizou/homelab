@@ -113,14 +113,12 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: jellystat-production-tls
     persistence:
       backup:
         enabled: true
-        existingClaim: apps-media
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/media
         advancedMounts:
           jellystat:
             app:

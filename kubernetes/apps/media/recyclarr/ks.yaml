@@ -17,6 +17,8 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+      - kind: ConfigMap
+        name: cluster-settings
   targetNamespace: media
   prune: true
   sourceRef:

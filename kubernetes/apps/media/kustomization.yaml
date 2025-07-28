@@ -6,7 +6,6 @@ components:
   - ../../components/common
 resources:
   - ./secret.sops.yaml
-  - ./pvc.yaml
   - ./sonarr/ks.yaml
   - ./radarr/ks.yaml
   - ./flaresolverr/ks.yaml

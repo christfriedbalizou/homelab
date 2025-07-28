@@ -121,11 +121,6 @@ spec:
         annotations:
           external-dns.home.arpa/enabled: "false"
           auth.home.arpa/enabled: "true"
-          nginx.ingress.kubernetes.io/auth-snippet: |-
-            proxy_set_header X-Forwarded-Method $request_method;
-            if ( $http_user_agent ~* "Prowlarr" ) {
-              return 200;
-            }
           hajimari.io/enable: 'true'
           hajimari.io/icon: mdi:television-classic
           hajimari.io/group: Media
@@ -137,16 +132,16 @@ spec:
                 service:
                   identifier: main
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: sonarr-production-tls
     persistence:
       config:
         enabled: true
-        existingClaim: apps-media
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/media
         globalMounts:
           - subPath: sonarr
       media:
         enabled: true
-        existingClaim: media
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/media
