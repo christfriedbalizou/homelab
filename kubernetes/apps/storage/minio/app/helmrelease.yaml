@@ -90,11 +90,6 @@ spec:
                 service:
                   identifier: main
                   port: s3
-        tls:
-          - hosts:
-              - *host
-              - *hosts3
-            secretName: minio-production-tls
 
     persistence:
       data:
