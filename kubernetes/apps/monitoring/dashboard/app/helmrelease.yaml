@@ -30,12 +30,8 @@ spec:
           hajimari.io/icon: mdi:kubernetes
         hosts:
           - "kubernetes.${SECRET_DOMAIN}"
-        issuer:
-          name: letsencrypt-production
-          scope: cluster
         tls:
-          enabled: true
-          secretName: kubernetes-production-tls
+          enabled: false
     metricsScraper:
       enabled: true
     cert-manager:

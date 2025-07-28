@@ -128,10 +128,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: gatus-production-tls
     serviceAccount:
       create: true
       name: gatus

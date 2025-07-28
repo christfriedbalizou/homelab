@@ -5,7 +5,6 @@ namespace: monitoring
 components:
   - ../../components/common
 resources:
-  - ./pvc.yaml
   - ./uptime-kuma/ks.yaml
   - ./gatus/ks.yaml
   - ./dashboard/ks.yaml

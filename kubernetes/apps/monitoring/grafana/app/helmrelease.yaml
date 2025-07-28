@@ -292,10 +292,6 @@ spec:
         hajimari.io/icon: cbi:grafana
       hosts:
         - &host grafana.${SECRET_DOMAIN}
-      tls:
-        - hosts:
-            - *host
-          secretName: grafana-production-tls
 
     persistence:
       enabled: false

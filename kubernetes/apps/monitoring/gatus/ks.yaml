@@ -4,8 +4,6 @@ kind: Kustomization
 metadata:
   name: &app gatus
   namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
   commonMetadata:
     labels:
@@ -34,3 +32,5 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+      - name: cluster-settings
+        kind: ConfigMap
