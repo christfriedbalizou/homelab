@@ -49,7 +49,9 @@ spec:
         type: nfs
         server: ${NFS_SERVER}
         path: /volume1/apps/monitoring
-        subPath: uptime-kuma
+        globalMounts:
+          - subPath: uptime-kuma
+            path: /app/data
 
     ingress:
       main:
