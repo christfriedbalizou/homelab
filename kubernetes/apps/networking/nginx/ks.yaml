@@ -21,15 +21,11 @@ spec:
         kind: ConfigMap
   targetNamespace: &namespace networking
   prune: true
+  wait: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
     namespace: flux-system
-  healthChecks:
-    - apiVersion: cert-manager.io/v1
-      kind: Certificate
-      name: *app
-      namespace: *namespace
   interval: 30m
   retryInterval: 1m
   timeout: 3m
