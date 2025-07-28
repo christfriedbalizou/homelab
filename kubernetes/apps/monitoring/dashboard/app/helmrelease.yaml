@@ -17,27 +17,29 @@ spec:
         namespace: flux-system
   values:
     app:
+      env:
+        TZ: "${TIMEZONE}"
+      extraArgs:
+        - --enable-skip-login
+        - --disable-settings-authorizer
+        - --enable-insecure-login
+        - --token-ttl=43200
       ingress:
         enabled: true
         ingressClassName: external
         useDefaultIngressClass: false
         annotations:
           external-dns.home.arpa/enabled: "true"
-          auth.home.arpa/enabled: "false"
+          auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/appNname: "Kubernetes Dashboard"
           hajimari.io/group: "System"
           hajimari.io/icon: mdi:kubernetes
         hosts:
           - "kubernetes.${SECRET_DOMAIN}"
-        tls:
-          enabled: false
     metricsScraper:
       enabled: true
     cert-manager:
       enabled: false
     nginx:
       enabled: false
-    extras:
-      serviceMonitor:
-        enabled: true
