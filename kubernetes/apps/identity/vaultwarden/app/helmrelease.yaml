@@ -88,10 +88,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls: &tls
-          - hosts:
-              - *host
-            secretName: vaultwarden-production-tls
       admin:
         enabled: true
         className: external
@@ -107,7 +103,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls: *tls
     persistence:
       data:
         enabled: true
