@@ -24,7 +24,6 @@ spec:
           metadata:
             annotations:
               +(external-dns.alpha.kubernetes.io/target): ipv4.${SECRET_DOMAIN}
-              +(cert-manager.io/cluster-issuer): letsencrypt-production
     - name: internal-dns
       match:
         any:
@@ -37,19 +36,6 @@ spec:
           metadata:
             annotations:
               +(external-dns.alpha.kubernetes.io/target): internal.${SECRET_DOMAIN}
-              +(cert-manager.io/cluster-issuer): letsencrypt-production
-    - name: cert-manager
-      match:
-        any:
-          - resources:
-              kinds: ["Ingress"]
-              annotations:
-                cert-manager.home.arpa/enabled: "true"
-      mutate:
-        patchStrategicMerge:
-          metadata:
-            annotations:
-              +(cert-manager.io/cluster-issuer): letsencrypt-production
     - name: auth
       match:
         any:
