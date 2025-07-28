@@ -24,6 +24,25 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs:
+          - -init_on_alloc # Less security, faster puter
+          - -init_on_free # Less security, faster puter
+          - -selinux # Less security, faster puter
+          - apparmor=0 # Less security, faster puter
+          - init_on_alloc=0 # Less security, faster puter
+          - init_on_free=0 # Less security, faster puter
+          - intel_iommu=on # PCI Passthrough
+          - iommu=pt # PCI Passthrough
+          - mitigations=off # Less security, faster puter
+          - security=none # Less security, faster puter
+          - talos.auditd.disabled=1 # Less security, faster puter
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/gasket-driver
     talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
     controlPlane: true
     networkInterfaces:
@@ -44,6 +63,25 @@ nodes:
       serial: "193423D5BED4"
     machineSpec:
       secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs:
+          - -init_on_alloc # Less security, faster puter
+          - -init_on_free # Less security, faster puter
+          - -selinux # Less security, faster puter
+          - apparmor=0 # Less security, faster puter
+          - init_on_alloc=0 # Less security, faster puter
+          - init_on_free=0 # Less security, faster puter
+          - intel_iommu=on # PCI Passthrough
+          - iommu=pt # PCI Passthrough
+          - mitigations=off # Less security, faster puter
+          - security=none # Less security, faster puter
+          - talos.auditd.disabled=1 # Less security, faster puter
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/gasket-driver
     talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
     controlPlane: true
     networkInterfaces:
@@ -63,6 +101,25 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs:
+          - -init_on_alloc # Less security, faster puter
+          - -init_on_free # Less security, faster puter
+          - -selinux # Less security, faster puter
+          - apparmor=0 # Less security, faster puter
+          - init_on_alloc=0 # Less security, faster puter
+          - init_on_free=0 # Less security, faster puter
+          - intel_iommu=on # PCI Passthrough
+          - iommu=pt # PCI Passthrough
+          - mitigations=off # Less security, faster puter
+          - security=none # Less security, faster puter
+          - talos.auditd.disabled=1 # Less security, faster puter
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/gasket-driver
     talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
     controlPlane: true
     networkInterfaces:
@@ -82,6 +139,25 @@ nodes:
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs:
+          - -init_on_alloc # Less security, faster puter
+          - -init_on_free # Less security, faster puter
+          - -selinux # Less security, faster puter
+          - apparmor=0 # Less security, faster puter
+          - init_on_alloc=0 # Less security, faster puter
+          - init_on_free=0 # Less security, faster puter
+          - intel_iommu=on # PCI Passthrough
+          - iommu=pt # PCI Passthrough
+          - mitigations=off # Less security, faster puter
+          - security=none # Less security, faster puter
+          - talos.auditd.disabled=1 # Less security, faster puter
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/i915
+            - siderolabs/intel-ucode
+            - siderolabs/gasket-driver
     talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
     controlPlane: false
     networkInterfaces:
