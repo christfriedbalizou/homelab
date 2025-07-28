@@ -1,7 +1,6 @@
 ---
 originRequest:
   originServerName: "ipv4.${SECRET_DOMAIN}"
-  noTLSVerify: true
 
 ingress:
   - hostname: ${SECRET_DOMAIN}
