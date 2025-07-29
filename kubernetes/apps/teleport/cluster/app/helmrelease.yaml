@@ -31,8 +31,8 @@ spec:
       teleport:
         storage:
           type: postgresql
-          conn_string: "${TELEPORT_CORE_DB_URI}"
-          audit_events_uri: "${TELEPORT_AUDIT_DB_URI}"
+          conn_string: "postgres://teleport:${TELEPORT_DBPASS}@postgres-lb.storage.svc.cluster.local/teleport-core?sslmode=disable"
+          audit_events_uri: "postgres://teleport:${TELEPORT_DBPASS}@postgres-lb.storage.svc.cluster.local/teleport-audit?sslmode=disable"
         auth_service:
           client_idle_timeout: 30m
           session_recording: "off"
@@ -84,15 +84,9 @@ spec:
           - name: "INIT_POSTGRES_HOST"
             value: postgres-lb.storage.svc.cluster.local
           - name: "INIT_POSTGRES_USER"
-            valueFrom:
-              secretKeyRef:
-                name: cluster-teleport-secrets
-                key: "TELEPORT_DBUSER"
+            value: "teleport"
           - name: "INIT_POSTGRES_PASS"
-            valueFrom:
-              secretKeyRef:
-                name: cluster-teleport-secrets
-                key: "TELEPORT_DBPASS"
+            value: "${TELEPORT_DBPASS}"
           - name: "INIT_POSTGRES_SUPER_PASS"
             value: "${POSTGRES_SUPER_PASS}"
 
