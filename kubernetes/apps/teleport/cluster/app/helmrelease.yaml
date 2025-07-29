@@ -31,8 +31,8 @@ spec:
       teleport:
         storage:
           type: postgresql
-          conn_string: "postgres://teleport:${TELEPORT_DBPASS}@postgres-lb.storage.svc.cluster.local/teleport-core?sslmode=disable"
-          audit_events_uri: "postgres://teleport:${TELEPORT_DBPASS}@postgres-lb.storage.svc.cluster.local/teleport-audit?sslmode=disable"
+          conn_string: "postgresql://teleport:${TELEPORT_DBPASS}@postgres-lb.storage.svc.cluster.local/teleport-core?sslmode=disable"
+          audit_events_uri: "postgresql://teleport:${TELEPORT_DBPASS}@postgres-lb.storage.svc.cluster.local/teleport-audit?sslmode=disable"
         auth_service:
           client_idle_timeout: 30m
           session_recording: "off"
