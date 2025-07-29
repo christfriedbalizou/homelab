@@ -41,12 +41,6 @@ access_control:
       subject:
         - ["group:admin"]
 
-    - domain: "calibre.${SECRET_DOMAIN}"
-      policy: two_factor
-      subject:
-        - ["group:admin"]
-        - ["group:ebook"]
-
 identity_providers:
   oidc:
     cors:
@@ -99,3 +93,19 @@ identity_providers:
         redirect_uris:
           - "https://pgadmin.${SECRET_DOMAIN}/oauth2/authorize"
         userinfo_signing_algorithm: none
+      - id: teleport
+        description: Teleport
+        secret: "${TELEPORT_OIDC_CLIENT_SECRET}"
+        public: false
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes:
+          - "openid"
+          - "profile"
+          - "groups"
+          - "email"
+        redirect_uris:
+          - https://teleport.${SECRET_DOMAIN}/v1/webapi/oidc/callback
+        userinfo_signing_algorithm: none
+
+

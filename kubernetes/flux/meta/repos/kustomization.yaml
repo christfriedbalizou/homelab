@@ -20,3 +20,4 @@ resources:
   - ./bjw-s.yaml
   - ./external-dns.yaml
   - ./ingress-nginx.yaml
+  - ./teleport.yaml

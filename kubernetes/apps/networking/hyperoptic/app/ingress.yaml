@@ -9,7 +9,7 @@ metadata:
     auth.home.arpa/enabled: "true"
     hajimari.io/enable: "true"
     hajimari.io/icon: "mdi:router-wireless"
-    hajimari.io/group: "Nodes"
+    hajimari.io/group: "Network"
 spec:
   ingressClassName: external
   rules:
