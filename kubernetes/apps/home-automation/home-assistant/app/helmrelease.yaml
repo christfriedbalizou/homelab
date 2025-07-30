@@ -91,10 +91,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: hass-production-tls
       code-server:
         className: internal
         annotations:
@@ -111,14 +107,12 @@ spec:
                 service:
                   identifier: app
                   port: code-server
-        tls:
-          - hosts:
-              - *code
-            secretName: code-production-tls
     persistence:
       config:
         enabled: true
-        existingClaim: apps-home-automation
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/home-automation
         globalMounts:
           - subPath: home-assistant
       logs:

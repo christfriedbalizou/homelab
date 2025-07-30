@@ -5,6 +5,5 @@ namespace: home-automation
 components:
   - ../../components/common
 resources:
-  - ./pvc.yaml
   - ./zigbee2mqtt/ks.yaml
   - ./home-assistant/ks.yaml
