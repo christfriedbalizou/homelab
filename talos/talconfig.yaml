@@ -136,7 +136,7 @@ nodes:
           ip: "192.168.1.155"
   - hostname: "k8s-0"
     ipAddress: "192.168.1.119"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/sdb"
     machineSpec:
       secureboot: false
     schematic:
@@ -162,7 +162,7 @@ nodes:
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "84:47:09:0c:7c:4c"
+          hardwareAddr: "94:c6:91:10:d1:2e"
         dhcp: false
         addresses:
           - "192.168.1.119/24"
