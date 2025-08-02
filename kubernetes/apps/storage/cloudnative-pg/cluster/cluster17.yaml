@@ -6,7 +6,7 @@ metadata:
   name: postgres17
   namespace: storage
 spec:
-  instances: 3
+  instances: 2
   primaryUpdateStrategy: unsupervised
   imageName: ghcr.io/cloudnative-pg/postgresql:17.5-12
   storage:
