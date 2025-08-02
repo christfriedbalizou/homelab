@@ -46,9 +46,13 @@ spec:
   bootstrap:
     recovery:
       source: &previousCluster postgres17-v1
-  # NOTE: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:
     - name: *previousCluster
       barmanObjectStore:
         <<: *barmanObjectStore
         serverName: *previousCluster
+  affinity:
+    nodeSelector:
+      - k8s-4
+      - k8s-2
+      - k8s-0
