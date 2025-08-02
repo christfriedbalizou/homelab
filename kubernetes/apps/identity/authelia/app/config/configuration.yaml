@@ -105,7 +105,5 @@ identity_providers:
           - "groups"
           - "email"
         redirect_uris:
-          - https://teleport.${SECRET_DOMAIN}/v1/webapi/oidc/callback
+          - "https://teleport.${SECRET_DOMAIN}/v1/webapi/oidc/callback"
         userinfo_signing_algorithm: none
-
-
