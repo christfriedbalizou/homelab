@@ -33,3 +33,14 @@ spec:
       podMonitorEnabled: false
       grafanaDashboard:
         create: true
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - k8s-4
+                    - k8s-2
+                    - k8s-0
