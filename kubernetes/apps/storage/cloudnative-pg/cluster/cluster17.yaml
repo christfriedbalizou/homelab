@@ -52,7 +52,13 @@ spec:
         <<: *barmanObjectStore
         serverName: *previousCluster
   affinity:
-    nodeSelector:
-      - k8s-4
-      - k8s-2
-      - k8s-0
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: topology.kubernetes.io/hostname
+                operator: In
+                values:
+                  - k8s-4
+                  - k8s-2
+                  - k8s-0
