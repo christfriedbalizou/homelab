@@ -66,10 +66,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: it-tools-production-tls
     persistence:
       tmp:
         type: emptyDir
