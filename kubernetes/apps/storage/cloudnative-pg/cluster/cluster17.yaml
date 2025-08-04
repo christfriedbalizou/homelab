@@ -8,7 +8,7 @@ metadata:
 spec:
   instances: 3
   primaryUpdateStrategy: unsupervised
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.5-12
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.5-21
   storage:
     size: 5Gi
     storageClass: openebs-hostpath
