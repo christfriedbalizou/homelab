@@ -61,10 +61,6 @@ spec:
             paths:
               - path: /
                 pathType: Prefix
-        tls:
-          - hosts:
-              - *host
-            secretName: hajimari-production-tls
     podAnnotations:
       configmap.reloader.stakater.com/reload: "{{ .Release.Name }}-settings"
     persistence:

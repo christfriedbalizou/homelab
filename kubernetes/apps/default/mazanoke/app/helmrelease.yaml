@@ -77,11 +77,6 @@ spec:
                 service:
                   identifier: mazanoke
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: mazanoke-production-tls
-
     persistence:
       temporary:
         type: emptyDir
