@@ -62,13 +62,14 @@ spec:
           - path: /logDir
 
       translate:
-        existingClaim: apps-default
         globalMounts:
           - subPath: autotranslate
             path: /inputDir
 
       consume:
-        existingClaim: media-default
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/media
         globalMounts:
           - subPath: autotranslate
             path: /outputDir

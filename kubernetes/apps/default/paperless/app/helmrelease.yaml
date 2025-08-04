@@ -111,12 +111,16 @@ spec:
             secretName: paperless-production-tls
     persistence:
       data:
-        existingClaim: media-default
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/media
         globalMounts:
           - subPath: paperless
             path: /data/local
       nas:
-        existingClaim: apps-default  # this directory is backup every so
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/default
         globalMounts:
           - subPath: paperless
             path: /data/nas
