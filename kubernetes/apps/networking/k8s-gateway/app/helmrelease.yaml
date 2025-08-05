@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: k8s-gateway
-      version: 2.4.0
+      version: 3.2.3
       sourceRef:
         kind: HelmRepository
-        name: home-operations
+        name: k8s-gateway
         namespace: flux-system
       interval: 15m
   install:
