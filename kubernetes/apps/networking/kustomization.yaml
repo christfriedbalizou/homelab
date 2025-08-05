@@ -9,7 +9,6 @@ resources:
   - ./cloudflared/ks.yaml
   - ./nginx/ks.yaml
   - ./k8s-gateway/ks.yaml
-  - ./vpn-gateway/ks.yaml
   - ./pihole/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./adguard-home/ks.yaml
