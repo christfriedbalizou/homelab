@@ -15,3 +15,4 @@ resources:
   - ./twingate/ks.yaml
   - ./twingate-backup/ks.yaml
   - ./hyperoptic/ks.yaml
+  - ./echo-server/ks.yaml
