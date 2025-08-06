@@ -10,6 +10,11 @@
       ansible.builtin.pause:
         seconds: 5
   tasks:
+    - name: Disable and stop lighttp service
+      ansible.builtin.systemd:
+        name: lighttpd
+        state: stopped
+        enabled: false
     - name: Update pihole
       ansible.builtin.shell: pihole -up
       ignore_errors: true

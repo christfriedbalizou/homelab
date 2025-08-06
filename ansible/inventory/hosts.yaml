@@ -4,13 +4,6 @@ kubernetes:
   children:
     raspberrypi:
       hosts:
-      {% for item in bootstrap_nodes.raspberrypi %}
-        {{ item.name }}:
-          ansible_user: {{ item.username }}
-      {% if item.external_address is defined %}
-          ansible_host: {{ item.external_address }}
-      {% else %}
-          ansible_host: {{ item.address }}
-      {% endif %}
-      {% endfor %}
-    {% endif %}
+        pihole:
+          ansible_user: pi.hole
+          ansible_host: 192.168.1.114

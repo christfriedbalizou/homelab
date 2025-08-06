@@ -6,27 +6,15 @@ vars:
   MAKEJINJA_CONFIG_FILE: '{{.ROOT_DIR}}/makejinja.toml'
   TEMPLATE_DIR: '{{.ROOT_DIR}}/bootstrap/templates'
   TEMPLATE_RESOURCES_DIR: '{{.ROOT_DIR}}/.taskfiles/template/resources'
-  TEMPLATE_CONFIG_FILE: '{{.ROOT_DIR}}/cluster.yaml'
-  TEMPLATE_NODE_CONFIG_FILE: '{{.ROOT_DIR}}/nodes.yaml'
 
 tasks:
 
   :init:
     desc: Initialize configuration files
     cmds:
-      - task: generate-template-config
       - task: generate-age-key
       - task: generate-deploy-key
       - task: generate-push-token
-
-  generate-template-config:
-    internal: true
-    cmds:
-      - mv {{.TEMPLATE_CONFIG_FILE | replace ".yaml" ".sample.yaml"}} {{.TEMPLATE_CONFIG_FILE}}
-      - mv {{.TEMPLATE_NODE_CONFIG_FILE | replace ".yaml" ".sample.yaml"}} {{.TEMPLATE_NODE_CONFIG_FILE}}
-    status:
-      - test -f {{.TEMPLATE_CONFIG_FILE}}
-      - test -f {{.TEMPLATE_NODE_CONFIG_FILE}}
 
   generate-age-key:
     internal: true

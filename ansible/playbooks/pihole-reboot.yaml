@@ -1,15 +1,15 @@
 ---
 - hosts:
-    - controllers
-    - workers
+    - pihole
   become: true
-  gather_facts: true
-  any_errors_fatal: true
+  gather_facts: false
   pre_tasks:
     - name: Pausing for 5 seconds...
       ansible.builtin.pause:
         seconds: 5
+
   tasks:
-    - name: Reboot
+    - name: Reboot the machine
       ansible.builtin.reboot:
-        msg: Rebooting nodes
+        msg: "Reboot initiated by Ansible"
+        reboot_timeout: 600
