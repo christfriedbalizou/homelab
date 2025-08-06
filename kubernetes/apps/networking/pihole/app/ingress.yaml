@@ -23,3 +23,10 @@ spec:
                 name: pihole
                 port:
                   number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: pihole
+                port:
+                  number: 80
