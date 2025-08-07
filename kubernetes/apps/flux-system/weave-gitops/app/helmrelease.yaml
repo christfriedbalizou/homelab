@@ -39,10 +39,6 @@ spec:
           paths:
             - path: /
               pathType: Prefix
-      tls:
-        - hosts:
-            - *host
-          secretName: weave-gitops-production-tls
     networkPolicy:
       create: false
     metrics:
