@@ -145,7 +145,7 @@ spec:
           hajimari.io/group: "Media"
           hajimari.io/icon: "arcticons:utorrent"
         hosts:
-          - host: &host torrent.${SECRET_DOMAIN}
+          - host: torrent.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
