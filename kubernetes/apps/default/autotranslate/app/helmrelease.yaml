@@ -62,6 +62,9 @@ spec:
           - path: /logDir
 
       translate:
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/app/default
         globalMounts:
           - subPath: autotranslate
             path: /inputDir
