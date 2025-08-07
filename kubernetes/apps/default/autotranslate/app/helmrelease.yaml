@@ -64,7 +64,7 @@ spec:
       translate:
         type: nfs
         server: ${NFS_SERVER}
-        path: /volume1/app/default
+        path: /volume1/apps/default
         globalMounts:
           - subPath: autotranslate
             path: /inputDir
