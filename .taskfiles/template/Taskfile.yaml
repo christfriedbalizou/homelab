@@ -70,7 +70,7 @@ tasks:
           fi
     vars:
       SECRET_FILES:
-        sh: find "{{.ANSIBLE_DIR}}" "{{.KUBERNETES_DIR}}" "{{.TALOS_DIR}}" -type f -name "*.sops.*" -print
+        sh: find "{{.ANSIBLE_DIR}}" "{{.KUBERNETES_DIR}}" "{{.TALOS_DIR}}" -type f -name "*.sops.*" ! -name "talsecret.sops.yaml" -print
     preconditions:
       - test -f {{.SOPS_AGE_KEY_FILE}}
       - test -f {{.ROOT_DIR}}/.sops.yaml

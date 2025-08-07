@@ -1,21 +1,22 @@
 apiVersion: v1
 kind: Secret
 metadata:
-    name: sops-age
+  name: sops-age
 stringData:
-    age.agekey: ENC[AES256_GCM,data:eYC9Om6S+uPBpnLhFUahy2JmsQv8eC38YXsQX7EGuM8NCGOMLG0yg/Ro41uBITXTasH+L3ah8DuzlzP3R6ZqplQ2lWtUtLD/8Us=,iv:HjUasoxmUfFtL5aB485L1mV6U1xlunt9MVSd+dHO+go=,tag:eDE2SKzPkEj06+ceuxRe6A==,type:str]
+  age.agekey: ENC[AES256_GCM,data:chAxxNPwbvgkyFcS19hw3p0eMqZKBfhl+BwLvKhUiqO8uG4ZrK9XrdS3tA2dK/GnNAu8MbyP0gc7vhd1ldOp3XS+CSPRq+wJ2K8=,iv:QtP8lyeTQhGyXFO0AcMd/Je3Llbq3I8t/KTWuNvRKO4=,tag:Kr4igLjNjqnMzcYZ51zN4g==,type:str]
 sops:
-    age:
-        - recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
-          enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBCK01XWnQxWWFBVHRkTTBY
-            ejVVSVF1V3dTQ295UUtRM2E4cXdyQ1hzM0J3CnhlNUVpcCtKdFd4dW5JMTFYdzAy
-            djNJcjhoeTJLM1BLOS9ibXJvUWlIbE0KLS0tIEcwdC9FOW1hYVhUMTRKdkF6clFY
-            M0tHb3J3MzFTdGN5S1lZb0tkaEhBU0EKTwHl2tjFSSsdReS54GQcm47DnKLpnfrh
-            MXMs+N+0BQnvkwo8DSzOanzI3FmbvfEHRxI17iBpdGZPjYuiBtHPgQ==
-            -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-08-07T10:20:11Z"
-    mac: ENC[AES256_GCM,data:ZcX8HYx4GFVkB30wB9tL+eswGNiW0IdI4hJfejI/WAqVjFocvREDprzlnbxf/pt7Q/xWMzNjz+yVL/+nd74xAb3x/5Zxe/3NL2UIzAO6WyQLZW8yjoyzLPbwkWaO7rU+jsIokW8mYIUT4bYG7fq3VpUMz9F62TGWq2UHEL4qm7s=,iv:QUH2o78uEcx1S7XYrKCkkBV2ga0QaAzE1Jmjq/G8IZQ=,tag:i/hOQRAkEJHCZC8K+vgAxg==,type:str]
-    encrypted_regex: ^(data|stringData)$
-    version: 3.10.2
+  age:
+    - recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+      enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBqRWlRUktOYVhKT0owNTZt
+        ZEFUdmNEczFuVXJhYkM2SDRYWnNYWS9EZVRVCnFEeXF4ZmtjcVRtRW93aW1mZnBm
+        UFc4TGpURm9hRHEvMDQwMEdGY2VoWmMKLS0tIHl0dkhBaDFFdWdZL1B2SXNqMGZL
+        dXJ2ZThNRFg4K2tKL0FEUFJsY3gySWsKpthYbewV4y32fto0RyM8rVyNuZpUMzvm
+        jePSVh8tUe9twHCq5P3tYAprPkRPeZMofnfDFg338s0M3xq5tG3/iQ==
+        -----END AGE ENCRYPTED FILE-----
+  lastmodified: "2025-08-07T11:15:23Z"
+  mac: ENC[AES256_GCM,data:SpyHzd8AEmsl4mr9nTnfV60PKgbJaiEStwLw1DcPx7vANJXjawGczUpPjI1QcxyYlnTugDc1GxmrtXi2jzzPObJ7KtVWbPIMbuzzpjTWSygXpNjJZUj1nimNZSpi3SUU9C2vwiX/0q66FmTJxrCm6ypLQrFf3GVWIziQUsqrmSA=,iv:lVwaNu9W9qnNAmtRe+9dCuwV2MNI9wBDp6EPcogCAI8=,tag:78mQvDSiDisTfsUTEjYKjw==,type:str]
+  encrypted_regex: ^(data|stringData)$
+  mac_only_encrypted: true
+  version: 3.10.2
