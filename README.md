@@ -9,7 +9,7 @@
 <br />
 <div align="center">
   
-[![kubernetes](https://img.shields.io/badge/dynamic/yaml?url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kubernetes/apps/system-upgrade/system-upgrade-controller/plans/server.yaml&query=%24.spec.version&style=for-the-badge&logo=kubernetes&logoColor=white&label=Kubernetes)](https://k3s.io/) &nbsp;
+[![kubernetes](https://img.shields.io/badge/dynamic/yaml?url=https://raw.githubusercontent.com/christfriedbalizou/homelab/main/talos/talenv.yaml&query=$.kubernetesVersion&style=for-the-badge&logo=kubernetes&logoColor=white&label=Kubernetes)](https://k3s.io/) &nbsp;
 [![GitHub last commit](https://img.shields.io/github/last-commit/christfriedbalizou/homelab?color=purple&style=for-the-badge)](https://github.com/christfriedbalizou/homelab/commits/main) &nbsp;
 ![GitHub Release](https://img.shields.io/github/release/christfriedbalizou/homelab?style=for-the-badge&logo=dependabot)
 
