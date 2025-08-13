@@ -13,7 +13,7 @@ spec:
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/app
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
     namespace: flux-system
   dependsOn:
     - name: node-feature-discovery-rules
@@ -38,7 +38,7 @@ spec:
   path: ./kubernetes/apps/system-upgrade/system-upgrade-controller/plans
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: home-kubernetes
     namespace: flux-system
   dependsOn:
     - name: system-upgrade-controller
