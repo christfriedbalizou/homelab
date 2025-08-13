@@ -15,9 +15,6 @@ spec:
     kind: GitRepository
     name: home-kubernetes
     namespace: flux-system
-  dependsOn:
-    - name: node-feature-discovery-rules
-      namespace: kube-system
   prune: true
   wait: true
   interval: 30m
