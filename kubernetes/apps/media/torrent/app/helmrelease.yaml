@@ -112,6 +112,9 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
+            env:
+              TZ: "${TIMEZONE}"
+              QBT_WEBUI_PORT: &port 8080
             probes:
               liveness:
                 enabled: true
@@ -141,7 +144,7 @@ spec:
                     name: qbittorrent
                     key: GLUETUN_CONTROL_SERVER_API_KEY
               QBITTORRENT_HOST: localhost
-              QBITTORRENT_WEBUI_PORT: &port 8080
+              QBITTORRENT_WEBUI_PORT: *port
               CRON_ENABLED: true
               CRON_SCHEDULE: "*/5 * * * *"
               LOG_TIMESTAMP: false
