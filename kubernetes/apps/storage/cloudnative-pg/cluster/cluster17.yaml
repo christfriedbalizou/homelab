@@ -43,14 +43,14 @@ spec:
       # when recovering from an existing cnpg cluster
       serverName: postgres17-v2
 
-  bootstrap:
-    recovery:
-      source: &previousCluster postgres17-v1
-  externalClusters:
-    - name: *previousCluster
-      barmanObjectStore:
-        <<: *barmanObjectStore
-        serverName: *previousCluster
+  # bootstrap:
+  #   recovery:
+  #     source: &previousCluster postgres17-v1
+  # externalClusters:
+  #   - name: *previousCluster
+  #     barmanObjectStore:
+  #       <<: *barmanObjectStore
+  #       serverName: *previousCluster
   affinity:
     nodeAffinity:
       requiredDuringSchedulingIgnoredDuringExecution:
