@@ -36,7 +36,7 @@ spec:
       app:
         controller: adguard
         type: LoadBalancer
-        externalTrafficPolicy: Local
+        externalTrafficPolicy: Cluster
         annotations:
           lbipam.cilium.io/ips: "${ADGUARD_ADDR_NS1}"
         ports:
