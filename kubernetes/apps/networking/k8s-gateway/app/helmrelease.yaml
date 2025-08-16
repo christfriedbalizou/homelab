@@ -28,8 +28,6 @@ spec:
     domain: "${SECRET_DOMAIN}"
     ttl: 1
     service:
-      type: LoadBalancer
-      port: 53
       annotations:
         lbipam.cilium.io/ips: "${METALLB_K8S_GATEWAY_ADDR}"
-      externalTrafficPolicy: Local
+      externalTrafficPolicy: Cluster
