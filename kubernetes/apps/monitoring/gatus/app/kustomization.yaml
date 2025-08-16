@@ -5,7 +5,6 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./secret.sops.yaml
-  - ./rbac.yaml
   - ./helmrelease.yaml
 configMapGenerator:
   - name: gatus-configmap
