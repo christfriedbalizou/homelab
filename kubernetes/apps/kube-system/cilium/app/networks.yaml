@@ -60,11 +60,9 @@ spec:
     matchLabels:
       kubernetes.io/os: linux
   bgpInstances:
-    - name: instance-64514
-      localASN: 56478
+    - localASN: 56478
       peers:
-        - name: peer-64513-v4
-          peerASN: 56478
+        - peerASN: 56478
           peerAddress: 192.168.1.1
           peerConfigRef:
             name: bgp-peer-config-v4
