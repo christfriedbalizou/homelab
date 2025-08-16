@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: k8s-gateway
-      version: 3.2.3
+      version: 2.4.0
       sourceRef:
         kind: HelmRepository
         name: k8s-gateway
@@ -23,6 +23,7 @@ spec:
     remediation:
       retries: 5
   values:
+    fullnameOverride: k8s-gateway
     replicaCount: 2
     watchedResources: ["Ingress", "HTTPRoute"]
     domain: "${SECRET_DOMAIN}"
