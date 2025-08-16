@@ -43,9 +43,6 @@ spec:
           http:
             primary: true
             port: 3000
-          dns-tcp:
-            port: 53
-            protocol: TCP
           dns-udp:
             port: 53
             protocol: UDP
