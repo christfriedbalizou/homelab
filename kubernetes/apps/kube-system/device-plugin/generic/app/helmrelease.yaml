@@ -41,8 +41,12 @@ spec:
               limits:
                 memory: 64Mi
             securityContext:
+              runAsNonRoot: true
+              fsGroup: 65534
+              runAsUser: 65534
+              runAsGroup: 65534
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: false
+              readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
     persistence:
       config:
