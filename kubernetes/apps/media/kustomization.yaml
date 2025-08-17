@@ -19,3 +19,4 @@ resources:
   - ./recyclarr/ks.yaml
   - ./jellystat/ks.yaml
   - ./torrent/ks.yaml
+  - ./tqm/ks.yaml
