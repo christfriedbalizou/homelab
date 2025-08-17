@@ -68,8 +68,7 @@ spec:
             subPath: config.yaml
             readOnly: true
       media:
+        enabled: true
         type: nfs
-        server: nas.internal
+        server: ${NFS_SERVER}
         path: /volume1/media
-        globalMounts:
-          - readOnly: true
