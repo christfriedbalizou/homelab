@@ -30,7 +30,7 @@ spec:
       url: "twingate.com"
       accessToken: "${TWINGATE_ACCESS_TOKEN}"
       refreshToken: "${TWINGATE_REFRESH_TOKEN}"
-      dnsServer: "192.168.1.114"
+      dnsServer: "${ADGUARD_ADDR_NS1}"
     topologySpreadConstraints:
       - maxSkew: 1
         topologyKey: kubernetes.io/hostname
