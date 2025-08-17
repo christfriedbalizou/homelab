@@ -60,7 +60,7 @@ spec:
         type: hostPath
         hostPath: /dev
         globalMounts:
-          - readOnly: true
+          - readOnly: false
       sys:
         type: hostPath
         hostPath: /sys
