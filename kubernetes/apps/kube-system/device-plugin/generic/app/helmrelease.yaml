@@ -27,6 +27,12 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           priorityClassName: system-node-critical
+        initContainers:
+          init-device-plugins-permission:
+            image:
+              repository: busybox
+              tag: latest
+            command: ["chown", "-R", "65534:65534", "/var/lib/kubelet/device-plugins"]
         containers:
           app:
             image:
