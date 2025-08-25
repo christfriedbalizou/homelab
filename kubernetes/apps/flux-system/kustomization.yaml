@@ -6,6 +6,7 @@ namespace: flux-system
 components:
   - ../../components/common
 resources:
-  - ./weave-gitops/ks.yaml
   - ./flux-instance/ks.yaml
   - ./flux-operator/ks.yaml
+  - ./weave-gitops/ks.yaml
+  - ./notification/ks.yaml

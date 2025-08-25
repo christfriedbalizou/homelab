@@ -2,16 +2,28 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-notification-telegram
-  namespace: flux-system
-  labels:
-    substitution.flux.home.arpa/enabled: "true"
+  name: &app notification-telegram
+  namespace: &namespace flux-system
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   path: ./kubernetes/apps/flux-system/notification/telegram/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+      - name: cluster-settings
+        kind: ConfigMap
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: *namespace
   healthChecks:
     - apiVersion: notification.toolkit.fluxcd.io/v1beta2
       kind: Alert
