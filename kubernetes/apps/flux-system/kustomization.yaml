@@ -9,4 +9,4 @@ resources:
   - ./flux-instance/ks.yaml
   - ./flux-operator/ks.yaml
   - ./weave-gitops/ks.yaml
-  - ./notification/ks.yaml
+  - ./notification
