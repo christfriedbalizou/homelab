@@ -65,6 +65,8 @@ clients:
     api-key: "${RADARR_0_API_KEY}"
     only-delete-files: false
     determine-age-by: most_recent
+  bazarr:
+    enable: false
 
   jellyfin:
     enabled: true
