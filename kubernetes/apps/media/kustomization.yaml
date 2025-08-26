@@ -20,3 +20,4 @@ resources:
   - ./jellystat/ks.yaml
   - ./torrent/ks.yaml
   - ./tqm/ks.yaml
+  - ./janitorr/ks.yaml
