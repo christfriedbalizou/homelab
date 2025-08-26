@@ -20,7 +20,7 @@ spec:
       janitorr:
         type: cronjob
         cronjob: &cronjob
-          schedule: "@hourly"
+          schedule: "@weekly"
           timeZone: "${TIMEZONE}"
           concurrencyPolicy: Forbid
           successfulJobsHistory: 1
