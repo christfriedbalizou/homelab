@@ -47,6 +47,8 @@ spec:
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
     persistence:
+      tmp:
+        type: emptyDir
       config:
         type: configMap
         name: "janitorr-config"
