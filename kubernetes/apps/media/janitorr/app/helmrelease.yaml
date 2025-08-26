@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: tqm
+  name: janitorr
 spec:
   interval: 1h
   chartRef:
@@ -17,7 +17,7 @@ spec:
       retries: 3
   values:
     controllers:
-      tqm:
+      janitorr:
         type: cronjob
         cronjob: &cronjob
           schedule: "@hourly"
