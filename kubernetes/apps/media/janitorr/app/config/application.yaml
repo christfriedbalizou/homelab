@@ -82,7 +82,7 @@ clients:
   jellyseerr:
     enabled: true
     url: "http://jellyseerr.media:5055"
-    api-key: "${JELLYSEERR_0_API_KEY}"
+    api-key: "${JELLYSERR_0_API_KEY}"
     match-server: false
 
   jellystat:
