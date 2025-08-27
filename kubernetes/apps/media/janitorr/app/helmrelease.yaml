@@ -53,7 +53,7 @@ spec:
         type: configMap
         name: "janitorr-config"
         globalMounts:
-          - path: /appdata/janitorr/application.yaml
+          - path: /workspace/application.yml
             subPath: application.yaml
             readOnly: true
       data:
