@@ -16,9 +16,9 @@ spec:
         pod:
           securityContext:
             runAsNonRoot: true
-            runAsUser: 568
-            runAsGroup: 568
-            fsGroup: 568
+            runAsUser: ${PUID}
+            runAsGroup: ${PGID}
+            fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
         containers:
