@@ -12,3 +12,4 @@ resources:
   - ./autotranslate/ks.yaml
   - ./it-tools/ks.yaml
   - ./mazanoke/ks.yaml
+  - ./actual/ks.yaml
