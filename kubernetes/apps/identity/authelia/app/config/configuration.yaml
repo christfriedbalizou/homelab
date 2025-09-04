@@ -117,7 +117,7 @@ identity_providers:
         description: actual
         secret: "${ACTUAL_OPENID_CLIENT_SECRET}"
         public: false
-        authorization_policy: two_factor
+        authorization_policy: one_factor
         pre_configured_consent_duration: 1y
         scopes:
           - "openid"
