@@ -67,7 +67,7 @@ spec:
         advancedMounts:
           actual:
             app:
-              - subPath: data
+              - subPath: actual
                 path: /data
 
     ingress:
