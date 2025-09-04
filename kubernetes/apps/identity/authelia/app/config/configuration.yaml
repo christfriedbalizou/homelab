@@ -36,6 +36,7 @@ access_control:
       policy: bypass
     - domain:
         - "actual.${SECRET_DOMAIN}"
+        - "paperless.${SECRET_DOMAIN}"
       subject:
         - ["group:admin", "group:family"]
 
