@@ -37,6 +37,7 @@ access_control:
     - domain:
         - "actual.${SECRET_DOMAIN}"
         - "paperless.${SECRET_DOMAIN}"
+      policy: one_factor
       subject:
         - ["group:admin", "group:family"]
 
