@@ -90,7 +90,7 @@
       "ignoreTests": false,
     },
     {
-      "matchDatasources": ["ansible", "github-action"],
+      "matchDatasources": ["ansible", "github-action", "github-release"],
       "automerge": true,
       "ignoreTests": true,
     }
