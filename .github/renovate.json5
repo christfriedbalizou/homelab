@@ -88,6 +88,11 @@
       "matchUpdateTypes": ["patch"],
       "automerge": true,
       "ignoreTests": false,
+    },
+    {
+      "matchDatasources": ["ansible", "github-action"],
+      "automerge": true,
+      "ignoreTests": true,
     }
   ]
 }
