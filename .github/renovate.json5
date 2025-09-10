@@ -69,17 +69,6 @@
     {
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch", "digest"],
-      "matchPackageNames": [
-        "ghcr.io/recyclarr/recyclarr",
-        "ghcr.io/home-operations/sabnzbd",
-        "ghcr.io/home-operations/qbittorrent",
-        "ghcr.io/onedr0p/unpackerr",
-        "ghcr.io/home-operations/sonarr",
-        "ghcr.io/home-operations/radarr",
-        "ghcr.io/home-operations/prowlarr",
-        "ghcr.io/autobrr/autobrr",
-        "ghcr.io/home-operations/readarr"
-      ],
       "automerge": true,
       "ignoreTests": true,
     },
