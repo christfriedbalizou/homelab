@@ -1,0 +1,112 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: mealie
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      mealie:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+              image:
+                repository: ghcr.io/home-operations/postgres-init
+                tag: 17
+                pullPolicy: IfNotPresent
+              env:
+                INIT_POSTGRES_DBNAME: &db mealie
+                INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
+                INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
+                INIT_POSTGRES_USER:
+                  valueFrom:
+                    secretKeyRef:
+                      name: &secret cluster-mealie-secrets
+                      key: POSTGRES_USER
+                INIT_POSTGRES_PASS:
+                  valueFrom:
+                    secretKeyRef:
+                      name: *secret
+                      key: POSTGRES_PASSWORD
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile: { type: RuntimeDefault }
+        containers:
+          app:
+            image:
+              repository: ghcr.io/mealie-recipes/mealie
+              tag: v3.1.2@sha256:d872fb529097df2d77b3c6f5e469b047f99d0d1c9f793a84ae27aa106e1f5d7e
+            env:
+              BASE_URL: https://mealie.${SECRET_DOMAIN}
+              API_DOCS: false
+              SMTP_AUTH_STRATEGY: NONE
+              SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              SMTP_PORT: "${SMTP_RELAY_PORT}"
+              SMTP_FROM_EMAIL: noreply@${SECRET_DOMAIN}
+              OIDC_AUTH_ENABLED: true
+              OIDC_SIGNUP_ENABLED: true
+              OIDC_CONFIGURATION_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
+              OIDC_CLIENT_ID: mealie
+              OIDC_USER_CLAIM: display_name
+              OIDC_AUTO_REDIRECT: false
+              OIDC_GROUPS_CLAIM: groups
+              OIDC_ADMIN_GROUP: admin
+              OIDC_USER_GROUP: family
+              POSTGRES_SERVER: *postgres
+              POSTGRES_PORT: 5432
+              POSTGRES_DB: *db
+            envFrom:
+              - secretRef:
+                  name: cluster-mealie-secerts
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 100m
+                memory: 400Mi
+              limits:
+                memory: 600Mi
+    service:
+      app:
+        controller: mealie
+        ports:
+          http:
+            port: 9000
+
+    ingress:
+      app:
+        className: external
+        annotations:
+          external-dns.home.arpa/enabled: "true"
+          hajimari.io/enable: "true"
+          hajimari.io/group: "Family"
+          hajimari.io/icon: "cbi:mealie"
+        hosts:
+          - host: &host mealie.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/default
+        advancedMounts:
+          mealie:
+            - subPath: mealie
+              path: /app/data

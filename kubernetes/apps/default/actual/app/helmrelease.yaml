@@ -76,7 +76,7 @@ spec:
         annotations:
           external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/group: "Tools"
+          hajimari.io/group: "Family"
           hajimari.io/icon: "simple-icons:actualbudget"
         hosts:
           - host: &host actual.${SECRET_DOMAIN}
