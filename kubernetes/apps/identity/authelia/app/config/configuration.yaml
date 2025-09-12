@@ -4,9 +4,17 @@ session:
   inactivity: 5m
   expiration: 1h
   remember_me: 1M
+  cookies:
+    - name: ${SECRET_DOMAIN}_session
+      domain: ${SECRET_DOMAIN}
+      authelia_url: https://auth.${SECRET_DOMAIN}
+      default_redirection_url: https://${SECRET_DOMAIN}
   redis:
     host: dragonfly.storage.svc.cluster.local
     database_index: 2
+
+duo_api:
+  disable: true
 
 access_control:
   default_policy: two_factor
@@ -37,6 +45,7 @@ access_control:
     - domain:
         - "actual.${SECRET_DOMAIN}"
         - "paperless.${SECRET_DOMAIN}"
+        - "mealie.${SECRET_DOMAIN}"
       policy: one_factor
       subject:
         - ["group:admin", "group:family"]
@@ -49,6 +58,9 @@ access_control:
 
 identity_providers:
   oidc:
+    jwks:
+      - key: |
+          {{- env "AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY" | mindent 10 "|" | msquote }}
     cors:
       endpoints:
         - "authorization"
@@ -127,3 +139,21 @@ identity_providers:
         redirect_uris:
           - "https://actual.${SECRET_DOMAIN}/openid/callback"
         userinfo_signing_algorithm: none
+      - client_name: Mealie
+        client_id: mealie
+        client_secret: "{{ MEALIE_OIDC_CLIENT_SECRET }}"
+        public: false
+        authorization_policy: one_factor
+        scopes:
+          - "openid"
+          - "profile"
+          - "groups"
+          - "email"
+        require_pkce: true
+        pkce_challenge_method: "S256"
+        redirect_uris:
+          - https://mealie.${SECRET_DOMAIN}/login
+        response_types:
+          - "code"
+        grant_types:
+          - "authorization_code"
