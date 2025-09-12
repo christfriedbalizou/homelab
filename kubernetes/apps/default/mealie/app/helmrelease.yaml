@@ -68,7 +68,7 @@ spec:
               POSTGRES_DB: *db
             envFrom:
               - secretRef:
-                  name: cluster-mealie-secerts
+                  name: cluster-mealie-secrets
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
