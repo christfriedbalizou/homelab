@@ -62,7 +62,6 @@ spec:
             image:
               repository: ghcr.io/authelia/authelia
               tag: master@sha256:dd5d6bffc0e56165f29fcb6ebc896b3fd422579f43966d2229e6ec1d9c02cafc
-            args: ["--config", "/config/configuration.yaml", "--config.experimental.filters", "expand-env"]
             env:
               AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_GROUPS_DN: ou=groups
               AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_USERS_DN: ou=people
@@ -81,7 +80,6 @@ spec:
               AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERS_FILTER: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
               AUTHELIA_AUTHENTICATION_BACKEND_PASSWORD_RESET_DISABLE: "true"
               AUTHELIA_AUTHENTICATION_BACKEND_REFRESH_INTERVAL: 1m
-              AUTHELIA_DUO_API_DISABLE: "true"
               AUTHELIA_LOG_LEVEL: info
               AUTHELIA_NOTIFIER_DISABLE_STARTUP_CHECK: "true"
               AUTHELIA_NOTIFIER_SMTP_DISABLE_REQUIRE_TLS: "true"
