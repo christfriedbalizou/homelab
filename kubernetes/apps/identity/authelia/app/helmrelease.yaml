@@ -105,6 +105,9 @@ spec:
               AUTHELIA_STORAGE_POSTGRES_PASSWORD: "${AUTHELIA_STORAGE_POSTGRES_PASSWORD}"
               GRAFANA_OAUTH_CLIENT_SECRET: ${GRAFANA_OAUTH_CLIENT_SECRET}
               AUTHELIA_SERVER_BUFFERS_READ: "2048000"
+              OIDC_JWKS_KEY: "${AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY}"
+              X_AUTHELIA_CONFIG: /config/configuration.yaml
+              X_AUTHELIA_CONFIG_FILTERS: template
             envFrom:
               - secretRef:
                   name: cluster-authelia-secrets
