@@ -108,5 +108,6 @@ spec:
         path: /volume1/apps/default
         advancedMounts:
           mealie:
-            - subPath: mealie
-              path: /app/data
+            app:
+              - subPath: mealie
+                path: /app/data
