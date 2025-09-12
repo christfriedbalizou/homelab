@@ -130,7 +130,7 @@ identity_providers:
         userinfo_signing_algorithm: none
       - client_name: Mealie
         client_id: mealie
-        client_secret: "{{ MEALIE_OIDC_CLIENT_SECRET }}"
+        client_secret: "${MEALIE_OIDC_CLIENT_SECRET}"
         public: false
         authorization_policy: one_factor
         scopes:
