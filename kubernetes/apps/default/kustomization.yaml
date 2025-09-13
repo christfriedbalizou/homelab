@@ -14,3 +14,4 @@ resources:
   - ./mazanoke/ks.yaml
   - ./actual/ks.yaml
   - ./mealie/ks.yaml
+  - ./n8n/ks.yaml
