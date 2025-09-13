@@ -66,6 +66,7 @@ spec:
               POSTGRES_SERVER: *postgres
               POSTGRES_PORT: 5432
               POSTGRES_DB: *db
+              DB_ENGINE: postgres
             envFrom:
               - secretRef:
                   name: cluster-mealie-secrets
