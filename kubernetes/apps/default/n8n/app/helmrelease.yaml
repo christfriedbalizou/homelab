@@ -1,0 +1,126 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app n8n
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      n8n:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 17
+              pullPolicy: IfNotPresent
+            env:
+              INIT_POSTGRES_DBNAME: n8n
+              INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
+              INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
+              INIT_POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: &secret cluster-n8n-secrets
+                    key: DB_POSTGRESDB_USER
+              INIT_POSTGRES_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: *secret
+                    key: DB_POSTGRESDB_PASSWORD
+        containers:
+          app:
+            image:
+              repository: ghcr.io/n8n-io/n8n
+              tag: 1.111.0@sha256:8c99deed73dbb7f7b32c49f328015fe8322129a9dcf0459a10c4398af255083f
+            env:
+              # Timezone and localization environment variables
+              GENERIC_TIMEZONE: "${TIMEZONE}"
+
+              # Execution
+              EXECUTIONS_DATA_PRUNE: true
+              EXECUTIONS_DATA_MAX_AGE: 7
+              EXECUTIONS_DATA_PRUNE_MAX_COUNT: 50000
+
+              # Security
+              N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: false
+
+              # Deployment
+              N8N_PROTOCOL: "https"
+              N8N_PORT: &port 8080
+              N8N_HOST: &host n8n.${SECRET_DOMAIN}
+              N8N_PUBLIC_API_DISABLED: true
+              N8N_PUBLIC_API_SWAGGERUI_DISABLED: true
+              N8N_USER_FOLDER: /home/n8n/app
+              N8N_PERSONALIZATION_ENABLED: false
+              N8N_HIRING_BANNER_ENABLED: false
+
+              # Logs
+              N8N_LOG_LEVEL: info
+              N8N_LOG_OUTPUT: console
+
+              # Endpoints
+              N8N_METRICS: true
+
+              # Database
+              DB_TYPE: postgresdb
+              DB_POSTGRESDB_HOST: *postgres
+            envFrom:
+              - secretRef:
+                  name: *secret
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128Mi
+              limits:
+                memory: 2Gi
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: "OnRootMismatch"
+    service:
+      app:
+        controller: n8n
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        className: external
+        annotations:
+          external-dns.home.arpa/enabled: "true"
+          hajimari.io/enable: "true"
+          hajimari.io/group: "Tools"
+          hajimari.io/icon: "simple-icons:n8n"
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/default
+        advancedMounts:
+          n8n:
+            app:
+              - subPath: n8n
+                path: /home/n8n/app
