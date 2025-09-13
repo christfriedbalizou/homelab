@@ -78,6 +78,13 @@ spec:
               # Database
               DB_TYPE: postgresdb
               DB_POSTGRESDB_HOST: *postgres
+
+              # User Management
+              N8N_SMTP_HOST: smtp-relay.networking.svc.cluster.local
+              N8N_SMTP_PORT: "${SMTP_RELAY_PORT}"
+              N8N_SMTP_SENDER: "N8N <noreply@${SECRET_DOMAIN}>"
+              N8N_SMTP_SSL: false
+              N8N_EMAIL_MODE: smtp
             envFrom:
               - secretRef:
                   name: *secret
@@ -104,6 +111,7 @@ spec:
         className: external
         annotations:
           external-dns.home.arpa/enabled: "true"
+          auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/group: "Tools"
           hajimari.io/icon: "simple-icons:n8n"
