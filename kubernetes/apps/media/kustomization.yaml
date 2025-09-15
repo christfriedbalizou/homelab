@@ -21,3 +21,4 @@ resources:
   - ./torrent/ks.yaml
   - ./tqm/ks.yaml
   - ./janitorr/ks.yaml
+  - ./bazarr/ks.yaml
