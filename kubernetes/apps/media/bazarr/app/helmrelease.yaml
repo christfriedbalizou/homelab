@@ -88,7 +88,6 @@ spec:
           bazarr:
             app:
               - subPath: bazarr
-                path: /config
       media:
         enabled: true
         type: nfs
@@ -98,7 +97,6 @@ spec:
           bazarr:
             app:
               - subPath: bazarr
-                path: /media
       tmpfs:
         type: emptyDir
         advancedMounts:
