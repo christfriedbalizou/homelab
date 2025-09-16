@@ -98,7 +98,7 @@ spec:
           bazarr:
             app:
               - subPath: bazarr
-                path: /config
+                path: /media
       tmpfs:
         type: emptyDir
         advancedMounts:
