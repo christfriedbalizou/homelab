@@ -140,13 +140,3 @@ spec:
         type: nfs
         server: ${NFS_SERVER}
         path: /volume1/media
-      tv:
-        enabled: true
-        type: nfs
-        server: ${NFS_SERVER}
-        path: /volume1/media/series
-      movies:
-        enabled: true
-        type: nfs
-        server: ${NFS_SERVER}
-        path: /volume1/media/movies

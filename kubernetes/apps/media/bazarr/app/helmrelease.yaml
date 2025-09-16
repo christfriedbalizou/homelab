@@ -94,10 +94,6 @@ spec:
         type: nfs
         server: ${NFS_SERVER}
         path: /volume1/media
-        advancedMounts:
-          bazarr:
-            app:
-              - subPath: bazarr
       tmpfs:
         type: emptyDir
         advancedMounts:
