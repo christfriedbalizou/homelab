@@ -1,0 +1,101 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: memos
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  values:
+    controllers:
+      memos:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+              image:
+                repository: ghcr.io/home-operations/postgres-init
+                tag: 17
+                pullPolicy: IfNotPresent
+              env:
+                INIT_POSTGRES_DBNAME: memos
+                INIT_POSTGRES_HOST: postgres-lb.storage.svc.cluster.local
+                INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
+                INIT_POSTGRES_USER:
+                  valueFrom:
+                    secretKeyRef:
+                      name: &secret cluster-memos-secrets
+                      key: POSTGRES_USER
+                INIT_POSTGRES_PASS:
+                  valueFrom:
+                    secretKeyRef:
+                      name: *secret
+                      key: POSTGRES_PASSWORD
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile: { type: RuntimeDefault }
+        containers:
+          app:
+            image:
+              repository: ghcr.io/usememos/memos
+              tag: 0.25.1@sha256:f1faf27fb60aff4df13fc2c6017baa7b6f8ea684dc9a9bff6f212a01d2efe108
+            env:
+              MEMOS_DRIVER: postgres
+              MEMOS_STORAGE_TYPE: s3
+              MEMOS_S3_ENDPOINT: http://minio.storage.svc.cluster.local:9000
+              MEMOS_S3_BUCKET: memos
+              MEMOS_S3_FORCE_PATH_STYLE: true
+            envFrom:
+              - secretRef:
+                  name: cluster-memos-secrets
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 25m
+                memory: 105Mi
+              limits:
+                memory: 500Mi
+    service:
+      app:
+        controller: memos
+        ports:
+          http:
+            port: 9000
+
+    ingress:
+      app:
+        className: external
+        annotations:
+          external-dns.home.arpa/enabled: "true"
+          hajimari.io/enable: "true"
+          hajimari.io/group: "Family"
+          hajimari.io/icon: "iconoir:notes"
+        hosts:
+          - host: memos.${SECRET_DOMAIN}
+            paths: &paths
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+          - host: notes.${SECRET_DOMAIN}
+            paths: *paths
+    persistence:
+      config:
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/default
+        advancedMounts:
+          memos:
+            app:
+              - subPath: memos
+                path: /var/opt/memos

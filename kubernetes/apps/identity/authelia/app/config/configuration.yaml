@@ -38,6 +38,8 @@ access_control:
         - "actual.${SECRET_DOMAIN}"
         - "paperless.${SECRET_DOMAIN}"
         - "mealie.${SECRET_DOMAIN}"
+        - "memos.${SECRET_DOMAIN}"
+        - "notes.${SECRET_DOMAIN}"
       policy: one_factor
       subject:
         - ["group:admin", "group:family"]
@@ -152,3 +154,18 @@ identity_providers:
           - "code"
         grant_types:
           - "authorization_code"
+      - client_name: Memos
+        client_id: memos
+        client_secret: "${MEMOS_OIDC_CLIENT_SECRET}"
+        public: false
+        authorization_policy: one_factor
+        pre_configured_consent_duration: 1y
+        scopes:
+          - "openid"
+          - "profile"
+          - "groups"
+          - "email"
+        redirect_uris:
+          - https://notes.${SECRET_DOMAIN}/auth/callback
+          - https://memos.${SECRET_DOMAIN}/auth/callback
+        userinfo_signing_algorithm: none
