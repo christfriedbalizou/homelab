@@ -52,7 +52,7 @@ spec:
                 type: RuntimeDefault
     rawResources:
       talosServiceAccount:
-        apiVersion: talos.dev/v1alpha1
+        apiVersion: v1
         kind: ServiceAccount
         spec:
           spec:
