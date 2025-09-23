@@ -125,9 +125,14 @@ identity_providers:
           - "profile"
           - "groups"
           - "email"
+        require_pkce: true
+        pkce_challenge_method: "S256"
         redirect_uris:
           - "https://actual.${SECRET_DOMAIN}/openid/callback"
-        userinfo_signing_algorithm: none
+        response_types:
+          - "code"
+        grant_types:
+          - "authorization_code"
       - client_name: Mealie
         client_id: mealie
         client_secret: "${MEALIE_OIDC_CLIENT_SECRET}"
