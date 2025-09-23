@@ -16,3 +16,4 @@ resources:
   - ./mealie/ks.yaml
   - ./n8n/ks.yaml
   - ./thelounge/ks.yaml
+  - ./memos/ks.yaml
