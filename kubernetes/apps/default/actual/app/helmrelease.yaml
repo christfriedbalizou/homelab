@@ -29,10 +29,6 @@ spec:
               tag: 25.9.0
             env:
               ACTUAL_PORT: &httpPort 5006
-              ACTUAL_OPENID_AUTHORIZATION_ENDPOINT: https://auth.${SECRET_DOMAIN}/api/oidc/authorization
-              ACTUAL_OPENID_TOKEN_ENDPOINT: https://auth.${SECRET_DOMAIN}/api/oidc/token
-              ACTUAL_OPENID_USERINFO_ENDPOINT: https://auth.${SECRET_DOMAIN}/api/oidc/userinfo
-              ACTUAL_OPENID_SERVER_HOSTNAME: https://actual.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
                   name: cluster-actual-secrets

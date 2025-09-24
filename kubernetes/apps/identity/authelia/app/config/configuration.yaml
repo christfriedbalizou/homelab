@@ -116,9 +116,9 @@ identity_providers:
         redirect_uris:
           - "https://teleport.${SECRET_DOMAIN}/v1/webapi/oidc/callback"
         userinfo_signing_algorithm: none
-      - id: actual
-        description: actual
-        secret: "${ACTUAL_OPENID_CLIENT_SECRET}"
+      - client_name: Actual
+        client_id: actual
+        client_secret: "${ACTUAL_OPENID_CLIENT_SECRET}"
         public: false
         authorization_policy: one_factor
         pre_configured_consent_duration: 1y
@@ -127,14 +127,13 @@ identity_providers:
           - "profile"
           - "groups"
           - "email"
-        require_pkce: true
-        pkce_challenge_method: "S256"
         redirect_uris:
           - "https://actual.${SECRET_DOMAIN}/openid/callback"
         response_types:
           - "code"
         grant_types:
           - "authorization_code"
+        userinfo_signing_algorithm: none
       - client_name: Mealie
         client_id: mealie
         client_secret: "${MEALIE_OIDC_CLIENT_SECRET}"
