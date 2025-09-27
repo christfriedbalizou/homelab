@@ -177,11 +177,13 @@ identity_providers:
         public: false
         authorization_policy: one_factor
         pre_configured_consent_duration: 1y
+        require_pkce: true
+        pkce_challenge_method: "S256"
         scopes:
           - "openid"
           - "profile"
           - "groups"
           - "email"
         redirect_uris:
-          - "http://192.168.1.109:3000/auth/callback"
+          - "http://localhost:3000/auth/callback"
         userinfo_signing_algorithm: none
