@@ -12,7 +12,7 @@ subjects:
     name: system-upgrade
     namespace: system-upgrade
 ---
-apiVersion: v1
+apiVersion: talos.dev/v1alpha1
 kind: ServiceAccount
 metadata:
   name: talos
