@@ -6,14 +6,9 @@ metadata:
   namespace: media
 spec:
   interval: 10m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   maxHistory: 3
   install:
     createNamespace: true
@@ -40,7 +35,7 @@ spec:
           main:
             image:
               repository: huntarr/huntarr
-              tag: 8.1.11@sha256:06e39589254837642936300211b3b514a47b2ffd5caba22650583120b05dc34d
+              tag: 8.2.10@sha256:b5a47c2b43806165f433d308d69a21e74a687ce59f4fcccb612d6a7acb3af6d7
             env:
               TZ: ${TIMEZONE}
             resources:
@@ -73,13 +68,11 @@ spec:
                 service:
                   identifier: main
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: huntarr-production-tls
     persistence:
       config:
         enabled: true
-        existingClaim: apps-media
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/media
         globalMounts:
           - subPath: huntarr

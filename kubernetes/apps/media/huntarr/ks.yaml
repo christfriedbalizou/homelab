@@ -2,21 +2,38 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: cluster-apps-huntarr
-  namespace: flux-system
+  name: &app huntarr
+  namespace: &namespace media
   labels:
-    substitution.flux.home.arpa/enabled: "true"
 spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   path: ./kubernetes/apps/media/huntarr/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+    namespace: flux-system
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
-      name: &app huntarr
-      namespace: &namespace media
+      name: *app
+      namespace: *namespace
   interval: 30m
   retryInterval: 1m
   timeout: 3m
+  targetNamespace: media
+  postBuild:
+    substitute:
+      APP: *app
+      NAMESPACE: *namespace
+    substituteFrom:
+      - kind: Secret
+        name: cluster-secrets
+      - kind: ConfigMap
+        name: cluster-settings
