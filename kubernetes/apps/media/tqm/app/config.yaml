@@ -13,11 +13,6 @@ filters:
     MapHardlinksFor:
       - retag
 
-    ignore:
-      - IsTrackerDown()
-      - Downloaded == false && !IsUnregistered()
-      - SeedingHours < 26 && !IsUnregistered()
-
     remove:
       - IsUnregistered()
       - (
@@ -72,4 +67,4 @@ filters:
       - { name: site:ULCX,    update: ['TrackerName == "upload.cx"'] }
       - { name: tracker-down, update: ['IsTrackerDown()'] }
       - { name: unregistered, update: ['IsUnregistered()'] }
-      - { name: stalled,      update: ['StatusName.RegexMatchAny("(?i)stalled|metadata")'] }
+      - { name: stalled,      update: ['State in ["stalledDL", "metaDL"]'] }
