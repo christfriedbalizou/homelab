@@ -37,6 +37,7 @@ filters:
           SeedingDays > 24
         )
       - HasAnyTag("not-linked") && SeedingDays > 24
+      - HasAnyTag("stalled") && HasAnyTag("added:14d", "added:30d", "added:180d")
 
     tag:
       - { name: added:1d,     update: ['AddedDays < 7'] }
@@ -71,3 +72,4 @@ filters:
       - { name: site:ULCX,    update: ['TrackerName == "upload.cx"'] }
       - { name: tracker-down, update: ['IsTrackerDown()'] }
       - { name: unregistered, update: ['IsUnregistered()'] }
+      - { name: stalled,      update: ['StatusName.RegexMatchAny("(?i)stalled|metadata")'] }
