@@ -22,4 +22,3 @@ resources:
   - ./tqm/ks.yaml
   - ./janitorr/ks.yaml
   - ./bazarr/ks.yaml
-  - ./huntarr/ks.yaml
