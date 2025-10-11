@@ -190,4 +190,5 @@ identity_providers:
           - "email"
         redirect_uris:
           - "http://localhost:3000/auth/callback"
+          - https://laughing-lamp-6pqrw4p447h5vqr-3000.app.github.dev/auth/callback
         userinfo_signing_algorithm: none
