@@ -32,7 +32,7 @@ filters:
           SeedingDays > 24
         )
       - HasAnyTag("not-linked") && SeedingDays > 24
-      - HasAnyTag("stalled") && HasAnyTag("added:14d", "added:30d", "added:180d")
+      - HasAnyTag("stalled") && HasAnyTag("added:7d", "added:14d", "added:30d", "added:180d")
 
     tag:
       - { name: added:1d,     update: ['AddedDays < 7'] }
