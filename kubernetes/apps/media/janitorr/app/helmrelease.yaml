@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: ghcr.io/schaka/janitorr
-              tag: 1.7.3@sha256:82a90b25a2b946ebc09bbcf9f9d84892144b34f60de3dbafe8d7e627707f5d9f
+              tag: 1.7.3
             resources:
               requests:
                 cpu: 100m
