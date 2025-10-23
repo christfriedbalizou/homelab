@@ -45,7 +45,7 @@ spec:
           app:
             image:
               repository: ghcr.io/n8n-io/n8n
-              tag: 1.111.0@sha256:8c99deed73dbb7f7b32c49f328015fe8322129a9dcf0459a10c4398af255083f
+              tag: 1.117.0@sha256:7b0d7d7499b2d0a472364b772267f9807a6c445753537435c51eb7736399a3b4
             env:
               # Timezone and localization environment variables
               GENERIC_TIMEZONE: "${TIMEZONE}"
