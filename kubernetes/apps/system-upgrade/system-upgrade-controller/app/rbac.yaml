@@ -9,13 +9,13 @@ roleRef:
   name: cluster-admin
 subjects:
   - kind: ServiceAccount
-    name: talos
+    name: system-upgrade
     namespace: system-upgrade
 ---
 apiVersion: talos.dev/v1alpha1
 kind: ServiceAccount
 metadata:
-  name: talos
+  name: system-upgrade
 spec:
   roles:
     - os:admin
