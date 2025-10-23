@@ -99,11 +99,19 @@ spec:
         globalMounts:
           - path: /media
             readOnly: true
-      cache:
+      tmpfs:
         type: emptyDir
-      transcode:
-        enabled: true
-        type: emptyDir
+        advancedMounts:
+          jellyfin:
+            app:
+              - path: /cache
+                subPath: cache
+              - path: /config/log
+                subPath: log
+              - path: /transcode
+                subPath: transcode
+              - path: /tmp
+                subPath: tmp
       dri:
         type: hostPath
         hostPath: /dev/dri
