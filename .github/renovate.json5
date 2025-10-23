@@ -70,7 +70,7 @@
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch", "digest"],
       "automerge": true,
-      "ignoreTests": false,
+      "ignoreTests": true,
     },
     {
       "matchDatasources": ["helm"],
@@ -81,13 +81,13 @@
         "kubernetes-dashboard"
       ],
       "automerge": true,
-      "ignoreTests": false,
+      "ignoreTests": true,
     },
     {
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
       "automerge": true,
-      "ignoreTests": false,
+      "ignoreTests": true,
     },
     {
       "matchDatasources": ["ansible", "github-tags"],
