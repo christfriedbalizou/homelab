@@ -44,7 +44,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_ADVANCED_CHANNEL: 11
               # frontend
               ZIGBEE2MQTT_CONFIG_FRONTEND_ENABLED: true
-              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee.${SECRET_DOMAIN}
+              ZIGBEE2MQTT_CONFIG_FRONTEND_URL: https://zigbee-v2.${SECRET_DOMAIN}
               # devices and groups
               ZIGBEE2MQTT_CONFIG_DEVICES: devices.yaml
               ZIGBEE2MQTT_CONFIG_GROUPS: groups.yaml
@@ -99,7 +99,7 @@ spec:
           hajimari.io/icon: "cbi:zigbee2mqtt"
         className: internal
         hosts:
-          - host: zigbee.${SECRET_DOMAIN}
+          - host: zigbee-v2.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
