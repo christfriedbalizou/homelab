@@ -112,4 +112,4 @@ spec:
         server: ${NFS_SERVER}
         path: /volume1/apps/home-automation
         globalMounts:
-          - subPath: zigbee2mqtt
+          - subPath: zigbee2mqtt-v2
