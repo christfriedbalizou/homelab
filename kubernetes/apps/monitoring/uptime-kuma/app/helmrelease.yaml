@@ -42,9 +42,12 @@ spec:
     persistence:
       data:
         enabled: true
-        type: emptyDir
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/monitoring
         globalMounts:
-            - path: /app/data
+          - subPath: uptime-kuma
+            path: /app/data
 
     ingress:
       main:
