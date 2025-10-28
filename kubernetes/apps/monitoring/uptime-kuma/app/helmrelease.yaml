@@ -17,15 +17,22 @@ spec:
         containers:
           app:
             image:
-              repository: louislam/uptime-kuma
-              tag: 2.0.2
+              repository: ghcr.io/louislam/uptime-kuma:2.0.2
+              tag: 2.0.2@sha256:4c364ef96aaddac7ec4c85f5e5f31c3394d35f631381ccbbf93f18fd26ac7cba
             env:
               TZ: "${TIMEZONE}"
               PGID: ${PGID}
               PUID: ${PUID}
+              UPTIME_KUMA_DB_TYPE: sqlite
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
+              runAsNonRoot: true
+              runAsUser: ${PUID}
+              runAsGroup: ${PGID}
+              fsGroup: ${PGID}
+              fsGroupChangePolicy: OnRootMismatch
+              seccompProfile: { type: RuntimeDefault }
             resources:
               requests:
                 cpu: 10m
