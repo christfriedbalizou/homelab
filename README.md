@@ -8,12 +8,10 @@
 </div> 
 <br />
 <div align="center">
-[![Talos](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/talos_version.svg)](https://talos.dev/)
-&nbsp;
-[![Flux](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/flux_version.svg)](https://fluxcd.io/)
-&nbsp;
-[![kubernetes](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/kubernetes_version.svg)](https://k3s.io/) &nbsp;
-[![GitHub last commit](https://img.shields.io/github/last-commit/christfriedbalizou/homelab?color=purple&style=for-the-badge)](https://github.com/christfriedbalizou/homelab/commits/main) &nbsp;
+[![Talos](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/talos_version.svg)](https://talos.dev/)&nbsp;
+[![Flux](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/flux_version.svg)](https://fluxcd.io/)&nbsp;
+[![kubernetes](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/kubernetes_version.svg)](https://k3s.io/)&nbsp;
+[![GitHub last commit](https://img.shields.io/github/last-commit/christfriedbalizou/homelab?color=purple&style=for-the-badge)](https://github.com/christfriedbalizou/homelab/commits/main)&nbsp;
 ![GitHub Release](https://img.shields.io/github/release/christfriedbalizou/homelab?style=for-the-badge&logo=dependabot)
 
 
@@ -22,7 +20,6 @@
 [![Pod-Count](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/cluster_pod_count.svg)](https://github.com/kashalls/kromgo/)&nbsp;
 [![CPU-Usage](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/cluster_cpu_usage.svg)](https://github.com/kashalls/kromgo/)&nbsp;
 [![Memory-Usage](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/cluster_memory_usage.svg)](https://github.com/kashalls/kromgo/)&nbsp;
-
 </div>
 
 ---
