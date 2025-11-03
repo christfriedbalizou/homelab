@@ -8,8 +8,11 @@
 </div> 
 <br />
 <div align="center">
-  
-[![kubernetes](https://img.shields.io/badge/dynamic/yaml?url=https://raw.githubusercontent.com/christfriedbalizou/homelab/main/talos/talenv.yaml&query=$.kubernetesVersion&style=for-the-badge&logo=kubernetes&logoColor=white&label=Kubernetes)](https://k3s.io/) &nbsp;
+[![Talos](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/talos_version.svg)](https://talos.dev/)
+&nbsp;
+[![Flux](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/flux_version.svg)](https://fluxcd.io/)
+&nbsp;
+[![kubernetes](https://raw.githubusercontent.com/ChristfriedBalizou/homelab/refs/heads/main/kromgo/kubernetes_version.svg)](https://k3s.io/) &nbsp;
 [![GitHub last commit](https://img.shields.io/github/last-commit/christfriedbalizou/homelab?color=purple&style=for-the-badge)](https://github.com/christfriedbalizou/homelab/commits/main) &nbsp;
 ![GitHub Release](https://img.shields.io/github/release/christfriedbalizou/homelab?style=for-the-badge&logo=dependabot)
 

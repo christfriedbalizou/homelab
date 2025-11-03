@@ -37,6 +37,9 @@ if __name__ == "__main__":
         "cluster_cpu_usage",
         "cluster_memory_usage",
         "cluster_uptime_days",
+        "talos_version",
+        "kubernetes_version",
+        "flux_version",
     ]:
         try:
             download_svg(tag)
