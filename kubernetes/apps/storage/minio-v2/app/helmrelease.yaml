@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: minio
+  name: minio-v2
   namespace: storage
 spec:
   interval: 30m
@@ -19,18 +19,13 @@ spec:
         containers:
           main:
             image:
-              repository: quay.io/minio/minio
-              tag: RELEASE.2024-01-29T03-56-32Z
-            args:
-              - server
-              - /data
-              - --console-address
-              - :9001
+              repository: ghcr.io/christfriedbalizou/minio
+              tag: 2025.11.8@sha256:806cdf7329ffcbad4851bc81be0596ea197fb0c520e6f327e44668e76ecd28d0
             env:
               TZ: ${TIMEZONE}
               MINIO_ROOT_USER: ${SECRET_GRAFANA_ADMIN_USER}
               MINIO_ROOT_PASSWORD: ${SECRET_GRAFANA_ADMIN_PASSWORD}
-              MINIO_PROMETHEUS_JOB_ID: "scrapeConfig/monitoring/minio"
+              MINIO_PROMETHEUS_JOB_ID: "scrapeConfig/monitoring/minio-v2"
               MINIO_PROMETHEUS_AUTH_TYPE: "public"
               MINIO_PROMETHEUS_URL: "http://prometheus-operated.monitoring.svc.cluster.local:9090"
             resources:
@@ -53,7 +48,7 @@ spec:
     serviceMonitor:
       main:
         enabled: true
-        serviceName: minio
+        serviceName: minio-v2
         endpoints:
           - port: s3
             scheme: http
@@ -71,13 +66,13 @@ spec:
           hajimari.io/icon: "mdi:pail"
           hajimari.io/group: "Storage"
         hosts:
-          - host: "minio.${SECRET_DOMAIN}"
+          - host: "minio-v2.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: main
                   port: http
-          - host: "s3.${SECRET_DOMAIN}"
+          - host: "s3-v2.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -91,5 +86,5 @@ spec:
         server: ${NFS_SERVER}
         path: /volume1/apps/storage
         globalMounts:
-          - subPath: minio
+          - subPath: minio-v2
             path: /data
