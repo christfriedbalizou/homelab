@@ -61,7 +61,7 @@ spec:
           main:
             image:
               repository: ghcr.io/authelia/authelia
-              tag: master@sha256:16841e7a62f4b320b4c179e53455825e8ecf7676359db44a8d8de4807eba3403
+              tag: master@sha256:5d6d27d4976058b8f24bebdd526160b5c4f373da1013776e7dd1e441ed80a96b
             args: ["--config", "/config/configuration.yaml", "--config.experimental.filters", "expand-env"]
             env:
               AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_GROUPS_DN: ou=groups
