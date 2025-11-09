@@ -20,7 +20,7 @@ spec:
           main:
             image:
               repository: ghcr.io/christfriedbalizou/minio
-              tag: 2025.11.8@sha256:806cdf7329ffcbad4851bc81be0596ea197fb0c520e6f327e44668e76ecd28d0
+              tag: 2025.11.9@sha256:1c6cef9f114461c3c8adb12d7572711183346fabdc0fc7c5419745f3d6d819fa
             env:
               TZ: ${TIMEZONE}
               MINIO_ROOT_USER: ${SECRET_GRAFANA_ADMIN_USER}
