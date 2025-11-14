@@ -62,7 +62,7 @@ spec:
         path: /volume1/apps/default
         globalMounts:
           - subPath: autotranslate
-            path: /inputDir
+            path: /outputDir
 
       consume:
         type: nfs
@@ -70,4 +70,4 @@ spec:
         path: /volume1/media
         globalMounts:
           - subPath: autotranslate
-            path: /outputDir
+            path: /inputDir
