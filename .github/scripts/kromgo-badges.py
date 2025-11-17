@@ -48,7 +48,7 @@ if __name__ == "__main__":
 
     if metrics_output:
         export_path = "./kromgo/metrics.yaml"
-        payload = { "metrics": metrics_output }
+        payload = {"metrics": metrics_output}
         with open(export_path, "w", encoding="utf-8") as yaml_file:
             yaml.safe_dump(payload, yaml_file, sort_keys=False)
         print(f"Metrics saved to {export_path}", file=sys.stdout)
