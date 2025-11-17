@@ -3,7 +3,7 @@ name: "Download kromgo badges"
 
 on:
   workflow_dispatch:
-  schedule: 
+  schedule:
     - cron: "0 */6 * * *"
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
 
       - name: Install Python Requirements
         shell: bash
-        run: pip install requests==2.32.3
+        run: pip install requests==2.32.3 pyyaml==6.0
 
       - name: Download kromgo badges
         env:
