@@ -22,9 +22,6 @@
 [![CPU-Usage](https://img.shields.io/badge/dynamic/yaml?label=CPU-Usage&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_cpu_usage.message&queryColor=%24.metrics.cluster_cpu_usage.color&style=for-the-badge&logo=cpu&logoColor=white&color=yellow)](https://github.com/kashalls/kromgo/)&nbsp;
 [![Memory-Usage](https://img.shields.io/badge/dynamic/yaml?label=Memory-Usage&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_memory_usage.message&queryColor=%24.metrics.cluster_memory_usage.color&style=for-the-badge&logo=memory&logoColor=white&color=yellowgreen)](https://github.com/kashalls/kromgo/)&nbsp;
 
-[![GitHub last commit](https://img.shields.io/github/last-commit/christfriedbalizou/homelab?color=purple&style=for-the-badge)](https://github.com/christfriedbalizou/homelab/commits/main)&nbsp;
-![GitHub Release](https://img.shields.io/github/release/christfriedbalizou/homelab?style=for-the-badge&logo=dependabot)
-
 </div>
 
 ## :telescope:&nbsp; Overview
