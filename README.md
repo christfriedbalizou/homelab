@@ -1,34 +1,33 @@
-<div align="center">
-  <img src="https://raspbernetes.github.io/img/logo.svg">
-  <br /> <br />
+# Homelab
 
-  ### My Home Operations Repository
-  _... managed by Flux, Renovate, and GitHub Actions_ 🤖
+<div align=center>
 
-</div>
+![Homelab logo](https://raspbernetes.github.io/img/logo.svg)
 
-<br />
+[![Talos](https://img.shields.io/badge/dynamic/yaml?label=Talos&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.talos_version.message&queryColor=%24.metrics.talos_version.color&style=for-the-badge&logo=talos&logoColor=white&color=blue)](https://talos.dev/)
+[![Flux](https://img.shields.io/badge/dynamic/yaml?label=Flux&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.flux_version.message&queryColor=%24.metrics.flux_version.color&style=for-the-badge&logo=flux&logoColor=white&color=1aaaed)](https://fluxcd.io/)
+[![Kubernetes](https://img.shields.io/badge/dynamic/yaml?label=Kubernetes&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.kubernetes_version.message&queryColor=%24.metrics.kubernetes_version.color&style=for-the-badge&logo=kubernetes&logoColor=white&color=326ce5)](https://k3s.io/)
 
-<div align="center">
-
-[![Talos](https://img.shields.io/badge/dynamic/yaml?label=Talos&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.talos_version.message&queryColor=%24.metrics.talos_version.color&style=for-the-badge&logo=talos&logoColor=white&color=blue)](https://talos.dev/)&nbsp;
-[![Flux](https://img.shields.io/badge/dynamic/yaml?label=Flux&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.flux_version.message&queryColor=%24.metrics.flux_version.color&style=for-the-badge&logo=flux&logoColor=white&color=1aaaed)](https://fluxcd.io/)&nbsp;
-[![kubernetes](https://img.shields.io/badge/dynamic/yaml?label=Kubernetes&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.kubernetes_version.message&queryColor=%24.metrics.kubernetes_version.color&style=for-the-badge&logo=kubernetes&logoColor=white&color=326ce5)](https://k3s.io/)&nbsp;
-
-
-[![Age-Days](https://img.shields.io/badge/dynamic/yaml?label=Age-Days&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_age_days.message&queryColor=%24.metrics.cluster_age_days.color&style=for-the-badge&logo=clock&logoColor=white&color=orange)](https://github.com/kashalls/kromgo/)&nbsp;
-[![Node-Count](https://img.shields.io/badge/dynamic/yaml?label=Node-Count&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_node_count.message&queryColor=%24.metrics.cluster_node_count.color&style=for-the-badge&logo=server&logoColor=white&color=purple)](https://github.com/kashalls/kromgo/)&nbsp;
-[![Pod-Count](https://img.shields.io/badge/dynamic/yaml?label=Pod-Count&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_pod_count.message&queryColor=%24.metrics.cluster_pod_count.color&style=for-the-badge&logo=podcast&logoColor=white&color=informational)](https://github.com/kashalls/kromgo/)&nbsp;
-[![CPU-Usage](https://img.shields.io/badge/dynamic/yaml?label=CPU-Usage&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_cpu_usage.message&queryColor=%24.metrics.cluster_cpu_usage.color&style=for-the-badge&logo=cpu&logoColor=white&color=yellow)](https://github.com/kashalls/kromgo/)&nbsp;
-[![Memory-Usage](https://img.shields.io/badge/dynamic/yaml?label=Memory-Usage&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_memory_usage.message&queryColor=%24.metrics.cluster_memory_usage.color&style=for-the-badge&logo=memory&logoColor=white&color=yellowgreen)](https://github.com/kashalls/kromgo/)&nbsp;
+[![Age-Days](https://img.shields.io/badge/dynamic/yaml?label=Age-Days&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_age_days.message&queryColor=%24.metrics.cluster_age_days.color&style=for-the-badge&logo=clock&logoColor=white&color=orange)](https://github.com/kashalls/kromgo/)
+[![Node-Count](https://img.shields.io/badge/dynamic/yaml?label=Node-Count&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_node_count.message&queryColor=%24.metrics.cluster_node_count.color&style=for-the-badge&logo=server&logoColor=white&color=purple)](https://github.com/kashalls/kromgo/)
+[![Pod-Count](https://img.shields.io/badge/dynamic/yaml?label=Pod-Count&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_pod_count.message&queryColor=%24.metrics.cluster_pod_count.color&style=for-the-badge&logo=podcast&logoColor=white&color=informational)](https://github.com/kashalls/kromgo/)
+[![CPU-Usage](https://img.shields.io/badge/dynamic/yaml?label=CPU-Usage&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_cpu_usage.message&queryColor=%24.metrics.cluster_cpu_usage.color&style=for-the-badge&logo=cpu&logoColor=white&color=yellow)](https://github.com/kashalls/kromgo/)
+[![Memory-Usage](https://img.shields.io/badge/dynamic/yaml?label=Memory-Usage&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_memory_usage.message&queryColor=%24.metrics.cluster_memory_usage.color&style=for-the-badge&logo=memory&logoColor=white&color=yellowgreen)](https://github.com/kashalls/kromgo/)
 
 </div>
 
-## :telescope:&nbsp; Overview
+> Homelab is my fully self-hosted control plane, storage, and automation repository. Every manifest and script in this collection is designed to run on hardware I own, with minimal reliance on public cloud services and maximal control over the entire stack.
 
-This repo is my home Kubernetes cluster declared using yaml files and contains everything I use to setup my cluster. The Kubernetes flavor I use is [k3s](https://k3s.io) to keep the size to a minimum. I use [Flux](https://fluxcd.io) to watch this repo and deploy any changes I push here. Each folder represents a different namespace. Visit my [ansible](ansible/) to see how I setup my cluster.
 
-## :computer:&nbsp; Hardware
+## :telescope:&nbsp; Self-hosted Overview
+
+This repo captures a fully self-hosted home operations platform. Every YAML definition you find here (from `ansible/` through `kubernetes/` and `flux/`) exists to declare:
+
+- **Secure cluster bootstrapping** via `ansible/` playbooks that install Talos, configure Authelia, and wire up storage nodes.
+- **GitOps-driven workloads** with Flux watching the `kubernetes/` tree so my services deploy automatically on push.
+- **Monitoring and observability** inside a private `kromgo` instance that polls Prometheus and feeds dynamic Shields badges.
+
+## :computer:&nbsp; Hardware Surface
 
 | Device              | Count | Memory    | Role               | Storage                               |
 |:-------------------:|:-----:|:---------:|:------------------:|:-------------------------------------:|
@@ -39,7 +38,7 @@ This repo is my home Kubernetes cluster declared using yaml files and contains e
 | Ιntel Celeron J4125 |   1   |  8GB DDR4 |   K3s worker       |    128GB M.2 SSD                      |
 | Synology NAS DS423+ |   1   |  2GB DDR4 |   Main storage     | 56TB(2x12TB + 2x16TB) SHR + 4TB cache |
 
-And some standby Rasbpberry Pi's 4B awaiting resurection when needed!
+Raspberry Pi 4B units remain on the shelf ready to join the self-hosted fabric if more capacity or ARM testing is needed.
 
 ## :handshake:&nbsp; Thanks
 
