@@ -19,7 +19,7 @@
 > Homelab is my fully self-hosted control plane, storage, and automation repository. Every manifest and script in this collection is designed to run on hardware I own, with minimal reliance on public cloud services and maximal control over the entire stack.
 
 
-## :telescope:&nbsp; Self-hosted Overview
+## :telescope:&nbsp; Overview
 
 This repo captures a fully self-hosted home operations platform. Every YAML definition you find here (from `ansible/` through `kubernetes/` and `flux/`) exists to declare:
 
