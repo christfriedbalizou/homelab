@@ -27,8 +27,6 @@ spec:
   retryInterval: 1m
   targetNamespace: monitoring
   postBuild:
-    substitute:
-      APP: gatus
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
