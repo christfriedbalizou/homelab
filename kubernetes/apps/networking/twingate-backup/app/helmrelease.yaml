@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: connector
-      version: 0.1.31
+      version: 0.1.32
       sourceRef:
         kind: HelmRepository
         name: twingate
