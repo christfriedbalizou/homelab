@@ -46,7 +46,7 @@ spec:
             restartPolicy: Always
             resources: &resources
               requests:
-                cpu: 10m
+                cpu: 100m
               limits:
                 memory: 256Mi
         containers:
@@ -77,7 +77,7 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+              capabilities: { add: ["NET_RAW"], drop: ["ALL"] }
             resources: *resources
     defaultPodOptions:
       dnsConfig:
@@ -126,21 +126,26 @@ spec:
     serviceAccount:
       gatus: {}
     rbac:
-      bindings:
-        gatus:
-          roleRef:
-            kind: ClusterRole
-            name: gatus
-          subjects:
-            - identifier: gatus
-          type: ClusterRoleBinding
       roles:
         gatus:
-          rules:
-            - apiGroups: [""]
-              resources: ["configmaps", "secrets"]
-              verbs: ["get", "watch", "list"]
           type: ClusterRole
+          rules:
+            - apiGroups:
+                - ""
+              resources:
+                - configmaps
+                - secrets
+              verbs:
+                - get
+                - watch
+                - list
+      bindings:
+        gatus:
+          type: ClusterRoleBinding
+          roleRef:
+            identifier: gatus
+          subjects:
+            - identifier: gatus
     persistence:
       config:
         type: emptyDir
