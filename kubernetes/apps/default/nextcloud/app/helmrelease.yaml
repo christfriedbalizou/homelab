@@ -47,7 +47,7 @@ spec:
         - name: REDIS_HOST
           value: dragonfly.storage.svc.cluster.local
         - name: REDIS_HOST_PORT
-          value: 6379
+          value: "6379"
         - name: INIT_POSTGRES_HOST
           value: postgres-lb.storage.svc.cluster.local
         - name: INIT_POSTGRES_DBNAME
