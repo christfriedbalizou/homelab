@@ -48,12 +48,7 @@ spec:
           value: dragonfly.storage.svc.cluster.local
         - name: REDIS_HOST_PORT
           value: "6379"
-        - name: INIT_POSTGRES_HOST
-          value: postgres-lb.storage.svc.cluster.local
-        - name: INIT_POSTGRES_DBNAME
-          value: *app
-        - name: INIT_POSTGRES_SUPER_PASS
-          value: "${POSTGRES_SUPER_PASS}"
+
         - name: OIDC_CLIENT_ID
           value: *app
         - name: OIDC_CLIENT_SECRET
