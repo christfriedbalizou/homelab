@@ -64,7 +64,6 @@ spec:
         fromAddress: noreply
         domain: ${SECRET_DOMAIN}
         smtp:
-          host: smtp-relay.networking.svc.cluster.local
           port : ${SMTP_RELAY_PORT}
           secure:
           authtype:
