@@ -127,9 +127,6 @@ spec:
           password:
 
       podSecurityContext:
-        fsGroup: ${PGID}
-        runAsUser: ${PUID}
-        runAsGroup: ${PGID}
         fsGroupChangePolicy: OnRootMismatch
 
       objectStorage:
@@ -155,10 +152,11 @@ spec:
           max_input_time = 3600
           max_execution_time = 3600
           default_phone_region = ${TIMEZONE}
+
         www.conf: |
           [www]
-          user = ${PUID}
-          group = ${PGID}
+          user = www-data
+          group = www-data
           listen = 127.0.0.1:9000
           pm = dynamic
           pm.max_children = 57
