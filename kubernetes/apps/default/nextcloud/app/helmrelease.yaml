@@ -13,8 +13,8 @@ spec:
       reloader.stakater.com/auto: "true"
 
     image:
-      flavor: fpm-alpine
-      tag: 32.0.2@sha256:3244153c0415cf231c570a19b4a42c2477554c2efefb5412fe0af791255715b4
+      flavor: apache
+      tag: 32.0.2@sha256:8cb1dc8c26944115469dd22f4965d2ed35bab9cf8c48d2bb052c8e9f83821ded
 
     livenessProbe:
       enabled: false
