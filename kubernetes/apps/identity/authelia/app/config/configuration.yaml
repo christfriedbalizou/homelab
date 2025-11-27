@@ -50,6 +50,11 @@ access_control:
       subject:
         - ["group:admin"]
 
+definitions:
+  user_attributes:
+    is_admin:
+      expression: '"admin" in groups'
+
 identity_providers:
   oidc:
     cors:
@@ -192,3 +197,24 @@ identity_providers:
           - "http://localhost:3000/auth/callback"
           - https://laughing-lamp-6pqrw4p447h5vqr-3000.app.github.dev/auth/callback
         userinfo_signing_algorithm: none
+      - client_id: nextcloud
+        client_name: Nextcloud
+        client_secret: '${LEDGERLINK_OIDC_CLIENT_SECRET}'
+        public: false
+        authorization_policy: two_factor
+        require_pkce: true
+        pkce_challenge_method: S256
+        redirect_uris:
+          - https://nextcloud.${SECRET_DOMAIN}/apps/oidc_login/oidc
+        scopes:
+          - openid
+          - profile
+          - email
+          - groups
+        response_types:
+          - code
+        grant_types:
+          - authorization_code
+        access_token_signed_response_alg: none
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_basic

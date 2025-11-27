@@ -17,3 +17,4 @@ resources:
   - ./n8n/ks.yaml
   - ./thelounge/ks.yaml
   - ./memos/ks.yaml
+  - ./nextcloud/ks.yaml

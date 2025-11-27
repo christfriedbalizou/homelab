@@ -1,0 +1,258 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app nextcloud
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: nextcloud
+  values:
+    deploymentAnnotations:
+      reloader.stakater.com/auto: "true"
+
+    image:
+      flavor: fpm-alpine
+
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
+    startupProbe:
+      enabled: false
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 363Mi
+      limits:
+        memory: 512Mi
+
+    nextcloud:
+      host: nextcloud.${SECRET_DOMAIN}
+
+      extraInitContainers:
+        - name: init-db
+          image: ghcr.io/home-operations/postgres-init:18
+          envFrom:
+            - secretRef:
+                name: nextcloud-secret
+
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secret
+
+      extraEnv:
+        - name: REDIS_HOST
+          value: dragonfly.storage.svc.cluster.local
+        - name: REDIS_HOST_PORT
+          value: 6379
+        - name: INIT_POSTGRES_HOST
+          value: postgres-lb.storage.svc.cluster.local
+        - name: INIT_POSTGRES_DBNAME
+          value: *app
+        - name: INIT_POSTGRES_SUPER_PASS
+          value: "${POSTGRES_SUPER_PASS}"
+        - name: OIDC_CLIENT_ID
+          value: *app
+        - name: OIDC_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: &secret nextcloud-secrets
+              key: OIDC_CLIENT_SECRET
+
+      datadir: /var/www/html/data
+
+      mail:
+        enabled: true
+        fromAddress: noreply
+        domain: ${SECRET_DOMAIN}
+        smtp:
+          host: smtp-relay.networking.svc.cluster.local
+          port : ${SMTP_RELAY_PORT}
+          secure:
+          authtype:
+          name:
+          password:
+
+      cronjob:
+        enabled: true
+
+      internalDatabase:
+        enabled: false
+
+      externalDatabase:
+        enabled: true
+        type: postgresql
+        existingSecret:
+          enabled: true
+          secretName: *secret
+          usernameKey: INIT_POSTGRES_USER
+          passwordKey: INIT_POSTGRES_PASSWORD
+          hostKey: INIT_POSTGRES_HOST
+          databaseKey: INIT_POSTGRES_DBNAME
+
+      podSecurityContext:
+        fsGroup: ${PGID}
+        runAsUser: ${PUID}
+        runAsGroup: ${PGID}
+        runAsNonRoot: true
+        readOnlyRootFilesystem: true
+
+      objectStorage:
+        s3:
+          enabled: true
+          bucket: nextcloud
+          host: minio.storage.svc.cluster.local
+          port: 9000
+          ssl: false
+          autoCreate: true
+          existingSecret: *secret
+          secretKeys:
+            accessKey: MINIO_ACCESS_KEY
+            secretKey: MINIO_SECRET_KEY
+
+      persistence:
+        enabled: true
+        existingClaim: nextcloud-apps
+
+      ingress:
+        enabled: true
+        path: /
+        pathType: Prefix
+        annotations:
+          external-dns.home.arpa/enabled: "true"
+          hajimari.io/enable: "true"
+          hajimari.io/group: Family
+          hajimari.io/icon: simple-icons:nextcloud
+          hajimari.io/info: File and Calendar server
+          nginx.ingress.kubernetes.io/proxy-body-size: 1G
+          nginx.ingress.kubernetes.io/server-snippet: |-
+            server_tokens off;
+            proxy_hide_header X-Powered-By;
+
+            rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
+            rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+            rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+            location = /.well-known/carddav {
+              return 301 $scheme://$host/remote.php/dav;
+            }
+            location = /.well-known/caldav {
+              return 301 $scheme://$host/remote.php/dav;
+            }
+            location = /robots.txt {
+              allow all;
+              log_not_found off;
+              access_log off;
+            }
+            location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+              deny all;
+            }
+            location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+              deny all;
+            }
+
+      defaultConfigs:
+        redis.config.php: false
+
+      phpConfigs:
+        uploadLimit.ini: |
+          upload_max_filesize = 1G
+          post_max_size = 1G
+          max_input_time = 3600
+          max_execution_time = 3600
+        www.conf: |
+          [www]
+          user = www-data
+          group = www-data
+          listen = 127.0.0.1:9000
+          pm = dynamic
+          pm.max_children = 50
+          pm.start_servers = 12
+          pm.min_spare_servers = 6
+          pm.max_spare_servers = 18
+          pm.max_requests = 500
+          pm.process_idle_timeout = 10s
+
+      configs:
+        redis.config.php: |-
+          <?php
+          $CONFIG = array (
+            'memcache.distributed' => '\OC\Memcache\Redis',
+            'memcache.locking' => '\OC\Memcache\Redis',
+            'redis' => array (
+              'host' => getenv('REDIS_HOST'),
+              'port' => getenv('REDIS_HOST_PORT'),
+              'dbindex' => 4,
+              'password' => '',
+            ),
+          );
+        local.config.php: |-
+          <?php
+          $CONFIG = array (
+            'trusted_proxies' => array (
+              0 => '127.0.0.1',
+              1 => '${K8S_CLUSTER_CIDR}',
+              2 => '${K8S_SERVICE_CIDR}',
+            ),
+            'forwarded_for_headers' => array (
+              0 => 'HTTP_X_FORWARDED_FOR',
+            ),
+            'default_phone_region' => '${TIMEZONE}',
+            'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN}',
+            'overwriteprotocol' => 'https',
+            'quota_include_external_storage' => 'false',
+            'skeletondirectory' => '',
+            'knowledgebaseenabled' => 'false',
+            'maintenance_window_start' => '20',
+            'enable_previews' => false,
+            'trashbin_retention_obligation' => 'auto, 30',
+            'auth.bruteforce.protection.enabled' => true,
+          );
+        gitops.config.php: |-
+          <?php
+          $CONFIG = array (
+            'appstoreenabled' => true,
+            'mail_domain' => '${SECRET_DOMAIN}',
+          );
+        bulkupload.config.php: |-
+          <?php
+          $CONFIG = array (
+            'bulkupload.enabled' => false,
+          );
+        oidc.config.php: |-
+          <?php
+          $CONFIG = array (
+            'allow_user_to_change_display_name' => false,
+            'lost_password_link' => 'disabled',
+            'oidc_login_provider_url' => 'https://auth.${SECRET_DOMAIN}',
+            'oidc_login_client_id' => 'nextcloud',
+            'oidc_login_client_secret' => getenv('OIDC_CLIENT_SECRET'),
+            'oidc_login_auto_redirect' => false,
+            'oidc_login_button_text' => 'Log in with Authelia',
+            'oidc_login_hide_password_form' => false,
+            'oidc_login_use_id_token' => false,
+            'oidc_login_attributes' => array(
+              'id' => 'preferred_username',
+              'name' => 'name',
+              'mail' => 'email',
+              'groups' => 'groups',
+              'is_admin' => 'is_admin',
+            ),
+            'oidc_login_default_group' => 'oidc',
+            'oidc_login_use_external_storage' => false,
+            'oidc_login_scope' => 'openid profile email groups',
+            'oidc_login_proxy_ldap' => false,
+            'oidc_login_disable_registration' => true,
+            'oidc_login_redir_fallback' => false,
+            'oidc_login_tls_verify' => true,
+            'oidc_create_groups' => false,
+            'oidc_login_webdav_enabled' => false,
+            'oidc_login_password_authentication' => false,
+            'oidc_login_public_key_caching_time' => 86400,
+            'oidc_login_min_time_between_jwks_requests' => 10,
+            'oidc_login_well_known_caching_time' => 86400,
+            'oidc_login_update_avatar' => false,
+            'oidc_login_code_challenge_method' => 'S256',
+          );
