@@ -31,10 +31,8 @@ spec:
         memory: 512Mi
 
     persistence:
-      enabled: false
-      nextcloudData:
-        enabled: true
-        existingClaim: nextcloud-apps
+      enabled: true
+      existingClaim: nextcloud-apps
 
     cronjob:
       enabled: true
