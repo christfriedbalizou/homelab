@@ -103,6 +103,10 @@ spec:
         secretName: *secret
 
       extraEnv:
+        - name: PUID
+          value: '${PUID}'
+        - name: PGID
+          value: '${PGID}'
         - name: REDIS_HOST
           value: dragonfly.storage.svc.cluster.local
         - name: OIDC_CLIENT_ID
@@ -127,7 +131,13 @@ spec:
           password:
 
       podSecurityContext:
-        fsGroupChangePolicy: OnRootMismatch
+        runAsNonRoot: true
+        fsGroup: 65534
+        runAsUser: 65534
+        runAsGroup: 65534
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities: { drop: ["ALL"] }
 
       objectStorage:
         s3:
@@ -152,18 +162,6 @@ spec:
           max_input_time = 3600
           max_execution_time = 3600
           default_phone_region = ${TIMEZONE}
-        www.conf: |
-          [www]
-          user = www-data
-          group = www-data
-          listen = 127.0.0.1:9000
-          pm = dynamic
-          pm.max_children = 57
-          pm.start_servers = 14
-          pm.min_spare_servers = 14
-          pm.max_spare_servers = 42
-          pm.max_requests = 500
-          pm.process_idle_timeout = 10s
 
       configs:
         redis.config.php: |-
