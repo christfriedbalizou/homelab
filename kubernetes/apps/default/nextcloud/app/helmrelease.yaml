@@ -153,18 +153,7 @@ spec:
           post_max_size = 1G
           max_input_time = 3600
           max_execution_time = 3600
-        www.conf: |
-          [www]
-          user = www-data
-          group = www-data
-          listen = 127.0.0.1:9000
-          pm = dynamic
-          pm.max_children = 50
-          pm.start_servers = 12
-          pm.min_spare_servers = 6
-          pm.max_spare_servers = 18
-          pm.max_requests = 500
-          pm.process_idle_timeout = 10s
+          default_phone_region = ${TIMEZONE}
 
       configs:
         redis.config.php: |-
@@ -190,7 +179,6 @@ spec:
             'forwarded_for_headers' => array (
               0 => 'HTTP_X_FORWARDED_FOR',
             ),
-            'default_phone_region' => '${TIMEZONE}',
             'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN}',
             'overwriteprotocol' => 'https',
             'quota_include_external_storage' => 'false',
