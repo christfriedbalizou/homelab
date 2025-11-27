@@ -167,13 +167,17 @@ spec:
           hajimari.io/group: "Authentication"
           hajimari.io/icon: mdi:shield-account
         hosts:
-          - host: auth.${SECRET_DOMAIN}
+          - host: &host auth.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
                 service:
                   identifier: main
                   port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: authelia-production-tls
     persistence:
       config:
         enabled: true

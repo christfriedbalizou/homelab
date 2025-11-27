@@ -101,13 +101,17 @@ spec:
           hajimari.io/group: "Authentication"
           hajimari.io/icon: "mdi:dictionary"
         hosts:
-          - host: "lldap.${SECRET_DOMAIN}"
+          - host: &host "lldap.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
                 service:
                   identifier: main
                   port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: lldap-production-tls
     persistence:
       data:
         enabled: true
