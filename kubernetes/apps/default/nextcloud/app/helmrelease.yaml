@@ -14,6 +14,7 @@ spec:
 
     image:
       flavor: fpm-alpine
+      tag: 32.0.2@sha256:3244153c0415cf231c570a19b4a42c2477554c2efefb5412fe0af791255715b4
 
     livenessProbe:
       enabled: false
@@ -46,9 +47,6 @@ spec:
       extraEnv:
         - name: REDIS_HOST
           value: dragonfly.storage.svc.cluster.local
-        - name: REDIS_HOST_PORT
-          value: "6379"
-
         - name: OIDC_CLIENT_ID
           value: *app
         - name: OIDC_CLIENT_SECRET
@@ -177,7 +175,7 @@ spec:
             'memcache.locking' => '\OC\Memcache\Redis',
             'redis' => array (
               'host' => getenv('REDIS_HOST'),
-              'port' => getenv('REDIS_HOST_PORT'),
+              'port' => 6379,
               'dbindex' => 4,
               'password' => '',
             ),
