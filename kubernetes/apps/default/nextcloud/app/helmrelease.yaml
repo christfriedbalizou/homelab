@@ -30,6 +30,12 @@ spec:
       limits:
         memory: 512Mi
 
+    persistence:
+      enabled: false
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-apps
+
     nextcloud:
       host: nextcloud.${SECRET_DOMAIN}
 
@@ -100,10 +106,6 @@ spec:
           secretKeys:
             accessKey: MINIO_ACCESS_KEY
             secretKey: MINIO_SECRET_KEY
-
-      persistence:
-        enabled: true
-        existingClaim: nextcloud-apps
 
       ingress:
         enabled: true
