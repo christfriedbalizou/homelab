@@ -86,11 +86,7 @@ spec:
           databaseKey: INIT_POSTGRES_DBNAME
 
       podSecurityContext:
-        fsGroup: ${PGID}
-        runAsUser: ${PUID}
-        runAsGroup: ${PGID}
-        runAsNonRoot: true
-        readOnlyRootFilesystem: true
+        fsGroupChangePolicy: OnRootMismatch
 
       objectStorage:
         s3:
