@@ -55,6 +55,7 @@ spec:
 
     ingress:
       enabled: true
+      className: external
       path: /
       pathType: Prefix
       annotations:
