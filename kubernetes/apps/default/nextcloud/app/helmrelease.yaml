@@ -37,11 +37,11 @@ spec:
           image: ghcr.io/home-operations/postgres-init:18
           envFrom:
             - secretRef:
-                name: nextcloud-secret
+                name: &secret nextcloud-secrets
 
       existingSecret:
         enabled: true
-        secretName: nextcloud-secret
+        secretName: *secret
 
       extraEnv:
         - name: REDIS_HOST
@@ -59,7 +59,7 @@ spec:
         - name: OIDC_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: &secret nextcloud-secrets
+              name: *secret
               key: OIDC_CLIENT_SECRET
 
       datadir: /var/www/html/data
