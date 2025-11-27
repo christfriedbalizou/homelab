@@ -81,7 +81,7 @@ spec:
           enabled: true
           secretName: *secret
           usernameKey: INIT_POSTGRES_USER
-          passwordKey: INIT_POSTGRES_PASSWORD
+          passwordKey: INIT_POSTGRES_PASS
           hostKey: INIT_POSTGRES_HOST
           databaseKey: INIT_POSTGRES_DBNAME
 
