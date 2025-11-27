@@ -56,16 +56,12 @@ spec:
           hajimari.io/icon: "simple-icons:postgresql"
           hajimari.io/group: "Storage"
         hosts:
-          - host: &host pgadmin.${SECRET_DOMAIN}
+          - host: pgadmin.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
                   identifier: main
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: pgadmin-production-tls
     persistence:
       config:
         enabled: true
