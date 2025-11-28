@@ -38,24 +38,6 @@ spec:
         subPath: data
         existingClaim: nextcloud-apps
 
-    extraVolumes:
-      - name: nextcloud-redis
-        emptyDir: {}
-      - name: nextcloud-storage
-        persistentVolumeClaim:
-          claimName: nextcloud-apps
-
-    extraVolumeMounts:
-      - name: nextcloud-redis
-        mountPath: /usr/local/etc/php/conf.d/redis-session.ini
-        subPath: redis-session.ini
-      - name: nextcloud-storage
-        mountPath: /var/www/html/custom_apps
-        subPath: custom_apps
-      - name: nextcloud-storage
-        mountPath: /var/www/html/config
-        subPath: config
-
     cronjob:
       enabled: true
       curlInsecure: true
@@ -131,6 +113,24 @@ spec:
             ./occ app:install oidc_login || ./occ app:enable oidc_login;
             ./occ db:add-missing-indices;
             /bin/true
+
+      extraVolumes:
+        - name: nextcloud-redis
+          emptyDir: {}
+        - name: nextcloud-storage
+          persistentVolumeClaim:
+            claimName: nextcloud-apps
+
+      extraVolumeMounts:
+        - name: nextcloud-redis
+          mountPath: /usr/local/etc/php/conf.d/redis-session.ini
+          subPath: redis-session.ini
+        - name: nextcloud-storage
+          mountPath: /var/www/html/custom_apps
+          subPath: custom_apps
+        - name: nextcloud-storage
+          mountPath: /var/www/html/config
+          subPath: config
 
       extraInitContainers:
         - name: init-db
