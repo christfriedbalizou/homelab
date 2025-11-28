@@ -122,6 +122,16 @@ spec:
     nextcloud:
       host: nextcloud.${SECRET_DOMAIN}
 
+      lifecycle:
+        postStartCommand:
+          - /bin/sh
+          - -c
+          - >-
+            cd /var/www/html;
+            ./occ app:install oidc_login || ./occ app:enable oidc_login;
+            ./occ db:add-missing-indices;
+            /bin/true
+
       extraInitContainers:
         - name: init-db
           image: ghcr.io/home-operations/postgres-init:18
