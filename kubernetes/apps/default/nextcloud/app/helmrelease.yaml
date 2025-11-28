@@ -31,20 +31,17 @@ spec:
         memory: 512Mi
 
     persistence:
-      enabled: true
-      existingClaim: nextcloud-apps
+      enabled: false
+
+      nextcloudData:
+        enabled: true
+        existingClaim: nextcloud-apps
 
     cronjob:
       enabled: true
       curlInsecure: true
       failedJobsHistoryLimit: 5
       successfulJobsHistoryLimit: 2
-      securityContext:
-        runAsUser: 33
-        runAsGroup: 33
-        runAsNonRoot: true
-        readOnlyRootFilesystem: true
-
 
     internalDatabase:
       enabled: false
@@ -136,11 +133,7 @@ spec:
           password:
 
       podSecurityContext:
-        fsGroup: 33
-        runAsUser: 33
-        runAsGroup: 33
-        runAsNonRoot: true
-        readOnlyRootFilesystem: false
+        fsGroupChangePolicy: OnRootMismatch
         capabilities:
           drop:
           - "ALL"
