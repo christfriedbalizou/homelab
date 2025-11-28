@@ -35,7 +35,21 @@ spec:
 
       nextcloudData:
         enabled: true
+        subPath: data
         existingClaim: nextcloud-apps
+
+    extraVolumes:
+      - name: nextcloud-storage
+        persistentVolumeClaim:
+          claimName: nextcloud-apps
+
+    extraVolumeMounts:
+      - name: nextcloud-storage
+        mountPath: /var/www/html/custom_apps
+        subPath: custom_apps
+      - name: nextcloud-storage
+        mountPath: /var/www/html/config
+        subPath: config
 
     cronjob:
       enabled: true
