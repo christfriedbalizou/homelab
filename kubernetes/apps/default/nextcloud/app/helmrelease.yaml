@@ -39,11 +39,16 @@ spec:
         existingClaim: nextcloud-apps
 
     extraVolumes:
+      - name: nextcloud-redis
+        emptyDir: {}
       - name: nextcloud-storage
         persistentVolumeClaim:
           claimName: nextcloud-apps
 
     extraVolumeMounts:
+      - name: nextcloud-redis
+        mountPath: /usr/local/etc/php/conf.d/redis-session.ini
+        subPath: redis-session.ini
       - name: nextcloud-storage
         mountPath: /var/www/html/custom_apps
         subPath: custom_apps
@@ -56,6 +61,12 @@ spec:
       curlInsecure: true
       failedJobsHistoryLimit: 5
       successfulJobsHistoryLimit: 2
+      securityContext:
+        runAsUser: 33
+        runAsGroup: 33
+        fsGroup: 33
+        runAsNonRoot: true
+        readOnlyRootFilesystem: true
 
     internalDatabase:
       enabled: false
@@ -117,6 +128,14 @@ spec:
           envFrom:
             - secretRef:
                 name: *secret
+        - name: init-redis
+          image: busybox:latest
+          command:
+            - touch
+            - /usr/local/etc/php/conf.d/redis-session.ini
+          volumeMounts:
+            - name: nextcloud-redis
+              mountPath: /usr/local/etc/php/conf.d/
 
       existingSecret:
         enabled: true
@@ -147,7 +166,11 @@ spec:
           password:
 
       podSecurityContext:
-        fsGroupChangePolicy: OnRootMismatch
+        runAsUser: 33
+        runAsGroup: 33
+        fsGroup: 33
+        runAsNonRoot: true
+        readOnlyRootFilesystem: false
         capabilities:
           drop:
           - "ALL"
