@@ -36,6 +36,15 @@ spec:
 
     cronjob:
       enabled: true
+      curlInsecure: true
+      failedJobsHistoryLimit: 5
+      successfulJobsHistoryLimit: 2
+      securityContext:
+        runAsUser: 33
+        runAsGroup: 33
+        runAsNonRoot: true
+        readOnlyRootFilesystem: true
+
 
     internalDatabase:
       enabled: false
@@ -127,10 +136,10 @@ spec:
           password:
 
       podSecurityContext:
-        runAsNonRoot: true
         fsGroup: 33
         runAsUser: 33
         runAsGroup: 33
+        runAsNonRoot: true
         readOnlyRootFilesystem: false
         capabilities:
           drop:
