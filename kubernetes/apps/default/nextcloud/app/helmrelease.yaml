@@ -31,12 +31,8 @@ spec:
         memory: 512Mi
 
     persistence:
-      enabled: false
-
-      nextcloudData:
-        enabled: true
-        subPath: data
-        existingClaim: nextcloud-apps
+      enabled: true
+      existingClaim: nextcloud-apps
 
     cronjob:
       enabled: true
@@ -117,20 +113,11 @@ spec:
       extraVolumes:
         - name: nextcloud-redis
           emptyDir: {}
-        - name: nextcloud-storage
-          persistentVolumeClaim:
-            claimName: nextcloud-apps
 
       extraVolumeMounts:
         - name: nextcloud-redis
           mountPath: /usr/local/etc/php/conf.d/redis-session.ini
           subPath: redis-session.ini
-        - name: nextcloud-storage
-          mountPath: /var/www/html/custom_apps
-          subPath: custom_apps
-        - name: nextcloud-storage
-          mountPath: /var/www/html/config
-          subPath: config
 
       extraInitContainers:
         - name: init-db
