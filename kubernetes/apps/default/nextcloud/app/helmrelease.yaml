@@ -40,9 +40,9 @@ spec:
       failedJobsHistoryLimit: 5
       successfulJobsHistoryLimit: 2
       securityContext:
-        runAsUser: 33
-        runAsGroup: 33
-        fsGroup: 33
+        runAsUser: ${PUID}
+        runAsGroup: ${PGID}
+        fsGroup: ${PGID}
         runAsNonRoot: true
         readOnlyRootFilesystem: true
 
@@ -163,9 +163,9 @@ spec:
           password:
 
       podSecurityContext:
-        runAsUser: 33
-        runAsGroup: 33
-        fsGroup: 33
+        runAsUser: ${PUID}
+        runAsGroup: ${PGID}
+        fsGroup: ${PGID}
         runAsNonRoot: true
         readOnlyRootFilesystem: false
         capabilities:
