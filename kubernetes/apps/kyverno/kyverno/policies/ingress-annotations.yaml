@@ -2,14 +2,14 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: auth-annotation
+  name: ingress-annotations
   annotations:
     policies.kyverno.io/title: Ingress annotations
     policies.kyverno.io/subject: Ingress
     policies.kyverno.io/description: >-
       This policy creates annotations on ingresses for external-dns,
       cert-manager and authentication based on custom annotations.
-    policies.kyverno.io/category: Ingress, DNS, Authentication
+    policies.kyverno.io/category: Ingress, DNS, Authentication, Tailscale
 spec:
   generateExisting: true
   rules:
@@ -58,3 +58,32 @@ spec:
                 Remote-User,Remote-Name,Remote-Groups,Remote-Email
               +(nginx.ingress.kubernetes.io/auth-snippet): |-
                 proxy_set_header X-Forwarded-Method $request_method;
+
+    - name: tailscale-ingress
+      match:
+        any:
+          - resources:
+              kinds:
+                - Ingress
+                annotations:
+                  tailscale-policy.io/expose: "true"
+      generate:
+        kind: Ingress
+        apiVersion: networking.k8s.io/v1
+        name: '{{- to_string(request.object.metadata.name) | replace_all("/", "-") }}-tailscale'
+        namespace: '{{- request.object.metadata.namespace }}'
+        synchronize: true
+        data:
+          apiVersion: networking.k8s.io/v1
+          kind: Ingress
+          metadata:
+            annotations:
+              kyverno.io/skip-generate: "true"
+            labels:
+              app.kubernetes.io/managed-by: kyverno
+              tailscale-generated: "true"
+          spec:
+            ingressClassName: tailscale
+            tls: '{{ request.object.spec.tls }}'
+            rules: '{{ request.object.spec.rules }}'
+            defaultBackend: '{{ request.object.spec.defaultBackend }}'

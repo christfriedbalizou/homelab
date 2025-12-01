@@ -34,7 +34,7 @@ spec:
     grafana:
       enabled: false
     backgroundController:
-      enabled: false
+      enabled: true
     cleanupController:
       serviceMonitor:
         enabled: false
