@@ -63,10 +63,9 @@ spec:
       match:
         any:
           - resources:
-              kinds:
-                - Ingress
-                annotations:
-                  tailscale-policy.io/expose: "true"
+              kinds: ["Ingress"]
+              annotations:
+                tailscale-policy.io/expose: "true"
       generate:
         kind: Ingress
         apiVersion: networking.k8s.io/v1
