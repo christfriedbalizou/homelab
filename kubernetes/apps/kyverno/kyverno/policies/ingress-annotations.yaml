@@ -83,4 +83,5 @@ spec:
               tailscale-generated: "true"
           spec:
             ingressClassName: tailscale
-            rules: '{{ request.object.spec.rules }}'
+            defaultBackend:
+              service: '{{ request.object.spec.rules[0].http.paths[0].backend[0].service }}'
