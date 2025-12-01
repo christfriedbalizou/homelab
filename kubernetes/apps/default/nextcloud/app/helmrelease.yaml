@@ -247,7 +247,7 @@ spec:
           <?php
           $CONFIG = array (
             'allow_user_to_change_display_name' => false,
-            'oidc_login_disable_registration' => true,
+            'oidc_login_disable_registration' => false,
             'lost_password_link' => 'disabled',
             'oidc_login_provider_url' => 'https://auth.${SECRET_DOMAIN}',
             'oidc_login_client_id' => 'nextcloud',
