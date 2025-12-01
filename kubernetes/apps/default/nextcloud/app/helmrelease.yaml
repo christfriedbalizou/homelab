@@ -34,6 +34,10 @@ spec:
       enabled: true
       existingClaim: nextcloud-apps
 
+    service:
+      annotations:
+        tailscale.com/expose: "true"
+
     cronjob:
       enabled: true
       curlInsecure: true

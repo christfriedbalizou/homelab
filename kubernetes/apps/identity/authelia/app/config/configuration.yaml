@@ -212,7 +212,7 @@ identity_providers:
         client_name: Nextcloud
         client_secret: '${LEDGERLINK_OIDC_CLIENT_SECRET}'
         public: false
-        authorization_policy: one_factor
+        authorization_policy: two_factor
         require_pkce: true
         pkce_challenge_method: S256
         redirect_uris:
