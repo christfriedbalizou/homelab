@@ -52,11 +52,21 @@ access_control:
 
 definitions:
   user_attributes:
-    is_admin:
+    is_nextcloud_admin:
       expression: '"admin" in groups'
 
 identity_providers:
   oidc:
+    claims_policies:
+      nextcloud_userinfo:
+        custom_claims:
+          is_nextcloud_admin: {}
+
+    scopes:
+      nextcloud_userinfo:
+        claims:
+          - is_nextcloud_admin
+
     cors:
       endpoints:
         - "authorization"
@@ -64,6 +74,7 @@ identity_providers:
         - "revocation"
         - "introspection"
       allowed_origins_from_client_redirect_uris: true
+
     clients:
       - id: grafana
         description: Grafana
@@ -201,7 +212,7 @@ identity_providers:
         client_name: Nextcloud
         client_secret: '${LEDGERLINK_OIDC_CLIENT_SECRET}'
         public: false
-        authorization_policy: two_factor
+        authorization_policy: one_factor
         require_pkce: true
         pkce_challenge_method: S256
         redirect_uris:
@@ -211,6 +222,7 @@ identity_providers:
           - profile
           - email
           - groups
+          - nextcloud_userinfo
         response_types:
           - code
         grant_types:
