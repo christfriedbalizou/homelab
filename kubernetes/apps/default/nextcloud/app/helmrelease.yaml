@@ -68,6 +68,7 @@ spec:
       annotations:
         external-dns.home.arpa/enabled: "true"
         hajimari.io/enable: "true"
+        tailscale-policy.io/expose: "true"
         hajimari.io/group: Family
         hajimari.io/icon: simple-icons:nextcloud
         hajimari.io/info: File and Calendar server
