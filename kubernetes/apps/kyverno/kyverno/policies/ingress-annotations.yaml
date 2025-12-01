@@ -69,7 +69,7 @@ spec:
       generate:
         kind: Ingress
         apiVersion: networking.k8s.io/v1
-        name: '{{- to_string(request.object.metadata.name) | replace_all("/", "-") }}-tailscale'
+        name: '{{- to_string(request.object.metadata.name) }}-tailscale'
         namespace: '{{- request.object.metadata.namespace }}'
         synchronize: true
         data:
