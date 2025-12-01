@@ -83,6 +83,5 @@ spec:
               tailscale-generated: "true"
           spec:
             ingressClassName: tailscale
-            tls: '{{ request.object.spec.tls }}'
             rules: '{{ request.object.spec.rules }}'
             defaultBackend: '{{ request.object.spec.defaultBackend }}'
