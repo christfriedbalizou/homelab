@@ -174,10 +174,6 @@ spec:
                 service:
                   identifier: main
                   port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: authelia-production-tls
     persistence:
       config:
         enabled: true

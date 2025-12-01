@@ -1,0 +1,41 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: tailscale-annotation
+  annotations:
+    policies.kyverno.io/title: Tailscale Ingress Generation
+    policies.kyverno.io/subject: Ingress
+    policies.kyverno.io/description: >
+      Generates a separate Tailscale Ingress resource when an Ingress
+      is created or updated with the 'tailscale-policy.io/expose: "true"' annotation.
+    policies.kyverno.io/category: Ingress, Tailscale
+spec:
+  rules:
+  - name: create-tailscale-ingress
+    match:
+      any:
+      - resources:
+          kinds:
+          - Ingress
+          annotations:
+            tailscale-policy.io/expose: "true"
+    generate:
+      kind: Ingress
+      apiVersion: networking.k8s.io/v1
+      name: '{{- to_string(request.object.metadata.name) | replace_all("/", "-") }}-tailscale'
+      namespace: '{{- request.object.metadata.namespace }}'
+      data:
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          annotations:
+            kyverno.io/skip-generate: "true"
+          labels:
+            app.kubernetes.io/managed-by: kyverno
+            tailscale-generated: "true"
+        spec:
+          ingressClassName: tailscale
+          tls: '{{ request.object.spec.tls }}'
+          rules: '{{ request.object.spec.rules }}'
+          defaultBackend: '{{ request.object.spec.defaultBackend }}'
