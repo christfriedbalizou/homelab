@@ -84,4 +84,4 @@ spec:
           spec:
             ingressClassName: tailscale
             defaultBackend:
-              service: '{{ request.object.spec.rules[0].http.paths[0].backend[0].service }}'
+              service: '{{ request.object.spec.rules[0].http.paths[0].backend.service }}'
