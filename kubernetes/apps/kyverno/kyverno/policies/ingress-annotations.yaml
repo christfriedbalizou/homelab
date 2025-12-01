@@ -84,4 +84,3 @@ spec:
           spec:
             ingressClassName: tailscale
             rules: '{{ request.object.spec.rules }}'
-            defaultBackend: '{{ request.object.spec.defaultBackend }}'
