@@ -37,7 +37,6 @@ spec:
         controller: adguard
         type: LoadBalancer
         annotations:
-          tailscale.com/expose: "true"
           lbipam.cilium.io/ips: "${ADGUARD_ADDR_NS1}"
           lbipam.cilium.io/sharing-key: "adguard-home"
         ports:
