@@ -156,7 +156,6 @@ spec:
         enabled: true
         className: external
         annotations:
-          tailscale-policy.io/expose: "true"
           external-dns.home.arpa/enabled: "true"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             add_header Cache-Control "no-store";
