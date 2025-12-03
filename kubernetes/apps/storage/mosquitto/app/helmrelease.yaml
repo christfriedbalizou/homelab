@@ -51,7 +51,7 @@ spec:
                 drop:
                   - ALL
     persistence:
-      data:
+      config:
         type: nfs
         server: ${NFS_SERVER}
         path: /volume1/apps/storage
@@ -59,8 +59,7 @@ spec:
           mosquitto:
             app:
               - subPath: mosquitto
-                path: /data
-      config:
+      config-file:
         type: configMap
         identifier: config
         advancedMounts:
