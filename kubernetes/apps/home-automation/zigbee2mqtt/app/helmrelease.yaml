@@ -36,7 +36,7 @@ spec:
               ZIGBEE2MQTT_CONFIG_ADVANCED_TRANSMIT_POWER: 20
               ZIGBEE2MQTT_CONFIG_ADVANCED_DISABLE_LED: false
               # mqtt
-              ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://emqx-listeners.storage.svc.cluster.local:1883
+              ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://mosquitto.storage.svc.cluster.local:1883
               ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt
               ZIGBEE2MQTT_CONFIG_MQTT_VERSION: 5
               ZIGBEE2MQTT_CONFIG_ADVANCED_LAST_SEEN: ISO_8601
