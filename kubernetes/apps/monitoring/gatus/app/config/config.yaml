@@ -38,7 +38,7 @@ ui:
   title: Status | Gatus
   header: Status
   logo: https://avatars.githubusercontent.com/u/319220
-  link: https://status.${SECRET_DOMAIN}
+  link: https://gatus.${SECRET_DOMAIN}
   buttons:
     - name: Github
       link: https://github.com/christfriedbalizou
