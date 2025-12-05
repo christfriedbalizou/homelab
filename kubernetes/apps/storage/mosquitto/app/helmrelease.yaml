@@ -71,7 +71,7 @@ spec:
       mosquitto:
         type: LoadBalancer
         annotations:
-          lbipam.cilium.io/ips: 10.1.6.61
+          lbipam.cilium.io/ips: ${MOSQUITTO_IP}
         externalTrafficPolicy: Local
         ports:
           mqtt:
