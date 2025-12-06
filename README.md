@@ -25,8 +25,7 @@ This repo captures a fully self-hosted home operations platform. Every YAML defi
 
 - **Secure cluster bootstrapping** via `ansible/` playbooks that install Talos, configure Authelia, and wire up storage nodes.
 - **GitOps-driven workloads** with Flux watching the `kubernetes/` tree so my services deploy automatically on push.
-- **Monitoring and observability** inside a private `kromgo` instance that polls Prometheus and feeds dynamic Shields badges.
-
+- **Monitoring and observability** inside a private monitoring instances that polls metrics from underlying services.
 ## :computer:&nbsp; Hardware Surface
 
 | Device              | Count | Memory    | Role               | Storage                               |
