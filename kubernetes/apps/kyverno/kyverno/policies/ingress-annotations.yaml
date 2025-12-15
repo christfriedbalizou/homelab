@@ -85,3 +85,6 @@ spec:
             ingressClassName: tailscale
             defaultBackend:
               service: '{{ request.object.spec.rules[0].http.paths[0].backend.service }}'
+            tls:
+              - hosts:
+                  - '{{ request.object.metadata.name }}'
