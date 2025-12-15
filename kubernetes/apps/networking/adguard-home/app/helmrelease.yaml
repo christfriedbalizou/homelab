@@ -71,8 +71,7 @@ spec:
       app:
         className: "external"
         annotations:
-          tailscale.com/expose: "true"
-          tailscale.com/ts-names: "adguard-home"
+          tailscale.com/ts-names: "true"
           external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
