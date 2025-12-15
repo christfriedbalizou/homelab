@@ -12,7 +12,7 @@ spec:
     apiServerProxy:
       enabled: false
     ingressController:
-      enabled: false
+      enabled: true
     oauthSecretVolume:
       secret:
         secretName: &secret tailscale-operator-secret
