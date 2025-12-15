@@ -69,7 +69,6 @@ spec:
       app:
         className: "external"
         annotations:
-          tailscale-policy.io/expose: "true"
           external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
