@@ -9,8 +9,8 @@ spec:
     name: tailscale-operator
   interval: 1h
   values:
-    apiServerProxyConfig:
-      mode: "true"
+    apiServerProxy:
+      enabled: false
     ingressController:
       enabled: false
     oauthSecretVolume:
