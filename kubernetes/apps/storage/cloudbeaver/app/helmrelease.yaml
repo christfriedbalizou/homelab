@@ -66,7 +66,7 @@ spec:
         path: /volume1/apps/storage
         globalMounts:
           - subPath: cloudbeaver
-            path: /var/cloudbeaver/workspace
+            path: /opt/cloudbeaver/workspace
 
     podSecurityContext:
       runAsUser: ${PUID}
