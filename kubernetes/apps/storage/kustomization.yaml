@@ -11,3 +11,4 @@ resources:
   - ./minio-v2/ks.yaml
   - ./mosquitto/ks.yaml
   - ./dragonfly/ks.yaml
+  - ./mariadb/ks.yaml
