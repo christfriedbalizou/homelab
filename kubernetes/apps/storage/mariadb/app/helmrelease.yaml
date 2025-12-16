@@ -61,3 +61,6 @@ spec:
         path: /volume1/apps/storage
         globalMounts:
           - subPath: mariadb
+      scripts:
+        type: configMap
+        name: mariadb-configmap
