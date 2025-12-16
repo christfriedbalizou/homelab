@@ -1,2 +1,2 @@
 #!/bin/bash -ec
-mysqladmin status -u"${MYSQL_USER}" -p"${MYSQL_PASSWORD}"
+mysqladmin status -u"${MYSQL_USER}" -p"${MYSQL_ROOT_PASSWORD}"
