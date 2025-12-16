@@ -10,3 +10,5 @@ configMapGenerator:
       - check.sh=./config/check.sh
 generatorOptions:
   disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
