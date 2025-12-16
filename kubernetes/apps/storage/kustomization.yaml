@@ -12,3 +12,4 @@ resources:
   - ./mosquitto/ks.yaml
   - ./dragonfly/ks.yaml
   - ./mariadb/ks.yaml
+  - ./cloudbeaver/ks.yaml

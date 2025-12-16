@@ -1,0 +1,75 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cloudbeaver
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          main:
+            image:
+              repository: dbeaver/cloudbeaver
+              tag: "25.3.0@sha256:4096459268c7c211c7ad829cbd91be2a23d210d8aa499370544359d23dc5b4df"
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                memory: 500Mi
+    service:
+      main:
+        controller: main
+        ports:
+          http:
+            port: 8978
+    ingress:
+      main:
+        enabled: true
+        className: external
+        annotations:
+          external-dns.home.arpa/enabled: "true"
+          hajimari.io/enable: "true"
+          hajimari.io/icon: "devicon:dbeaver"
+          hajimari.io/group: "Storage"
+        hosts:
+          - host: cloudbeaver.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: main
+                  port: http
+    persistence:
+      config:
+        enabled: true
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/storage
+        globalMounts:
+          - subPath: cloudbeaver
+            path: /var/cloudbeaver/workspace
+
+    podSecurityContext:
+      runAsUser: ${PUID}
+      runAsGroup: ${PGID}
+      fsGroup: ${PGID}
+      fsGroupChangePolicy: "OnRootMismatch"
