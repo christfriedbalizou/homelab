@@ -4,11 +4,3 @@ kind: Kustomization
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: mariadb-configmap
-    files:
-      - check.sh=./config/check.sh
-generatorOptions:
-  disableNameSuffixHash: true
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
