@@ -72,4 +72,4 @@ spec:
         name: mariadb-configmap
         globalMounts:
           - subPath: create-letibeafrica.sql
-            path: /docker-entrypoint-initdb.d/create-letibeafrica.sql
+            path: /config/initdb.d/create-letibeafrica.sql
