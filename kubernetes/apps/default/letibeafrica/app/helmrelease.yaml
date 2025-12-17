@@ -29,8 +29,18 @@ spec:
             runAsGroup: 1001
             fsGroup: 1001
             fsGroupChangePolicy: OnRootMismatch
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             seccompProfile:
               type: RuntimeDefault
+            capabilities:
+              drop:
+                - ALL
+          dnsPolicy: ClusterFirst
+          hostAliases:
+            - hostname:
+                - status.localhost
+              ip: 127.0.0.1
         initContainers:
           01-prepare-base-dir:
             image:
@@ -100,18 +110,6 @@ spec:
 
               BITNAMI_DEBUG: "false"
 
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              fsGroup: 1001
-              runAsGroup: 1001
-              runAsUser: 1001
-              seccompProfile:
-                type: RuntimeDefault
-              fsGroupChangePolicy: Always
-              capabilities:
-                drop:
-                  - ALL
             resources: *resources
             probes:
               readiness:
