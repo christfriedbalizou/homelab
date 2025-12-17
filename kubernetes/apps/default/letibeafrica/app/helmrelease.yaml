@@ -207,4 +207,9 @@ spec:
         type: secret
         name: letibeafrica-secret
         globalMounts:
-          - readOnly: true
+          - subPath: wordpress-password
+            path: /secrets/wordpress-password
+            readOnly: true
+          - subPath: mariadb-password
+            path: /secrets/mariadb-password
+            readOnly: true
