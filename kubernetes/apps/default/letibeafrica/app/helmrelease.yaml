@@ -92,6 +92,11 @@ spec:
 
               WORDPRESS_ALLOW_EMPTY_PASSWORD: "yes"
               WORDPRESS_SKIP_BOOTSTRAP: "no"
+              WORDPRESS_TABLE_PREFIX: wp_
+              WORDPRESS_SCHEME: http
+
+              APACHE_HTTP_PORT_NUMBER: "8080"
+              APACHE_HTTPS_PORT_NUMBER: "8443"
 
               BITNAMI_DEBUG: "false"
 
