@@ -39,7 +39,6 @@ spec:
       hostname: "letibeafrica.${SECRET_DOMAIN}"
       annotations:
         external-dns.home.arpa/enabled: "true"
-        auth.home.arpa/enabled: "true"
     persistence:
       existingClaim: *app
     mariadb:
