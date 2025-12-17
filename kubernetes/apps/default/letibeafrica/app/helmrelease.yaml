@@ -44,8 +44,8 @@ spec:
           paths:
             - path: /
               pathType: Prefix
-    storage:
-      persistentVolumeClaimName: *app
+    persistence:
+      existingClaim: *app
     mariadb:
       enabled: false
     dnsConfig:
