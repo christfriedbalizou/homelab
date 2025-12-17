@@ -19,8 +19,9 @@ spec:
       retries: 300
   values:
     image:
-      repository: wordpress
-      tag: 6.1.1-php7.4-apache@sha256:7e46cf3373751b6d62b7a0fc3a7d6686f641a34a2a0eb18947da5375c55fd009
+      repository: bitnami/wordpress
+      tag: sha256-22885ce9d48b2f534b31e5f7091a943f994b004698df6292e1392f8c184cc8f0
+      digest: "sha256:3698454f9b955db10f79878338045702c2734c1f46b851901d897d1013d49546"
     externalDatabase:
       host: mariadb.storage.svc.cluster.local
       name: *app
