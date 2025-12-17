@@ -31,14 +31,12 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
             seccompProfile:
               type: RuntimeDefault
-            capabilities:
-              drop:
-                - ALL
           dnsPolicy: ClusterFirst
           hostAliases:
-            - hostname:
+            - hostnames:
                 - status.localhost
               ip: 127.0.0.1
         initContainers:
