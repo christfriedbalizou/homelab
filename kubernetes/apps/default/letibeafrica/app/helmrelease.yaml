@@ -191,7 +191,7 @@ spec:
 
       emptydir:
         type: emptyDir
-        advanceMount:
+        advancedMounts:
           wordpress:
             app:
               - path: /opt/bitnami/apache/conf
