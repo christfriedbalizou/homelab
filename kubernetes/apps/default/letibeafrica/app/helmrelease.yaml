@@ -29,7 +29,6 @@ spec:
     wordpressFirstName: ${LETIBEAFRICA_FIRST_NAME}
     wordpressLastName: ${LETIBEAFRICA_LAST_NAME}
     wordpressBlogName: ${LETIBEAFRICA_BLOG_NAME}
-    wordpressConfigureCache: true
     allowEmptyPassword: false
     ingress:
       enabled: true
