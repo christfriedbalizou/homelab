@@ -32,20 +32,12 @@ spec:
     wordpressConfigureCache: true
     ingress:
       enabled: true
-      className: external
+      ingressClassName: external
+      hostname: "letibeafrica.${SECRET_DOMAIN}"
       annotations:
         external-dns.home.arpa/enabled: "true"
         auth.home.arpa/enabled: "true"
-      hosts:
-        - host: "letibeafrica.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
     persistence:
       existingClaim: *app
     mariadb:
       enabled: false
-    dnsConfig:
-      options:
-        - name: ndots
-          value: "1"
