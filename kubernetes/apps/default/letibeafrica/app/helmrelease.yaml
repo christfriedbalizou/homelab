@@ -30,6 +30,7 @@ spec:
     wordpressLastName: ${LETIBEAFRICA_LAST_NAME}
     wordpressBlogName: ${LETIBEAFRICA_BLOG_NAME}
     wordpressConfigureCache: true
+    allowEmptyPassword: false
     ingress:
       enabled: true
       ingressClassName: external
