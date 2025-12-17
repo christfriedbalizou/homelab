@@ -185,11 +185,9 @@ spec:
         type: nfs
         server: ${NFS_SERVER}
         path: /volume1/apps/default
-        advancedMounts:
-          mealie:
-            app:
-              - subPath: letibeafrica
-                path: /bitnami/wordpress
+        globalMounts:
+          - subPath: letibeafrica
+            path: /bitnami/wordpress
 
       emptydir:
         type: emptyDir
