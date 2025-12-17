@@ -23,17 +23,13 @@ spec:
               readOnlyRootFilesystem: true
               allowPrivilegeEscalation: false
               runAsNonRoot: true
-              runAsUser: ${PUID}
-              runAsGroup: ${PGID}
-              fsGroup: ${PGID}
-              supplementalGroups:
-                - 1000
+              runAsUser: 1000
+              runAsGroup: 1000
+              fsGroup: 1000
               capabilities:
                 drop: ["ALL"]
             env:
               TZ: ${TIMEZONE}
-              PUID: "${PUID}"
-              PGID: "${PGID}"
               MYSQL_LOG_CONSOLE: "false"
             envFrom:
               - secretRef:
