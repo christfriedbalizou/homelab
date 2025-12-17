@@ -55,6 +55,7 @@ spec:
           mysql:
             port: 3306
             primary: true
+
     persistence:
       config:
         enabled: true
@@ -66,3 +67,10 @@ spec:
       scripts:
         type: configMap
         name: mariadb-configmap
+
+    initdbScripts:
+      create-letibeafrica.sql: |
+        CREATE DATABASE IF NOT EXISTS ${LETIBEAFRICA_DB_NAME};
+        CREATE USER IF NOT EXISTS '${LETIBEAFRICA_USER}'@'%' IDENTIFIED BY '${LETIBEAFRICA_DB_PASSWORD}';
+        GRANT ALL PRIVILEGES ON ${LETIBEAFRICA_DB_NAME}.* TO '${LETIBEAFRICA_USER}'@'%';
+        FLUSH PRIVILEGES;
