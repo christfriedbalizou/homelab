@@ -7,7 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: letibeafrica
+    name: app-template
   interval: 15m
   maxHistory: 2
   timeout: 20m
@@ -18,28 +18,194 @@ spec:
     remediation:
       retries: 300
   values:
-    image:
-      repository: bitnamisecure/wordpress
-      tag: latest@sha256:d5e0f8bead6110c9034a9dd0f9658dcba98162854f8acc6839c3a703884b9176
-    externalDatabase:
-      host: mariadb.storage.svc.cluster.local
-      database: *app
-      user: *app
-      existingSecret: &secret letibeafrica-secret
-    wordpressUsername: ${LETIBEAFRICA_USER}
-    existingSecret: *secret
-    wordpressEmail: ${LETIBEAFRICA_EMAIL}
-    wordpressFirstName: ${LETIBEAFRICA_FIRST_NAME}
-    wordpressLastName: ${LETIBEAFRICA_LAST_NAME}
-    wordpressBlogName: ${LETIBEAFRICA_BLOG_NAME}
-    allowEmptyPassword: false
+    controllers:
+      wordpress:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+            runAsGroup: 1001
+            fsGroup: 1001
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile: { type: RuntimeDefault }
+        initContainers:
+          01-prepare-base-dir:
+            image:
+              repository: bitnamisecure/wordpress
+              tag: latest@sha256:d5e0f8bead6110c9034a9dd0f9658dcba98162854f8acc6839c3a703884b9176
+              pullPolicy: IfNotPresent
+            command:
+              - /bin/bash
+            args:
+              - '-ec'
+              - >
+                #!/bin/bash
+
+                . /opt/bitnami/scripts/liblog.sh
+                . /opt/bitnami/scripts/libfs.sh
+
+                cp -r --preserve=mode /opt/bitnami/wordpress /emptydir/app-base-dir
+
+                if ! is_dir_empty /opt/bitnami/apache/logs; then
+                  cp -r /opt/bitnami/apache/logs /emptydir/apache-logs-dir
+                fi
+
+                cp -r --preserve=mode /opt/bitnami/php/etc /emptydir/php-conf-dir
+
+                if ! is_dir_empty /opt/bitnami/php/var; then
+                  cp -r /opt/bitnami/php/var /emptydir/php-var-dir
+                fi
+            env:
+              OPENSSL_FIPS: "yes"
+            resources: &resources
+              limits:
+                cpu: 380m
+                memory: 384Mi
+              requests:
+                cpu: 250m
+                memory: 256Mi
+        containers:
+          app:
+            image:
+              repository: bitnamisecure/wordpress
+              tag: latest@sha256:d5e0f8bead6110c9034a9dd0f9658dcba98162854f8acc6839c3a703884b9176
+            env:
+              WORDPRESS_DATABASE_HOST: mariadb.storage.svc.cluster.local
+              WORDPRESS_DATABASE_PORT_NUMBER: "3306"
+              WORDPRESS_DATABASE_NAME: *app
+              WORDPRESS_DATABASE_USER: *app
+              WORDPRESS_DATABASE_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: letibeafrica-secret
+                    key: mariadb-password
+
+              WORDPRESS_USERNAME: *app
+              WORDPRESS_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: letibeafrica-secret
+                    key: wordpress-password
+
+              WORDPRESS_ALLOW_EMPTY_PASSWORD: "yes"
+              WORDPRESS_SKIP_BOOTSTRAP: "no"
+
+              BITNAMI_DEBUG: "false"
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              fsGroup: 1001
+              runAsGroup: 1001
+              runAsUser: 1001
+              seccompProfile:
+                type: RuntimeDefault
+              fsGroupChangePolicy: Always
+              capabilities:
+                drop:
+                  - ALL
+            resources: *resources
+            probes:
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /wp-login.php
+                    port: &port 8080
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: *port
+                  initialDelaySeconds: 120
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+    service:
+      app:
+        controller: wordpress
+        ports:
+          http:
+            port: *port
+
     ingress:
-      enabled: true
-      ingressClassName: external
-      hostname: "letibeafrica.${SECRET_DOMAIN}"
-      annotations:
-        external-dns.home.arpa/enabled: "true"
+      app:
+        className: external
+        annotations:
+          external-dns.home.arpa/enabled: "true"
+          nginx.ingress.kubernetes.io/server-snippet: |
+            location ~* "^/(admin|wp-admin|wp-login\.php)" {
+              deny all;
+              return 403;
+            }
+        hosts:
+          - host: letibeafrica.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+      admin:
+        enabled: true
+        className: external
+        annotations:
+          external-dns.home.arpa/enabled: "true"
+          auth.home.arpa/enabled: "true"
+        hosts:
+          - host: letibeafrica-admin.${SECRET_DOMAIN}
+            paths:
+              - path: /wp-login.php
+                pathType: Exact
+                service:
+                  identifier: app
+                  port: http
+              - path: /wp-admin
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+              - path: /admin
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+
     persistence:
-      existingClaim: *app
-    mariadb:
-      enabled: false
+      config:
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/default
+        advancedMounts:
+          mealie:
+            app:
+              - subPath: letibeafrica
+                path: /bitnami/wordpress
+
+      emptydir:
+        type: emptyDir
+        globalMounts:
+          - path: /opt/bitnami/apache/conf
+            subPath: apache-conf-dir
+          - path: /opt/bitnami/apache/logs
+            subPath: apache-logs-dir
+          - path: /opt/bitnami/apache/var/run
+            subPath: apache-tmp-dir
+          - path: /opt/bitnami/php/etc
+            subPath: php-conf-dir
+          - path: /opt/bitnami/php/tmp
+            subPath: php-tmp-dir
+          - path: /opt/bitnami/php/var
+            subPath: php-var-dir
+          - path: /tmp
+            subPath: tmp-dir
+          - path: /opt/bitnami/wordpress
+            subPath: app-base-dir
