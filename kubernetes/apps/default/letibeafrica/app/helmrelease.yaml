@@ -78,8 +78,8 @@ spec:
               repository: bitnamisecure/wordpress
               tag: latest@sha256:d5e0f8bead6110c9034a9dd0f9658dcba98162854f8acc6839c3a703884b9176
             env:
-              MARIADB_DATABASE_HOST: mariadb.storage.svc.cluster.local
-              MARIADB_DATABASE_PORT_NUMBER: "3306"
+              MARIADB_HOST: mariadb.storage.svc.cluster.local
+              MARIADB_PORT_NUMBER: "3306"
               WORDPRESS_DATABASE_NAME: *app
               WORDPRESS_DATABASE_USER: *app
               WORDPRESS_DATABASE_PASSWORD:
