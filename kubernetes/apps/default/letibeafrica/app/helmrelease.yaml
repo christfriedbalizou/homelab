@@ -191,20 +191,24 @@ spec:
 
       emptydir:
         type: emptyDir
-        globalMounts:
-          - path: /opt/bitnami/apache/conf
-            subPath: apache-conf-dir
-          - path: /opt/bitnami/apache/logs
-            subPath: apache-logs-dir
-          - path: /opt/bitnami/apache/var/run
-            subPath: apache-tmp-dir
-          - path: /opt/bitnami/php/etc
-            subPath: php-conf-dir
-          - path: /opt/bitnami/php/tmp
-            subPath: php-tmp-dir
-          - path: /opt/bitnami/php/var
-            subPath: php-var-dir
-          - path: /tmp
-            subPath: tmp-dir
-          - path: /opt/bitnami/wordpress
-            subPath: app-base-dir
+        advanceMount:
+          wordpress:
+            app:
+              - path: /opt/bitnami/apache/conf
+                subPath: apache-conf-dir
+              - path: /opt/bitnami/apache/logs
+                subPath: apache-logs-dir
+              - path: /opt/bitnami/apache/var/run
+                subPath: apache-tmp-dir
+              - path: /opt/bitnami/php/etc
+                subPath: php-conf-dir
+              - path: /opt/bitnami/php/tmp
+                subPath: php-tmp-dir
+              - path: /opt/bitnami/php/var
+                subPath: php-var-dir
+              - path: /tmp
+                subPath: tmp-dir
+              - path: /opt/bitnami/wordpress
+                subPath: app-base-dir
+            01-prepare-base-dir:
+              - path: /emptydir
