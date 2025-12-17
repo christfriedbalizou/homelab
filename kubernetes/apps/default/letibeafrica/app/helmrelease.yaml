@@ -30,6 +30,10 @@ spec:
     wordpressLastName: ${LETIBEAFRICA_LAST_NAME}
     wordpressBlogName: ${LETIBEAFRICA_BLOG_NAME}
     allowEmptyPassword: false
+    smtpHost: smtp-relay.networking.svc.cluster.local
+    smtpPort: "${SMTP_RELAY_PORT}"
+    smtpFromEmail: "noreply@${SECRET_DOMAIN}"
+    smtpFromName: "noreply"
     ingress:
       enabled: true
       ingressClassName: external
