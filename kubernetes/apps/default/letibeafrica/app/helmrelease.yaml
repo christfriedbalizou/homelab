@@ -82,18 +82,10 @@ spec:
               MARIADB_PORT_NUMBER: "3306"
               WORDPRESS_DATABASE_NAME: *app
               WORDPRESS_DATABASE_USER: *app
-              WORDPRESS_DATABASE_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: letibeafrica-secret
-                    key: mariadb-password
+              WORDPRESS_DATABASE_PASSWORD_FILE: /secrets/mariadb-password
 
               WORDPRESS_USERNAME: *app
-              WORDPRESS_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: letibeafrica-secret
-                    key: wordpress-password
+              WORDPRESS_PASSWORD_FILE: /secrets/wordpress-password
 
               WORDPRESS_ALLOW_EMPTY_PASSWORD: "yes"
               WORDPRESS_SKIP_BOOTSTRAP: "no"
@@ -210,3 +202,9 @@ spec:
                 subPath: app-base-dir
             01-prepare-base-dir:
               - path: /emptydir
+
+      secrets:
+        type: secret
+        name: letibeafrica-secret
+        globalMounts:
+          - readOnly: true
