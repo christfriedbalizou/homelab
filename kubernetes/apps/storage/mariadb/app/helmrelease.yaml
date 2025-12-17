@@ -67,8 +67,7 @@ spec:
       scripts:
         type: configMap
         name: mariadb-configmap
-
-      initdbScripts:
+      initdb-scripts:
         type: configMap
         name: mariadb-configmap
         globalMounts:
