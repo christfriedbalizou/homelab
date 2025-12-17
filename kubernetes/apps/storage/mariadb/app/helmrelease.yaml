@@ -73,4 +73,3 @@ spec:
         globalMounts:
           - subPath: create-letibeafrica.sql
             path: /config/initdb.d/create-letibeafrica.sql
-            readOnly: true
