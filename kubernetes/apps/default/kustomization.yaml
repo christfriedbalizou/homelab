@@ -18,4 +18,4 @@ resources:
   - ./thelounge/ks.yaml
   - ./memos/ks.yaml
   - ./nextcloud/ks.yaml
-  - ./wordpress/ks.yaml
+  - ./letibeafrica/ks.yaml
