@@ -20,7 +20,7 @@ spec:
   values:
     externalDatabase:
       host: mariadb.storage.svc.cluster.local
-      name: *app
+      database: *app
       user: *app
       existingSecret: &secret letibeafrica-secret
     wordpressUsername: ${LETIBEAFRICA_USER}
