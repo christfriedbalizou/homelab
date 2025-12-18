@@ -132,27 +132,8 @@ spec:
         className: external
         annotations:
           external-dns.home.arpa/enabled: "true"
-          nginx.ingress.kubernetes.io/server-snippet: |
-            location ~* "^/(admin|wp-admin|wp-login\.php)" {
-              deny all;
-              return 403;
-            }
         hosts:
           - host: letibeafrica.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
-      admin:
-        enabled: true
-        className: external
-        annotations:
-          external-dns.home.arpa/enabled: "true"
-          auth.home.arpa/enabled: "true"
-        hosts:
-          - host: letibeafrica-admin.${SECRET_DOMAIN}
             paths:
               - path: /
                 pathType: Prefix
