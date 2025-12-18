@@ -39,14 +39,14 @@ spec:
         initContainers:
           01-prepare-base-dir:
             image:
-              repository: bitnamisecure/wordpress
-              tag: latest@sha256:d5e0f8bead6110c9034a9dd0f9658dcba98162854f8acc6839c3a703884b9176
+              repository: bitnami/wordpress
+              tag: latest
               pullPolicy: IfNotPresent
             command:
               - /bin/bash
             args:
               - '-ec'
-              - >
+              - |
                 #!/bin/bash
 
                 . /opt/bitnami/scripts/liblog.sh
