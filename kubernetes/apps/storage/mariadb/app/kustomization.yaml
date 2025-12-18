@@ -7,7 +7,6 @@ resources:
 configMapGenerator:
   - name: mariadb-configmap
     files:
-      - check.sh=./config/check.sh
       - create-letibeafrica.sql=./config/create-letibeafrica.sql
 generatorOptions:
   disableNameSuffixHash: true

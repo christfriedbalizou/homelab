@@ -35,7 +35,9 @@ spec:
                   exec:
                     command:
                       - /bin/bash
-                      - /scripts/check.sh
+                      - |
+                        #!/bin/bash -ec
+                        mariadb-admin status -uroot -p"${MYSQL_ROOT_PASSWORD}"
                   failureThreshold: 3
                   initialDelaySeconds: 120
                   periodSeconds: 10
