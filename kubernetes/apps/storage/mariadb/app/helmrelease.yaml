@@ -35,10 +35,8 @@ spec:
                   exec:
                     command:
                       - /bin/bash
-                    args:
-                      - -ec
                       - |
-                        #!/bin/bash
+                        #!/bin/bash -ec
                         /usr/bin/mariadb-admin status -uroot -p"${MYSQL_ROOT_PASSWORD}"
                   failureThreshold: 3
                   initialDelaySeconds: 120
