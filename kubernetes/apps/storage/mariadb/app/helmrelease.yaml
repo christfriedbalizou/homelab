@@ -37,7 +37,7 @@ spec:
                       - /bin/bash
                       - |
                         #!/bin/bash -ec
-                        mariadb-admin status -uroot -p"${MYSQL_ROOT_PASSWORD}"
+                        /usr/bin/mariadb-admin status -uroot -p"${MYSQL_ROOT_PASSWORD}"
                   failureThreshold: 3
                   initialDelaySeconds: 120
                   periodSeconds: 10
