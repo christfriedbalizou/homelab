@@ -154,17 +154,7 @@ spec:
         hosts:
           - host: letibeafrica-admin.${SECRET_DOMAIN}
             paths:
-              - path: /wp-login.php
-                pathType: Exact
-                service:
-                  identifier: app
-                  port: http
-              - path: /wp-admin
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
-              - path: /admin
+              - path: /
                 pathType: Prefix
                 service:
                   identifier: app
