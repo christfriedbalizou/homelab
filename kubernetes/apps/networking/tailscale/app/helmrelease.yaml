@@ -11,6 +11,9 @@ spec:
   values:
     apiServerProxyConfig:
       mode: "true"
+    proxyConfig:
+      defaultTags: "tag:k8s"
+      defaultProxyClass: tailscale-homelab
     oauthSecretVolume:
       secret:
         secretName: &secret tailscale-operator-secret
