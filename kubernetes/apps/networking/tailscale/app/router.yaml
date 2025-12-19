@@ -8,3 +8,12 @@ spec:
     advertiseRoutes:
       - "192.168.1.0/24"
   exitNode: true
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      add:
+        - NET_ADMIN
+      drop:
+        - ALL
+    seccompProfile:
+      type: RuntimeDefault
