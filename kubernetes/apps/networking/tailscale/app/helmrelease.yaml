@@ -23,9 +23,8 @@ spec:
         capabilities:
           add:
             - NET_ADMIN
+            - NET_RAW
           drop:
             - ALL
-        seccompProfile:
-          type: RuntimeDefault
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret

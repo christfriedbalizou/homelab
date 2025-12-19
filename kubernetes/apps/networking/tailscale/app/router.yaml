@@ -1,3 +1,4 @@
+---
 apiVersion: tailscale.com/v1alpha1
 kind: Connector
 metadata:
@@ -9,11 +10,8 @@ spec:
       - "192.168.1.0/24"
   exitNode: true
   securityContext:
-    allowPrivilegeEscalation: false
+    allowPrivilegeEscalation: true
     capabilities:
       add:
         - NET_ADMIN
-      drop:
-        - ALL
-    seccompProfile:
-      type: RuntimeDefault
+        - NET_RAW
