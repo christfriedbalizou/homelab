@@ -18,5 +18,14 @@ spec:
       create: false
     operatorConfig:
       hostname: "tailscale-operator"
+      securityContext:
+        allowPrivilegeEscalation: false
+        capabilities:
+          add:
+            - NET_ADMIN
+          drop:
+            - ALL
+        seccompProfile:
+          type: RuntimeDefault
       podAnnotations:
         secret.reloader.stakater.com/reload: *secret
