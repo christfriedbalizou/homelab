@@ -5,4 +5,5 @@ namespace: networking
 resources:
   - ./secret.sops.yaml
   - ./connector.yaml
+  - ./router.yaml
   - ./helmrelease.yaml
