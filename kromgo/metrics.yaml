@@ -17,7 +17,7 @@ metrics:
   cluster_cpu_usage:
     color: green
     label: CPU
-    message: 18%
+    message: 18.2%
     schemaVersion: 1
   cluster_memory_usage:
     color: green
