@@ -7,4 +7,4 @@ resources:
   - ./connector.yaml
   - ./router.yaml
   - ./helmrelease.yaml
-  - ./proxclass.yaml
+  - ./proxyclass.yaml
