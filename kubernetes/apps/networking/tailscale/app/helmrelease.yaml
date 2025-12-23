@@ -9,11 +9,13 @@ spec:
     name: tailscale-operator
   interval: 1h
   values:
+    apiServerProxy:
+      enabled: false
+    ingressClass:
+      create: false
     oauthSecretVolume:
       secret:
         secretName: &secret tailscale-operator-secret
-    ingressClass:
-      create: false
     operatorConfig:
       hostname: "tailscale-operator"
       podAnnotations:
