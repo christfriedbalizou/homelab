@@ -12,12 +12,12 @@ metrics:
   cluster_pod_count:
     color: green
     label: Pods
-    message: '166'
+    message: '167'
     schemaVersion: 1
   cluster_cpu_usage:
     color: green
     label: CPU
-    message: 18.4%
+    message: 17.9%
     schemaVersion: 1
   cluster_memory_usage:
     color: green
