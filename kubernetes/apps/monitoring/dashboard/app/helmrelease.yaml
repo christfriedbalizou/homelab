@@ -30,7 +30,6 @@ spec:
         useDefaultIngressClass: false
         annotations:
           external-dns.home.arpa/enabled: "true"
-          auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/appNname: "Kubernetes Dashboard"
           hajimari.io/group: "System"
