@@ -1,48 +1,26 @@
 ---
-# Area
-area/ansible:
+area/bootstrap:
   - changed-files:
-      - any-glob-to-any-file: ansible/**/*
+      - any-glob-to-any-file:
+          - bootstrap/**/*
+
 area/github:
   - changed-files:
-      - any-glob-to-any-file: .github/**/*
+      - any-glob-to-any-file:
+          - .github/**/*
+
 area/kubernetes:
   - changed-files:
-      - any-glob-to-any-file: kubernetes/**/*
-area/terraform:
+      - any-glob-to-any-file:
+          - kubernetes/**/*
+
+area/renovate:
   - changed-files:
-      - any-glob-to-any-file: terraform/**/*
-area/taskfile:
+      - any-glob-to-any-file:
+          - .renovate/**/*
+          - .renovaterc.json5
+
+area/talos:
   - changed-files:
-      - any-glob-to-any-file: .taskfiles/**/*
-      - any-glob-to-any-file: Taskfile*
-area/templates:
-  - changed-files:
-      - any-glob-to-any-file: templates/**/*
-# Cluster
-cluster/apps:
-  - changed-files:
-      - any-glob-to-any-file: kubernetes/apps/**/*
-cluster/system:
-  - changed-files:
-      - any-glob-to-any-file: kubernetes/apps/networking/**/*
-      - any-glob-to-any-file: kubernetes/apps/flux-system/**/*
-      - any-glob-to-any-file: kubernetes/apps/kyverno/**/*
-      - any-glob-to-any-file: kubernetes/apps/cert-manager/**/*
-      - any-glob-to-any-file: kubernetes/apps/system-upgrade/**/*
-      - any-glob-to-any-file: kubernetes/flux/**/*
-cluster/storage:
-  - changed-files:
-      - any-glob-to-any-file: kubernetes/apps/storage/**/*
-cluster/media:
-  - changed-files:
-      - any-glob-to-any-file: kubernetes/apps/media/**/*
-cluster/identity:
-  - changed-files:
-      - any-glob-to-any-file: kubernetes/apps/identity/**/*
-cluster/monitoring:
-  - changed-files:
-      - any-glob-to-any-file: kubernetes/apps/monitoring/**/*
-cluster/networking:
-  - changed-files:
-      - any-glob-to-any-file: kubernetes/apps/networking/**/*
+      - any-glob-to-any-file:
+          - talos/**/*
