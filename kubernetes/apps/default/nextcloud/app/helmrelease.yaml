@@ -75,6 +75,7 @@ spec:
         nginx.ingress.kubernetes.io/server-snippet: |-
           server_tokens off;
           proxy_hide_header X-Powered-By;
+          more_set_headers "Strict-Transport-Security: max-age=31536000; includeSubDomains; preload";
 
           rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
           rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
@@ -106,7 +107,7 @@ spec:
           - -c
           - >-
             cd /var/www/html;
-            ./occ app:install oidc_login || ./occ app:enable oidc_login;
+            ./occ maintenance:repair --include-expensive;
             ./occ db:add-missing-indices;
             /bin/true
 
