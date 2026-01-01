@@ -32,6 +32,11 @@ metadata:
 spec:
   decryption:
     provider: sops
+    secretRef:
+       name: sops-age
+  dependsOn:
+    - name: cluster-meta
+      namespace: flux-system
   deletionPolicy: WaitForTermination
   interval: 1h
   path: ./kubernetes/apps
