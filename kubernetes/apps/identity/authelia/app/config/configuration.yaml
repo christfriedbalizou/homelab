@@ -40,9 +40,10 @@ access_control:
         - "mealie.${SECRET_DOMAIN}"
         - "memos.${SECRET_DOMAIN}"
         - "notes.${SECRET_DOMAIN}"
+        - "nextcloud.${SECRET_DOMAIN}"
       policy: one_factor
       subject:
-        - ["group:admin", "group:family"]
+        - ["group:admin", "group:family", "group:developer"]
 
     - domain:
         - "*.${SECRET_DOMAIN}"
