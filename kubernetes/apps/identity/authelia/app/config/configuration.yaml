@@ -231,3 +231,23 @@ identity_providers:
         access_token_signed_response_alg: none
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_basic
+      - client_id: netbird
+        client_name: netbird
+        client_secret: '${NETBIRD_OIDC_CLIENT_SECRET}'
+        public: false
+        authorization_policy: one_factor
+        require_pkce: false
+        redirect_uris:
+          - https://netbird.${SECRET_DOMAIN}/peers
+          - https://netbird.${SECRET_DOMAIN}/add-peers
+        scopes:
+          - openid
+          - profile
+          - email
+        response_types:
+          - code
+        grant_types:
+          - authorization_code
+        access_token_signed_response_alg: none
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_post
