@@ -17,3 +17,4 @@ resources:
   - ./hyperoptic/ks.yaml
   - ./echo-server/ks.yaml
   - ./tailscale/ks.yaml
+  - ./netbird/ks.yaml
