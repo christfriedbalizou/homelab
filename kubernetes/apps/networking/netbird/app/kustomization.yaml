@@ -4,5 +4,4 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./secret.sops.yaml
-  - ./connector.yaml
   - ./helmrelease.yaml
