@@ -159,7 +159,7 @@ spec:
               - path: /management.ManagementService
                 pathType: ImplementationSpecific
 
-      persistenceVolumes:
+      persistentVolume:
         enabled: false
 
       envFromSecret:
