@@ -23,4 +23,3 @@ resources:
   - ./teleport.yaml
   - ./k8s-gateway.yaml
   - ./tailscale.yaml
-  - ./netbird.yaml

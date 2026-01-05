@@ -2,17 +2,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app netbird
+  name: netbird
 spec:
   interval: 10m
-  chart:
-    spec:
-      chart: *app
-      version: 1.9.0
-      sourceRef:
-        kind: HelmRepository
-        name: *app
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: app-template
   maxHistory: 3
   install:
     createNamespace: true
@@ -25,236 +20,339 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    fullnameOverride: *app
+    controllers:
+      management:
+        replicas: 1
+        strategy: RollingUpdate
+        initContainers:
+          01-init-db:
+              image:
+                repository: ghcr.io/home-operations/postgres-init
+                tag: 18
+                pullPolicy: IfNotPresent
+              envFrom:
+                - secretRef:
+                    name: netbird-secret
+        containers:
+          app:
+            image:
+              repository: netbirdio/management
+              tag: 0.46.0
+            args:
+              - '--port=80'
+              - '--log-file=console'
+              - '--log-level=info'
+              - '--disable-anonymous-metrics=false'
+              - '--single-account-mode-domain=netbird.selfhosted'
+              - '--dns-domain=netbird.selfhosted'
+            env:
+              NETBIRD_DISABLE_GEOLITE_UPDATE: 'true'
+              DATASTORE_ENCRYPTION_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: datastoreEncryptionKey
+              IDP_AUDIENCE:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: idpAudience
+              IDP_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: idpClientID
+              IDP_SERVICE_ACCOUNT_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: idpServiceAccountPassword
+              IDP_SERVICE_ACCOUNT_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: idpServiceAccountUser
+              NETBIRD_STORE_ENGINE_POSTGRES_DSN:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: postgresDSN
+              RELAY_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: relayPassword
+              STUN_SERVER:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: stunServer
+              TURN_SERVER:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: turnServer
+              TURN_SERVER_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: turnServerPassword
+              TURN_SERVER_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: turnServerUser
+            probes:
+              liveness: &managementProbes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: http
+                  initialDelaySeconds: 15
+                  periodSeconds: 10
+                  timeoutSeconds: 3
+                  failureThreshold: 3
+              readiness: *managementProbes
 
-    management:
-      configmap: |-
-        {
-          "Stuns": [
-            {
-              "Proto": "udp",
-              "URI": "{{ .STUN_SERVER }}",
-              "Username": "",
-              "Password": ""
-            }
-          ],
-          "TURNConfig": {
-            "TimeBasedCredentials": false,
-            "CredentialsTTL": "12h0m0s",
-            "Secret": "secret",
-            "Turns": [
-              {
-                "Proto": "udp",
-                "URI": "{{ .TURN_SERVER }}",
-                "Username": "{{ .TURN_SERVER_USER }}",
-                "Password": "{{ .TURN_SERVER_PASSWORD }}"
-              }
-            ]
-          },
-          "Relay": {
-            "Addresses": ["rel://netbird.${SECRET_DOMAIN}:443/relay"],
-            "CredentialsTTL": "24h",
-            "Secret": "{{ .RELAY_PASSWORD }}"
-          },
-          "Signal": {
-            "Proto": "https",
-            "URI": "netbird.${SECRET_DOMAIN}:443",
-            "Username": "",
-            "Password": ""
-          },
-          "Datadir": "/var/lib/netbird/",
-          "DataStoreEncryptionKey": "{{ .DATASTORE_ENCRYPTION_KEY }}",
-          "HttpConfig": {
-            "LetsEncryptDomain": "",
-            "CertFile": "",
-            "CertKey": "",
-            "AuthAudience": "{{ .IDP_AUDIENCE }}",
-            "AuthIssuer": "https://auth.${SECRET_DOMAIN}",
-            "AuthUserIDClaim": "",
-            "AuthKeysLocation": "https://auth.${SECRET_DOMAIN}/jwks.json",
-            "OIDCConfigEndpoint": "https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration",
-            "IdpSignKeyRefreshEnabled": false
-          },
-          "IdpManagerConfig": {
-            "ManagerType": "none",
-            "ClientConfig": {
-              "Issuer": "https://auth.${SECRET_DOMAIN}",
-              "TokenEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/token",
-              "ClientID": "{{ .IDP_CLIENT_ID }}",
-              "ClientSecret": "",
-              "GrantType": "client_credentials"
-            },
-            "ExtraConfig": {
-              "Password": "{{ .IDP_SERVICE_ACCOUNT_PASSWORD }}",
-              "Username": "{{ .IDP_SERVICE_ACCOUNT_USER }}"
-            },
-            "Auth0ClientCredentials": null,
-            "AzureClientCredentials": null,
-            "KeycloakClientCredentials": null,
-            "ZitadelClientCredentials": null
-          },
-          "DeviceAuthorizationFlow": {
-            "Provider": "none",
-            "ProviderConfig": {
-              "ClientID": "",
-              "ClientSecret": "",
-              "Domain": "",
-              "Audience": "{{ .IDP_AUDIENCE }}",
-              "TokenEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/token/",
-              "DeviceAuthEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/device-authorization",
-              "AuthorizationEndpoint": "",
-              "Scope": "openid",
-              "UseIDToken": false,
-              "RedirectURLs": null
-            }
-          },
-          "PKCEAuthorizationFlow": {
-            "ProviderConfig": {
-              "ClientID": "{{ .IDP_CLIENT_ID }}",
-              "ClientSecret": "{{ .IDP_CLIENT_SECRET }}",
-              "Domain": "",
-              "Audience": "{{ .IDP_AUDIENCE }}",
-              "TokenEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/token/",
-              "DeviceAuthEndpoint": "",
-              "AuthorizationEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/authorization",
-              "Scope": "openid profile email",
-              "UseIDToken": true,
-              "DisablePromptLogin": true,
-              "RedirectURLs": ["http://localhost:53000"]
-            }
-          },
-          "StoreConfig": {
-            "Engine": "postgres"
-          },
-          "ReverseProxy": {
-            "TrustedHTTPProxies": null,
-            "TrustedHTTPProxiesCount": 0,
-            "TrustedPeers": null
-          }
-        }
+      relay:
+        replicas: 1
+        strategy: RollingUpdate
+        containers:
+          app:
+            image:
+              repository: netbirdio/relay
+              tag: 0.46.0
+            env:
+              NB_EXPOSED_ADDRESS: netbird.${SECRET_DOMAIN}:443/relay
+              NB_LISTEN_PORT: ':443'
+              NB_LOG_LEVEL: info
+              NB_AUTH_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: relayPassword
+            probes:
+              liveness: &relayProbes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: http
+                  initialDelaySeconds: 5
+                  periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *relayProbes
 
-      ingress:
-        enabled: true
+      signal:
+        replicas: 1
+        strategy: RollingUpdate
+        containers:
+          app:
+            image:
+              repository: netbirdio/signal
+              tag: 0.46.0
+            args:
+              - --port
+              - '80'
+              - --log-level
+              - info
+              - --log-file
+              - console
+            probes:
+              liveness: &signalProbes
+                enabled: true
+                custom: true
+                spec:
+                  tcpSocket:
+                    port: grpc
+                  initialDelaySeconds: 5
+                  periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *signalProbes
+
+      dashboard:
+        replicas: 1
+        strategy: RollingUpdate
+        containers:
+          app:
+            image:
+              repository: netbirdio/dashboard
+              tag: v2.13.1
+            env:
+              AUTH_AUTHORITY: https://auth.${SECRET_DOMAIN}
+              AUTH_REDIRECT_URI: /peers
+              AUTH_SILENT_REDIRECT_URI: /add-peers
+              AUTH_SUPPORTED_SCOPES: openid profile email
+              NETBIRD_MGMT_API_ENDPOINT: &management https://netbird.${SECRET_DOMAIN}:443
+              NETBIRD_MGMT_GRPC_API_ENDPOINT: *management
+              NETBIRD_TOKEN_SOURCE: idToken
+              USE_AUTH0: 'false'
+              AUTH_AUDIENCE:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: idpAudience
+              AUTH_CLIENT_ID:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: idpClientID
+              AUTH_CLIENT_SECRET:
+                valueFrom:
+                  secretKeyRef:
+                    name: netbird-secret
+                    key: idpClientSecret
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: http
+                    scheme: HTTP
+                  periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: http
+                    scheme: HTTP
+                  initialDelaySeconds: 5
+                  periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+
+    service:
+      management:
+        controller: management
+        ports:
+          http:
+            primary: true
+            port: 80
+          grpc:
+            port: 33073
+          metrics:
+            port: 9090
+      relay:
+        controller: relay
+        ports:
+          http:
+            primary: true
+            port: 443
+          metrics:
+            port: 9090
+      signal:
+        controller: signal
+        ports:
+          grpc:
+            primary: true
+            port: 80
+          metrics:
+            port: 9090
+      dashboard:
+        controller: dashboard
+        ports:
+          http:
+            primary: true
+            port: 80
+
+    ingress:
+      management:
         className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
+          external-dns.home.arpa/enabled: 'true'
         hosts:
           - host: &host netbird.${SECRET_DOMAIN}
             paths:
               - path: /api
                 pathType: ImplementationSpecific
-
-      ingressGrpc:
-        enabled: true
+                service:
+                  identifier: management
+                  port: http
+      management-grpc:
         className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
+          external-dns.home.arpa/enabled: 'true'
           nginx.ingress.kubernetes.io/backend-protocol: GRPC
-          nginx.ingress.kubernetes.io/ssl-redirect: "true"
-          nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-          nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+          nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+          nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+          nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
         hosts:
           - host: *host
             paths:
               - path: /management.ManagementService
                 pathType: ImplementationSpecific
-
-      persistentVolume:
-        enabled: true
-        accessModes:
-          - ReadWriteMany
-        storageClass: netbird-apps
-        existingPVName: netbird-apps
-        size: 1Mi
-
-      env:
-        NETBIRD_DISABLE_GEOLITE_UPDATE: "true"
-
-      envFromSecret:
-        NETBIRD_STORE_ENGINE_POSTGRES_DSN: netbird-secret/postgresDSN
-        STUN_SERVER: netbird-secret/stunServer
-        TURN_SERVER: netbird-secret/turnServer
-        TURN_SERVER_USER: netbird-secret/turnServerUser
-        TURN_SERVER_PASSWORD: netbird-secret/turnServerPassword
-        RELAY_PASSWORD: netbird-secret/relayPassword
-        DATASTORE_ENCRYPTION_KEY: netbird-secret/datastoreEncryptionKey
-        IDP_CLIENT_ID: netbird-secret/idpClientID
-        IDP_AUDIENCE: netbird-secret/idpAudience
-        IDP_SERVICE_ACCOUNT_USER: netbird-secret/idpServiceAccountUser
-        IDP_SERVICE_ACCOUNT_PASSWORD: netbird-secret/idpServiceAccountPassword
-
-      useBackwardsGrpcService: true
-
-    signal:
-      ingress:
-        enabled: true
+                service:
+                  identifier: management
+                  port: grpc
+      signal:
         className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
+          external-dns.home.arpa/enabled: 'true'
           nginx.ingress.kubernetes.io/backend-protocol: GRPC
-          nginx.ingress.kubernetes.io/ssl-redirect: "true"
-          nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-          nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+          nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+          nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+          nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
         hosts:
           - host: *host
             paths:
               - path: /signalexchange.SignalExchange
                 pathType: ImplementationSpecific
-
-    relay:
-      containerPort: 443
-
-      service:
-        port: 443
-
-      ingress:
-        enabled: true
+                service:
+                  identifier: signal
+                  port: grpc
+      relay:
         className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
+          external-dns.home.arpa/enabled: 'true'
         hosts:
           - host: *host
             paths:
               - path: /relay
                 pathType: ImplementationSpecific
-
-      envFromSecret:
-        NB_AUTH_SECRET: netbird-secret/relayPassword
-
-      env:
-        NB_LOG_LEVEL: info
-        NB_LISTEN_PORT: ":443"
-        NB_EXPOSED_ADDRESS: netbird.${SECRET_DOMAIN}:443/relay
-
-    dashboard:
-      ingress:
-        enabled: true
+                service:
+                  identifier: relay
+                  port: http
+      dashboard:
         className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
+          external-dns.home.arpa/enabled: 'true'
+          hajimari.io/enable: 'true'
+          hajimari.io/icon: arcticons:netbird
+          hajimari.io/group: Networking
         hosts:
           - host: *host
             paths:
               - path: /
                 pathType: ImplementationSpecific
+                service:
+                  identifier: dashboard
+                  port: http
 
-      env:
-        # Endpoints
-        NETBIRD_MGMT_API_ENDPOINT: &management https://netbird.${SECRET_DOMAIN}:443
-        NETBIRD_MGMT_GRPC_API_ENDPOINT: *management
-        # OIDC
-        USE_AUTH0: false
-        AUTH_REDIRECT_URI: '/peers'
-        AUTH_SILENT_REDIRECT_URI: '/add-peers'
-        AUTH_AUTHORITY: https://auth.${SECRET_DOMAIN}
-        AUTH_SUPPORTED_SCOPES: openid profile email
-        NETBIRD_TOKEN_SOURCE: idToken
-        # SSL
-        NGINX_SSL_PORT:
-        LETSENCRYPT_DOMAIN:
-        LETSENCRYPT_EMAIL:
-
-      envFromSecret:
-        AUTH_CLIENT_ID: netbird-secret/idpClientID
-        AUTH_AUDIENCE: netbird-secret/idpAudience
-        AUTH_CLIENT_SECRET: netbird-secret/idpClientSecret
+    persistence:
+      config:
+        type: configMap
+        name: netbird-configmap
+        advancedMounts:
+          management:
+            app:
+              - path: /etc/netbird
+                readOnly: true
+      data:
+        enabled: true
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/networking
+        advancedMounts:
+          management:
+            app:
+              - path: /var/lib/netbird
+                subPath: netbird

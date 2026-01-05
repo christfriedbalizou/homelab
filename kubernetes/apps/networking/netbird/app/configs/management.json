@@ -1,0 +1,107 @@
+{
+  "Stuns": [
+    {
+      "Proto": "udp",
+      "URI": "{{ .STUN_SERVER }}",
+      "Username": "",
+      "Password": ""
+    }
+  ],
+  "TURNConfig": {
+    "TimeBasedCredentials": false,
+    "CredentialsTTL": "12h0m0s",
+    "Secret": "secret",
+    "Turns": [
+      {
+        "Proto": "udp",
+        "URI": "{{ .TURN_SERVER }}",
+        "Username": "{{ .TURN_SERVER_USER }}",
+        "Password": "{{ .TURN_SERVER_PASSWORD }}"
+      }
+    ]
+  },
+  "Relay": {
+    "Addresses": [
+      "rel://netbird.${SECRET_DOMAIN}:443/relay"
+    ],
+    "CredentialsTTL": "24h",
+    "Secret": "{{ .RELAY_PASSWORD }}"
+  },
+  "Signal": {
+    "Proto": "https",
+    "URI": "netbird.${SECRET_DOMAIN}:443",
+    "Username": "",
+    "Password": ""
+  },
+  "Datadir": "/var/lib/netbird/",
+  "DataStoreEncryptionKey": "{{ .DATASTORE_ENCRYPTION_KEY }}",
+  "HttpConfig": {
+    "LetsEncryptDomain": "",
+    "CertFile": "",
+    "CertKey": "",
+    "AuthAudience": "{{ .IDP_AUDIENCE }}",
+    "AuthIssuer": "https://auth.${SECRET_DOMAIN}",
+    "AuthUserIDClaim": "",
+    "AuthKeysLocation": "https://auth.${SECRET_DOMAIN}/jwks.json",
+    "OIDCConfigEndpoint": "https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration",
+    "IdpSignKeyRefreshEnabled": false
+  },
+  "IdpManagerConfig": {
+    "ManagerType": "none",
+    "ClientConfig": {
+      "Issuer": "https://auth.${SECRET_DOMAIN}",
+      "TokenEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/token",
+      "ClientID": "{{ .IDP_CLIENT_ID }}",
+      "ClientSecret": "",
+      "GrantType": "client_credentials"
+    },
+    "ExtraConfig": {
+      "Password": "{{ .IDP_SERVICE_ACCOUNT_PASSWORD }}",
+      "Username": "{{ .IDP_SERVICE_ACCOUNT_USER }}"
+    },
+    "Auth0ClientCredentials": null,
+    "AzureClientCredentials": null,
+    "KeycloakClientCredentials": null,
+    "ZitadelClientCredentials": null
+  },
+  "DeviceAuthorizationFlow": {
+    "Provider": "none",
+    "ProviderConfig": {
+      "ClientID": "",
+      "ClientSecret": "",
+      "Domain": "",
+      "Audience": "{{ .IDP_AUDIENCE }}",
+      "TokenEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/token/",
+      "DeviceAuthEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/device-authorization",
+      "AuthorizationEndpoint": "",
+      "Scope": "openid",
+      "UseIDToken": false,
+      "RedirectURLs": null
+    }
+  },
+  "PKCEAuthorizationFlow": {
+    "ProviderConfig": {
+      "ClientID": "{{ .IDP_CLIENT_ID }}",
+      "ClientSecret": "{{ .IDP_CLIENT_SECRET }}",
+      "Domain": "",
+      "Audience": "{{ .IDP_AUDIENCE }}",
+      "TokenEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/token/",
+      "DeviceAuthEndpoint": "",
+      "AuthorizationEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/authorization",
+      "Scope": "openid profile email",
+      "UseIDToken": true,
+      "DisablePromptLogin": true,
+      "RedirectURLs": [
+        "http://localhost:53000"
+      ]
+    }
+  },
+  "StoreConfig": {
+    "Engine": "postgres"
+  },
+  "ReverseProxy": {
+    "TrustedHTTPProxies": null,
+    "TrustedHTTPProxiesCount": 0,
+    "TrustedPeers": null
+  }
+}
