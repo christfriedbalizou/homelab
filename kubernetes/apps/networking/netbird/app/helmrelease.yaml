@@ -56,7 +56,7 @@ spec:
                 custom: true
                 spec:
                   tcpSocket:
-                    port: http
+                    port: &port80 80
                   initialDelaySeconds: 15
                   periodSeconds: 10
                   timeoutSeconds: 3
@@ -84,7 +84,7 @@ spec:
                 custom: true
                 spec:
                   tcpSocket:
-                    port: http
+                    port: &port443 443
                   initialDelaySeconds: 5
                   periodSeconds: 5
                   timeoutSeconds: 1
@@ -112,7 +112,7 @@ spec:
                 custom: true
                 spec:
                   tcpSocket:
-                    port: grpc
+                    port: *port80
                   initialDelaySeconds: 5
                   periodSeconds: 5
                   timeoutSeconds: 1
@@ -146,7 +146,7 @@ spec:
                 spec:
                   httpGet:
                     path: /
-                    port: http
+                    port: *port80
                     scheme: HTTP
                   periodSeconds: 5
                   timeoutSeconds: 1
@@ -157,7 +157,7 @@ spec:
                 spec:
                   httpGet:
                     path: /
-                    port: http
+                    port: *port80
                     scheme: HTTP
                   initialDelaySeconds: 5
                   periodSeconds: 5
@@ -170,7 +170,7 @@ spec:
         ports:
           http:
             primary: true
-            port: 80
+            port: *port80
           grpc:
             port: 33073
           metrics:
@@ -180,7 +180,7 @@ spec:
         ports:
           http:
             primary: true
-            port: 443
+            port: *port443
           metrics:
             port: 9090
       signal:
@@ -188,7 +188,7 @@ spec:
         ports:
           grpc:
             primary: true
-            port: 80
+            port: *port80
           metrics:
             port: 9090
       dashboard:
@@ -196,7 +196,7 @@ spec:
         ports:
           http:
             primary: true
-            port: 80
+            port: *port80
 
     ingress:
       management:
