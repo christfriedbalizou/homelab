@@ -2,10 +2,8 @@ from pathlib import Path
 from typing import Any
 
 import base64
-import hashlib
 import ipaddress
 import makejinja
-import os
 import re
 import json
 
@@ -122,20 +120,6 @@ def talos_patches(value: str) -> list[str]:
     return [str(f) for f in sorted(path.glob('*.yaml.j2')) if f.is_file()]
 
 
-def pbkdf2(secret: str, iterations: int = 310000) -> str:
-    try:
-        salt = hashlib.sha256(secret.encode('utf-8')).digest()[:16]
-
-        hash_obj = hashlib.pbkdf2_hmac('sha512', secret.encode('utf-8'), salt, iterations)
-
-        salt_b64 = base64.b64encode(salt).decode('utf-8')
-        hash_b64 = base64.b64encode(hash_obj).decode('utf-8')
-
-        return f"$pbkdf2-sha512${iterations}${salt_b64}${hash_b64}"
-    except Exception as e:
-        raise RuntimeError(f"Error hashing secret with PBKDF2: {e}")
-
-
 class Plugin(makejinja.plugin.Plugin):
     def __init__(self, data: dict[str, Any]):
         self._data = data
@@ -176,7 +160,6 @@ class Plugin(makejinja.plugin.Plugin):
     def functions(self) -> makejinja.plugin.Functions:
         return [
             age_key,
-            pbkdf2,
             cloudflare_tunnel_id,
             cloudflare_tunnel_secret,
             github_deploy_key,
