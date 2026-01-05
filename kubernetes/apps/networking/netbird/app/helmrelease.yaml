@@ -210,7 +210,7 @@ spec:
       env:
         NB_LOG_LEVEL: info
         NB_LISTEN_PORT: ":33080"
-        NB_EXPOSED_ADDRESS: rels://netbird.${SECRET_DOMAIN}:443/relay"
+        NB_EXPOSED_ADDRESS: rels://netbird.${SECRET_DOMAIN}:443/relay
 
     dashboard:
       ingress:
