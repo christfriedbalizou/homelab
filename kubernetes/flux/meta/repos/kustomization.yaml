@@ -20,6 +20,5 @@ resources:
   - ./bjw-s.yaml
   - ./external-dns.yaml
   - ./ingress-nginx.yaml
-  - ./teleport.yaml
   - ./k8s-gateway.yaml
   - ./tailscale.yaml
