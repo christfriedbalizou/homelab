@@ -160,7 +160,13 @@ spec:
                 pathType: ImplementationSpecific
 
       persistentVolume:
-        enabled: false
+        enabled: true
+        accessModes:
+          - ReadWriteMany
+        storageClassName: netbird-apps
+        existingPVName: netbird-apps
+        size: 1Mi
+
 
       envFromSecret:
         NETBIRD_STORE_ENGINE_POSTGRES_DSN: netbird-secret/postgresDSN
