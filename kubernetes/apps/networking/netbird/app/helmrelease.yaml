@@ -163,7 +163,7 @@ spec:
         enabled: true
         accessModes:
           - ReadWriteMany
-        storageClassName: netbird-apps
+        storageClass: netbird-apps
         existingPVName: netbird-apps
         size: 1Mi
 
