@@ -171,6 +171,7 @@ spec:
         RELAY_PASSWORD: netbird-secret/relayPassword
         DATASTORE_ENCRYPTION_KEY: netbird-secret/datastoreEncryptionKey
         IDP_CLIENT_ID: netbird-secret/idpClientID
+        IDP_AUDIENCE: netbird-secret/idpAudience
         IDP_SERVICE_ACCOUNT_USER: netbird-secret/idpServiceAccountUser
         IDP_SERVICE_ACCOUNT_PASSWORD: netbird-secret/idpServiceAccountPassword
 
