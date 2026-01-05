@@ -41,7 +41,7 @@
     "CertKey": "",
     "AuthAudience": "{{ .IDP_AUDIENCE }}",
     "AuthIssuer": "https://auth.${SECRET_DOMAIN}",
-    "AuthUserIDClaim": "",
+    "AuthUserIDClaim": "sub",
     "AuthKeysLocation": "https://auth.${SECRET_DOMAIN}/jwks.json",
     "OIDCConfigEndpoint": "https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration",
     "IdpSignKeyRefreshEnabled": false
