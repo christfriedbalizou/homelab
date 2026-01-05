@@ -52,7 +52,7 @@ spec:
             ]
           },
           "Relay": {
-            "Addresses": ["rels://netbird.${SECRET_DOMAIN}:443/relay"],
+            "Addresses": ["rel://netbird.${SECRET_DOMAIN}:33080/relay"],
             "CredentialsTTL": "24h",
             "Secret": "{{ .RELAY_PASSWORD }}"
           },
@@ -210,7 +210,7 @@ spec:
       env:
         NB_LOG_LEVEL: info
         NB_LISTEN_PORT: ":33080"
-        NB_EXPOSED_ADDRESS: rels://netbird.${SECRET_DOMAIN}:443/relay
+        NB_EXPOSED_ADDRESS: netbird.${SECRET_DOMAIN}:33080/relay
 
     dashboard:
       ingress:
