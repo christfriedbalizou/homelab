@@ -261,7 +261,7 @@ spec:
           external-dns.home.arpa/enabled: 'true'
           hajimari.io/enable: 'true'
           hajimari.io/icon: arcticons:netbird
-          hajimari.io/group: Networking
+          hajimari.io/group: Network
         hosts:
           - host: *host
             paths:
