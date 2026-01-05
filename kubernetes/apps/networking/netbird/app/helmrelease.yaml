@@ -47,61 +47,9 @@ spec:
               - '--dns-domain=netbird.selfhosted'
             env:
               NETBIRD_DISABLE_GEOLITE_UPDATE: 'true'
-              DATASTORE_ENCRYPTION_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: datastoreEncryptionKey
-              IDP_AUDIENCE:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: idpAudience
-              IDP_CLIENT_ID:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: idpClientID
-              IDP_SERVICE_ACCOUNT_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: idpServiceAccountPassword
-              IDP_SERVICE_ACCOUNT_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: idpServiceAccountUser
-              NETBIRD_STORE_ENGINE_POSTGRES_DSN:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: postgresDSN
-              RELAY_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: relayPassword
-              STUN_SERVER:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: stunServer
-              TURN_SERVER:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: turnServer
-              TURN_SERVER_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: turnServerPassword
-              TURN_SERVER_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: turnServerUser
+            envFrom:
+              - secretRef:
+                  name: netbird-secret
             probes:
               liveness: &managementProbes
                 enabled: true
@@ -127,11 +75,9 @@ spec:
               NB_EXPOSED_ADDRESS: netbird.${SECRET_DOMAIN}:443/relay
               NB_LISTEN_PORT: ':443'
               NB_LOG_LEVEL: info
-              NB_AUTH_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: relayPassword
+            envFrom:
+              - secretRef:
+                  name: netbird-secret
             probes:
               liveness: &relayProbes
                 enabled: true
@@ -190,21 +136,9 @@ spec:
               NETBIRD_MGMT_GRPC_API_ENDPOINT: *management
               NETBIRD_TOKEN_SOURCE: idToken
               USE_AUTH0: 'false'
-              AUTH_AUDIENCE:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: idpAudience
-              AUTH_CLIENT_ID:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: idpClientID
-              AUTH_CLIENT_SECRET:
-                valueFrom:
-                  secretKeyRef:
-                    name: netbird-secret
-                    key: idpClientSecret
+            envFrom:
+              - secretRef:
+                  name: netbird-secret
             probes:
               liveness:
                 enabled: true
