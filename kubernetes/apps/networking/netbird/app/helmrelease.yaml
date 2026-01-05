@@ -52,7 +52,7 @@ spec:
             ]
           },
           "Relay": {
-            "Addresses": ["rel://netbird.${SECRET_DOMAIN}:33080/relay"],
+            "Addresses": ["rel://netbird.${SECRET_DOMAIN}:443/relay"],
             "CredentialsTTL": "24h",
             "Secret": "{{ .RELAY_PASSWORD }}"
           },
@@ -193,6 +193,11 @@ spec:
                 pathType: ImplementationSpecific
 
     relay:
+      containerPort: 443
+
+      service:
+        port: 443
+
       ingress:
         enabled: true
         className: external
@@ -209,8 +214,8 @@ spec:
 
       env:
         NB_LOG_LEVEL: info
-        NB_LISTEN_PORT: ":33080"
-        NB_EXPOSED_ADDRESS: netbird.${SECRET_DOMAIN}:33080/relay
+        NB_LISTEN_PORT: ":443"
+        NB_EXPOSED_ADDRESS: netbird.${SECRET_DOMAIN}:443/relay
 
     dashboard:
       ingress:
