@@ -167,6 +167,8 @@ spec:
         existingPVName: netbird-apps
         size: 1Mi
 
+      env:
+        NETBIRD_DISABLE_GEOLITE_UPDATE: "true"
 
       envFromSecret:
         NETBIRD_STORE_ENGINE_POSTGRES_DSN: netbird-secret/postgresDSN
