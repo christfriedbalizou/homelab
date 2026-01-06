@@ -63,3 +63,5 @@ spec:
                 subPath: log
               - path: /var/run
                 subPath: run
+              - path: /var/lib/netbird
+                subPath: lib/netbird
