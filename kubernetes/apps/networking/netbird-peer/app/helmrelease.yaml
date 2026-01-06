@@ -60,8 +60,10 @@ spec:
           netbird-peer:
             app:
               - path: /var/log
-                subPath: log
+                subPath: var/log
               - path: /var/run
-                subPath: run
+                subPath: var/run
               - path: /var/lib/netbird
                 subPath: lib/netbird
+              - path: /root
+                subPath: root
