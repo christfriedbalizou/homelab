@@ -11,7 +11,7 @@ spec:
   values:
     controllers:
       netbird-peer:
-        replicas: 3
+        replicas: 1
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -33,7 +33,7 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.name
-              NB_LOG_LEVEL: info
+              NB_LOG_LEVEL: debug
             envFrom:
               - secretRef:
                   name: netbird-peer-secrets
