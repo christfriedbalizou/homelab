@@ -53,3 +53,13 @@ spec:
                 memory: 105Mi
               limits:
                 memory: 500Mi
+    persistence:
+      tmpfs:
+        type: emptyDir
+        advancedMounts:
+          netbird-peer:
+            app:
+              - path: /var/log
+                subPath: log
+              - path: /var/run
+                subPath: run
