@@ -34,6 +34,15 @@ access_control:
 
     - domain: auth.${SECRET_DOMAIN}
       policy: bypass
+
+    # Bypass authentication for netbird gRPC endpoints (API access for peers)
+    - domain: netbird.${SECRET_DOMAIN}
+      policy: bypass
+      resources:
+        - "^/management\\.ManagementService.*"
+        - "^/signalexchange\\.SignalExchange.*"
+        - "^/api.*"
+
     - domain:
         - "actual.${SECRET_DOMAIN}"
         - "paperless.${SECRET_DOMAIN}"
