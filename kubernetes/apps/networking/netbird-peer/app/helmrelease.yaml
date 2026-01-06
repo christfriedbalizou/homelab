@@ -28,7 +28,7 @@ spec:
               repository: netbirdio/netbird
               tag: 0.61.2@sha256:6c22aac6b14505a76eac551103f8016f510e634a0c42b6872eaec40853cbb4ae
             env:
-              MANAGEMENT_URL: https://netbird.${SECRET_DOMAIN}:443
+              NB_MANAGEMENT_URL: https://netbird.${SECRET_DOMAIN}:443
               NB_HOSTNAME:
                 valueFrom:
                   fieldRef:
