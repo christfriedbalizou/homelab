@@ -32,7 +32,7 @@ spec:
   values:
     fullnameOverride: nginx-external
     controller:
-      replicaCount: 2
+      replicaCount: 1
       service:
         annotations:
           external-dns.alpha.kubernetes.io/hostname: &hostname "ipv4.${SECRET_DOMAIN}"
@@ -74,6 +74,7 @@ spec:
         large-client-header-buffers: 4 128K
         use-forwarded-headers: "true"
         ssl-protocols: TLSv1.3 TLSv1.2
+        use-http2: "true"
       metrics:
         enabled: true
         serviceMonitor:
