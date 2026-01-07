@@ -215,7 +215,7 @@ spec:
         className: external
         annotations:
           external-dns.home.arpa/enabled: 'true'
-          nginx.ingress.kubernetes.io/backend-protocol: GRPC
+          nginx.ingress.kubernetes.io/backend-protocol: GRPCS
           nginx.ingress.kubernetes.io/ssl-redirect: 'true'
           nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
           nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
@@ -231,7 +231,7 @@ spec:
         className: external
         annotations:
           external-dns.home.arpa/enabled: 'true'
-          nginx.ingress.kubernetes.io/backend-protocol: GRPC
+          nginx.ingress.kubernetes.io/backend-protocol: GRPCS
           nginx.ingress.kubernetes.io/ssl-redirect: 'true'
           nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
           nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
