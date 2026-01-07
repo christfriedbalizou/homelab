@@ -41,7 +41,7 @@ spec:
             args:
               - '--port=80'
               - '--log-file=console'
-              - '--log-level=info'
+              - '--log-level=debug'
               - '--disable-anonymous-metrics=false'
               - '--single-account-mode-domain=netbird.selfhosted'
               - '--dns-domain=netbird.selfhosted'
@@ -74,7 +74,8 @@ spec:
             env:
               NB_EXPOSED_ADDRESS: netbird.${SECRET_DOMAIN}:443/relay
               NB_LISTEN_PORT: ':443'
-              NB_LOG_LEVEL: info
+              NB_LOG_LEVEL: debug
+              NB_LOG_FILE: console
             envFrom:
               - secretRef:
                   name: netbird-secret
@@ -103,7 +104,7 @@ spec:
               - --port
               - '80'
               - --log-level
-              - info
+              - debug
               - --log-file
               - console
             probes:
