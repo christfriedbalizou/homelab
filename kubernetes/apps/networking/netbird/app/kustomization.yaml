@@ -4,10 +4,6 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./secret.sops.yaml
+  - ./pv.yaml
+  - ./01-init-db.yaml
   - ./helmrelease.yaml
-configMapGenerator:
-  - name: netbird-configmap
-    files:
-      - management.json=./configs/management.json
-generatorOptions:
-  disableNameSuffixHash: true
