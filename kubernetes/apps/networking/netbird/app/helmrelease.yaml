@@ -208,11 +208,11 @@ spec:
           - host: &host netbird.${SECRET_DOMAIN}
             paths:
               - path: /api
-                pathType:
+                pathType: ImplementationSpecific
                 service:
                   identifier: management
                   port: http
-      management-grpc:
+      grpc:
         className: external
         annotations:
           external-dns.home.arpa/enabled: 'true'
