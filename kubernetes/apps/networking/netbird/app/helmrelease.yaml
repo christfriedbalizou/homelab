@@ -189,7 +189,7 @@ spec:
         ports:
           grpc:
             primary: true
-            port: *port80
+            port: 10000
           metrics:
             port: 9090
       dashboard:
