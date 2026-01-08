@@ -28,7 +28,7 @@
     "Secret": "{{ .RELAY_PASSWORD }}"
   },
   "Signal": {
-    "Proto": "grpc",
+    "Proto": "https",
     "URI": "netbird.${SECRET_DOMAIN}:443",
     "Username": "",
     "Password": ""
