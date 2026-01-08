@@ -45,6 +45,7 @@ spec:
                   - ALL
                 add:
                   - NET_ADMIN
+                  - NET_RAW
                   - SYS_ADMIN
                   - SYS_RESOURCE
             resources:
@@ -54,6 +55,13 @@ spec:
               limits:
                 memory: 500Mi
     persistence:
+      tun:
+        type: hostPath
+        hostPath: /dev/net/tun
+        advancedMounts:
+          netbird-peer:
+            app:
+              - path: /dev/net/tun
       data:
         type: emptyDir
         advancedMounts:

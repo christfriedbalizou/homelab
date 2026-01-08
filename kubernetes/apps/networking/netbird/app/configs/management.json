@@ -22,7 +22,7 @@
   },
   "Relay": {
     "Addresses": [
-      "rel://netbird.${SECRET_DOMAIN}:443/relay"
+      "rels://netbird.${SECRET_DOMAIN}:443"
     ],
     "CredentialsTTL": "24h",
     "Secret": "{{ .RELAY_PASSWORD }}"
