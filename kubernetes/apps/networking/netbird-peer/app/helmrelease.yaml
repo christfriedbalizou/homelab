@@ -33,7 +33,7 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: metadata.name
-              NB_LOG_LEVEL: debug
+              NB_LOG_LEVEL: info
             envFrom:
               - secretRef:
                   name: netbird-peer-secrets
@@ -54,7 +54,7 @@ spec:
               limits:
                 memory: 500Mi
     persistence:
-      tmpfs:
+      data:
         type: emptyDir
         advancedMounts:
           netbird-peer:
