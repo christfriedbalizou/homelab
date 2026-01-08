@@ -100,13 +100,17 @@ spec:
             image:
               repository: netbirdio/signal
               tag: 0.61.2
+            args:
+              - '--port=80'
+              - '--log-file=console'
+              - '--log-level=info'
             probes:
               liveness: &signalProbes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
-                    port: &signal 10000
+                    port: *port80
                   initialDelaySeconds: 5
                   periodSeconds: 5
                   timeoutSeconds: 1
@@ -180,9 +184,9 @@ spec:
       signal:
         controller: signal
         ports:
-          grpc:
+          http:
             primary: true
-            port: *signal
+            port: *port80
           metrics:
             port: 9090
       dashboard:
@@ -222,11 +226,18 @@ spec:
                   identifier: management
                   port: grpc
 
+      signal:
+        className: external
+        annotations:
+          external-dns.home.arpa/enabled: 'true'
+        hosts:
+          - host: *host
+            paths:
               - path: /signalexchange.SignalExchange
                 pathType: ImplementationSpecific
                 service:
                   identifier: signal
-                  port: grpc
+                  port: http
 
       relay:
         className: external
