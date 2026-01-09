@@ -100,13 +100,17 @@ spec:
             image:
               repository: netbirdio/signal
               tag: 0.61.2
+            args:
+              - '--port=80'
+              - '--log-file=console'
+              - '--log-level=info'
             probes:
               liveness: &signalProbes
                 enabled: true
                 custom: true
                 spec:
                   tcpSocket:
-                    port: *port80
+                    port: 10000
                   initialDelaySeconds: 5
                   periodSeconds: 5
                   timeoutSeconds: 1
