@@ -100,10 +100,6 @@ spec:
             image:
               repository: netbirdio/signal
               tag: 0.61.2
-            args:
-              - '--port=80'
-              - '--log-file=console'
-              - '--log-level=info'
             probes:
               liveness: &signalProbes
                 enabled: true
@@ -187,6 +183,8 @@ spec:
           http:
             primary: true
             port: *port80
+          grpc:
+            port: 10000
           metrics:
             port: 9090
       dashboard:
@@ -230,6 +228,10 @@ spec:
         className: external
         annotations:
           external-dns.home.arpa/enabled: 'true'
+          nginx.ingress.kubernetes.io/backend-protocol: GRPC
+          nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+          nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
+          nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
         hosts:
           - host: *host
             paths:
@@ -237,7 +239,7 @@ spec:
                 pathType: ImplementationSpecific
                 service:
                   identifier: signal
-                  port: http
+                  port: grpc
 
       relay:
         className: external
