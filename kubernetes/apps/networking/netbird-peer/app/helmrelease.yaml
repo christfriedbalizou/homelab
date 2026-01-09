@@ -26,7 +26,7 @@ spec:
           app:
             image:
               repository: netbirdio/netbird
-              tag: 0.61.2@sha256:6c22aac6b14505a76eac551103f8016f510e634a0c42b6872eaec40853cbb4ae
+              tag: 0.62.2@sha256:06d495d681a237fc220cc591e7eadf89bdc6910acda8445a3f6d281e4f9bf8d8
             env:
               NB_MANAGEMENT_URL: https://netbird.${SECRET_DOMAIN}:443
               NB_HOSTNAME:
