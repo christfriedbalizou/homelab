@@ -62,7 +62,7 @@ spec:
           netbird-peer:
             app:
               - path: /dev/net/tun
-      data:
+      runtime:
         type: emptyDir
         advancedMounts:
           netbird-peer:
@@ -71,7 +71,14 @@ spec:
                 subPath: var/log
               - path: /var/run
                 subPath: var/run
+      config:
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/networking/netbird-peers
+        advancedMounts:
+          netbird-peer:
+            app:
               - path: /var/lib/netbird
-                subPath: lib/netbird
+                subPath: netbird
               - path: /root
                 subPath: root
