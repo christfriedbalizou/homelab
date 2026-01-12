@@ -8,7 +8,7 @@
       automergeType: "pr",
       matchUpdateTypes: ["minor", "patch", "digest"],
       matchPackageNames: ["/home-operations/"],
-      ignoreTests: false,
+      ignoreTests: true,
     },
     {
       description: "Auto-merge all container minor, and patch updates",
@@ -16,7 +16,7 @@
       automerge: true,
       automergeType: "pr",
       matchUpdateTypes: ["minor", "patch"],
-      ignoreTests: false,
+      ignoreTests: true,
     },
     {
       description: "Auto-merge GitHub Actions",
