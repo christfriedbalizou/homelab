@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app netbird-peer
+  name: &app mooncake
   namespace: flux-system
 spec:
   commonMetadata:
@@ -12,7 +12,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  path: ./kubernetes/apps/networking/netbird-peer/app
+  path: ./kubernetes/apps/networking/netbird-peers/mooncake/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets

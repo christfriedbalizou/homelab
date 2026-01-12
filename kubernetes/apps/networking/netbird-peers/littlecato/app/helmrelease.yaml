@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: netbird-peer
+  name: littlecato
 spec:
   interval: 30m
   chartRef:
@@ -10,7 +10,7 @@ spec:
     name: app-template
   values:
     controllers:
-      netbird-peer:
+      littlecato:
         replicas: 1
         annotations:
           reloader.stakater.com/auto: "true"
@@ -21,7 +21,7 @@ spec:
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
                 matchLabels:
-                  app.kubernetes.io/name: netbird-peer
+                  app.kubernetes.io/name: littlecato
         containers:
           app:
             image:
@@ -29,14 +29,11 @@ spec:
               tag: 0.61.2@sha256:6c22aac6b14505a76eac551103f8016f510e634a0c42b6872eaec40853cbb4ae
             env:
               NB_MANAGEMENT_URL: https://netbird.${SECRET_DOMAIN}:443
-              NB_HOSTNAME:
-                valueFrom:
-                  fieldRef:
-                    fieldPath: metadata.name
+              NB_HOSTNAME: littlecato
               NB_LOG_LEVEL: info
             envFrom:
               - secretRef:
-                  name: netbird-peer-secrets
+                  name: netbird-peers-secrets
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -59,13 +56,13 @@ spec:
         type: hostPath
         hostPath: /dev/net/tun
         advancedMounts:
-          netbird-peer:
+          littlecato:
             app:
               - path: /dev/net/tun
       runtime:
         type: emptyDir
         advancedMounts:
-          netbird-peer:
+          littlecato:
             app:
               - path: /var/log
                 subPath: var/log
@@ -74,9 +71,9 @@ spec:
       config:
         type: nfs
         server: ${NFS_SERVER}
-        path: /volume1/apps/networking/netbird-peers
+        path: /volume1/apps/networking/netbird-peers/littlecato
         advancedMounts:
-          netbird-peer:
+          littlecato:
             app:
               - path: /var/lib/netbird
                 subPath: netbird
