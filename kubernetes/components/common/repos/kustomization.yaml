@@ -6,7 +6,6 @@ resources:
   - ./app-template
   - ./cert-manager
   - ./cloudnative-pg
-  - ./coredns
   - ./descheduler
   - ./external-dns
   - ./flux-instance
