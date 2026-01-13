@@ -1,4 +1,13 @@
 ---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: hajimari
+  namespace: default
+spec:
+  interval: 1h
+  url: https://hajimari.io
+---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -12,7 +21,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: hajimari
-        namespace: flux-system
+        namespace: default
   install:
     createNamespace: true
     remediation:

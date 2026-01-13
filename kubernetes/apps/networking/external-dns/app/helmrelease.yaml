@@ -6,14 +6,9 @@ metadata:
   namespace: networking
 spec:
   interval: 15m
-  chart:
-    spec:
-      chart: external-dns
-      version: 1.20.0
-      sourceRef:
-        kind: HelmRepository
-        name: home-operations
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: external-dns
   install:
     crds: CreateReplace
     createNamespace: true

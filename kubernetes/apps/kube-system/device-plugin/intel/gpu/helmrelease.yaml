@@ -7,14 +7,9 @@ metadata:
   namespace: kube-system
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: intel-device-plugins-gpu
-      version: 0.34.1
-      sourceRef:
-        kind: HelmRepository
-        name: home-operations
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: intel-device-plugins-gpu
   maxHistory: 2
   install:
     remediation:

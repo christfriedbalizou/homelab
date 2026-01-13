@@ -7,14 +7,9 @@ metadata:
   namespace: kube-system
 spec:
   interval: 15m
-  chart:
-    spec:
-      chart: node-feature-discovery
-      version: 0.18.0
-      sourceRef:
-        kind: HelmRepository
-        name: home-operations
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: node-feature-discovery
   maxHistory: 3
   install:
     createNamespace: true

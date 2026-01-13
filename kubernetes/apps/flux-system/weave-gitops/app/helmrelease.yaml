@@ -5,14 +5,9 @@ metadata:
   name: weave-gitops
 spec:
   interval: 15m
-  chart:
-    spec:
-      chart: weave-gitops
-      version: 4.0.36
-      sourceRef:
-        kind: HelmRepository
-        name: weave-gitops
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: weave-gitops
   install:
     createNamespace: true
     remediation:

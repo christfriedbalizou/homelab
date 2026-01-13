@@ -6,14 +6,9 @@ metadata:
   name: openebs
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: openebs
-      version: 4.4.0
-      sourceRef:
-        kind: HelmRepository
-        name: home-operations
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: openebs
   install:
     remediation:
       retries: 3

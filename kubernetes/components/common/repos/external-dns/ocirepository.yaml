@@ -2,13 +2,12 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: tailscale-operator
-  namespace: flux-system
+  name: external-dns
 spec:
   interval: 5m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: 1.92.5
-  url: oci://ghcr.io/home-operations/charts-mirror/tailscale-operator
+    tag: 1.20.0
+  url: oci://ghcr.io/home-operations/charts-mirror/external-dns

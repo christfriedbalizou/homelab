@@ -7,14 +7,9 @@ metadata:
   namespace: kube-system
 spec:
   interval: 30m
-  chart:
-    spec:
-      chart: intel-device-plugins-operator
-      version: 0.34.1
-      sourceRef:
-        kind: HelmRepository
-        name: home-operations
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: intel-device-plugins-operator
   maxHistory: 2
   install:
     crds: CreateReplace

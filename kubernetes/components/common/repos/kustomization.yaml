@@ -4,8 +4,28 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./app-template
+  - ./cert-manager
+  - ./cloudnative-pg
+  - ./coredns
+  - ./descheduler
+  - ./external-dns
+  - ./flux-instance
+  - ./flux-operator
+  - ./grafana
+  - ./hajimari
+  - ./ingress-nginx
+  - ./intel-device-plugins-gpu
+  - ./intel-device-plugins-operator
+  - ./k8s-gateway
+  - ./kube-prometheus-stack
+  - ./kubernetes-dashboard-charts
+  - ./kyverno
+  - ./nextcloud
+  - ./node-feature-discovery
+  - ./nvidia-operator
+  - ./openebs
+  - ./reloader
   - ./spegel
   - ./tuppr
-  - ./tailscale
-  - ./nextcloud
-  - ./mariadb
+  - ./twingate
+  - ./weave-gitops
