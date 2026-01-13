@@ -8,8 +8,6 @@ resources:
   - ./cloudnative-pg
   - ./descheduler
   - ./external-dns
-  - ./flux-instance
-  - ./flux-operator
   - ./grafana
   - ./hajimari
   - ./ingress-nginx
