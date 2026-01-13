@@ -12,7 +12,7 @@
     },
     {
       description: "Auto-merge all container minor, and patch updates",
-      matchDatasources: ["docker"],
+      matchDatasources: ["docker", "helm"],
       automerge: true,
       automergeType: "pr",
       matchUpdateTypes: ["minor", "patch"],
