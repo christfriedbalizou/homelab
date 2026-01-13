@@ -99,7 +99,7 @@ spec:
           app:
             image:
               repository: netbirdio/signal
-              tag: 0.61.2
+              tag: 0.62.3
             args:
               - '--port=80'
               - '--log-file=console'
