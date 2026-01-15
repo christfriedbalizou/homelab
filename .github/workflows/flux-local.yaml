@@ -70,6 +70,7 @@ jobs:
       matrix:
         resource:
           - helmrelease
+          - kustomization
       fail-fast: false
     steps:
       - name: Generate Token
