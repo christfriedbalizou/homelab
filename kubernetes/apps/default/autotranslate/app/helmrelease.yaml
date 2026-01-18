@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: zorbatherainy/autotranslate
-              tag: 2.3.0@sha256:7b4e7ab473168c77f725984798c84f872e4875d81c0857224594a3b4a5a20629
+              tag: 2.4.0@sha256:791ecfc4e06c4740d8f1d86752e8042ea58eb2079f4aed63c04cb5aae1627e0a
             env:
               DEEPL_AUTH_KEY: ${AUTOTRANSLATE_DEEPL_AUTH_KEY}
               DEEPL_TARGET_LANG: FR
