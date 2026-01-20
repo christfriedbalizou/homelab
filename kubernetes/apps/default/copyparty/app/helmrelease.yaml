@@ -75,8 +75,21 @@ spec:
         server: ${NFS_SERVER}
         path: /volume1/apps/default
         globalMounts:
-          - path: /cfg
+          - path: /cfg/copyparty
             subPath: copyparty
+      copyparty:
+        enabled: true
+        type: configMap
+        name: copyparty
+        globalMounts:
+          - path: /cfg/copyparty.conf
+            subPath: copyparty.conf
+            readOnly: true
+      tmp:
+        enabled: true
+        type: emptyDir
+        globalMounts:
+          - path: /w
       media:
         enabled: true
         type: nfs

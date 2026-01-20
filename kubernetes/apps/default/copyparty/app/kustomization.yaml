@@ -4,3 +4,11 @@ kind: Kustomization
 namespace: default
 resources:
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: copyparty
+    files:
+      - ./config/copyparty.conf
+generatorOptions:
+  disableNameSuffixHash: true
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
