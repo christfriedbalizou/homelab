@@ -19,3 +19,4 @@ resources:
   - ./memos/ks.yaml
   - ./nextcloud/ks.yaml
   - ./letibeafrica/ks.yaml
+  - ./copyparty/ks.yaml
