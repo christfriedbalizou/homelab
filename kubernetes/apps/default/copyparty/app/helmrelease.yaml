@@ -51,7 +51,7 @@ spec:
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/group: "Tools"
-          hajimari.io/icon: "mdi:folder-copy"
+          hajimari.io/icon: "openmoji:videocassette"
         hosts:
           - host: copyparty.${SECRET_DOMAIN}
             paths:
