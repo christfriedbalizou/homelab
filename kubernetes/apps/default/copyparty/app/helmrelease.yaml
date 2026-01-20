@@ -76,6 +76,7 @@ spec:
         path: /volume1/apps/default
         globalMounts:
           - path: /cfg
+            subPath: copyparty
       media:
         enabled: true
         type: nfs
