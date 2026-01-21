@@ -32,7 +32,7 @@ Most of my infrastructure and workloads are self-hosted, but I rely on the cloud
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
 
 | Device              | Count | Memory    | Role               | Storage                               |
-|:-------------------:|:-----:|:---------:|:------------------:|:-------------------------------------:|
+|---------------------|-------|-----------|--------------------|---------------------------------------|
 | Ιntel NUC7i7BNH     |   2   | 32GB DDR4 |   K3s controller   |    256GB M.2 SSD                      |
 | Ιntel Xeon          |   1   | 64GB DDR4 |   K3s controller   |    256GB M.2 SSD                      |
 | Intel NUC7i5BNH     |   1   | 16GB DDR4 |   K3s controller   |    256GB M.2 SSG                      |
