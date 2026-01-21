@@ -10,6 +10,7 @@
     "**/*.sops.*",
     "**/resources/**",
     "**/configs/**",
+    "**/config/**",
   ],
   flux: {
     managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
