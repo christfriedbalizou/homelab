@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: media
 resources:
   - ./helmrelease.yaml
-  - ../../../../shared/templates/gatus/guarded
 configMapGenerator:
   - name: autobrr-loki-rules
     files:
