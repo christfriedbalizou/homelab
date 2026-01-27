@@ -3,7 +3,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app jellyseerr
-  namespace: flux-system
 spec:
   commonMetadata:
     labels:
@@ -21,17 +20,13 @@ spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
-      name: &app jellyseerr
-      namespace: &namespace media
+      name: jellyseerr
+      namespace: media
   interval: 30m
   retryInterval: 1m
   timeout: 3m
   targetNamespace: media
   postBuild:
-    substitute:
-      APP: *app
-      NAMESPACE: *namespace
-      GATUS_STATUS: "307"
     substituteFrom:
       - kind: Secret
         name: cluster-secrets

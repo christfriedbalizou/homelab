@@ -3,7 +3,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app prowlarr
-  namespace: flux-system
 spec:
   commonMetadata:
     labels:
@@ -21,16 +20,13 @@ spec:
   healthChecks:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
-      name: &app prowlarr
-      namespace: &namespace media
+      name: prowlarr
+      namespace: media
   interval: 30m
   retryInterval: 1m
   timeout: 3m
   targetNamespace: media
   postBuild:
-    substitute:
-      APP: *app
-      NAMESPACE: *namespace
     substituteFrom:
       - kind: Secret
         name: cluster-secrets
