@@ -17,8 +17,6 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-      - name: cluster-settings
-        kind: ConfigMap
   targetNamespace: &namespace networking
   prune: true
   wait: true
@@ -49,8 +47,6 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-      - name: cluster-settings
-        kind: ConfigMap
   targetNamespace: &namespace networking
   dependsOn:
     - name: nginx-shared
@@ -88,8 +84,6 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-      - name: cluster-settings
-        kind: ConfigMap
   targetNamespace: &namespace networking
   dependsOn:
     - name: nginx-shared

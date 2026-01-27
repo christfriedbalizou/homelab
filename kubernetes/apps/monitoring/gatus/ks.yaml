@@ -30,5 +30,3 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
-      - name: cluster-settings
-        kind: ConfigMap
