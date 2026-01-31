@@ -67,8 +67,7 @@ spec:
               OPENSSL_FIPS: "yes"
             resources: &resources
               limits:
-                cpu: 380m
-                memory: 384Mi
+                memory: 512Mi
               requests:
                 cpu: 250m
                 memory: 256Mi
