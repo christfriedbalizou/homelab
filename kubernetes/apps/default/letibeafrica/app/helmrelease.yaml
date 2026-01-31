@@ -67,7 +67,7 @@ spec:
               OPENSSL_FIPS: "yes"
             resources: &resources
               limits:
-                memory: 512Mi
+                memory: 1025Mi
               requests:
                 cpu: 250m
                 memory: 256Mi
@@ -107,7 +107,7 @@ spec:
                     port: &port 8080
                   initialDelaySeconds: 0
                   periodSeconds: 10
-                  timeoutSeconds: 1
+                  timeoutSeconds: 5
                   failureThreshold: 3
               readiness: *probes
     service:
