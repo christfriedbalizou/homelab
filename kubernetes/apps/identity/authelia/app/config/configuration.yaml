@@ -18,19 +18,9 @@ authentication_backend:
     implementation: lldap
     address: ldap://lldap.identity.svc.cluster.local:389
     base_dn: ${SECRET_LDAP_ROOT}
-    username_attribute: uid
-    display_name_attribute: displayName
-    mail_attribute: mail
-    additional_users_dn: ou=people
-    additional_groups_dn: ou=groups
     user: ${LLDAP_USER_DN}
     password: ${LLDAP_LDAP_USER_PASS}
     users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
-    groups_filter: (member={dn})
-    group_name_attribute: cn
-  password_reset:
-    disable: true
-  refresh_interval: 1m
 
 notifier:
   disable_startup_check: true
@@ -58,7 +48,7 @@ duo_api:
   disable: true
 
 access_control:
-  default_policy: deny
+  default_policy: two_factor
   networks:
     - name: internal
       networks:
