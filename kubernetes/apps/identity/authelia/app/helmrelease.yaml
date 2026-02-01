@@ -63,51 +63,6 @@ spec:
               repository: ghcr.io/authelia/authelia
               tag: 4.39.15@sha256:d23ee3c721d465b4749cc58541cda4aebe5aa6f19d7b5ce0afebb44ebee69591
             args: ["--config", "/config/configuration.yaml", "--config.experimental.filters", "expand-env"]
-            env:
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_GROUPS_DN: ou=groups
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_ADDITIONAL_USERS_DN: ou=people
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_BASE_DN: ${SECRET_LDAP_ROOT}
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_DISPLAY_NAME_ATTRIBUTE: displayName
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUPS_FILTER: (member={dn})
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_GROUP_NAME_ATTRIBUTE: cn
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_IMPLEMENTATION: custom
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_MAIL_ATTRIBUTE: mail
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_START_TLS: "false"
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_TIMEOUT: 5s
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_URL: ldap://lldap.identity.svc.cluster.local:389
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USER: "${LLDAP_USER_DN}"
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD: "${LLDAP_LDAP_USER_PASS}"
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERNAME_ATTRIBUTE: uid
-              AUTHELIA_AUTHENTICATION_BACKEND_LDAP_USERS_FILTER: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
-              AUTHELIA_AUTHENTICATION_BACKEND_PASSWORD_RESET_DISABLE: "true"
-              AUTHELIA_AUTHENTICATION_BACKEND_REFRESH_INTERVAL: 1m
-              AUTHELIA_DEFAULT_REDIRECTION_URL: https://auth.${SECRET_DOMAIN}
-              AUTHELIA_DUO_API_DISABLE: "true"
-              AUTHELIA_LOG_LEVEL: info
-              AUTHELIA_NOTIFIER_DISABLE_STARTUP_CHECK: "true"
-              AUTHELIA_NOTIFIER_SMTP_DISABLE_REQUIRE_TLS: "true"
-              AUTHELIA_NOTIFIER_SMTP_HOST: smtp-relay.networking.svc.cluster.local
-              AUTHELIA_NOTIFIER_SMTP_PORT: "${SMTP_RELAY_PORT}"
-              AUTHELIA_NOTIFIER_SMTP_SENDER: Authelia <noreply@${SECRET_DOMAIN}>
-              AUTHELIA_SERVER_DISABLE_HEALTHCHECK: "true"
-              AUTHELIA_SERVER_PORT: &port 80
-              AUTHELIA_SESSION_DOMAIN: ${SECRET_DOMAIN}
-              AUTHELIA_SESSION_NAME: authelia-homelab
-              AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:8080
-              AUTHELIA_TELEMETRY_METRICS_ENABLED: "true"
-              AUTHELIA_THEME: dark
-              AUTHELIA_TOTP_ISSUER: authelia.com
-              AUTHELIA_WEBAUTHN_DISABLE: "true"
-              AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET: "${AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET}"
-              AUTHELIA_JWT_SECRET: "${AUTHELIA_JWT_SECRET}"
-              AUTHELIA_SESSION_SECRET: "${AUTHELIA_SESSION_SECRET}"
-              AUTHELIA_STORAGE_POSTGRES_HOST: *postgres
-              AUTHELIA_STORAGE_ENCRYPTION_KEY: "${AUTHELIA_STORAGE_ENCRYPTION_KEY}"
-              AUTHELIA_STORAGE_POSTGRES_DATABASE: *db
-              AUTHELIA_STORAGE_POSTGRES_USERNAME: "${AUTHELIA_STORAGE_POSTGRES_USERNAME}"
-              AUTHELIA_STORAGE_POSTGRES_PASSWORD: "${AUTHELIA_STORAGE_POSTGRES_PASSWORD}"
-              GRAFANA_OAUTH_CLIENT_SECRET: ${GRAFANA_OAUTH_CLIENT_SECRET}
-              AUTHELIA_SERVER_BUFFERS_READ: "2048000"
             envFrom:
               - secretRef:
                   name: cluster-authelia-new-secrets
@@ -183,3 +138,9 @@ spec:
           - path: /config/configuration.yaml
             subPath: configuration.yaml
             readOnly: false
+      secrets:
+        type: secret
+        name: cluster-authelia-secrets
+        globalMounts:
+          - path: /config/secrets
+            readOnly: true
