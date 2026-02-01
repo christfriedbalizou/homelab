@@ -77,7 +77,7 @@ spec:
                 spec:
                   httpGet:
                     path: /api/health
-                    port: &port 80
+                    port: &port 9191
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
