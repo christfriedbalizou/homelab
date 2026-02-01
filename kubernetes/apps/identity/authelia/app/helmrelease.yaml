@@ -65,7 +65,7 @@ spec:
             args: ["--config", "/config/configuration.yaml", "--config.experimental.filters", "expand-env"]
             envFrom:
               - secretRef:
-                  name: cluster-authelia-new-secrets
+                  name: cluster-authelia-secrets
             probes:
               liveness: &probes
                 enabled: true
