@@ -62,7 +62,11 @@ spec:
             image:
               repository: ghcr.io/authelia/authelia
               tag: 4.39.15@sha256:d23ee3c721d465b4749cc58541cda4aebe5aa6f19d7b5ce0afebb44ebee69591
-            args: ["--config", "/config/configuration.yaml", "--config.experimental.filters", "expand-env"]
+            env:
+              AUTHELIA_SERVER_ADDRESS: tcp://0.0.0.0:9191
+              AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:9959
+              X_AUTHELIA_CONFIG: /config/configuration.yaml
+              X_AUTHELIA_CONFIG_FILTERS: template
             envFrom:
               - secretRef:
                   name: cluster-authelia-secrets
