@@ -54,14 +54,6 @@ session:
     host: dragonfly.storage.svc.cluster.local
     database_index: 2
 
-storage:
-  postgres:
-    host: postgres-lb.storage.svc.cluster.local
-    database: authelia
-    username: ${AUTHELIA_STORAGE_POSTGRES_USERNAME}
-    password: ${AUTHELIA_STORAGE_POSTGRES_PASSWORD}
-  encryption_key: ${AUTHELIA_STORAGE_ENCRYPTION_KEY}
-
 duo_api:
   disable: true
 
@@ -118,7 +110,7 @@ identity_providers:
   oidc:
     jwks:
       - key: |
-          {{ secret "/config/secrets/AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY" | mindent 10 "|" | msquote }}
+          {{ secret "/config/secrets/AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY" | mindent 6 "|" | msquote }}
     cors:
       endpoints:
         - authorization
