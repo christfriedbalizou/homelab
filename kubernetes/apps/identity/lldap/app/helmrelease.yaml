@@ -63,7 +63,6 @@ spec:
 
               LLDAP_JWT_SECRET: "${LLDAP_JWT_SECRET}"
               LLDAP_LDAP_USER_PASS: "${LLDAP_LDAP_USER_PASS}"
-              LLDAP_USER_DN: "${LLDAP_USER_DN}"
               LLDAP_LDAP_USER_EMAIL: "${LLDAP_LDAP_USER_EMAIL}"
               LLDAP_SERVER_KEY_SEED: "${LLDAP_SERVER_KEY_SEED}"
               LLDAP_DATABASE_URL: "postgres://${LLDAP_POSTGRES_USER}:${LLDAP_POSTGRES_PASS}@postgres-lb.storage.svc.cluster.local/lldap"
