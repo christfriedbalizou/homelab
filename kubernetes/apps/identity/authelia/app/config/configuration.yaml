@@ -99,7 +99,7 @@ definitions:
 identity_providers:
   oidc:
     jwks:
-      - key: |
+      - key: |-
           ${AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY}
     cors:
       endpoints:
