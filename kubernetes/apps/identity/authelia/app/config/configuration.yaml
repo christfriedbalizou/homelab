@@ -99,8 +99,8 @@ definitions:
 identity_providers:
   oidc:
     jwks:
-      - key: |-
-          ${AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY}
+      - key: |
+          {{ secret "/config/secrets/AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY" | mindent 12 "|" | msquote }}
     cors:
       endpoints:
         - authorization
