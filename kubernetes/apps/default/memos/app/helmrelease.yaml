@@ -45,7 +45,7 @@ spec:
           app:
             image:
               repository: ghcr.io/usememos/memos
-              tag: 0.26.0@sha256:6088f656db8ffa928338d174295b35403d7b7c0015dce93bbc8a48ceb6932362
+              tag: 0.26.0@sha256:a0e337e4770cc4062ddb1e0fff3072201e80fbbe2f4f3beabec5306f74e767cb
             env:
               MEMOS_MODE: prod
               MEMOS_PORT: &port 5230
