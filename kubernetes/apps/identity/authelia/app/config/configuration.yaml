@@ -1,12 +1,65 @@
 ---
+server:
+  disable_healthcheck: true
+  buffers:
+    read: 2048000
+
+totp:
+  disable: false
+  issuer: authelia.com
+
+webauthn:
+  disable: true
+
+telemetry:
+  metrics:
+    enabled: true
+
+theme: dark
+
+authentication_backend:
+  ldap:
+    implementation: lldap
+    address: ldap://lldap.identity.svc.cluster.local:389
+    base_dn: ${SECRET_LDAP_ROOT}
+    user: ${LLDAP_USER_DN}
+    password: ${LLDAP_LDAP_USER_PASS}
+    users_filter: '(&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))'
+
 session:
+  secret: ${AUTHELIA_SESSION_SECRET}
+  name: authelia-homelab
   same_site: lax
   inactivity: 5m
   expiration: 1h
   remember_me: 1M
+  cookies:
+    - name: authelia-homelab
+      domain: ${SECRET_DOMAIN}
+      authelia_url: https://auth.${SECRET_DOMAIN}
+      default_redirection_url: https://auth.${SECRET_DOMAIN}
   redis:
     host: dragonfly.storage.svc.cluster.local
     database_index: 2
+
+notifier:
+  disable_startup_check: true
+  smtp:
+    address: smpt-relay.networking.svc.cluster.local
+    port: ${SMTP_RELAY_PORT}
+    sender: "Authelia <noreply@${SECRET_DOMAIN}>"
+    disable_require_tls: true
+
+storage:
+  encryption_key: ${AUTHELIA_STORAGE_ENCRYPTION_KEY}
+  postgres:
+    address: postgres-lb.storage.svc.cluster.local:5432
+    database: authelia
+    username: ${AUTHELIA_STORAGE_POSTGRES_USERNAME}
+    password: ${AUTHELIA_STORAGE_POSTGRES_PASSWORD}
+
+duo_api:
+  disable: true
 
 access_control:
   default_policy: two_factor
@@ -59,6 +112,7 @@ definitions:
 
 identity_providers:
   oidc:
+    hmac_secret: "${AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET}"
     claims_policies:
       nextcloud_userinfo:
         custom_claims:
