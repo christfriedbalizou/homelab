@@ -183,3 +183,10 @@ spec:
           - path: /config/configuration.yaml
             subPath: configuration.yaml
             readOnly: false
+      secrets:
+        enabled: true
+        type: secret
+        name: cluster-authelia-secrets
+        globalMounts:
+          - path: /config/secrets
+            readOnly: true
