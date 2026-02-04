@@ -32,7 +32,7 @@ spec:
   values:
     image:
       repository: twingate/connector
-      tag: 1.83.0
+      tag: 1.84.0
     connector:
       logLevel: "info"
       network: "${TWINGATE_NETWORK}"
