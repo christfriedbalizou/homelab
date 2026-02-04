@@ -10,6 +10,13 @@ machine:
           - bind
           - rshared
           - rw
+      - destination: /dev/dri
+        type: bind
+        source: /dev/dri
+        options:
+          - bind
+          - rshared
+          - rw
     nodeIP:
       validSubnets:
         - {{ bootstrap_node_cidr }}
