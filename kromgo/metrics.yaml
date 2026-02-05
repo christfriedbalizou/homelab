@@ -2,7 +2,7 @@ metrics:
   cluster_age_days:
     color: green
     label: Age
-    message: 174d
+    message: 175d
     schemaVersion: 1
   cluster_node_count:
     color: green
@@ -17,12 +17,12 @@ metrics:
   cluster_cpu_usage:
     color: green
     label: CPU
-    message: 14.9%
+    message: 14%
     schemaVersion: 1
   cluster_memory_usage:
     color: green
     label: Memory
-    message: 40.8%
+    message: 40.3%
     schemaVersion: 1
   cluster_uptime_days:
     color: green
