@@ -33,11 +33,11 @@ spec:
             env:
               TZ: ${TIMEZONE}
               DOCKER_ENABLE_SECURITY: false
-              LANGS: en_US
+              LANGS: &lang en_GB
               METRICS_ENABLED: false
-              SYSTEM_DEFAULTLOCALE: en-US
+              SYSTEM_DEFAULTLOCALE:  *lang
               SYSTEM_ENABLEANALYTICS: false
-              SECURITY_ENABLE_LOGIN: false
+              SECURITY_ENABLELOGIN: false
               SYSTEM_GOOGLEVISIBILITY: false
               SYSTEM_SHOW_UPDATE: false
             securityContext:
