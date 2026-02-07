@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
+  - ./ocirepository.yaml
   - ./ingress.yaml
   - ./podmonitor.yaml
   - ./prometheusrule.yaml
