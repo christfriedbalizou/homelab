@@ -14,10 +14,21 @@ tasks:
       - test -f {{.SOPS_AGE_KEY_FILE}}
       - which talhelper
 
+  apply-nodes:
+    desc: Apply Talos config to all nodes
+    dir: '{{.TALOS_DIR}}'
+    cmd: talhelper gencommand apply --extra-flags '--mode={{.MODE}}' | bash
+    vars:
+      MODE: '{{.MODE | default "auto"}}'
+    preconditions:
+      - talosctl config info
+      - test -f {{.TALOSCONFIG}}
+      - which talhelper talosctl yq
+
   apply-node:
     desc: Apply Talos config to a node [IP=required]
     dir: '{{.TALOS_DIR}}'
-    cmd: talhelper gencommand apply --node {{.IP}} --extra-flags '--mode={{.MODE}}'
+    cmd: talhelper gencommand apply --node {{.IP}} --extra-flags '--mode={{.MODE}}' | bash
     vars:
       MODE: '{{.MODE | default "auto"}}'
     requires:
