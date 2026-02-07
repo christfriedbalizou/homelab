@@ -37,10 +37,6 @@ spec:
               requests:
                 cpu: 5m
                 memory: 128M
-            securityContext:
-              privileged: true
-              runAsUser: 0
-
     service:
       main:
         controller: main
