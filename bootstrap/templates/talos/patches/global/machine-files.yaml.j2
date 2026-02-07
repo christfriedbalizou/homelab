@@ -6,11 +6,3 @@ machine:
       content: |-
         [plugins."io.containerd.cri.v1.images"]
           discard_unpacked_layers = false
-
-    - op: create
-      path: /etc/udev/rules.d/99-intel-gpu-permissions.rules
-      permissions: 0o644
-      content: |-
-        SUBSYSTEM=="drm", KERNEL=="card*", GROUP="video", MODE="0660"
-        SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="render", MODE="0660"
-        SUBSYSTEM=="drm", ACTION=="add", RUN+="/bin/chmod 0755 /dev/dri"
