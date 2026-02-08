@@ -41,11 +41,11 @@ spec:
         maxParallel: 4
       # NOTE: serverName version needs to be incremented
       # when recovering from an existing cnpg cluster
-      serverName: postgres17-v3
+      serverName: postgres17-v4
 
   bootstrap:
     recovery:
-      source: &previousCluster postgres17-v2
+      source: &previousCluster postgres17-v3
   externalClusters:
     - name: *previousCluster
       barmanObjectStore:
