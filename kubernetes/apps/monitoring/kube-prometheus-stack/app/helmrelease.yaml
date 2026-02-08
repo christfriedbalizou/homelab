@@ -94,13 +94,6 @@ spec:
             cpu: 100m
           limits:
             memory: 2000Mi
-        storageSpec:
-          volumeClaimTemplate:
-            spec:
-              storageClassName: openebs-hostpath
-              resources:
-                requests:
-                  storage: 30Gi
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
