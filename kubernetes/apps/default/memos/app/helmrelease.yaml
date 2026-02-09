@@ -50,10 +50,7 @@ spec:
               MEMOS_MODE: prod
               MEMOS_PORT: &port 5230
               MEMOS_DRIVER: postgres
-              MEMOS_STORAGE_TYPE: s3
-              MEMOS_S3_ENDPOINT: http://minio.storage.svc.cluster.local:9000
-              MEMOS_S3_BUCKET: memos
-              MEMOS_S3_FORCE_PATH_STYLE: true
+              MEMOS_INSTANCE_URL: https://memos.${SECRET_DOMAIN}
             envFrom:
               - secretRef:
                   name: cluster-memos-secrets
@@ -89,8 +86,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-          - host: notes.${SECRET_DOMAIN}
-            paths: *paths
     persistence:
       config:
         type: nfs
