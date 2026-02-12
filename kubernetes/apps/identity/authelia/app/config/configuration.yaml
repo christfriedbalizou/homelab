@@ -298,15 +298,12 @@ identity_providers:
         redirect_uris:
           - https://netbird.${SECRET_DOMAIN}/peers
           - https://netbird.${SECRET_DOMAIN}/add-peers
+          - http://localhost:53000
         scopes:
           - openid
           - profile
           - email
           - groups
-        response_types:
-          - code
-        grant_types:
-          - authorization_code
         audience:
           - netbird
         access_token_signed_response_alg: none
