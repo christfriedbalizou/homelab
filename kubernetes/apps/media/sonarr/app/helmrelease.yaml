@@ -112,9 +112,9 @@ spec:
     ingress:
       main:
         enabled: true
-        className: internal
+        className: external
         annotations:
-          external-dns.home.arpa/enabled: "false"
+          external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: 'true'
           hajimari.io/icon: mdi:television-classic
