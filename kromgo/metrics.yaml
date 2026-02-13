@@ -22,7 +22,7 @@ metrics:
   cluster_memory_usage:
     color: green
     label: Memory
-    message: 21.8%
+    message: 22.1%
     schemaVersion: 1
   cluster_uptime_days:
     color: green
