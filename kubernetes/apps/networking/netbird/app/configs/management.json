@@ -45,7 +45,7 @@
     "AuthUserEmailClaim": "email",
     "AuthKeysLocation": "https://auth.${SECRET_DOMAIN}/jwks.json",
     "OIDCConfigEndpoint": "https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration",
-    "IdpSignKeyRefreshEnabled": false
+    "IdpSignKeyRefreshEnabled": true
   },
   "IdpManagerConfig": {
     "ManagerType": "none",

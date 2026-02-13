@@ -47,6 +47,10 @@ spec:
               - '--dns-domain=netbird.selfhosted'
             env:
               NETBIRD_DISABLE_GEOLITE_UPDATE: 'true'
+              USE_AUTH0: 'false'
+              AUTH_SUPPORTED_SCOPES: 'openid email profile'
+              AUTH_REDIRECT_URI: '/peers'
+              AUTH_SILENT_REDIRECT_URI: '/add-peers'
             envFrom:
               - secretRef:
                   name: netbird-secret

@@ -128,6 +128,7 @@ identity_providers:
 
     cors:
       endpoints:
+        - "userinfo"
         - "authorization"
         - "token"
         - "revocation"
@@ -294,12 +295,11 @@ identity_providers:
         client_secret: '${NETBIRD_OIDC_CLIENT_SECRET}'
         public: false
         authorization_policy: one_factor
-        require_pkce: true
-        pkce_challenge_method: S256
+        require_pkce: false
         redirect_uris:
           - https://netbird.${SECRET_DOMAIN}/peers
           - https://netbird.${SECRET_DOMAIN}/add-peers
-          - http://localhost:53000
+          - http://localhost
         scopes:
           - openid
           - profile
