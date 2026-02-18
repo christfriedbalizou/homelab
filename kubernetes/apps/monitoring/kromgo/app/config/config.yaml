@@ -56,7 +56,7 @@ metrics:
     title: Age
 
   - name: cluster_uptime_days
-    query: round(avg(node_time_seconds{pod!=""} - node_boot_time_seconds{pod!=""}) / 86400)
+    query: round(avg((node_time_seconds - node_boot_time_seconds) / 86400), 0.1)
     suffix: "d"
     colors:
       - { color: "green", min: 0, max: 180 }
