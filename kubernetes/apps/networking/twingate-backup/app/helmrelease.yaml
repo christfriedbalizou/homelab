@@ -33,7 +33,7 @@ spec:
     image:
       # https://hub.docker.com/r/twingate/connector/tags
       repository: twingate/connector
-      tag: 1.84.0
+      tag: 1.85.0
     connector:
       logLevel: "info"
       network: "${TWINGATE_NETWORK}"
