@@ -12,22 +12,22 @@ metrics:
   cluster_pod_count:
     color: green
     label: Pods
-    message: '167'
+    message: '168'
     schemaVersion: 1
   cluster_cpu_usage:
     color: green
     label: CPU
-    message: 19%
+    message: 23.6%
     schemaVersion: 1
   cluster_memory_usage:
     color: green
     label: Memory
-    message: 20.3%
+    message: 21.2%
     schemaVersion: 1
   cluster_uptime_days:
     color: green
     label: Uptime
-    message: 1.5d
+    message: 1.8d
     schemaVersion: 1
   talos_version:
     label: Talos
