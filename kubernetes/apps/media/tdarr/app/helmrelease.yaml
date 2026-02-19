@@ -117,7 +117,7 @@ spec:
         enabled: true
         type: nfs
         server: ${NFS_SERVER}
-        path: /volume1/media/shows
+        path: /volume1/media/series
         globalMounts:
           - path: /mnt/storage/video/tv
       shared:
