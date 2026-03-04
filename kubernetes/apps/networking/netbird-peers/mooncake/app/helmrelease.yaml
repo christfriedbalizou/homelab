@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: netbirdio/netbird
-              tag: 0.66.1@sha256:7017cbe5e289b8964d6e3aa7149c102b9df45015a8e5bfe174f92b179f629d10
+              tag: 0.66.2@sha256:4dee9c175960588f5cc9dbda4702a184cb517e2848389ebe4d84899ffb0ab71c
             env:
               NB_MANAGEMENT_URL: https://netbird.${SECRET_DOMAIN}:443
               NB_HOSTNAME: mooncake
