@@ -5,10 +5,10 @@ clusterName: kubernetes
 talosVersion: "${talosVersion}"
 kubernetesVersion: "${kubernetesVersion}"
 
-endpoint: https://192.168.1.155:6443
+endpoint: https://192.168.0.155:6443
 additionalApiServerCertSans: &sans
   - "127.0.0.1"
-  - "192.168.1.155"
+  - "192.168.0.155"
 additionalMachineCertSans: *sans
 
 clusterPodNets: ["10.42.0.0/16"]
@@ -20,7 +20,7 @@ cniConfig:
 
 nodes:
   - hostname: "k8s-3"
-    ipAddress: "192.168.1.122"
+    ipAddress: "192.168.0.122"
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
@@ -50,15 +50,15 @@ nodes:
           hardwareAddr: "94:c6:91:1b:f6:3d"
         dhcp: false
         addresses:
-          - "192.168.1.122/24"
+          - "192.168.0.122/24"
         routes:
           - network: "0.0.0.0/0"
-            gateway: "192.168.1.1"
+            gateway: "192.168.0.1"
         mtu: 1500
         vip:
-          ip: "192.168.1.155"
+          ip: "192.168.0.155"
   - hostname: "k8s-4"
-    ipAddress: "192.168.1.123"
+    ipAddress: "192.168.0.123"
     installDiskSelector:
       serial: "193423D5BED4"
     machineSpec:
@@ -89,15 +89,15 @@ nodes:
           hardwareAddr: "30:bf:00:62:90:95"
         dhcp: false
         addresses:
-          - "192.168.1.123/24"
+          - "192.168.0.123/24"
         routes:
           - network: "0.0.0.0/0"
-            gateway: "192.168.1.1"
+            gateway: "192.168.0.1"
         mtu: 1500
         vip:
-          ip: "192.168.1.155"
+          ip: "192.168.0.155"
   - hostname: "k8s-5"
-    ipAddress: "192.168.1.124"
+    ipAddress: "192.168.0.124"
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
@@ -127,15 +127,15 @@ nodes:
           hardwareAddr: "c0:3f:d5:64:95:ae"
         dhcp: false
         addresses:
-          - "192.168.1.124/24"
+          - "192.168.0.124/24"
         routes:
           - network: "0.0.0.0/0"
-            gateway: "192.168.1.1"
+            gateway: "192.168.0.1"
         mtu: 1500
         vip:
-          ip: "192.168.1.155"
+          ip: "192.168.0.155"
   - hostname: "k8s-0"
-    ipAddress: "192.168.1.119"
+    ipAddress: "192.168.0.119"
     installDisk: "/dev/sdb"
     machineSpec:
       secureboot: false
@@ -165,13 +165,13 @@ nodes:
           hardwareAddr: "94:c6:91:10:d1:2e"
         dhcp: false
         addresses:
-          - "192.168.1.119/24"
+          - "192.168.0.119/24"
         routes:
           - network: "0.0.0.0/0"
-            gateway: "192.168.1.1"
+            gateway: "192.168.0.1"
         mtu: 1500
   - hostname: "k8s-1"
-    ipAddress: "192.168.1.120"
+    ipAddress: "192.168.0.120"
     installDisk: "/dev/sdb"
     machineSpec:
       secureboot: false
@@ -201,13 +201,13 @@ nodes:
           hardwareAddr: "68:1d:ef:29:89:29"
         dhcp: false
         addresses:
-          - "192.168.1.120/24"
+          - "192.168.0.120/24"
         routes:
           - network: "0.0.0.0/0"
-            gateway: "192.168.1.1"
+            gateway: "192.168.0.1"
         mtu: 1500
   - hostname: "k8s-2"
-    ipAddress: "192.168.1.121"
+    ipAddress: "192.168.0.121"
     installDisk: "/dev/sda"
     machineSpec:
       secureboot: false
@@ -237,10 +237,10 @@ nodes:
           hardwareAddr: "94:c6:91:12:ac:c1"
         dhcp: false
         addresses:
-          - "192.168.1.121/24"
+          - "192.168.0.121/24"
         routes:
           - network: "0.0.0.0/0"
-            gateway: "192.168.1.1"
+            gateway: "192.168.0.1"
         mtu: 1500
 
 # Global patches

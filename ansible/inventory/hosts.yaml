@@ -6,4 +6,4 @@ kubernetes:
       hosts:
         pihole:
           ansible_user: pi.hole
-          ansible_host: 192.168.1.114
+          ansible_host: 192.168.0.114
