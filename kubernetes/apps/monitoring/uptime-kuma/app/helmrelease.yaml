@@ -28,9 +28,6 @@ spec:
               runAsNonRoot: true
               runAsUser: ${PUID}
               runAsGroup: ${PGID}
-              fsGroup: ${PGID}
-              fsGroupChangePolicy: OnRootMismatch
-              seccompProfile: { type: RuntimeDefault }
             resources:
               requests:
                 cpu: 10m
