@@ -40,7 +40,5 @@ spec:
         requests:
           cpu: 21m
           memory: 51Mi
-        limit:
-          memory: 51Mi
     prometheus:
       enable: true
