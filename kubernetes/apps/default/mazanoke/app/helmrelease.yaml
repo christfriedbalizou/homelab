@@ -25,6 +25,14 @@ spec:
       mazanoke:
         type: deployment
         replicas: 1
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            fsGroup: 65534
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile: { type: RuntimeDefault }
         containers:
           main:
             image:
@@ -33,11 +41,6 @@ spec:
             env:
               TZ: ${TIMEZONE}
               ENVIRONMENT: "production"
-            securityContext:
-              runAsUser: 568
-              runAsGroup: 568
-              supplementalGroups:
-                - 100
             resources:
               requests:
                 cpu: "10m"

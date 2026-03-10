@@ -25,6 +25,18 @@ spec:
       stirling-pdf:
         type: deployment
         replicas: 1
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile: { type: RuntimeDefault }
+            supplementalGroups:
+              - 1000
+            capabilities:
+              drop: ["ALL"]
         containers:
           main:
             image:
@@ -40,17 +52,6 @@ spec:
               SECURITY_ENABLELOGIN: false
               SYSTEM_GOOGLEVISIBILITY: false
               SYSTEM_SHOW_UPDATE: false
-            securityContext:
-              readOnlyRootFilesystem: true
-              allowPrivilegeEscalation: false
-              runAsNonRoot: true
-              runAsUser: 1000
-              runAsGroup: 1000
-              fsGroup: 1000
-              supplementalGroups:
-                - 1000
-              capabilities:
-                drop: ["ALL"]
             resources:
               requests:
                 cpu: "10m"
