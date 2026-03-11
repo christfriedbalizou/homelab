@@ -24,7 +24,7 @@ spec:
           main:
             image:
               repository: ghcr.io/9001/copyparty-ac
-              tag: 1.20.11@sha256:32c59c85640219f1e0f8d6fb25611e7757990fe028b137531047cc3e020f88d5
+              tag: 1.20.12@sha256:244433d3ee46c73c85882ecb47d9dfe1c29ce8274f9fd038c5a1bea258c1a3aa
             env:
               TZ: ${TIMEZONE}
               PRTY_NO_TLS: 1
