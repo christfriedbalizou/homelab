@@ -128,7 +128,7 @@ spec:
           app:
             image:
               repository: netbirdio/dashboard
-              tag: v2.34.1
+              tag: v2.34.2
             env:
               AUTH_AUTHORITY: https://auth.${SECRET_DOMAIN}
               AUTH_REDIRECT_URI: /peers
