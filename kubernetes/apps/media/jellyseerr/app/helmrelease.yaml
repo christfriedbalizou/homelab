@@ -41,7 +41,6 @@ spec:
                   httpGet:
                     path: /api/v1/status
                     port: &port 5055
-                    initialDelaySeconds: 0
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
