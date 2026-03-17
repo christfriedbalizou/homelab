@@ -158,7 +158,7 @@ spec:
             port: *port
     ingress:
       app:
-        className: internal
+        className: external
         annotations:
           external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "false"
