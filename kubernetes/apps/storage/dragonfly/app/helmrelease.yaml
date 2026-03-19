@@ -134,7 +134,7 @@ spec:
               verbs: ["get", "patch", "update"]
             - apiGroups: ["networking.k8s.io"]
               resources: ["networkpolicies"]
-              verbs: ["get", "list", "patch", "update", "watch"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
             - apiGroups: ["policy"]
               resources: ["poddisruptionbudgets"]
               verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
