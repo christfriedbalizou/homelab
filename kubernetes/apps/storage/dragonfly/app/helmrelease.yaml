@@ -137,5 +137,5 @@ spec:
               verbs: ["get", "list", "patch", "update", "watch"]
             - apiGroups: ["policy"]
               resources: ["poddisruptionbudgets"]
-              verbs: ["get", "list", "patch", "update", "watch"]
+              verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
           type: ClusterRole
