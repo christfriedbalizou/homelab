@@ -132,4 +132,7 @@ spec:
             - apiGroups: ["dragonflydb.io"]
               resources: ["dragonflies/status"]
               verbs: ["get", "patch", "update"]
+            - apiGroups: ["networking.k8s.io"]
+              resources: ["networkpolicies"]
+              verbs: ["get", "list", "patch", "update"]
           type: ClusterRole
