@@ -134,5 +134,8 @@ spec:
               verbs: ["get", "patch", "update"]
             - apiGroups: ["networking.k8s.io"]
               resources: ["networkpolicies"]
-              verbs: ["get", "list", "patch", "update"]
+              verbs: ["get", "list", "patch", "update", "watch"]
+            - apiGroups: ["policy"]
+              resources: ["poddisruptionbudgets"]
+              verbs: ["get", "list", "patch", "update", "watch"]
           type: ClusterRole
