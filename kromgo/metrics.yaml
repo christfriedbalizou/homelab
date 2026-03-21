@@ -27,7 +27,7 @@ metrics:
   cluster_uptime_days:
     color: green
     label: Uptime
-    message: 0.9d
+    message: 1.1d
     schemaVersion: 1
   talos_version:
     label: Talos
