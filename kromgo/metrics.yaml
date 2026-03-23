@@ -2,7 +2,7 @@ metrics:
   cluster_age_days:
     color: green
     label: Age
-    message: 14d
+    message: 15d
     schemaVersion: 1
   cluster_node_count:
     color: green
@@ -12,22 +12,22 @@ metrics:
   cluster_pod_count:
     color: green
     label: Pods
-    message: '159'
+    message: '160'
     schemaVersion: 1
   cluster_cpu_usage:
     color: green
     label: CPU
-    message: 20.6%
+    message: 18.7%
     schemaVersion: 1
   cluster_memory_usage:
     color: green
     label: Memory
-    message: 19.1%
+    message: 19.3%
     schemaVersion: 1
   cluster_uptime_days:
     color: green
     label: Uptime
-    message: 3.4d
+    message: 3.6d
     schemaVersion: 1
   talos_version:
     label: Talos
