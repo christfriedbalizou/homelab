@@ -17,17 +17,17 @@ metrics:
   cluster_cpu_usage:
     color: green
     label: CPU
-    message: 18.8%
+    message: 17.9%
     schemaVersion: 1
   cluster_memory_usage:
     color: green
     label: Memory
-    message: 22.7%
+    message: 22.8%
     schemaVersion: 1
   cluster_uptime_days:
     color: green
     label: Uptime
-    message: 6.6d
+    message: 6.9d
     schemaVersion: 1
   talos_version:
     label: Talos
