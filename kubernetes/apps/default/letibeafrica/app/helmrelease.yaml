@@ -75,7 +75,7 @@ spec:
           app:
             image:
               repository: bitnamisecure/wordpress
-              tag: latest@sha256:22b171a7f18da8f5c89a35b767e009ec11ff2316fac1604f235f6f07c5bc265b
+              tag: latest@sha256:5b1cc935f68cd4c50de7037dd47403a1cee6006bea259b387e57939fd0f058b3
             env:
               MARIADB_HOST: mariadb.storage.svc.cluster.local
               MARIADB_PORT_NUMBER: "3306"
