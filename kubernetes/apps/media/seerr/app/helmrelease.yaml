@@ -71,13 +71,15 @@ spec:
           hajimari.io/icon: mdi:jellyfish-outline
           hajimari.io/group: Media
         hosts:
-          - host: &host "seerr.${SECRET_DOMAIN}"
-            paths:
+          - host: "seerr.${SECRET_DOMAIN}"
+            paths: &seer
               - path: /
                 pathType: Prefix
                 service:
                   identifier: main
                   port: http
+          - host: "jellyseerr.${SECRET_DOMAIN}"
+            paths: *seerr
     persistence:
       config:
         type: nfs
