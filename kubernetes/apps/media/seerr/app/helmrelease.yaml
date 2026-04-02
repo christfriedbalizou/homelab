@@ -13,13 +13,6 @@ spec:
   values:
     controllers:
       main:
-        pod:
-          securityContext:
-            runAsNonRoot: true
-            runAsUser: ${PUID}
-            runAsGroup: ${PGID}
-            fsGroup: ${PGID}
-            fsGroupChangePolicy: OnRootMismatch
         containers:
           main:
             image:
@@ -55,6 +48,13 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         controller: main
