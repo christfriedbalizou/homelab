@@ -72,7 +72,7 @@ spec:
           hajimari.io/group: Media
         hosts:
           - host: "seerr.${SECRET_DOMAIN}"
-            paths: &seer
+            paths: &seerr
               - path: /
                 pathType: Prefix
                 service:
