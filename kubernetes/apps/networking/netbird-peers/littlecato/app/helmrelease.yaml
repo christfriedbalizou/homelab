@@ -38,7 +38,7 @@ spec:
           app:
             image:
               repository: netbirdio/netbird
-              tag: 0.68.0@sha256:ce78fc1fffd7bb1a6caca8f1b131a5df9278ce58038ace4379f2be7329e5249b
+              tag: 0.68.1@sha256:ee027de645a917966d574ac4a4e14041c8a90b843e67a5f1227c727b6fffc51f
             env:
               NB_MANAGEMENT_URL: https://netbird.${SECRET_DOMAIN}:443
               NB_HOSTNAME: littlecato
