@@ -6,8 +6,8 @@ metadata:
 spec:
   ports:
   - name: isp
-    port: 443
+    port: 80
     protocol: TCP
-    targetPort: 443
+    targetPort: 80
   clusterIP: None
   type: ClusterIP
