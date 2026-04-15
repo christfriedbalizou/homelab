@@ -1,0 +1,24 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: entrance-camera
+  annotations:
+    external-dns.home.arpa/enabled: "true"
+    hajimari.io/enable: "true"
+    hajimari.io/icon: "mdi:camera"
+    hajimari.io/name: "Entrance"
+    hajimari.io/group: "Cameras"
+spec:
+  ingressClassName: external
+  rules:
+    - host: &host "entrance-camera.${SECRET_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: entrance-camera
+                port:
+                  number: 80
