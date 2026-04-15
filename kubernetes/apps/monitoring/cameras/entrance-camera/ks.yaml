@@ -1,0 +1,41 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app entrance-camera
+  namespace: flux-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  path: ./kubernetes/apps/monitoring/cameras/entrance-camera/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  targetNamespace: monitoring
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+    namespace: flux-system
+  healthChecks:
+    - apiVersion: monitoring.k8s.io/v1
+      kind: Ingress
+      name: entrance-camera
+      namespace: monitoring
+    - apiVersion: v1
+      kind: Endpoints
+      name: entrance-camera
+      namespace: monitoring
+    - apiVersion: v1
+      kind: Service
+      name: entrance-camera
+      namespace: monitoring
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m
