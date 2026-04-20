@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: dbeaver/cloudbeaver
-              tag: "26.0.2@sha256:4a65542266a6303456f6efab23e441e76304978d843b147cf540ad5a73710f3b"
+              tag: "26.0.3@sha256:3daa6269a49198363af3f0fcd8af58def9a32fa38152b9ab37854dc80c16a4a4"
             resources:
               requests:
                 cpu: 50m
