@@ -64,17 +64,13 @@ spec:
         patchStrategicMerge:
           metadata:
             annotations:
-              nginx.ingress.kubernetes.io/auth-method: |-
+              +(nginx.ingress.kubernetes.io/auth-method): |-
                 GET
-              nginx.ingress.kubernetes.io/auth-url: |-
-                http://authelia.identity.svc.cluster.local:9191/api/authz/auth-request
-              nginx.ingress.kubernetes.io/auth-signin: |-
-                https://auth.${SECRET_DOMAIN}/?rm=$request_method&rd=$scheme://$host$escaped_request_uri
-              nginx.ingress.kubernetes.io/auth-response-headers: |-
+              +(nginx.ingress.kubernetes.io/auth-url): |-
+                http://authelia.identity.svc.cluster.local:9191/api/verify
+              +(nginx.ingress.kubernetes.io/auth-signin): |-
+                https://auth.${SECRET_DOMAIN}?rm=$request_method
+              +(nginx.ingress.kubernetes.io/auth-response-headers): |-
                 Remote-User,Remote-Name,Remote-Groups,Remote-Email
-              nginx.ingress.kubernetes.io/auth-snippet: |-
-                proxy_set_header X-Original-URL $scheme://$host$request_uri;
+              +(nginx.ingress.kubernetes.io/auth-snippet): |-
                 proxy_set_header X-Forwarded-Method $request_method;
-                proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_set_header X-Forwarded-Host $host;
-                proxy_set_header X-Forwarded-Uri $request_uri;
