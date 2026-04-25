@@ -248,6 +248,8 @@ identity_providers:
         redirect_uris:
           - https://notes.${SECRET_DOMAIN}/auth/callback
           - https://memos.${SECRET_DOMAIN}/auth/callback
+        response_types:
+          - "code"
         grant_types:
           - "authorization_code"
           - "refresh_token"
