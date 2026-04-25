@@ -4,13 +4,6 @@ server:
   buffers:
     read: 2048000
 
-totp:
-  disable: false
-  issuer: authelia.com
-
-webauthn:
-  disable: true
-
 telemetry:
   metrics:
     enabled: true
