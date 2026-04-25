@@ -89,7 +89,7 @@ access_control:
         - "netbird.${SECRET_DOMAIN}"
       policy: one_factor
       subject:
-        - ["group:admin", "group:family", "group:developer"]
+        - ["group:admin", "group:family"]
 
     - domain:
         - "*.${SECRET_DOMAIN}"
