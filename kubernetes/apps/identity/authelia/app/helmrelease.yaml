@@ -67,9 +67,6 @@ spec:
               AUTHELIA_TELEMETRY_METRICS_ADDRESS: tcp://0.0.0.0:9959
               X_AUTHELIA_CONFIG: /config/configuration.yaml
               X_AUTHELIA_CONFIG_FILTERS: template
-            envFrom:
-              - secretRef:
-                  name: cluster-authelia-secrets
             probes:
               liveness: &probes
                 enabled: true
