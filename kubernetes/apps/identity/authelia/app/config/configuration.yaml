@@ -119,7 +119,7 @@ identity_providers:
     jwks:
       - algorithm: RS256
         use: sig
-        key: {{ secret "/config/secrets/AUTHELIA_IDENTITY_PROVIDERS_OIDC_ISSUER_PRIVATE_KEY" | mindent 10 "|" | msquote }}
+        key: {{ secret "/config/secrets/OIDC_ISSUER_PRIVATE_KEY_PEM" | mindent 10 "|" | msquote }}
     claims_policies:
       nextcloud_userinfo:
         custom_claims:
@@ -142,7 +142,7 @@ identity_providers:
     clients:
       - client_id: grafana
         client_name: Grafana
-        client_secret: "${GRAFANA_OAUTH_CLIENT_SECRET}"
+        client_secret: "${GRAFANA_OAUTH_CLIENT_SECRET_PBKDF2}"
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -156,7 +156,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: paperless
         client_name: Paperless
-        client_secret: "${PAPERLESS_OAUTH_CLIENT_SECRET}"
+        client_secret: "${PAPERLESS_OAUTH_CLIENT_SECRET_PBKDF2}"
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -170,7 +170,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: pgadmin
         client_name: PG Admin
-        client_secret: "${PG_OAUTH2_CLIENT_SECRET}"
+        client_secret: "${PG_OAUTH2_CLIENT_SECRET_PBKDF2}"
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -184,7 +184,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: teleport
         client_name: Teleport
-        client_secret: "${TELEPORT_OIDC_CLIENT_SECRET}"
+        client_secret: "${TELEPORT_OIDC_CLIENT_SECRET_PBKDF2}"
         public: false
         authorization_policy: two_factor
         pre_configured_consent_duration: 1y
@@ -198,7 +198,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_name: Actual
         client_id: actual
-        client_secret: "${ACTUAL_OPENID_CLIENT_SECRET}"
+        client_secret: "${ACTUAL_OPENID_CLIENT_SECRET_PBKDF2}"
         public: false
         authorization_policy: one_factor
         pre_configured_consent_duration: 1y
@@ -216,7 +216,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_name: Mealie
         client_id: mealie
-        client_secret: "${MEALIE_OIDC_CLIENT_SECRET}"
+        client_secret: "${MEALIE_OIDC_CLIENT_SECRET_PBKDF2}"
         public: false
         authorization_policy: one_factor
         pre_configured_consent_duration: 1y
@@ -235,7 +235,7 @@ identity_providers:
           - "authorization_code"
       - client_name: Memos
         client_id: memos
-        client_secret: "${MEMOS_OIDC_CLIENT_SECRET}"
+        client_secret: "${MEMOS_OIDC_CLIENT_SECRET_PBKDF2}"
         public: false
         authorization_policy: one_factor
         pre_configured_consent_duration: 1y
@@ -254,7 +254,7 @@ identity_providers:
         token_endpoint_auth_method: 'client_secret_post'
       - client_name: ledgerlink
         client_id: ledgerlink
-        client_secret: "${LEDGERLINK_OIDC_CLIENT_SECRET}"
+        client_secret: "${LEDGERLINK_OIDC_CLIENT_SECRET_PBKDF2}"
         public: false
         authorization_policy: one_factor
         pre_configured_consent_duration: 1y
@@ -275,7 +275,7 @@ identity_providers:
         userinfo_signed_response_alg: none
       - client_id: nextcloud
         client_name: Nextcloud
-        client_secret: '${NEXTCLOUD_OIDC_CLIENT_SECRET}'
+        client_secret: '${NEXTCLOUD_OIDC_CLIENT_SECRET_PBKDF2}'
         public: false
         authorization_policy: one_factor
         require_pkce: true
@@ -297,7 +297,7 @@ identity_providers:
         token_endpoint_auth_method: client_secret_basic
       - client_id: netbird
         client_name: netbird
-        client_secret: '${NETBIRD_OIDC_CLIENT_SECRET}'
+        client_secret: '${NETBIRD_OIDC_CLIENT_SECRET_PBKDF2}'
         public: false
         authorization_policy: one_factor
         require_pkce: false
