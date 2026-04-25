@@ -42,7 +42,7 @@ spec:
         ports:
           http:
             primary: true
-            port: 3000
+            port: 80
           dns-tcp:
             port: 53
             protocol: TCP
