@@ -123,16 +123,16 @@ def talos_patches(value: str) -> list[str]:
 
 
 def pbkdf2(secret: str, iterations: int = 310000) -> str:
-    try:
-        salt = hashlib.sha256(secret.encode('utf-8')).digest()[:16]
-        hash_obj = hashlib.pbkdf2_hmac('sha512', secret.encode('utf-8'), salt, iterations)
-        salt_b64 = base64.urlsafe_b64encode(salt).rstrip(b'=').decode('utf-8')
-        hash_b64 = base64.urlsafe_b64encode(hash_obj).rstrip(b'=').decode('utf-8')
+    salt = hashlib.sha256(secret.encode("utf-8")).digest()[:16]
+    std_b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+    crypt_b64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    b64_trans = str.maketrans(std_b64, crypt_b64)
 
-        return f"$pbkdf2-sha512${iterations}${salt_b64}${hash_b64}"
-    except Exception as e:
-        raise RuntimeError(f"Error hashing secret with PBKDF2: {e}")
+    def crypt64_encode(raw: bytes) -> str:
+        return base64.b64encode(raw).decode("utf-8").rstrip("=").translate(b64_trans)
 
+    derived_key = hashlib.pbkdf2_hmac("sha512", secret.encode("utf-8"), salt, iterations)
+    return f"$pbkdf2-sha512${iterations}${crypt64_encode(salt)}${crypt64_encode(derived_key)}"
 
 class Plugin(makejinja.plugin.Plugin):
     def __init__(self, data: dict[str, Any]):
