@@ -61,8 +61,6 @@ spec:
               tag: 6.2.0.10390@sha256:be596a2f896fdf15077af027f44500f73e1f6fb7b450a6494b37dd25b7cc5927
             env:
               TZ: ${TIMEZONE}
-              RADARR__INSTANCE_NAME: Radarr
-              RADARR__PORT: &port 80
               RADARR__LOG_LEVEL: info
               RADARR__POSTGRES_HOST: *postgres
               RADARR__POSTGRES_MAIN_DB: "radarr"
@@ -91,7 +89,7 @@ spec:
                 spec:
                   httpGet:
                     path: /ping
-                    port: *port
+                    port: &port 7878
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
