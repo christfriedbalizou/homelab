@@ -10,5 +10,4 @@ resources:
   - ./minio/ks.yaml
   - ./mosquitto/ks.yaml
   - ./dragonfly/ks.yaml
-  - ./mariadb/ks.yaml
   - ./cloudbeaver/ks.yaml
