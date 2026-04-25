@@ -4,9 +4,8 @@ apiVersion: dragonflydb.io/v1alpha1
 kind: Dragonfly
 metadata:
   name: dragonfly
-  namespace: storage
 spec:
-  image: ghcr.io/dragonflydb/dragonfly:v1.38.0
+  image: ghcr.io/dragonflydb/dragonfly:v1.38.0@sha256:243bf004df5e137d9432c35367d7c86e6d2b5bcb6700be4b6397fcb9306b794b
   replicas: 3
   env:
     - name: MAX_MEMORY
@@ -18,14 +17,7 @@ spec:
     - --maxmemory=$(MAX_MEMORY)Mi
     - --proactor_threads=2
     - --cluster_mode=emulated
-    - --lock_on_hashtags
-  topologySpreadConstraints:
-    - maxSkew: 1
-      topologyKey: kubernetes.io/hostname
-      whenUnsatisfiable: DoNotSchedule
-      labelSelector:
-        matchLabels:
-          app.kubernetes.io/part-of: dragonfly
+    - --default_lua_flags=allow-undeclared-keys
   resources:
     requests:
       cpu: 100m

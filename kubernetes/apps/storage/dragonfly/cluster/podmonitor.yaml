@@ -4,11 +4,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
   name: dragonfly
-  namespace: storage
 spec:
   selector:
     matchLabels:
       app: dragonfly
-  podTargetLabels: ["app"]
+  podTargetLabels:
+    - app
   podMetricsEndpoints:
     - port: admin
