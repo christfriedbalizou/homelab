@@ -125,11 +125,9 @@ def talos_patches(value: str) -> list[str]:
 def pbkdf2(secret: str, iterations: int = 310000) -> str:
     try:
         salt = hashlib.sha256(secret.encode('utf-8')).digest()[:16]
-
         hash_obj = hashlib.pbkdf2_hmac('sha512', secret.encode('utf-8'), salt, iterations)
-
-        salt_b64 = base64.b64encode(salt).decode('utf-8')
-        hash_b64 = base64.b64encode(hash_obj).decode('utf-8')
+        salt_b64 = base64.urlsafe_b64encode(salt).rstrip(b'=').decode('utf-8')
+        hash_b64 = base64.urlsafe_b64encode(hash_obj).rstrip(b'=').decode('utf-8')
 
         return f"$pbkdf2-sha512${iterations}${salt_b64}${hash_b64}"
     except Exception as e:
