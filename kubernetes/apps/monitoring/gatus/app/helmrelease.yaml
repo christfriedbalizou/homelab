@@ -31,7 +31,7 @@ spec:
               FOLDER: /config
               LABEL: gatus.io/enabled
               NAMESPACE: ALL
-              RESOURCE: both
+              RESOURCE: ingress
               UNIQUE_FILENAMES: true
               METHOD: WATCH
             resources:
@@ -135,15 +135,6 @@ spec:
                 - networking.k8s.io
               resources:
                 - ingresses
-              verbs:
-                - get
-                - watch
-                - list
-            - apiGroups:
-                - gateway.networking.k8s.io
-              resources:
-                - gateways
-                - httproutes
               verbs:
                 - get
                 - watch
