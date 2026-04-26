@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: gatus
-  namespace: monitoring
 spec:
   interval: 30m
   chartRef:
@@ -111,7 +110,7 @@ spec:
           hajimari.io/group: Monitoring
           hajimari.io/appName: gatus
         hosts:
-          - host: &host gatus.${SECRET_DOMAIN}
+          - host: gatus.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
