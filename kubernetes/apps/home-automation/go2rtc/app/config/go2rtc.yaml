@@ -15,6 +15,6 @@ webrtc:
         - stun:stun.cloudflare.com:3478
 streams:
   entrance_hq:
-    - rtsp://${CAMERA_0_USER}:${CAMERA_0_PASSWORD}@${CAMERA_0_HOST}/cam/realmonitor?channel=1&subtype=0
+    - rtsp://${CAMERA_0_USER}:${CAMERA_0_PASSWORD}@${CAMERA_0_IP}/cam/realmonitor?channel=1&subtype=0
   entrance_lq:
-    - rtsp://${CAMERA_0_USER}:${CAMERA_0_PASSWORD}@${CAMERA_0_HOST}/cam/realmonitor?channel=1&subtype=1
+    - rtsp://${CAMERA_0_USER}:${CAMERA_0_PASSWORD}@${CAMERA_0_IP}/cam/realmonitor?channel=1&subtype=1
