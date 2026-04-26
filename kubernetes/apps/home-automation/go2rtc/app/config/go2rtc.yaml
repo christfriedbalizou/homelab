@@ -1,0 +1,20 @@
+---
+log:
+  streams: error
+api:
+  listen: :80
+rtsp:
+  listen: :554
+webrtc:
+  listen: :8555
+  candidates:
+    - 192.168.0.80:8555
+    - stun:8555
+  ice_servers:
+    - urls:
+        - stun:stun.cloudflare.com:3478
+streams:
+  entrance_hq:
+    - rtsp://${CAMERA_0_USER}:${CAMERA_0_PASSWORD}@${CAMERA_0_HOST}:554/cam/realmonitor?channel=1&subtype=0
+  entrance_lq:
+    - rtsp://${CAMERA_0_USER}:${CAMERA_0_PASSWORD}@${CAMERA_0_HOST}:554/cam/realmonitor?channel=1&subtype=1
