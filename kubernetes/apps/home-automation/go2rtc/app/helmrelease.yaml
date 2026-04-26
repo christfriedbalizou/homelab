@@ -69,6 +69,7 @@ spec:
         className: external
         annotations:
           external-dns.home.arpa/enabled: "true"
+          auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/group: "Home Automation"
           hajimari.io/icon: "icon-park-outline:surveillance-cameras"
