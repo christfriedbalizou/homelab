@@ -14,7 +14,4 @@ resources:
   - ./adguard-home/ks.yaml
   - ./twingate/ks.yaml
   - ./twingate-backup/ks.yaml
-  - ./isp/ks.yaml
   - ./echo-server/ks.yaml
-  - ./netbird/ks.yaml
-  - ./netbird-peers
