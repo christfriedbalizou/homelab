@@ -1,6 +1,6 @@
 ---
 log:
-  streams: error
+  streams: debug
 api:
   listen: :80
 rtsp:
