@@ -48,7 +48,7 @@ nodes:
             - siderolabs/mei # Intel iGPU
             - siderolabs/nfsrahead # NFS Performance
             - siderolabs/thunderbolt # Thunderbolt NICs
-    talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
+    talosImageURL: factory.talos.dev/installer/f16b35938c5dc3de653a41ab2db6b1f9a60f9af1a86bc3af4fbcde57530a5683
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -92,7 +92,7 @@ nodes:
             - siderolabs/mei # Intel iGPU
             - siderolabs/nfsrahead # NFS Performance
             - siderolabs/thunderbolt # Thunderbolt NICs
-    talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
+    talosImageURL: factory.talos.dev/installer/f16b35938c5dc3de653a41ab2db6b1f9a60f9af1a86bc3af4fbcde57530a5683
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -135,7 +135,7 @@ nodes:
             - siderolabs/mei # Intel iGPU
             - siderolabs/nfsrahead # NFS Performance
             - siderolabs/thunderbolt # Thunderbolt NICs
-    talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
+    talosImageURL: factory.talos.dev/installer/f16b35938c5dc3de653a41ab2db6b1f9a60f9af1a86bc3af4fbcde57530a5683
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -178,7 +178,7 @@ nodes:
             - siderolabs/mei # Intel iGPU
             - siderolabs/nfsrahead # NFS Performance
             - siderolabs/thunderbolt # Thunderbolt NICs
-    talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
+    talosImageURL: factory.talos.dev/installer/f16b35938c5dc3de653a41ab2db6b1f9a60f9af1a86bc3af4fbcde57530a5683
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -219,7 +219,7 @@ nodes:
             - siderolabs/mei # Intel iGPU
             - siderolabs/nfsrahead # NFS Performance
             - siderolabs/thunderbolt # Thunderbolt NICs
-    talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
+    talosImageURL: factory.talos.dev/installer/f16b35938c5dc3de653a41ab2db6b1f9a60f9af1a86bc3af4fbcde57530a5683
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -260,7 +260,7 @@ nodes:
             - siderolabs/mei # Intel iGPU
             - siderolabs/nfsrahead # NFS Performance
             - siderolabs/thunderbolt # Thunderbolt NICs
-    talosImageURL: factory.talos.dev/installer/c818425bd3ac527d7048a919856442c02a1b5f9854b90cf523cf15d5b7188bc2
+    talosImageURL: factory.talos.dev/installer/f16b35938c5dc3de653a41ab2db6b1f9a60f9af1a86bc3af4fbcde57530a5683
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
