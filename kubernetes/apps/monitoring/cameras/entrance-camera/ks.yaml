@@ -23,19 +23,7 @@ spec:
     kind: GitRepository
     name: home-kubernetes
     namespace: flux-system
-  healthChecks:
-    - apiVersion: monitoring.k8s.io/v1
-      kind: Ingress
-      name: entrance-camera
-      namespace: monitoring
-    - apiVersion: v1
-      kind: Endpoints
-      name: entrance-camera
-      namespace: monitoring
-    - apiVersion: v1
-      kind: Service
-      name: entrance-camera
-      namespace: monitoring
+  wait: false
   interval: 30m
   retryInterval: 1m
   timeout: 3m
