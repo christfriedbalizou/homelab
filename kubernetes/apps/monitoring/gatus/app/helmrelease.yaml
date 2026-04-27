@@ -34,6 +34,7 @@ spec:
             args:
               - --enable-ingress
               - --enable-service
+            restartPolicy: Always
             resources:
               requests:
                 cpu: 10m
