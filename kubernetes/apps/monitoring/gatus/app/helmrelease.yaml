@@ -34,6 +34,8 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           hostUsers: false
+          hostNetwork: false
+          dnsPolicy: ClusterFirst
         initContainers:
           gatus-sidecar:
             image:
@@ -75,12 +77,20 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
-              capabilities: { add: ["NET_RAW"], drop: ["ALL"] }
+              capabilities:
+                add: ["NET_RAW"]
+                drop: ["ALL"]
             resources:
               requests:
                 cpu: 100m
               limits:
                 memory: 256Mi
+        statefulset:
+          volumeClaimTemplates:
+            - name: config
+              storageClass: openebs-hostpath
+              accessMode: ReadWriteOnce
+              size: 5Gi
     service:
       app:
         controller: gatus
@@ -146,13 +156,6 @@ spec:
           subjects:
             - identifier: gatus
     persistence:
-      config:
-        enabled: true
-        type: nfs
-        server: ${NFS_SERVER}
-        path: /volume1/apps/monitoring
-        globalMounts:
-          - subPath: gatus
       config-file:
         type: configMap
         name: gatus-configmap
