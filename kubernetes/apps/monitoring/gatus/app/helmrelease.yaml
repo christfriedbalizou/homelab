@@ -73,12 +73,6 @@ spec:
                 cpu: 100m
               limits:
                 memory: 256Mi
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              storageClass: openebs-hostpath
-              accessMode: ReadWriteOnce
-              size: 5Gi
     service:
       app:
         controller: gatus
@@ -145,7 +139,12 @@ spec:
             - identifier: gatus
     persistence:
       config:
-        type: emptyDir
+        enabled: true
+        type: nfs
+        server: ${NFS_SERVER}
+        path: /volume1/apps/monitoring
+        globalMounts:
+          - subPath: gatus
       config-file:
         type: configMap
         name: gatus-configmap
