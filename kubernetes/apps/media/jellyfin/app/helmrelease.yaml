@@ -33,6 +33,7 @@ spec:
             supplementalGroups:
               - 44 # video
               - 109 # render
+              - 107 # render
               - 568
         containers:
           app:
