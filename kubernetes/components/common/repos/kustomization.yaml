@@ -9,8 +9,7 @@ resources:
   - ./descheduler
   - ./external-dns
   - ./ingress-nginx
-  - ./intel-device-plugins-gpu
-  - ./intel-device-plugins-operator
+  - ./intel-gpu-resource-driver
   - ./kubernetes-dashboard-charts
   - ./nextcloud
   - ./node-feature-discovery

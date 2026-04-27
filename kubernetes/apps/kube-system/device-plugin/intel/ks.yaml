@@ -1,34 +1,3 @@
----
-# yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app intel
-  namespace: flux-system
-spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  interval: 30m
-  path: ./kubernetes/apps/kube-system/device-plugin/intel/app
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: home-kubernetes
-    namespace: flux-system
-  targetNamespace: kube-system
-  timeout: 5m
-  wait: false
----
 # yaml-language-server: $schema=https://kubernetes-schemas.devbu.io/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
