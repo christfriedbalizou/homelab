@@ -22,7 +22,9 @@ spec:
     controllers:
       jellyfin:
         pod:
-          priorityClassName: "high-priority"
+          resourceClaims:
+            - name: gpu
+              resourceClaimTemplateName: jellyfin
           securityContext:
             runAsNonRoot: true
             runAsUser: 568
@@ -33,17 +35,12 @@ spec:
             supplementalGroups:
               - 44 # video
               - 109 # render
-              - 107 # render
-              - 568
         containers:
           app:
             image:
               repository: jellyfin/jellyfin
               tag: 10.11.8@sha256:1694ff069f0c9dafb283c36765175606866769f5d72f2ed56b6a0f1be922fc37
             env:
-              DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
-              JELLYFIN_FFmpeg__probesize: 50000000
-              JELLYFIN_FFmpeg__analyzeduration: 50000000
               JELLYFIN_PublishedServerUrl: https://jellyfin.${SECRET_DOMAIN}
             securityContext:
               allowPrivilegeEscalation: false
@@ -60,6 +57,8 @@ spec:
                 memory: 8Gi
               limits:
                 memory: 16Gi
+              claims:
+                - name: gpu
     service:
       app:
         controller: jellyfin
@@ -78,7 +77,7 @@ spec:
           hajimari.io/icon: simple-icons:jellyfin
           hajimari.io/group: Media
         hosts:
-          - host: &host jellyfin.${SECRET_DOMAIN}
+          - host: jellyfin.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
@@ -113,17 +112,3 @@ spec:
                 subPath: transcode
               - path: /tmp
                 subPath: tmp
-      dri:
-        type: hostPath
-        hostPath: /dev/dri
-        globalMounts:
-          - path: /dev/dri
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                    - k8s-4
