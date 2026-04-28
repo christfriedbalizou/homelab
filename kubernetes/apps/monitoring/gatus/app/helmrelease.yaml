@@ -34,8 +34,14 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           hostUsers: false
-          hostNetwork: false
-          dnsPolicy: ClusterFirst
+          securityContext:
+            runAsUser: 65534
+            runAsGroup: 65534
+            fsGroup: 65534
+            runAsNonRoot: true
+            sysctls:
+              - name: net.ipv4.ping_group_range
+                value: "0 2147483647"
         initContainers:
           gatus-sidecar:
             image:
@@ -74,14 +80,6 @@ spec:
                   timeoutSeconds: 1
                   failureThreshold: 3
               readiness: *probes
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
-                add:
-                  - NET_RAW
             resources:
               requests:
                 cpu: 100m
