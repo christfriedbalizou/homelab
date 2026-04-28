@@ -39,9 +39,11 @@ spec:
             runAsGroup: 65534
             fsGroup: 65534
             runAsNonRoot: true
-            sysctls:
-              - name: net.ipv4.ping_group_range
-                value: "0 65535"
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_RAW
         initContainers:
           gatus-sidecar:
             image:
