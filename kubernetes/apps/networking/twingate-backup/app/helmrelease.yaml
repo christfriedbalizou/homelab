@@ -18,7 +18,7 @@ spec:
   chart:
     spec:
       chart: connector
-      version: 0.1.33
+      version: 0.1.35
       sourceRef:
         kind: HelmRepository
         name: twingate-backup
