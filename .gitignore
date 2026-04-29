@@ -12,6 +12,9 @@ bootstrap/vars/config.yaml
 *.key
 .sops.yaml
 github-deploy-key*
+# AI
+.codex
+.claude
 # Ansible
 xanmanning.k3s*
 # Terraform
