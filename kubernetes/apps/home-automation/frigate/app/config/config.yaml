@@ -14,6 +14,7 @@ semantic_search:
   reindex: false
 ffmpeg:
   input_args: preset-rtsp-restream
+  hwaccel_args: []
 birdseye:
   enabled: true
   mode: continuous
