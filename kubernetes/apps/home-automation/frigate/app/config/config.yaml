@@ -13,7 +13,6 @@ semantic_search:
   enabled: true
   reindex: false
 ffmpeg:
-  hwaccel_args: []
   input_args: preset-rtsp-restream
 birdseye:
   enabled: true
@@ -60,6 +59,10 @@ go2rtc:
 
 cameras:
   entrance:
+    detect:
+      width: 704
+      height: 480
+      fps: 5
     objects:
       filters:
         person:
@@ -72,7 +75,9 @@ cameras:
           min_area: 10000
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_hq
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_lq
           roles:
             - detect
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_hq
+          roles:
             - record
