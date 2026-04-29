@@ -67,9 +67,9 @@ cameras:
     objects:
       filters:
         person:
-          min_score: 0.4
-          threshold: 0.5
-          min_area: 5000
+          min_score: 0.35
+          threshold: 0.45
+          min_area: 1000
         car:
           min_score: 0.4
           threshold: 0.55
