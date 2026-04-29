@@ -8,16 +8,27 @@ tasks:
     desc: Bootstrap the Talos cluster
     dir: '{{.TALOS_DIR}}'
     cmds:
-      - '[ -f talsecret.sops.yaml ] || talhelper gensecret | sops --filename-override talos/talsecret.sops.yaml --encrypt /dev/stdin > talsecret.sops.yaml'
-      - talhelper genconfig
-      - talhelper gencommand apply --extra-flags="--insecure" | bash
-      - until talhelper gencommand bootstrap | bash; do sleep 10; done
-      - until talhelper gencommand kubeconfig --extra-flags="{{.ROOT_DIR}} --force" | bash; do sleep 10; done
+      - |
+        if [ ! -f talsecret.sops.yaml ]; then
+          talosctl gen secrets -o /tmp/talsecret.yaml
+          sops --filename-override talos/talsecret.sops.yaml --encrypt /tmp/talsecret.yaml > talsecret.sops.yaml
+          rm -f /tmp/talsecret.yaml
+        fi
+      - python3 {{.SCRIPTS_DIR}}/generate-configs.py
+      - |
+        for ip in $(yq '.nodes[].ipAddress' {{.TALOS_DIR}}/talconfig.yaml); do
+          hostname=$(yq ".nodes[] | select(.ipAddress == \"$ip\") | .hostname" {{.TALOS_DIR}}/talconfig.yaml)
+          talosctl apply-config --nodes "$ip" --file {{.TALOS_DIR}}/clusterconfig/kubernetes-$hostname.yaml --insecure
+        done
+      - |
+        first_cp=$(yq '.nodes[] | select(.controlPlane == true) | .ipAddress' {{.TALOS_DIR}}/talconfig.yaml | head -1)
+        until talosctl bootstrap --nodes "$first_cp"; do sleep 10; done
+      - until talosctl kubeconfig {{.ROOT_DIR}} --force; do sleep 10; done
     preconditions:
       - test -f {{.ROOT_DIR}}/.sops.yaml
       - test -f {{.SOPS_AGE_KEY_FILE}}
       - test -f {{.TALOS_DIR}}/talconfig.yaml
-      - which talhelper talosctl sops
+      - which talosctl sops yq
 
   apps:
     desc: Bootstrap apps into the Talos cluster

@@ -86,10 +86,13 @@ tasks:
   validate-talos-config:
     internal: true
     dir: '{{.TALOS_DIR}}'
-    cmd: talhelper validate talconfig {{.TALOS_DIR}}/talconfig.yaml
+    cmd: |
+      for config in clusterconfig/kubernetes-*.yaml; do
+        talosctl validate --config "$config" --mode metal
+      done
     preconditions:
-      - test -f {{.TALOS_DIR}}/talconfig.yaml
-      - which talhelper
+      - test -d {{.TALOS_DIR}}/clusterconfig
+      - which talosctl
 
   debug:
     desc: Gather common resources in your cluster
