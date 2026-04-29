@@ -14,6 +14,10 @@ spec:
       frigate:
         annotations:
           configmap.reloader.stakater.com/reload: frigate-config
+        pod:
+          resourceClaims:
+           - name: gpu
+             resourceClaimTemplateName: frigate
         containers:
           app:
             image:
@@ -43,6 +47,8 @@ spec:
               limits:
                 memory: 4Gi
                 squat.ai/coral: 1
+              claims:
+                - name: gpu
     service:
       app:
         ports:
