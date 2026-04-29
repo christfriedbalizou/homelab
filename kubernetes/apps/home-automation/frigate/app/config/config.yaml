@@ -40,16 +40,22 @@ review:
   alerts:
     labels:
       - person
+      - car
+      - truck
       - speech
   detections:
     labels:
       - person
+      - car
+      - truck
 objects:
   track:
     - person
     - dog
     - cat
     - bird
+    - car
+    - truck
 go2rtc:
   streams:
     entrance:
@@ -65,6 +71,12 @@ cameras:
       filters:
         person:
           min_score: 0.3
+          threshold: 0.4
+        car:
+          min_score: 0.4
+          threshold: 0.5
+        truck:
+          min_score: 0.4
           threshold: 0.5
     ffmpeg:
       inputs:
