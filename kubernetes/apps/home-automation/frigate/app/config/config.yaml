@@ -41,13 +41,11 @@ review:
     labels:
       - person
       - car
-      - truck
       - speech
   detections:
     labels:
       - person
       - car
-      - truck
 objects:
   track:
     - person
@@ -55,7 +53,6 @@ objects:
     - cat
     - bird
     - car
-    - truck
 go2rtc:
   streams:
     entrance:
@@ -63,26 +60,9 @@ go2rtc:
 
 cameras:
   entrance:
-    detect:
-      width: 704
-      height: 480
-      fps: 5
-    objects:
-      filters:
-        person:
-          min_score: 0.3
-          threshold: 0.4
-        car:
-          min_score: 0.4
-          threshold: 0.5
-        truck:
-          min_score: 0.4
-          threshold: 0.5
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_lq
-          roles:
-            - detect
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_hq
           roles:
+            - detect
             - record
