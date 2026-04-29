@@ -61,6 +61,11 @@ cameras:
       width: 704
       height: 480
       fps: 5
+    objects:
+      filters:
+        person:
+          min_score: 0.3
+          threshold: 0.5
     ffmpeg:
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_lq
