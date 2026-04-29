@@ -40,17 +40,14 @@ review:
       - speech
   detections:
     labels:
-      - car
       - dog
-      - bird
+      - cat
       - person
 objects:
   track:
     - person
-    - car
     - dog
     - cat
-    - bird
 cameras:
   entrance:
     ffmpeg:

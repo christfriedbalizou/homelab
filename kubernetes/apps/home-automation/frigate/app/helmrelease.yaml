@@ -107,7 +107,6 @@ spec:
       media:
         type: nfs
         server: ${NFS_SERVER}
-        path: /volume1/media/recordings
+        path: /volume1/media/cameras
         globalMounts:
           - path: /media/frigate
-            subPath: entrance
