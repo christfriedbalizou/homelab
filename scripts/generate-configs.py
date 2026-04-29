@@ -116,6 +116,32 @@ def node_patch(node: dict, installer_image: str) -> list[dict]:
     ]
 
 
+def talos_endpoints(nodes: list[dict]) -> list[str]:
+    endpoints = [
+        node["ipAddress"]
+        for node in nodes
+        if node.get("controlPlane", False)
+    ]
+
+    if not endpoints:
+        raise ValueError("talconfig.yaml must define at least one control-plane node")
+
+    return endpoints
+
+
+def set_talosconfig_endpoints(path: Path, endpoints: list[str]) -> None:
+    config = yaml.safe_load(path.read_text())
+    context = config["context"]
+    config["contexts"][context]["endpoints"] = endpoints
+
+    path.write_text(yaml.safe_dump(
+        config,
+        default_flow_style=False,
+        allow_unicode=True,
+        sort_keys=False,
+    ))
+
+
 def main() -> None:
     os.chdir(TALOS_DIR)
 
@@ -193,9 +219,11 @@ def main() -> None:
         for tmp_patch in tmp_patches:
             tmp_patch.unlink(missing_ok=True)
 
-    Path("talosconfig").rename("clusterconfig/talosconfig")
-
     nodes = talconfig["nodes"]
+    talosconfig_path = Path("clusterconfig/talosconfig")
+    Path("talosconfig").rename(talosconfig_path)
+    set_talosconfig_endpoints(talosconfig_path, talos_endpoints(nodes))
+
     print(f"Generating per-node configs ({len(nodes)} nodes)...")
 
     for node in nodes:
