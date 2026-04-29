@@ -35,9 +35,7 @@ spec:
               startup:
                 enabled: false
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              privileged: false
+              privileged: true
             resources:
               requests:
                 cpu: 500m
