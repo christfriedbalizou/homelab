@@ -9,12 +9,15 @@ detectors:
   coral:
     type: edgetpu
     device: usb
-semantic_search:
+face_recognition:
   enabled: true
-  reindex: false
+audio:
+  enabled: true
+  listen:
+    - speech
 ffmpeg:
   input_args: preset-rtsp-restream
-  hwaccel_args: []
+  hwaccel_args: preset-intel-qsv-h264
 birdseye:
   enabled: true
   mode: continuous
@@ -39,20 +42,24 @@ snapshots:
 review:
   alerts:
     labels:
+      - hat
+      - umbrella
       - person
-      - car
       - speech
   detections:
     labels:
       - person
+      - dog
+      - cat
       - car
 objects:
   track:
     - person
     - dog
     - cat
-    - bird
     - car
+    - hat
+    - umbrella
 go2rtc:
   streams:
     entrance:
@@ -61,19 +68,7 @@ go2rtc:
 cameras:
   entrance:
     detect:
-      width: 704
-      height: 480
-      fps: 5
-    objects:
-      filters:
-        person:
-          min_score: 0.35
-          threshold: 0.45
-          min_area: 1000
-        car:
-          min_score: 0.4
-          threshold: 0.55
-          min_area: 10000
+      enabled: true
     ffmpeg:
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_lq
@@ -82,3 +77,4 @@ cameras:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_hq
           roles:
             - record
+            - audio
