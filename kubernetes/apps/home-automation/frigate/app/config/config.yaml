@@ -10,7 +10,6 @@ detectors:
     type: edgetpu
     device: usb
 ffmpeg:
-  hwaccel_args: preset-vaapi
   input_args: preset-rtsp-restream
 birdseye:
   enabled: true
@@ -40,14 +39,13 @@ review:
       - speech
   detections:
     labels:
-      - dog
-      - cat
       - person
 objects:
   track:
     - person
     - dog
     - cat
+    - bird
 cameras:
   entrance:
     ffmpeg:
