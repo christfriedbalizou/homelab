@@ -9,6 +9,9 @@ detectors:
   coral:
     type: edgetpu
     device: usb
+semantic_search:
+  enabled: true
+  reindex: false
 ffmpeg:
   hwaccel_args: []
   input_args: preset-rtsp-restream
@@ -54,6 +57,10 @@ go2rtc:
 
 cameras:
   entrance:
+    detect:
+      width: 704
+      height: 480
+      fps: 5
     ffmpeg:
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_lq
