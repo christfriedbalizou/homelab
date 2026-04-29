@@ -10,6 +10,7 @@ detectors:
     type: edgetpu
     device: usb
 ffmpeg:
+  hwaccel_args: []
   input_args: preset-rtsp-restream
 birdseye:
   enabled: true
