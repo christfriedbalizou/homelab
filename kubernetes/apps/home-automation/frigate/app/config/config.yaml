@@ -54,8 +54,6 @@ go2rtc:
 
 cameras:
   entrance:
-    live:
-      stream_name: entrance
     ffmpeg:
       inputs:
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_lq
