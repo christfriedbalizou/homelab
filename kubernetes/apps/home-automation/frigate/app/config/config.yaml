@@ -1,0 +1,63 @@
+---
+auth:
+  enabled: false
+mqtt:
+  host: mosquitto.storage.svc.cluster.local
+database:
+  path: /data/frigate.db
+detectors:
+  coral:
+    type: edgetpu
+    device: usb
+ffmpeg:
+  hwaccel_args: preset-vaapi
+  input_args: preset-rtsp-restream
+birdseye:
+  enabled: true
+  mode: continuous
+record:
+  enabled: true
+  motion:
+    days: 7
+  alerts:
+    retain:
+      days: 30
+      mode: motion
+  detections:
+    retain:
+      days: 30
+      mode: motion
+snapshots:
+  enabled: true
+  retain:
+    default: 5
+    objects:
+      person: 30
+review:
+  alerts:
+    labels:
+      - person
+      - speech
+  detections:
+    labels:
+      - car
+      - dog
+      - bird
+      - person
+objects:
+  track:
+    - person
+    - car
+    - dog
+    - cat
+    - bird
+cameras:
+  entrance:
+    ffmpeg:
+      inputs:
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_lq
+          roles:
+            - detect
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_hq
+          roles:
+            - record
