@@ -93,11 +93,11 @@ spec:
     ingress:
       app:
         annotations:
-          external-dns.home.arpa/enabled: "false"
+          external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/group: "Home Automation"
           hajimari.io/icon: "cbi:zigbee2mqtt"
-        className: internal
+        className: external
         hosts:
           - host: zigbee.${SECRET_DOMAIN}
             paths:
