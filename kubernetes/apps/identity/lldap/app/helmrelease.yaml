@@ -53,7 +53,7 @@ spec:
           main:
             image:
               repository: ghcr.io/lldap/lldap
-              tag: latest-alpine@sha256:fdc970c3a97c0aae7d9e27aac5ddfe9cedb98b27a7da1bb19517d1fe8af94553
+              tag: v0.6.3@sha256:2a8454b668c1aba7157e832eab0e242e1e7eb5fb7591d7e7774ba05286511ca8
             env:
               TZ: ${TIMEZONE}
               LLDAP_HTTP_PORT: &port 80
