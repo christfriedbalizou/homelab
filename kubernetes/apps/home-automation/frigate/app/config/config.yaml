@@ -49,15 +49,9 @@ review:
   detections:
     labels:
       - person
-      - dog
-      - cat
-      - car
 objects:
   track:
     - person
-    - dog
-    - cat
-    - car
     - hat
     - umbrella
 go2rtc:
