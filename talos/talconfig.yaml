@@ -150,7 +150,7 @@ nodes:
         vip:
           ip: "192.168.0.155"
   - hostname: "k8s-6"
-    ipAddress: "192.168.0.125"
+    ipAddress: "192.168.0.128"
     installDisk: "/dev/sdb"
     machineSpec:
       secureboot: false
@@ -185,7 +185,7 @@ nodes:
           hardwareAddr: "18:66:da:ee:c4:cc"
         dhcp: false
         addresses:
-          - "192.168.0.125/24"
+          - "192.168.0.128/24"
         routes:
           - network: "0.0.0.0/0"
             gateway: "192.168.0.1"

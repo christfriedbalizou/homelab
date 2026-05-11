@@ -2,22 +2,23 @@ set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
 set script-interpreter := ['bash', '-euo', 'pipefail']
 
-bootstrap_dir := justfile_dir() + '/bootstrap'
+bootstrap_dir  := justfile_dir() + '/bootstrap'
 kubernetes_dir := justfile_dir() + '/kubernetes'
+talos_dir      := justfile_dir() + '/talos'
 
 [private]
 default:
-    just -l bootstrap
+    just bootstrap -l
 
 [doc('Bootstrap apps into the Talos cluster (waits, namespaces, secrets, CRDs, helm sync)')]
 [group('bootstrap')]
 apps: apps-wait-nodes apps-namespaces apps-secrets apps-crds apps-helm
-    just log info "Cluster is bootstrapped; Flux will start syncing the Git repository"
+    just log info "Cluster is bootstrapped — Flux will start syncing the Git repository"
 
 [doc('Bootstrap the Talos cluster (gensecret, genconfig, apply, bootstrap, kubeconfig)')]
 [group('bootstrap')]
 [script]
-[working-directory('talos')]
+[working-directory('../talos')]
 talos:
     if [ ! -f talsecret.sops.yaml ]; then
         just log info "Generating talsecret"
@@ -77,14 +78,10 @@ apps-namespaces:
 apps-secrets:
     for secret in \
         "{{ bootstrap_dir }}/github-deploy-key.sops.yaml" \
-        "{{ kubernetes_dir }}/components/common/sops/sops-age.sops.yaml" \
-        "{{ kubernetes_dir }}/components/common/sops/cluster-secrets.sops.yaml"
+        "{{ bootstrap_dir }}/sops-age.sops.yaml" \
+        "{{ kubernetes_dir }}/components/sops/cluster-secrets.sops.yaml"
     do
         name="$(basename "$secret" .sops.yaml)"
-        if [ ! -f "$secret" ]; then
-            just log warn "Secret file missing, skipping" resource "$name" file "$secret"
-            continue
-        fi
         if sops exec-file "$secret" \
                 "kubectl --namespace flux-system diff --filename {}" &>/dev/null; then
             just log info "Secret already up-to-date" resource "$name"
@@ -103,7 +100,7 @@ apps-secrets:
 [script]
 apps-wait-nodes:
     # Talos requires nodes to be Ready=False before applying resources; already-Ready
-    # is also acceptable when this is re-run after the cluster is up.
+    # is also acceptable (re-run after the cluster is up).
     if kubectl wait nodes --for=condition=Ready=True --all --timeout=10s &>/dev/null; then
         just log info "Nodes are Ready, skipping wait"
         exit 0
