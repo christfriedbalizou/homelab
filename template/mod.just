@@ -56,7 +56,9 @@ configure-preconditions:
 [private]
 [script]
 encrypt-secrets:
-    find "{{ ansible_dir }}" "{{ bootstrap_dir }}" "{{ kubernetes_dir }}" "{{ talos_dir }}" -type f -name '*.sops.*' ! -name 'talsecret.sops.yaml' -print0 \
+    find "{{ ansible_dir }}" "{{ bootstrap_dir }}" "{{ kubernetes_dir }}" "{{ talos_dir }}" \
+        -path "{{ template_dir }}" -prune -o \
+        -type f -name '*.sops.*' ! -name '*.j2' ! -name 'talsecret.sops.yaml' -print0 \
         | while IFS= read -r -d '' f; do
             if [ "$(sops filestatus "$f" | jq '.encrypted')" = "false" ]; then
                 sops --encrypt --in-place "$f"
