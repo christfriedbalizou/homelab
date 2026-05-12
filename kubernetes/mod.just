@@ -9,4 +9,4 @@ default:
 [doc('Force Flux to pull in changes from your Git repository')]
 [group('kube')]
 reconcile:
-    flux --namespace flux-system reconcile kustomization flux-system --with-source
+    flux --namespace flux-system reconcile kustomization cluster-apps --with-source
