@@ -22,9 +22,6 @@ spec:
     controllers:
       jellyfin:
         pod:
-          resourceClaims:
-            - name: gpu
-              resourceClaimTemplateName: jellyfin
           securityContext:
             runAsNonRoot: true
             runAsUser: 568
@@ -57,8 +54,6 @@ spec:
                 memory: 8Gi
               limits:
                 memory: 16Gi
-              claims:
-                - name: gpu
     service:
       app:
         controller: jellyfin
