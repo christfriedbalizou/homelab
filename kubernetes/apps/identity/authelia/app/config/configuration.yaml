@@ -266,7 +266,6 @@ identity_providers:
           - "email"
         redirect_uris:
           - "http://localhost:3000/auth/callback"
-          - https://laughing-lamp-6pqrw4p447h5vqr-3000.app.github.dev/auth/callback
         userinfo_signed_response_alg: none
       - client_id: nextcloud
         client_name: Nextcloud
