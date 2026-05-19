@@ -12,6 +12,9 @@
         "**/*.json5": "json5"
     },
     "files.trimTrailingWhitespace": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "workbench.colorTheme": "One Dark Pro",
     "sops.defaults.ageKeyFile": "age.key",
     "vim.hlsearch": true,
     "vim.ignorecase": true,

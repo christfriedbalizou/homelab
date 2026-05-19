@@ -37,6 +37,8 @@ spec:
               tag: 4.118.0@sha256:8cfa14793466b543155e4d2c3cdefef2cb0a48343bdf83b781427ecb8e828974
             env:
               CODE_SERVER_AUTH: none
+              GIT_USER_EMAIL: christfriedbalizou@gmail.com
+              GIT_USER_NAME: Christfried BALIZOU
               TZ: ${TIMEZONE}
             probes:
               liveness:

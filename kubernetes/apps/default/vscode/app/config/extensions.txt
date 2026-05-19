@@ -4,3 +4,4 @@ openai.chatgpt
 redhat.vscode-yaml
 signageos.signageos-vscode-sops
 vscodevim.vim
+zhuangtongfa.Material-theme
