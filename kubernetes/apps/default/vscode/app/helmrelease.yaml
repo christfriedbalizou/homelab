@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/christfriedbalizou/vscode
-              tag: 4.118.0@sha256:8cfa14793466b543155e4d2c3cdefef2cb0a48343bdf83b781427ecb8e828974
+              tag: 4.118.0@sha256:cad7a6a6cff66edf05a02eed5028010c13d8b32a9103bc5845c2993663c91335
             env:
               CODE_SERVER_AUTH: none
               GIT_USER_EMAIL: christfriedbalizou@gmail.com
