@@ -180,13 +180,12 @@
     ],
     "vim.smartcase": true,
     "vim.textwidth": 80,
-    "vim.vimrc.enable": true,
-    "vim.vimrc.path": "/home/christfried/.vimrc",
+    "vim.vimrc.enable": false,
     "vs-kubernetes": {
         "vs-kubernetes.kubeconfig": "./kubeconfig",
         "vs-kubernetes.knownKubeconfigs": [
-          "./kubeconfig"
-      ]
+            "./kubeconfig"
+        ]
     },
     "yaml.schemaStore.enable": true,
     "yaml.schemas": {

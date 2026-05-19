@@ -34,12 +34,10 @@ Most of my infrastructure and workloads are self-hosted, but I rely on the cloud
 
 | Device              | Count | Memory    | Role               | Storage                               |
 |---------------------|-------|-----------|--------------------|---------------------------------------|
-| Ιntel NUC7i7BNH     |   2   | 32GB DDR4 |   K3s controller   |    256GB M.2 SSD                      |
+| PowerEdge R630      |   2   | 64GB DDR4 |   K3s controller   |    256GB M.2 SSD                      |
 | Ιntel Xeon          |   1   | 64GB DDR4 |   K3s controller   |    256GB M.2 SSD                      |
-| Intel NUC7i5BNH     |   1   | 16GB DDR4 |   K3s controller   |    256GB M.2 SSG                      |
-| Intel NUC7i5BNH     |   1   |  8GB DDR4 |   K3s worker       |    256GB M.2 SSG                      |
-| Ιntel Celeron J4125 |   1   |  8GB DDR4 |   K3s worker       |    128GB M.2 SSD                      |
-| Synology NAS DS423+ |   1   |  2GB DDR4 |   Main storage     | 56TB(2x12TB + 2x16TB) SHR + 4TB cache |
+| Synology DS423+     |   1   |  2GB DDR4 |   Apps storage     | 56TB(2x12TB + 2x16TB) SHR + 4TB cache |
+| Synology RS2416RP+  |   1   |  2GB DDR4 |   Media storage    | 56TB(5x18TB + 1x8TB) SHR + 4TB cache |
 
 Raspberry Pi 4B units remain on the shelf, ready to join the self-hosted fabric if more capacity or ARM testing is needed.
 
