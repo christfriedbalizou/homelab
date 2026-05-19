@@ -25,9 +25,9 @@ spec:
         pod:
           securityContext:
             runAsNonRoot: true
-            runAsUser: 65534
-            runAsGroup: 65534
-            fsGroup: 65534
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
         containers:
@@ -39,6 +39,9 @@ spec:
               CODE_SERVER_AUTH: none
               GIT_USER_EMAIL: christfriedbalizou@gmail.com
               GIT_USER_NAME: Christfried BALIZOU
+              HOME: /home/coder
+              MISE_TRUSTED_CONFIG_PATHS: /workspace:/home/coder
+              SHELL: /bin/bash
               TZ: ${TIMEZONE}
             probes:
               liveness:
@@ -87,6 +90,8 @@ spec:
             app:
               - subPath: vscode/config
                 path: /config
+              - subPath: vscode/home
+                path: /home/coder
               - subPath: vscode/workspace
                 path: /workspace
       defaults:

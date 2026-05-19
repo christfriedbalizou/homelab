@@ -14,6 +14,16 @@
     "files.trimTrailingWhitespace": true,
     "git.autofetch": true,
     "git.confirmSync": false,
+    "terminal.integrated.cwd": "/home/coder",
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.profiles.linux": {
+        "bash": {
+            "path": "/bin/bash",
+            "args": [
+                "-l"
+            ]
+        }
+    },
     "workbench.colorTheme": "One Dark Pro",
     "sops.defaults.ageKeyFile": "age.key",
     "vim.hlsearch": true,
