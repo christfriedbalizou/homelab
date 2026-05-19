@@ -125,6 +125,12 @@ spec:
                 service:
                   identifier: app
                   port: http
+          - host: status.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
     serviceAccount:
       gatus: {}
     rbac:
