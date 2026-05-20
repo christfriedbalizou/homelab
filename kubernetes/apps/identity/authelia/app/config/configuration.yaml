@@ -79,6 +79,7 @@ access_control:
 
     - domain: auth.${SECRET_DOMAIN}
       policy: bypass
+
     - domain:
         - "actual.${SECRET_DOMAIN}"
         - "paperless.${SECRET_DOMAIN}"
