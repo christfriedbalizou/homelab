@@ -28,6 +28,21 @@ spec:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
+        initContainers:
+          init-instance:
+            image:
+              repository: ghcr.io/jlesage/firefox
+              tag: v26.03.1@sha256:a68749c6696c857d992c5b750c234ab86f184bcac92d6c080bab7679c759f845
+            command:
+              - /bin/sh
+              - -c
+              - "cat /proc/sys/kernel/random/uuid > /.docker-instance/uuid"
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 1000
+              runAsGroup: 1000
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
         containers:
           app:
             image:
@@ -108,6 +123,10 @@ spec:
         sizeLimit: 1Gi
         globalMounts:
           - path: /dev/shm
+      instance:
+        type: emptyDir
+        globalMounts:
+          - path: /.docker-instance
       tmp:
         type: emptyDir
         globalMounts:
