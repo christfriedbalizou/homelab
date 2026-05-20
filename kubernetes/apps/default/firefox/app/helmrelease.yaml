@@ -117,6 +117,16 @@ spec:
             app:
               - subPath: firefox
                 path: /config
+      log:
+        type: emptyDir
+        advancedMounts:
+          firefox:
+            app:
+              - path: /config/log
+      openbox:
+        type: emptyDir
+        globalMounts:
+          - path: /var/run/openbox
       shm:
         type: emptyDir
         medium: Memory
