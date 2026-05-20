@@ -105,6 +105,10 @@ spec:
         sizeLimit: 1Gi
         globalMounts:
           - path: /dev/shm
+      instance:
+        type: emptyDir
+        globalMounts:
+          - path: /.docker-instance
       tmp:
         type: emptyDir
         globalMounts:
