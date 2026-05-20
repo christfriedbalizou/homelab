@@ -37,6 +37,7 @@ spec:
               TZ: ${TIMEZONE}
               USER_ID: "1000"
               GROUP_ID: "1000"
+              TAKE_CONFIG_OWNERSHIP: "0"
               KEEP_APP_RUNNING: "1"
               WEB_AUTHENTICATION: "0"
               WEB_FILE_MANAGER: "0"
@@ -58,6 +59,9 @@ spec:
                   failureThreshold: 3
               readiness: *probes
             securityContext:
+              runAsNonRoot: true
+              runAsUser: 1000
+              runAsGroup: 1000
               allowPrivilegeEscalation: false
               capabilities: { drop: ["ALL"] }
             resources:
@@ -105,10 +109,6 @@ spec:
         sizeLimit: 1Gi
         globalMounts:
           - path: /dev/shm
-      instance:
-        type: emptyDir
-        globalMounts:
-          - path: /.docker-instance
       tmp:
         type: emptyDir
         globalMounts:
