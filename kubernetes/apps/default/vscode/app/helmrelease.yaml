@@ -36,11 +36,18 @@ spec:
               repository: ghcr.io/christfriedbalizou/vscode
               tag: 4.118.0@sha256:074296ebb373654c0f36c324d16f022cce0417e997be6f6f527e5fcb7bdd571c
             env:
+              CODEX_AUTO_LOGIN: "true"
+              CODEX_HOME: /home/coder/.codex
               CODE_SERVER_AUTH: none
               GIT_USER_EMAIL: christfriedbalizou@gmail.com
               GIT_USER_NAME: Christfried BALIZOU
               HOME: /home/coder
               MISE_TRUSTED_CONFIG_PATHS: /workspace:/home/coder
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-vscode-secrets
+                    key: OPENAI_API_KEY
               SHELL: /bin/bash
               TZ: ${TIMEZONE}
             probes:
