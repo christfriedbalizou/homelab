@@ -5,6 +5,8 @@ metadata:
   name: &app adguard-home
   namespace: flux-system
 spec:
+  components:
+    - ../../../../components/zeroscaler
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -17,6 +19,8 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: adguard-home
   targetNamespace: networking
   prune: true
   sourceRef:

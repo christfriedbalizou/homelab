@@ -4,6 +4,8 @@ kind: Kustomization
 metadata:
   name: &app prowlarr
 spec:
+  components:
+    - ../../../../components/zeroscaler
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -31,3 +33,5 @@ spec:
       - kind: Secret
         name: cluster-secrets
 
+    substitute:
+      APP: prowlarr

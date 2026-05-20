@@ -5,6 +5,8 @@ metadata:
   name: &app vaultwarden
   namespace: flux-system
 spec:
+  components:
+    - ../../../../components/zeroscaler
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -17,6 +19,9 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: vaultwarden
+      MAX_REPLICAS: "2"
   targetNamespace: identity
   prune: true
   sourceRef:

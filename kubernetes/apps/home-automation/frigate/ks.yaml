@@ -5,6 +5,8 @@ kind: Kustomization
 metadata:
   name: frigate
 spec:
+  components:
+    - ../../../../components/zeroscaler
   path: ./kubernetes/apps/home-automation/frigate/app
   sourceRef:
     kind: GitRepository
@@ -19,4 +21,6 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: frigate
   targetNamespace: home-automation

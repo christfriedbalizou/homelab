@@ -5,6 +5,8 @@ metadata:
   name: &app n8n
   namespace: flux-system
 spec:
+  components:
+    - ../../../../components/zeroscaler
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -17,6 +19,8 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: n8n
   targetNamespace: default
   prune: true
   sourceRef:

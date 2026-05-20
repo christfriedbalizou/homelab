@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://fluxcd-community.github.io/flux2-schemas/helmrelease-helm-v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: silence-operator
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: silence-operator
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    alertmanagerAddress: http://alertmanager-operated.monitoring.svc.cluster.local:9093
+    networkPolicy:
+      enabled: false
