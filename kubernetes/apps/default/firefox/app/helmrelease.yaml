@@ -59,11 +59,10 @@ spec:
                   failureThreshold: 3
               readiness: *probes
             securityContext:
-              runAsNonRoot: true
-              runAsUser: 1000
-              runAsGroup: 1000
               allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
+              capabilities:
+                drop: ["ALL"]
+                add: ["SETUID", "SETGID"]
             resources:
               requests:
                 cpu: 100m
@@ -109,10 +108,6 @@ spec:
         sizeLimit: 1Gi
         globalMounts:
           - path: /dev/shm
-      instance:
-        type: emptyDir
-        globalMounts:
-          - path: /.docker-instance
       tmp:
         type: emptyDir
         globalMounts:
