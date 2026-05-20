@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: kube-prometheus-stack
+    - name: prometheus-stack
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
