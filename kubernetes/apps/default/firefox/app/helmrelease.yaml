@@ -28,21 +28,6 @@ spec:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
-        initContainers:
-          init-instance:
-            image:
-              repository: ghcr.io/jlesage/firefox
-              tag: v26.03.1@sha256:a68749c6696c857d992c5b750c234ab86f184bcac92d6c080bab7679c759f845
-            command:
-              - /bin/sh
-              - -c
-              - "cat /proc/sys/kernel/random/uuid > /.docker-instance/uuid"
-            securityContext:
-              runAsNonRoot: true
-              runAsUser: 1000
-              runAsGroup: 1000
-              allowPrivilegeEscalation: false
-              capabilities: { drop: ["ALL"] }
         containers:
           app:
             image:
@@ -52,7 +37,6 @@ spec:
               TZ: ${TIMEZONE}
               USER_ID: "1000"
               GROUP_ID: "1000"
-              TAKE_CONFIG_OWNERSHIP: "0"
               KEEP_APP_RUNNING: "1"
               WEB_AUTHENTICATION: "0"
               WEB_FILE_MANAGER: "0"
@@ -75,9 +59,7 @@ spec:
               readiness: *probes
             securityContext:
               allowPrivilegeEscalation: false
-              capabilities:
-                drop: ["ALL"]
-                add: ["CHOWN", "SETUID", "SETGID"]
+              readOnlyRootFilesystem: false
             resources:
               requests:
                 cpu: 100m
@@ -117,27 +99,11 @@ spec:
             app:
               - subPath: firefox
                 path: /config
-      log:
-        type: emptyDir
-        advancedMounts:
-          firefox:
-            app:
-              - path: /config/log
-      openbox:
-        type: emptyDir
-        globalMounts:
-          - path: /var/run/openbox
-      shm:
-        type: emptyDir
-        medium: Memory
-        sizeLimit: 1Gi
-        globalMounts:
-          - path: /dev/shm
-      instance:
-        type: emptyDir
-        globalMounts:
-          - path: /.docker-instance
       tmp:
         type: emptyDir
         globalMounts:
           - path: /tmp
+      var:
+        type: emptyDir
+        globalMounts:
+          - path: /var/tmp
