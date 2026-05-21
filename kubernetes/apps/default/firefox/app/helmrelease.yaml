@@ -30,13 +30,19 @@ spec:
             seccompProfile: { type: RuntimeDefault }
         initContainers:
           init-log:
-            image:
+            image: &firefoxImage
               repository: ghcr.io/jlesage/firefox
               tag: v26.03.1@sha256:a68749c6696c857d992c5b750c234ab86f184bcac92d6c080bab7679c759f845
             command:
               - /bin/sh
               - -c
-              - "mkdir -p /config/log/firefox && touch /config/log/firefox/output.log /config/log/firefox/error.log && chown -R 1000:1000 /config/log && chmod -R u+rwX,g+rwX /config/log"
+              - |
+                set -eu
+
+                mkdir -p /config/log/firefox
+                touch /config/log/firefox/output.log /config/log/firefox/error.log
+                chown -R 1000:1000 /config/log
+                chmod -R u+rwX,g+rwX /config/log
             securityContext:
               runAsUser: 0
               runAsGroup: 0
@@ -46,9 +52,7 @@ spec:
                 drop: ["NET_RAW"]
         containers:
           app:
-            image:
-              repository: ghcr.io/jlesage/firefox
-              tag: v26.03.1@sha256:a68749c6696c857d992c5b750c234ab86f184bcac92d6c080bab7679c759f845
+            image: *firefoxImage
             env:
               TZ: ${TIMEZONE}
               USER_ID: "1000"
