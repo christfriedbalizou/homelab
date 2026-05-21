@@ -45,7 +45,7 @@ spec:
               MISE_TRUSTED_CONFIG_PATHS: /workspace:/home/coder
               SHELL: /bin/bash
               TZ: ${TIMEZONE}
-              VSCODE_PROXY_URI: "https://vscode.${SECRET_DOMAIN}/proxy/{{port}}/"
+              VSCODE_PROXY_URI: 'https://vscode.${SECRET_DOMAIN}/proxy/{{ "{{port}}" }}/'
             probes:
               liveness:
                 enabled: false
