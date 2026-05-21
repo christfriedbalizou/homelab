@@ -99,6 +99,10 @@ spec:
             app:
               - subPath: firefox
                 path: /config
+      log:
+        type: emptyDir
+        globalMounts:
+          - path: /config/log
       tmp:
         type: emptyDir
         globalMounts:
