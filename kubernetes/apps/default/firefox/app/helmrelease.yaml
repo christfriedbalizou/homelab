@@ -38,6 +38,7 @@ spec:
               USER_ID: "1000"
               GROUP_ID: "1000"
               KEEP_APP_RUNNING: "1"
+              TAKE_CONFIG_OWNERSHIP: "0"
               WEB_AUTHENTICATION: "0"
               WEB_FILE_MANAGER: "0"
               WEB_TERMINAL: "0"
@@ -99,6 +100,10 @@ spec:
             app:
               - subPath: firefox
                 path: /config
+      log:
+        type: emptyDir
+        globalMounts:
+          - path: /config/log
       tmp:
         type: emptyDir
         globalMounts:
