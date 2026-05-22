@@ -43,6 +43,11 @@ render-config node:
 reset-node node *args:
     talosctl -n "{{ node }}" reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=false {{ args }}
 
+[confirm('Gracefully retire node ' + node + ' from Kubernetes and etcd [y|N] ?')]
+[doc('Gracefully reset a node before replacing hardware')]
+retire-node node *args:
+    talosctl -n "{{ node }}" reset --system-labels-to-wipe STATE --system-labels-to-wipe EPHEMERAL --graceful=true --reboot=false {{ args }}
+
 [confirm('Shutdown node ' + node + ' [y|N] ?')]
 [doc('Shutdown a node')]
 shutdown-node node *args:
