@@ -63,6 +63,49 @@ nodes:
         mtu: 1500
         vip:
           ip: "192.168.0.155"
+  - hostname: "k8s-3"
+    ipAddress: "192.168.0.127"
+    installDisk: "/dev/sda"
+    machineSpec:
+      secureboot: false
+    schematic:
+      customization:
+        extraKernelArgs:
+          - -init_on_alloc # Less security, faster puter
+          - -init_on_free # Less security, faster puter
+          - -selinux # Less security, faster puter
+          - apparmor=0 # Less security, faster puter
+          - i915.enable_guc=3 # Meteor Lake CPU & Intel iGPU
+          - init_on_alloc=0 # Less security, faster puter
+          - init_on_free=0 # Less security, faster puter
+          - intel_iommu=on # PCI Passthrough
+          - iommu=pt # PCI Passthrough
+          - mitigations=off # Less security, faster puter
+          - security=none # Less security, faster puter
+          - sysctl.kernel.kexec_load_disabled=1 # Meteor Lake CPU & Intel iGPU
+          - talos.auditd.disabled=1 # Less security, faster puter
+        systemExtensions:
+          officialExtensions:
+            - siderolabs/gasket-driver # Coral TPU
+            - siderolabs/i915 # Intel iGPU
+            - siderolabs/intel-ucode # Intel iGPU
+            - siderolabs/mei # Intel iGPU
+            - siderolabs/nfsrahead # NFS Performance
+            - siderolabs/thunderbolt # Thunderbolt NICs
+    talosImageURL: factory.talos.dev/installer/f16b35938c5dc3de653a41ab2db6b1f9a60f9af1a86bc3af4fbcde57530a5683
+    controlPlane: true
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: "d8:9e:f3:19:e4:b7"
+        dhcp: false
+        addresses:
+          - "192.168.0.127/24"
+        routes:
+          - network: "0.0.0.0/0"
+            gateway: "192.168.0.1"
+        mtu: 1500
+        vip:
+          ip: "192.168.0.155"
   - hostname: "k8s-6"
     ipAddress: "192.168.0.128"
     installDisk: "/dev/sdb"
