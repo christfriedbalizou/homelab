@@ -3,3 +3,7 @@ machine:
     modules:
       - name: gasket
       - name: apex
+      - name: nvidia
+      - name: nvidia_uvm
+      - name: nvidia_drm
+      - name: nvidia_modeset
