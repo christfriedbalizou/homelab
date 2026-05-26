@@ -23,6 +23,11 @@ download-image version:
         "https://factory.talos.dev/image/${SCHEMATIC}/{{ version }}/metal-amd64.iso"
     just log info "Downloaded Talos" version "{{ version }}" schematic "${SCHEMATIC}"
 
+[doc('Generate Talos config')]
+[working-directory('.')]
+generate-config:
+    talhelper genconfig
+
 [confirm('Reboot node ' + node + ' [y|N] ?')]
 [doc('Reboot a node')]
 reboot-node node:
