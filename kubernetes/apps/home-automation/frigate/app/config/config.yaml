@@ -17,7 +17,7 @@ audio:
     - speech
 ffmpeg:
   input_args: preset-rtsp-restream
-  hwaccel_args: preset-intel-qsv-h264
+  hwaccel_args: preset-nvidia
 birdseye:
   enabled: true
   mode: continuous

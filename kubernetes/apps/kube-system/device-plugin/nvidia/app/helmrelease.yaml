@@ -1,13 +1,4 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: nvidia-operator
-  namespace: kube-system
-spec:
-  interval: 1h
-  url: https://nvidia.github.io/gpu-operator
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -21,7 +12,7 @@ spec:
       version: v26.3.1
       sourceRef:
         kind: HelmRepository
-        name: nvidia-operator
+        name: nvidia
         namespace: kube-system
   maxHistory: 2
   install:
@@ -36,33 +27,31 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    validator:
+      repository: nvcr.io/nvidia
+      image: gpu-operator
+      version: v26.3.1@sha256:327518e7157e9634eab9aeb51abfba816845fad47177ca985e1b34d202a1f51e
+      imagePullPolicy: IfNotPresent
+    operator:
+      repository: nvcr.io/nvidia
+      image: gpu-operator
+      version: v26.3.1@sha256:327518e7157e9634eab9aeb51abfba816845fad47177ca985e1b34d202a1f51e
+      imagePullPolicy: IfNotPresent
+    driver:
+      enabled: false
+      manager:
+        repository: nvcr.io/nvidia/cloud-native
+        image: k8s-driver-manager
+        version: v0.10.0@sha256:6677437faff2c45506484dd9f0f04ad3b4880aa65b26d11f76d169e65497fade
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: NODE_LABEL_FOR_GPU_POD_EVICTION
+            value: feature.node.kubernetes.io/pci-10de.present
+    hostPaths:
+      driverInstallDir: /usr/local
     nfd:
-      enabled: true
+      enabled: false
     toolkit:
-      enabled: true
-      env:
-        - name: CONTAINERD_CONFIG
-          value: /var/lib/rancher/k3s/agent/etc/containerd/config.toml
-        - name: CONTAINERD_SOCKET
-          value: /run/k3s/containerd/containerd.sock
-        - name: CONTAINERD_RUNTIME_CLASS
-          value: nvidia
-        - name: CONTAINERD_SET_AS_DEFAULT
-          value: "true"
+      enabled: false
     devicePlugin:
-      config:
-        create: true
-        name: time-slicing-config
-        default: any
-        data:
-          any: |-
-            version: v1
-            flags:
-              migStrategy: none
-            sharing:
-              timeSlicing:
-                renameByDefault: false
-                failRequestsGreaterThanOne: false
-                resources:
-                  - name: nvidia.com/gpu
-                    replicas: 6
+      enabled: false

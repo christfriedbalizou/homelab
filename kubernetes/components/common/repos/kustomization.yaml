@@ -12,6 +12,7 @@ resources:
   - ./intel-gpu-resource-driver
   - ./kubernetes-dashboard-charts
   - ./nextcloud
+  - ./nvidia
   - ./node-feature-discovery
   - ./openebs
   - ./spegel

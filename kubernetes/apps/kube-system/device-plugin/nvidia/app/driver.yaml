@@ -1,0 +1,43 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nvidia-dra-driver-gpu
+  namespace: kube-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: nvidia-dra-driver-gpu
+      version: 25.12.0
+      sourceRef:
+        kind: HelmRepository
+        name: nvidia
+        namespace: kube-system
+  maxHistory: 2
+  install:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    gpuResourcesEnabledOverride: true
+    nvidiaDriverRoot: /usr/local
+    image:
+      repository: nvcr.io/nvidia/k8s-dra-driver-gpu
+      tag: v25.12.0@sha256:10d979b1cd3cef492055021a153321fd5636a71771593d96a36a793753911b70
+      pullPolicy: IfNotPresent
+    kubeletPlugin:
+      nodeSelector:
+        feature.node.kubernetes.io/pci-10de.present: "true"
+    resources:
+      gpus:
+        enabled: true
+      computeDomains:
+        enabled: false
