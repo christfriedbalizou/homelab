@@ -92,10 +92,8 @@ nodes:
             - siderolabs/intel-ucode # Intel iGPU
             - siderolabs/mei # Intel iGPU
             - siderolabs/nfsrahead # NFS Performance
-            - siderolabs/nonfree-kmod-nvidia-lts # NVIDIA GPU
-            - siderolabs/nvidia-container-toolkit-lts # NVIDIA GPU
             - siderolabs/thunderbolt # Thunderbolt NICs
-    talosImageURL: factory.talos.dev/installer/486226c7c0febd941ee7e3a2b18d6ad3250910d2aee7851658be07f42516ef39
+    talosImageURL: factory.talos.dev/installer/f16b35938c5dc3de653a41ab2db6b1f9a60f9af1a86bc3af4fbcde57530a5683
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -137,10 +135,8 @@ nodes:
             - siderolabs/intel-ucode # Intel iGPU
             - siderolabs/mei # Intel iGPU
             - siderolabs/nfsrahead # NFS Performance
-            - siderolabs/nonfree-kmod-nvidia-lts # NVIDIA GPU
-            - siderolabs/nvidia-container-toolkit-lts # NVIDIA GPU
             - siderolabs/thunderbolt # Thunderbolt NICs
-    talosImageURL: factory.talos.dev/installer/486226c7c0febd941ee7e3a2b18d6ad3250910d2aee7851658be07f42516ef39
+    talosImageURL: factory.talos.dev/installer/f16b35938c5dc3de653a41ab2db6b1f9a60f9af1a86bc3af4fbcde57530a5683
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -169,4 +165,3 @@ controlPlane:
   patches:
     - "@./patches/controller/api-access.yaml"
     - "@./patches/controller/cluster.yaml"
-

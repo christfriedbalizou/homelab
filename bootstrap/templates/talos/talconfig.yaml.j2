@@ -56,8 +56,10 @@ nodes:
             - siderolabs/intel-ucode # Intel iGPU
             - siderolabs/mei # Intel iGPU
             - siderolabs/nfsrahead # NFS Performance
+            #% if item.nvidia_gpu | default(false, true) %#
             - siderolabs/nonfree-kmod-nvidia-lts # NVIDIA GPU
             - siderolabs/nvidia-container-toolkit-lts # NVIDIA GPU
+            #% endif %#
             - siderolabs/thunderbolt # Thunderbolt NICs
     talosImageURL: factory.talos.dev/installer{{ "-secureboot" if item.secureboot | default(false, true) }}/{{ item.schematic_id }}
     controlPlane: {{ (item.controller) | string | lower }}
