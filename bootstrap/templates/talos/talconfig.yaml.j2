@@ -92,9 +92,9 @@ nodes:
           ip: "{{ bootstrap_kube_vip_addr }}"
         #% endif %#
         #% endif %#
-    #% if talos_patches('%s' % (item.name)) | length == 0 %#
-    #% if item.encrypt_disk | default(false, true) %#
+    #% if (item.encrypt_disk | default(false, true)) or (item.nvidia_gpu | default(false, true)) or ((talos_patches('%s' % (item.name)) | length) > 0) %#
     patches:
+    #% if item.encrypt_disk | default(false, true) %#
       - # Encrypt system disk with TPM
         |-
         machine:
@@ -110,26 +110,17 @@ nodes:
                 - slot: 0
                   tpm: {}
     #% endif %#
-    #% else %#
-    #% for file in talos_patches('%s' % (item.name)) %#
-    #% if loop.index == 1 %#
-    patches:
-    #% if item.encrypt_disk | default(false, true) %#
+    #% if item.nvidia_gpu | default(false, true) %#
       - |-
         machine:
-          systemDiskEncryption:
-            state:
-              provider: luks2
-              keys:
-                - slot: 0
-                  tpm: {}
-            ephemeral:
-              provider: luks2
-              keys:
-                - slot: 0
-                  tpm: {}
+          kernel:
+            modules:
+              - name: nvidia
+              - name: nvidia_uvm
+              - name: nvidia_drm
+              - name: nvidia_modeset
     #% endif %#
-    #% endif %#
+    #% for file in talos_patches('%s' % (item.name)) %#
       - "@./patches/{{ item.name }}/{{ file | basename }}"
     #% endfor %#
     #% endif %#

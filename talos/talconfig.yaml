@@ -64,6 +64,15 @@ nodes:
         mtu: 1500
         vip:
           ip: "192.168.0.155"
+    patches:
+      - |-
+        machine:
+          kernel:
+            modules:
+              - name: nvidia
+              - name: nvidia_uvm
+              - name: nvidia_drm
+              - name: nvidia_modeset
   - hostname: "k8s-6"
     ipAddress: "192.168.0.128"
     installDisk: "/dev/sdb"
@@ -165,4 +174,3 @@ controlPlane:
   patches:
     - "@./patches/controller/api-access.yaml"
     - "@./patches/controller/cluster.yaml"
-
