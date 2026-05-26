@@ -17,16 +17,26 @@ spec:
   maxHistory: 2
   install:
     crds: CreateReplace
+    disableWait: true
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
     crds: CreateReplace
+    disableWait: true
     remediation:
       retries: 3
+  rollback:
+    disableWait: true
   uninstall:
     keepHistory: false
   values:
+    ccManager:
+      enabled: false
+    cdi:
+      enabled: false
+    dcgmExporter:
+      enabled: false
     validator:
       repository: nvcr.io/nvidia
       image: gpu-operator
@@ -51,7 +61,19 @@ spec:
       driverInstallDir: /usr/local
     nfd:
       enabled: false
+    gfd:
+      enabled: false
+    kataSandboxDevicePlugin:
+      enabled: false
+    migManager:
+      enabled: false
+    sandboxDevicePlugin:
+      enabled: false
     toolkit:
+      enabled: false
+    vfioManager:
+      enabled: false
+    vgpuDeviceManager:
       enabled: false
     devicePlugin:
       enabled: false
