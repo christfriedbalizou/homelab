@@ -31,7 +31,7 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-            seccompProfile: { type: RuntimeDefault }
+            seccompProfile: { type: Unconfined }
             supplementalGroups:
               - 44 # video
               - 109 # render
@@ -42,9 +42,12 @@ spec:
               tag: 10.11.10@sha256:f66273e014b307e4ac46778845ebc1e9ee24b2e57c1fc17d5ec5ac3015649bfa
             env:
               JELLYFIN_PublishedServerUrl: https://jellyfin.${SECRET_DOMAIN}
+              NVIDIA_VISIBLE_DEVICES: all
+              NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
+              LD_LIBRARY_PATH: /usr/local/nvidia/lib64:/usr/local/nvidia/lib
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             probes:
               liveness: &probes
