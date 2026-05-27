@@ -24,6 +24,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    featureGates:
+      NodeFeatureAPI: false
+      NodeFeatureGroupAPI: false
     worker:
       config:
         core:
@@ -36,6 +39,7 @@ spec:
           cpu: 5m
           memory: 48Mi
     master:
+      crdController: false
       resources:
         requests:
           cpu: 21m
