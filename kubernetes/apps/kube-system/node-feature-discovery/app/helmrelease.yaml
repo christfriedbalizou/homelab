@@ -24,8 +24,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    enableNodeFeatureApi: false
     featureGates:
-      NodeFeatureAPI: false
       NodeFeatureGroupAPI: false
     worker:
       config:
