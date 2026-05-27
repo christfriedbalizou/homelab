@@ -15,14 +15,14 @@ spec:
         annotations:
           configmap.reloader.stakater.com/reload: frigate-config
         pod:
-          resourceClaims:
-           - name: gpu
-             resourceClaimTemplateName: frigate
+          runtimeClassName: nvidia
         containers:
           app:
             image:
               repository: ghcr.io/blakeblackshear/frigate
               tag: 0.17.1@sha256:1724960349dad0bd2ae8ec884171a6fd5755a4dc242a0e66cadbda9c0e85c99b
+            env:
+              NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
             probes:
               liveness: &probes
                 enabled: true
@@ -47,8 +47,7 @@ spec:
               limits:
                 memory: 4Gi
                 squat.ai/coral: 1
-              claims:
-                - name: gpu
+                "nvidia.com/gpu.shared": 1
     service:
       app:
         ports:

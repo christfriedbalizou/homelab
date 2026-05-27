@@ -62,7 +62,7 @@ spec:
     nfd:
       enabled: false
     gfd:
-      enabled: false
+      enabled: true
     kataSandboxDevicePlugin:
       enabled: false
     migManager:
@@ -76,4 +76,7 @@ spec:
     vgpuDeviceManager:
       enabled: false
     devicePlugin:
-      enabled: false
+      enabled: true
+      config:
+        name: nvidia-time-slicing
+        default: any

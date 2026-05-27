@@ -22,9 +22,7 @@ spec:
     controllers:
       jellyfin:
         pod:
-          resourceClaims:
-            - name: gpu
-              resourceClaimTemplateName: jellyfin
+          runtimeClassName: nvidia
           securityContext:
             runAsNonRoot: true
             runAsUser: 568
@@ -60,8 +58,7 @@ spec:
                 memory: 8Gi
               limits:
                 memory: 16Gi
-              claims:
-                - name: gpu
+                "nvidia.com/gpu.shared": 1
     service:
       app:
         controller: jellyfin
