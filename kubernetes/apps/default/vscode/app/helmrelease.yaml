@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/christfriedbalizou/vscode
-              tag: 4.118.0@sha256:bf4ce4f2f79b353cff6e3211db1b41b371cdadabcc9ee276bdea7edbd7e94f3e
+              tag: 4.118.0@sha256:4873bef8449a6667924a50cda57c9c34b14f0d727d102352a52c343742f5c108
             env:
               CODEX_AUTO_LOGIN: "false"
               CODEX_HOME: /home/coder/.codex
