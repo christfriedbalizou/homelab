@@ -14,7 +14,7 @@
     "files.trimTrailingWhitespace": true,
     "git.autofetch": true,
     "git.confirmSync": false,
-    "terminal.integrated.cwd": "/home/coder",
+    "terminal.integrated.cwd": "/home/coder/src",
     "terminal.integrated.defaultProfile.linux": "bash",
     "terminal.integrated.profiles.linux": {
         "bash": {
