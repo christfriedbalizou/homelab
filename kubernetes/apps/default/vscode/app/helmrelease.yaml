@@ -37,12 +37,12 @@ spec:
               tag: 4.118.0@sha256:4873bef8449a6667924a50cda57c9c34b14f0d727d102352a52c343742f5c108
             env:
               HOME: /home/coder
-              MISE_TRUSTED_CONFIG_PATHS: /home/coder/src/github.com/christfriedbalizou/venv:/workspace:/home/coder
+              MISE_TRUSTED_CONFIG_PATHS: /home/coder/src/github.com/christfriedbalizou/dotfiles:/workspace:/home/coder
               SHELL: /bin/bash
               TZ: ${TIMEZONE}
-              VENV_REPO_URL: https://github.com/christfriedbalizou/venv.git
-              # renovate: datasource=github-tags depName=christfriedbalizou/venv
-              VENV_VERSION: v0.0.1
+              DOTFILES_REPO_URL: https://github.com/christfriedbalizou/dotfiles.git
+              # renovate: datasource=github-tags depName=christfriedbalizou/dotfiles
+              DOTFILES_VERSION: v0.0.1
             command:
               - /bin/bash
               - -ec
@@ -52,19 +52,19 @@ spec:
                 export HOME=/home/coder
                 export PATH="${HOME}/.local/bin:${HOME}/.local/share/mise/shims:${PATH}"
 
-                repo_dir="${HOME}/src/github.com/christfriedbalizou/venv"
+                repo_dir="${HOME}/src/github.com/christfriedbalizou/dotfiles"
                 mkdir -p "$(dirname "${repo_dir}")"
 
                 if [ -d "${repo_dir}/.git" ]; then
-                  git -C "${repo_dir}" remote set-url origin "${VENV_REPO_URL}"
+                  git -C "${repo_dir}" remote set-url origin "${DOTFILES_REPO_URL}"
                   git -C "${repo_dir}" fetch --tags --force --prune origin
                 else
                   rm -rf "${repo_dir}"
-                  git clone "${VENV_REPO_URL}" "${repo_dir}"
+                  git clone "${DOTFILES_REPO_URL}" "${repo_dir}"
                 fi
 
-                git -C "${repo_dir}" checkout --force "${VENV_VERSION}"
-                git -C "${repo_dir}" reset --hard "${VENV_VERSION}"
+                git -C "${repo_dir}" checkout --force "${DOTFILES_VERSION}"
+                git -C "${repo_dir}" reset --hard "${DOTFILES_VERSION}"
                 "${repo_dir}/bootstrap.sh"
             securityContext:
               allowPrivilegeEscalation: false
