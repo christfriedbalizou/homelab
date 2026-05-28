@@ -25,9 +25,9 @@ spec:
         pod:
           securityContext:
             runAsNonRoot: true
-            runAsUser: ${UID}
-            runAsGroup: ${GID}
-            fsGroup: ${GID}
+            runAsUser: ${PUID}
+            runAsGroup: ${PGID}
+            fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
         initContainers:
@@ -68,11 +68,6 @@ spec:
                 git -C "$repo_dir" checkout --force "$DOTFILES_VERSION"
                 git -C "$repo_dir" reset --hard "$DOTFILES_VERSION"
                 "$repo_dir/bootstrap.sh"
-            securityContext:
-              privileged: false
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
         containers:
           app:
             image: *vscodeImage
