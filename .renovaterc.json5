@@ -27,5 +27,17 @@
   kustomize: {
     managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
   },
+  customManagers: [
+    {
+      customType: "regex",
+      description: "Update vscode venv dotfiles tag",
+      managerFilePatterns: [
+        "/(^|/)kubernetes/apps/default/vscode/app/helmrelease\\.ya?ml$/",
+      ],
+      matchStrings: [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+VENV_VERSION:\\s*\"?(?<currentValue>v?[^\"\\s]+)\"?",
+      ],
+      versioningTemplate: "semver",
+    },
+  ],
 }
-

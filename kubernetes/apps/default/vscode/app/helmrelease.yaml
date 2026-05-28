@@ -30,11 +30,49 @@ spec:
             fsGroup: 1000
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
-        containers:
-          app:
-            image:
+        initContainers:
+          dotfiles:
+            image: &vscodeImage
               repository: ghcr.io/christfriedbalizou/vscode
               tag: 4.118.0@sha256:4873bef8449a6667924a50cda57c9c34b14f0d727d102352a52c343742f5c108
+            env:
+              HOME: /home/coder
+              MISE_TRUSTED_CONFIG_PATHS: /home/coder/src/github.com/christfriedbalizou/venv:/workspace:/home/coder
+              SHELL: /bin/bash
+              TZ: ${TIMEZONE}
+              VENV_REPO_URL: https://github.com/christfriedbalizou/venv.git
+              # renovate: datasource=github-tags depName=christfriedbalizou/venv
+              VENV_VERSION: v0.0.1
+            command:
+              - /bin/bash
+              - -ec
+              - |
+                set -euo pipefail
+
+                export HOME=/home/coder
+                export PATH="${HOME}/.local/bin:${HOME}/.local/share/mise/shims:${PATH}"
+
+                repo_dir="${HOME}/src/github.com/christfriedbalizou/venv"
+                mkdir -p "$(dirname "${repo_dir}")"
+
+                if [ -d "${repo_dir}/.git" ]; then
+                  git -C "${repo_dir}" remote set-url origin "${VENV_REPO_URL}"
+                  git -C "${repo_dir}" fetch --tags --force --prune origin
+                else
+                  rm -rf "${repo_dir}"
+                  git clone "${VENV_REPO_URL}" "${repo_dir}"
+                fi
+
+                git -C "${repo_dir}" checkout --force "${VENV_VERSION}"
+                git -C "${repo_dir}" reset --hard "${VENV_VERSION}"
+                "${repo_dir}/bootstrap.sh"
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+        containers:
+          app:
+            image: *vscodeImage
             env:
               CODEX_AUTO_LOGIN: "false"
               CODEX_HOME: /home/coder/.codex
@@ -93,6 +131,9 @@ spec:
         path: /volume1/apps/default
         advancedMounts:
           vscode:
+            dotfiles:
+              - subPath: vscode/home
+                path: /home/coder
             app:
               - subPath: vscode/config
                 path: /config
