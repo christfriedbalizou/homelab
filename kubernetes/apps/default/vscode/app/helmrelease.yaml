@@ -42,7 +42,7 @@ spec:
               TZ: ${TIMEZONE}
               DOTFILES_REPO_URL: https://github.com/christfriedbalizou/dotfiles.git
               # renovate: datasource=github-tags depName=christfriedbalizou/dotfiles
-              DOTFILES_VERSION: v0.0.1
+              DOTFILES_VERSION: v0.2.0
             command:
               - /bin/bash
               - -ec
