@@ -1,0 +1,36 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: blackbox-exporter
+  namespace: monitoring
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: blackbox-exporter
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    config:
+      modules:
+        tcp_connect:
+          prober: tcp
+          timeout: 5s
+    serviceMonitor:
+      enabled: true
+      defaults:
+        interval: 30s
+        scrapeTimeout: 10s
+        module: tcp_connect
+        additionalRelabeling:
+          - targetLabel: job
+            replacement: nfs_probe
+      targets:
+        - name: nfs
+          url: ${NFS_SERVER}:2049

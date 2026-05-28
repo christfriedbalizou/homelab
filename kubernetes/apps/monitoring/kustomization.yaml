@@ -9,6 +9,8 @@ resources:
   - ./dashboard/ks.yaml
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
+  - ./blackbox-exporter/ks.yaml
+  - ./prometheus-adapter/ks.yaml
   - ./silence-operator/ks.yaml
   - ./kromgo/ks.yaml
   - ./cameras

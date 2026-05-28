@@ -1,0 +1,33 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus-adapter
+  namespace: monitoring
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: prometheus-adapter
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    prometheus:
+      url: http://kube-prometheus-stack-prometheus.monitoring.svc
+      port: 9090
+    rules:
+      default: false
+      custom: []
+      external:
+        - seriesQuery: 'probe_success{job="nfs_probe"}'
+          resources:
+            namespaced: false
+          name:
+            matches: '^probe_success$'
+            as: probe_success
+          metricsQuery: 'max(<<.Series>>{<<.LabelMatchers>>})'
