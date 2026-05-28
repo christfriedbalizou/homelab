@@ -36,6 +36,8 @@ spec:
               repository: ghcr.io/christfriedbalizou/vscode
               tag: 4.118.0@sha256:d8ceb8d6763927fedc2fd681728697d5b0f3fba4e39a3536985b876b165288fe
             env:
+              PUID: ${PUID}
+              PGID: ${PGID}
               HOME: /home/coder
               MISE_TRUSTED_CONFIG_PATHS: /home/coder/src/github.com/christfriedbalizou/dotfiles:/home/coder/src:/home/coder
               SHELL: /bin/bash
@@ -72,6 +74,8 @@ spec:
           app:
             image: *vscodeImage
             env:
+              PUID: ${PUID}
+              PGID: ${PGID}
               CODEX_AUTO_LOGIN: "false"
               CODEX_HOME: /home/coder/.codex
               CODE_SERVER_AUTH: none
