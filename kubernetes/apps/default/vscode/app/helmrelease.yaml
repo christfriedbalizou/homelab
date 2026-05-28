@@ -55,6 +55,8 @@ spec:
                 repo_dir="$HOME/src/github.com/christfriedbalizou/dotfiles"
                 mkdir -p "$(dirname "$repo_dir")"
 
+                git config --global --add safe.directory "$repo_dir"
+
                 if [ -d "$repo_dir/.git" ]; then
                   git -C "$repo_dir" remote set-url origin "$DOTFILES_REPO_URL"
                   git -C "$repo_dir" fetch --tags --force --prune origin
