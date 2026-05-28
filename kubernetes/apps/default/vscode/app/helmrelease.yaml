@@ -25,9 +25,9 @@ spec:
         pod:
           securityContext:
             runAsNonRoot: true
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
+            runAsUser: ${UID}
+            runAsGroup: ${GID}
+            fsGroup: ${GID}
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
         initContainers:
@@ -69,6 +69,7 @@ spec:
                 git -C "$repo_dir" reset --hard "$DOTFILES_VERSION"
                 "$repo_dir/bootstrap.sh"
             securityContext:
+              privileged: false
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
