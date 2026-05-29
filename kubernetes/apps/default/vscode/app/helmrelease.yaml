@@ -34,7 +34,7 @@ spec:
           dotfiles:
             image: &vscodeImage
               repository: ghcr.io/christfriedbalizou/vscode
-              tag: 4.118.0@sha256:6462d1605baf9bd888790523ff0c31a030d8db381a10a1068ab0829a6f80c3dc
+              tag: 4.118.0@sha256:fd04bde0bea63d917801fe38ce02a9240466a24fd8f6e988f94d6a27f170b184
             env:
               PUID: ${PUID}
               PGID: ${PGID}
