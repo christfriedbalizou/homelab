@@ -23,7 +23,6 @@ jobs:
         with:
           app-id: ${{ secrets.BOT_APP_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
 
       - name: Close Duplicate Renovate Dashboards
         env:
@@ -49,7 +48,6 @@ jobs:
         id: dispatch
         with:
           token: ${{ steps.app-token.outputs.token }}
-          owner: ${{ github.repository_owner }}
           repo: .github
           ref: main
           workflow: renovate.yaml
@@ -60,7 +58,6 @@ jobs:
         uses: Codex-/await-remote-run@2512346665df8818ec7ad6aca3cdceb7626cd384 # v2.0.0
         with:
           token: ${{ steps.app-token.outputs.token }}
-          owner: ${{ github.repository_owner }}
           repo: .github
           run_id: ${{ steps.dispatch.outputs.run_id }}
 
