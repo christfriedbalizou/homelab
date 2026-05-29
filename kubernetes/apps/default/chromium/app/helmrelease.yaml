@@ -22,19 +22,32 @@ spec:
       chromium:
         annotations:
           reloader.stakater.com/auto: "true"
+        pod:
+          automountServiceAccountToken: false
+          securityContext:
+            fsGroup: ${PGID}
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile: { type: RuntimeDefault }
         containers:
           app:
             image:
-              repository: lscr.io/linuxserver/chromium
-              tag: latest@sha256:47fc8bb18cdb0844199a16e1e14b3b38ba97f6ad1659895c243ba5f2384aad1e
+              repository: ghcr.io/christfriedbalizou/chromium
+              tag: 2026.5.29@sha256:c940d70d4d07299c37098c581a7642333dc315f4f45130c8198dc308471e88cf
             env:
               PUID: "${PUID}"
               PGID: "${PGID}"
               TZ: ${TIMEZONE}
               HARDEN_DESKTOP: "true"
               SELKIES_ENABLE_SHARING: "false|locked"
+              SELKIES_MANUAL_WIDTH: "1920"
+              SELKIES_MANUAL_HEIGHT: "1080"
+              SELKIES_SCALING_DPI: "96"
               START_DOCKER: "false"
               TITLE: Chromium
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: ["NET_RAW"]
             probes:
               liveness: &probe
                 enabled: true

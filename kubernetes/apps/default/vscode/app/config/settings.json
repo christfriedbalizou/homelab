@@ -1,6 +1,7 @@
 {
     "editor.detectIndentation": false,
     "editor.bracketPairColorization.enabled": true,
+    "editor.fontFamily": "'Cascadia Mono NF', 'Cascadia Code', monospace",
     "editor.insertSpaces": true,
     "editor.lineNumbers": "relative",
     "editor.rulers": [
@@ -16,6 +17,7 @@
     "git.confirmSync": false,
     "terminal.integrated.cwd": "/home/coder/src",
     "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.fontFamily": "'Cascadia Mono NF', 'Cascadia Code', monospace",
     "terminal.integrated.profiles.linux": {
         "bash": {
             "path": "/bin/bash",
