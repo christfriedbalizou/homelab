@@ -10,6 +10,9 @@ configMapGenerator:
     files:
       - ./config/extensions.txt
       - ./config/settings.json
+  - name: vscode-dotfiles-init
+    files:
+      - ./config/init-dotfiles.py
 generatorOptions:
   disableNameSuffixHash: true
   annotations:
