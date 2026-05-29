@@ -42,7 +42,7 @@ spec:
               TZ: ${TIMEZONE}
               DOTFILES_REPO_URL: https://github.com/christfriedbalizou/dotfiles.git
               # renovate: datasource=github-tags depName=christfriedbalizou/dotfiles
-              DOTFILES_VERSION: v1.0.1
+              DOTFILES_VERSION: main
             command:
               - /bin/bash
               - -ec
@@ -52,7 +52,7 @@ spec:
                 export HOME=/home/coder
                 export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
 
-                repo_dir="$HOME/src/github.com/christfriedbalizou/dotfiles"
+                repo_dir="$HOME/src/github.com/christfriedbalizou/dotfiles.git"
                 mkdir -p "$(dirname "$repo_dir")"
 
                 git config --global --add safe.directory "$repo_dir"
