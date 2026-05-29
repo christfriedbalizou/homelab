@@ -24,6 +24,7 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           automountServiceAccountToken: false
+          runtimeClassName: nvidia
           securityContext:
             fsGroup: ${PGID}
             fsGroupChangePolicy: OnRootMismatch
@@ -37,7 +38,11 @@ spec:
               PUID: "${PUID}"
               PGID: "${PGID}"
               TZ: ${TIMEZONE}
+              AUTO_GPU: "true"
               HARDEN_DESKTOP: "true"
+              NVIDIA_DRIVER_CAPABILITIES: compute,video,graphics,utility
+              NVIDIA_VISIBLE_DEVICES: all
+              PIXELFLUX_WAYLAND: "true"
               SELKIES_ENABLE_SHARING: "false|locked"
               SELKIES_MANUAL_WIDTH: "1920"
               SELKIES_MANUAL_HEIGHT: "1080"
@@ -66,6 +71,7 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 3Gi
+                "nvidia.com/gpu.shared": 1
     service:
       app:
         controller: *app
