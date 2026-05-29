@@ -39,8 +39,8 @@ spec:
               TZ: ${TIMEZONE}
               HARDEN_DESKTOP: "true"
               SELKIES_ENABLE_SHARING: "false|locked"
-              SELKIES_SCALING_DPI: "96"
-              SELKIES_USE_CSS_SCALING: "false"
+              SELKIES_MANUAL_WIDTH: "1920"
+              SELKIES_MANUAL_HEIGHT: "1080"
               START_DOCKER: "false"
               TITLE: Chromium
             securityContext:
