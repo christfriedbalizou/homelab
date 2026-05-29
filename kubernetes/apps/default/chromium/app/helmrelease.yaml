@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: ghcr.io/christfriedbalizou/chromium
-              tag: 2026.5.29@sha256:c940d70d4d07299c37098c581a7642333dc315f4f45130c8198dc308471e88cf
+              tag: 2026.5.29@sha256:b85cc22bc6f08aae4f0ebf217e36864fb96af820258569694fe4f5a272fa7509
             env:
               PUID: "${PUID}"
               PGID: "${PGID}"
