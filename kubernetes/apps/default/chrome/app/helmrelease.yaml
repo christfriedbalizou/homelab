@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app chromium
+  name: &app chrome
 spec:
   interval: 30m
   chartRef:
@@ -19,7 +19,7 @@ spec:
       retries: 3
   values:
     controllers:
-      chromium:
+      chrome:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
@@ -32,8 +32,8 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/christfriedbalizou/chromium
-              tag: 2026.5.29@sha256:c940d70d4d07299c37098c581a7642333dc315f4f45130c8198dc308471e88cf
+              repository: ghcr.io/christfriedbalizou/chrome
+              tag: 148.0.7778.178@sha256:add05cc2d356b97d9af88e623a6c99e7c47cd4af648fef7f54b345708bfe6c60
             env:
               PUID: "${PUID}"
               PGID: "${PGID}"
@@ -47,7 +47,7 @@ spec:
               SELKIES_MANUAL_WIDTH: "1920"
               SELKIES_MANUAL_HEIGHT: "1080"
               START_DOCKER: "false"
-              TITLE: Chromium
+              TITLE: Chrome
             securityContext:
               allowPrivilegeEscalation: false
               capabilities:
@@ -86,9 +86,9 @@ spec:
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/group: "Tools"
-          hajimari.io/icon: "simple-icons:chromium"
+          hajimari.io/icon: "simple-icons:googlechrome"
         hosts:
-          - host: chromium.${SECRET_DOMAIN}
+          - host: chrome.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
@@ -100,9 +100,9 @@ spec:
         server: ${NFS_SERVER}
         path: /volume1/apps/default
         advancedMounts:
-          chromium:
+          chrome:
             app:
-              - subPath: chromium
+              - subPath: chrome
                 path: /config
       shm:
         type: emptyDir
