@@ -20,4 +20,3 @@ resources:
   - ./memos/ks.yaml
   - ./nextcloud/ks.yaml
   - ./vscode/ks.yaml
-  - ./firefox/ks.yaml
