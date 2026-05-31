@@ -6,11 +6,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - .renovaterc.json5
+      - .renovate/**.json5
   workflow_dispatch:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.repository }}
-  cancel-in-progress: true
+permissions: {}
 
 jobs:
   renovate:
@@ -21,48 +22,39 @@ jobs:
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: app-token
         with:
-          app-id: ${{ secrets.BOT_APP_ID }}
+          client-id: ${{ secrets.BOT_CLIENT_ID }}
           private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
-
-      - name: Close Duplicate Renovate Dashboards
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          REPOSITORY: ${{ github.repository }}
-        run: |-
-          BOT_LOGIN=$(gh api user --jq ".login")
-          gh api "repos/${REPOSITORY}/issues" \
-              --method GET \
-              --paginate \
-              --field state=open \
-              --field per_page=100 \
-              --jq ".[] | select(.pull_request | not) | select(.title | startswith(\"Renovate Dashboard\")) | select(.user.login != \"${BOT_LOGIN}\") | .number" \
-            | while read -r issue_number; do
-                gh issue close "${issue_number}" \
-                  --repo "${REPOSITORY}" \
-                  --reason "not planned" \
-                  --comment "Closing duplicate Renovate dashboard; this repository uses the push-triggered self-hosted Renovate workflow."
-              done
+          owner: ${{ github.repository_owner }}
+          repositories: ".github"
+          permission-actions: write
 
       - name: Run Renovate
-        uses: codex-/return-dispatch@16fa9d14771c4d56ae0196bbda1d3c17f7f3650f # v3.0.2
         id: dispatch
-        with:
-          token: ${{ steps.app-token.outputs.token }}
-          repo: .github
-          ref: main
-          workflow: renovate.yaml
-          workflow_inputs: |-
-            { "autodiscoverFilter": "${{ github.event.repository.name }}" }
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          RUN_URL=$(gh workflow run renovate.yaml \
+            --repo "${{ github.repository_owner }}/.github" \
+            --ref main \
+            --field "autodiscoverFilter=${REPO_NAME}")
+          echo "run_id=${RUN_URL##*/}" >> "$GITHUB_OUTPUT"
 
       - name: Await Renovate Completion
-        uses: Codex-/await-remote-run@2512346665df8818ec7ad6aca3cdceb7626cd384 # v2.0.0
-        with:
-          token: ${{ steps.app-token.outputs.token }}
-          repo: .github
-          run_id: ${{ steps.dispatch.outputs.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          RUN_ID: ${{ steps.dispatch.outputs.run_id }}
+        run: |
+          gh run watch \
+            --repo "${{ github.repository_owner }}/.github" \
+            "${RUN_ID}" \
+            --exit-status
 
       - name: Renovate Output
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          RUN_ID: ${{ steps.dispatch.outputs.run_id }}
         run: |-
-          gh run view --repo ${{ github.repository_owner }}/.github --log ${{ steps.dispatch.outputs.run_id }}
+          gh run view \
+            --repo "${{ github.repository_owner }}/.github" \
+            --log "${RUN_ID}"
