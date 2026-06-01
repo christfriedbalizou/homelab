@@ -5,6 +5,15 @@ connectivity:
     target: 1.1.1.1:53
     interval: 1m
 
+alerting:
+  discord:
+    webhook-url: $${DISCORD_WEBHOOK_URL}
+    default-alert:
+      failure-threshold: 3
+      success-threshold: 2
+      send-on-resolved: true
+      reminder-interval: 1h
+
 endpoints:
   - name: Cloudflare
     group: connectivity
@@ -26,6 +35,132 @@ endpoints:
     interval: 1m
     conditions:
       - "[CONNECTED] == true"
+
+  - name: k8s-3
+    group: Cluster
+    url: icmp://192.168.0.127
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: discord
+        description: "Node k8s-3 is not responding to ICMP."
+
+  - name: k8s-6
+    group: Cluster
+    url: icmp://192.168.0.128
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: discord
+        description: "Node k8s-6 is not responding to ICMP."
+
+  - name: k8s-7
+    group: Cluster
+    url: icmp://192.168.0.126
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: discord
+        description: "Node k8s-7 is not responding to ICMP."
+
+  - name: Dragonfly
+    group: Storage
+    url: tcp://dragonfly.storage.svc.cluster.local:6379
+    interval: 1m
+    body: "*1\r\n$4\r\nPING\r\n"
+    conditions:
+      - "[CONNECTED] == true"
+      - "[BODY] == pat(*PONG*)"
+    alerts:
+      - type: discord
+        description: "Dragonfly did not answer a Redis PING."
+
+  - name: PostgreSQL
+    group: Storage
+    url: tcp://postgres-lb.storage.svc.cluster.local:5432
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: discord
+        description: "PostgreSQL is not accepting TCP connections."
+
+  - name: Mosquitto
+    group: Storage
+    url: tcp://mosquitto.storage.svc.cluster.local:1883
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: discord
+        description: "Mosquitto is not accepting MQTT connections."
+
+  - name: Vaultwarden
+    group: Identity
+    url: http://vaultwarden.identity.svc.cluster.local/alive
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: discord
+        description: "Vaultwarden health check failed."
+
+  - name: LLDAP HTTP
+    group: Identity
+    url: http://lldap.identity.svc.cluster.local/
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: discord
+        description: "LLDAP HTTP endpoint failed."
+
+  - name: LLDAP LDAP
+    group: Identity
+    url: tcp://lldap.identity.svc.cluster.local:389
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: discord
+        description: "LLDAP LDAP port is not accepting connections."
+
+  - name: AdGuard DNS
+    group: Monitoring
+    url: dns://adguard-home.networking.svc.cluster.local
+    interval: 1m
+    dns:
+      query-name: kubernetes.default.svc.cluster.local
+      query-type: A
+    conditions:
+      - "[CONNECTED] == true"
+      - "[DNS_RCODE] == NOERROR"
+    alerts:
+      - type: discord
+        description: "AdGuard DNS query failed."
+
+  - name: Cloudflared
+    group: Monitoring
+    url: http://cloudflared.networking.svc.cluster.local:8080/ready
+    interval: 1m
+    conditions:
+      - "[STATUS] == 200"
+    alerts:
+      - type: discord
+        description: "Cloudflared readiness check failed."
+
+  - name: SMTP relay
+    group: Monitoring
+    url: tcp://smtp-relay.networking.svc.cluster.local:2525
+    interval: 1m
+    conditions:
+      - "[CONNECTED] == true"
+    alerts:
+      - type: discord
+        description: "SMTP relay is not accepting connections."
 
 metrics: true
 
