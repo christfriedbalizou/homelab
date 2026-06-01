@@ -42,7 +42,7 @@ spec:
               HARDEN_DESKTOP: "true"
               NVIDIA_DRIVER_CAPABILITIES: compute,video,graphics,utility
               NVIDIA_VISIBLE_DEVICES: all
-              PIXELFLUX_WAYLAND: "true"
+              PIXELFLUX_WAYLAND: "false"
               SELKIES_ENABLE_SHARING: "false|locked"
               SELKIES_MANUAL_WIDTH: "1920"
               SELKIES_MANUAL_HEIGHT: "1080"
