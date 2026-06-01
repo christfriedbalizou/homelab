@@ -128,7 +128,7 @@ endpoints:
 
   - name: AdGuard DNS
     group: Monitoring
-    url: dns://adguard-home.networking.svc.cluster.local:53
+    url: adguard-home.networking.svc.cluster.local:53
     interval: 1m
     dns:
       query-name: kubernetes.default.svc.cluster.local

@@ -8,6 +8,7 @@ metadata:
     # disabled
     nginx.ingress.kubernetes.io/custom-http-errors: 599
     external-dns.home.arpa/enabled: "true"
+    gatus.home-operations.com/enabled: "false"
     hajimari.io/enable: "false"
 spec:
   ingressClassName: external

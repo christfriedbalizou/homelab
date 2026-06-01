@@ -89,6 +89,7 @@ spec:
         annotations:
           external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
+          gatus.home-operations.com/enabled: "false"
           nginx.ingress.kubernetes.io/custom-http-errors: 500,501,502,503,504,505,506,510
           nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
         hosts:
