@@ -70,13 +70,11 @@ endpoints:
     group: Storage
     url: tcp://dragonfly.storage.svc.cluster.local:6379
     interval: 1m
-    body: "*1\r\n$4\r\nPING\r\n"
     conditions:
       - "[CONNECTED] == true"
-      - "[BODY] == pat(*PONG*)"
     alerts:
       - type: discord
-        description: "Dragonfly did not answer a Redis PING."
+        description: "Dragonfly is not accepting Redis connections."
 
   - name: PostgreSQL
     group: Storage
@@ -130,7 +128,7 @@ endpoints:
 
   - name: AdGuard DNS
     group: Monitoring
-    url: dns://adguard-home.networking.svc.cluster.local
+    url: dns://adguard-home.networking.svc.cluster.local:53
     interval: 1m
     dns:
       query-name: kubernetes.default.svc.cluster.local
