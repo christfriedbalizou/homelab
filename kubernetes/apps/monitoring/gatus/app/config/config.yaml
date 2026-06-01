@@ -131,7 +131,7 @@ endpoints:
     url: adguard-home.networking.svc.cluster.local:53
     interval: 1m
     dns:
-      query-name: kubernetes.default.svc.cluster.local
+      query-name: example.com
       query-type: A
     conditions:
       - "[CONNECTED] == true"
