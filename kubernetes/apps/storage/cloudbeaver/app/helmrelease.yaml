@@ -62,7 +62,7 @@ spec:
       config:
         enabled: true
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_APPS}
         path: /volume1/apps/storage
         globalMounts:
           - subPath: cloudbeaver

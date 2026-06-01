@@ -62,7 +62,7 @@ spec:
     persistence:
       data:
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_APPS}
         path: /volume1/apps/default
         advancedMounts:
           actual:

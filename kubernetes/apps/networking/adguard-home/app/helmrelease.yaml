@@ -54,14 +54,14 @@ spec:
       data:
         enabled: true
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_APPS}
         path: /volume1/apps/networking/adguard/data
         globalMounts:
           - path: /opt/adguardhome/work
       conf:
         enabled: true
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_APPS}
         path: /volume1/apps/networking/adguard/conf
         globalMounts:
           - path: /opt/adguardhome/conf

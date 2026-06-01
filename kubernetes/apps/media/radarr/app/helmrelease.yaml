@@ -131,12 +131,12 @@ spec:
       config:
         enabled: true
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_APPS}
         path: /volume1/apps/media
         globalMounts:
           - subPath: radarr
       media:
         enabled: true
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_MEDIA}
         path: /volume1/media

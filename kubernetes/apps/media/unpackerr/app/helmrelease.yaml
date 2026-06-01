@@ -51,5 +51,5 @@ spec:
       media:
         enabled: true
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_MEDIA}
         path: /volume1/media

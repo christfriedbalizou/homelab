@@ -32,5 +32,7 @@ spec:
           - targetLabel: job
             replacement: nfs_probe
       targets:
-        - name: nfs
-          url: ${NFS_SERVER}:2049
+        - name: nfs-apps
+          url: ${NFS_SERVER_APPS}:2049
+        - name: nfs-media
+          url: ${NFS_SERVER_MEDIA}:2049

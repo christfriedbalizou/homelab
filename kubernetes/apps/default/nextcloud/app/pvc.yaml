@@ -10,7 +10,7 @@ spec:
     storage: 1Mi
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: "${NFS_SERVER_IP}"
+    server: "${NFS_SERVER_APPS}"
     path: "/volume1/apps/default/nextcloud"
 
 ---

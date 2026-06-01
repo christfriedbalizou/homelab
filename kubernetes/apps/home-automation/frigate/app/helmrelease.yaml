@@ -73,7 +73,7 @@ spec:
     persistence:
       data:
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_APPS}
         path: /volume1/apps/home-automation
         globalMounts:
           - path: /data
@@ -105,7 +105,7 @@ spec:
             readOnly: false
       media:
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_MEDIA}
         path: /volume1/media/cameras
         globalMounts:
           - path: /media/frigate

@@ -56,7 +56,8 @@ Use these defaults unless the surrounding app already does something different:
 - `sourceRef.name` is `home-kubernetes` in namespace `flux-system`.
 - Enable SOPS decryption with `secretRef.name: sops-age` when secrets are used.
 - Add `postBuild.substituteFrom` with `cluster-secrets` when using `${...}`
-  substitutions such as `${SECRET_DOMAIN}`, `${TIMEZONE}`, or `${NFS_SERVER}`.
+  substitutions such as `${SECRET_DOMAIN}`, `${TIMEZONE}`, `${NFS_SERVER_APPS}`,
+  or `${NFS_SERVER_MEDIA}`.
 - Add a HelmRelease health check when the app is Helm-managed.
 - Prefer `chartRef` to shared `OCIRepository` resources, especially
   `app-template` from `kubernetes/components/common/repos`.
@@ -88,8 +89,9 @@ annotations over repeating long nginx auth annotations in each app.
 
 ## Storage Rules
 
-- Use NFS mounts in app-template persistence for most app data and media:
-  `type: nfs`, `server: ${NFS_SERVER}`, and the appropriate Synology path.
+- Use NFS mounts in app-template persistence for most app data and media.
+  App/config paths under `/volume1/apps/...` use `server: ${NFS_SERVER_APPS}`;
+  media paths under `/volume1/media...` use `server: ${NFS_SERVER_MEDIA}`.
 - Use OpenEBS hostpath (`openebs-hostpath`) for local PVC-backed services that
   need it, such as CloudNativePG or monitoring storage.
 - Do not introduce Rook-Ceph, `ceph-block`, `ceph-filesystem`, or RBD settings.

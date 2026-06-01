@@ -58,7 +58,7 @@ spec:
 
       translate:
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_APPS}
         path: /volume1/apps/default
         globalMounts:
           - subPath: autotranslate
@@ -66,7 +66,7 @@ spec:
 
       consume:
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_MEDIA}
         path: /volume1/media
         globalMounts:
           - subPath: autotranslate

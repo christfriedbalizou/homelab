@@ -82,7 +82,7 @@ spec:
                 subPath: var/run
       config:
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_APPS}
         path: /volume1/apps/networking/netbird-peers/mooncake
         advancedMounts:
           mooncake:

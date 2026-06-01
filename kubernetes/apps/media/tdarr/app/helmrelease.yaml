@@ -101,7 +101,7 @@ spec:
       config:
           enabled: true
           type: nfs
-          server: ${NFS_SERVER}
+          server: ${NFS_SERVER_APPS}
           path: /volume1/apps/media
           globalMounts:
             - subPath: tdarr
@@ -109,21 +109,21 @@ spec:
       movies:
         enabled: true
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_MEDIA}
         path: /volume1/media/movies
         globalMounts:
           - path: /mnt/storage/video/movies
       tv:
         enabled: true
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_MEDIA}
         path: /volume1/media/series
         globalMounts:
           - path: /mnt/storage/video/tv
       shared:
         enabled: true
         type: nfs
-        server: ${NFS_SERVER}
+        server: ${NFS_SERVER_MEDIA}
         path: /volume1/media/.tdarr
         globalMounts:
           - path: /mnt/cache
