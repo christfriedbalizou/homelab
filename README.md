@@ -35,7 +35,7 @@ Most of my infrastructure and workloads are self-hosted, but I rely on the cloud
 | Device              | Count | Memory    | Role                        | Storage                               |
 |---------------------|-------|-----------|-----------------------------|---------------------------------------|
 | PowerEdge R630      |   2   | 64GB DDR4 |   K3s controller            |    2TB SAS SSD                        |
-| Ιntel Xeon 2286m    |   1   | 64GB DDR4 |   K3s controller            |    256GB M.2 SSD                      |
+| OptiPlex 7050       |   1   | 16GB DDR4 |   K3s controller            |    256GB M.2 SSD                      |
 | Synology DS423+     |   1   |  2GB DDR4 |   Apps storage              | 56TB(2x12TB + 2x16TB) SHR + 4TB cache |
 | Synology RS2416RP+  |   1   |  2GB DDR4 |   Media storage + Backup    | 72TB(5x18TB + 1x8TB) SHR              |
 
