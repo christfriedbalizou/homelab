@@ -32,12 +32,14 @@ Most of my infrastructure and workloads are self-hosted, but I rely on the cloud
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
 
-| Device              | Count | Memory    | Role                        | Storage                               |
-|---------------------|-------|-----------|-----------------------------|---------------------------------------|
-| PowerEdge R630      |   2   | 64GB DDR4 |   K3s controller            |    2TB SAS SSD                        |
+| Device                  | Count | Memory    | Role                                                                            | Storage                               |
+|-------------------------|-------|-----------|---------------------------------------------------------------------------------|---------------------------------------|
+| PowerEdge R630          |   2   | 64GB DDR4 |   K3s controller                                                                |    2TB SAS SSD                        |
 | OptiPlex 7050       |   1   | 16GB DDR4 |   K3s controller            |    256GB SSD                          |
-| Synology DS423+     |   1   |  2GB DDR4 |   Apps storage              | 56TB(2x12TB + 2x16TB) SHR + 4TB cache |
-| Synology RS2416RP+  |   1   |  2GB DDR4 |   Media storage + Backup    | 72TB(5x18TB + 1x8TB) SHR              |
+| NVIDIA GeForce RTX 3050 |   1   | GDDR6     |   GPU acceleration via Talos NVIDIA extensions and `nvidia.com/gpu.shared`      | N/A                                   |
+| Google Coral TPU        |   1   | N/A       |   Edge TPU acceleration via Talos gasket/apex and `squat.ai/coral`              | N/A                                   |
+| Synology DS423+         |   1   |  2GB DDR4 |   Apps storage                                                                  | 56TB(2x12TB + 2x16TB) SHR + 4TB cache |
+| Synology RS2416RP+      |   1   |  2GB DDR4 |   Media storage + Backup                                                        | 72TB(5x18TB + 1x8TB) SHR              |
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Gratitude and Thanks
 
