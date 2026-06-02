@@ -39,8 +39,6 @@ Most of my infrastructure and workloads are self-hosted, but I rely on the cloud
 | Synology DS423+     |   1   |  2GB DDR4 |   Apps storage              | 56TB(2x12TB + 2x16TB) SHR + 4TB cache |
 | Synology RS2416RP+  |   1   |  2GB DDR4 |   Media storage + Backup    | 72TB(5x18TB + 1x8TB) SHR              |
 
-Raspberry Pi 4B units + retired Intel NUCs remain on the shelf, ready to join the self-hosted fabric if more capacity or ARM testing is needed.
-
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Gratitude and Thanks
 
 I learned a lot from the people who have shared their clusters over from
