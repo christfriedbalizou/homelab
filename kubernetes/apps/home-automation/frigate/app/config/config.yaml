@@ -11,6 +11,13 @@ detectors:
     device: usb
 face_recognition:
   enabled: true
+  detection_threshold: 0.6
+  recognition_threshold: 0.85
+  min_area: 300
+  min_faces: 1
+  save_attempts: 200
+  blur_confidence_filter: true
+  model_size: small
 audio:
   enabled: true
   listen:
