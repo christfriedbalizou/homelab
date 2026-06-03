@@ -9,52 +9,80 @@ on:
     paths:
       - .renovaterc.json5
       - .renovate/**.json5
+  schedule:
+    - cron: 20 * * * *
   workflow_dispatch:
+    inputs:
+      dryRun:
+        description: Dry Run
+        type: boolean
+        default: false
+        required: true
+      logLevel:
+        description: Log Level
+        type: choice
+        default: debug
+        options:
+          - debug
+          - info
+        required: true
+      version:
+        description: Renovate Version
+        default: latest
+        required: true
 
-permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
-  renovate:
+  main:
     name: Renovate
     runs-on: ubuntu-latest
+    permissions:
+      packages: read
     steps:
+      - name: Load Secrets
+        id: load-secrets
+        uses: 1password/load-secrets-action@92467eb28f72e8255933372f1e0707c567ce2259 # v4.0.0 # zizmor: ignore[unpinned-tools]
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          GITHUB_BOT_APP_CLIENT_ID: op://kubernetes/github-bot/GITHUB_BOT_APP_CLIENT_ID
+          GITHUB_BOT_APP_PRIVATE_KEY: op://kubernetes/github-bot/GITHUB_BOT_APP_PRIVATE_KEY
+
       - name: Generate Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: app-token
         with:
-          client-id: ${{ secrets.BOT_CLIENT_ID }}
-          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
-          repositories: ".github"
-          permission-actions: write
+          client-id: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_CLIENT_ID }}
+          private-key: ${{ steps.load-secrets.outputs.GITHUB_BOT_APP_PRIVATE_KEY }}
+          permission-checks: write
+          permission-contents: write
+          permission-issues: write
+          permission-pull-requests: write
+          permission-statuses: write
+          permission-vulnerability-alerts: read
+          permission-workflows: write
+
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Run Renovate
-        id: dispatch
+        uses: renovatebot/github-action@693b9ef15eec82123529a37c782242f091365961 # v46.1.14
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          REPO_NAME: ${{ github.event.repository.name }}
-        run: |
-          RUN_URL=$(gh workflow run renovate.yaml \
-            --repo "${{ github.repository_owner }}/.github" \
-            --ref main \
-            --field "autodiscoverFilter=${REPO_NAME}")
-          echo "run_id=${RUN_URL##*/}" >> "$GITHUB_OUTPUT"
-
-      - name: Await Renovate Completion
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          RUN_ID: ${{ steps.dispatch.outputs.run_id }}
-        run: |
-          gh run watch \
-            --repo "${{ github.repository_owner }}/.github" \
-            "${RUN_ID}" \
-            --exit-status
-
-      - name: Renovate Output
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          RUN_ID: ${{ steps.dispatch.outputs.run_id }}
-        run: |-
-          gh run view \
-            --repo "${{ github.repository_owner }}/.github" \
-            --log "${RUN_ID}"
+          LOG_LEVEL: ${{ inputs.logLevel || 'debug' }}
+          RENOVATE_AUTODISCOVER: true
+          RENOVATE_AUTODISCOVER_FILTER: ${{ github.repository }}
+          RENOVATE_DRY_RUN: ${{ inputs.dryRun }}
+          RENOVATE_INTERNAL_CHECKS_FILTER: strict
+          RENOVATE_PLATFORM: github
+          RENOVATE_PLATFORM_COMMIT: true
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          renovate-version: ${{ inputs.version || 'latest' }}
