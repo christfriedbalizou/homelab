@@ -5,6 +5,10 @@ mqtt:
   host: mosquitto.storage.svc.cluster.local
 database:
   path: /data/frigate.db
+logger:
+  logs:
+    frigate.data_processing.real_time.face: debug
+    frigate.data_processing.common.face.model: debug
 detectors:
   coral:
     type: edgetpu
@@ -13,7 +17,8 @@ face_recognition:
   enabled: true
   detection_threshold: 0.6
   recognition_threshold: 0.85
-  unknown_score:  0.2
+  unknown_score: 0.2
+  min_area: 300
   min_faces: 1
   save_attempts: 200
   blur_confidence_filter: true
