@@ -103,15 +103,15 @@ spec:
     persistence:
       data:
         type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media
+        server: ${NFS_SERVER_APPS}
+        path: /volume1/apps/default
         globalMounts:
           - subPath: paperless
             path: /data/local
       nas:
         type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default
+        server: ${NFS_SERVER_MEDIA}
+        path: /volume1/media
         globalMounts:
           - subPath: paperless
             path: /data/nas
