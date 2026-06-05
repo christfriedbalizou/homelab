@@ -26,7 +26,7 @@ spec:
           automountServiceAccountToken: false
           runtimeClassName: nvidia
           securityContext:
-            fsGroup: ${PGID}
+            fsGroup: 101
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
         containers:
@@ -35,8 +35,8 @@ spec:
               repository: ghcr.io/christfriedbalizou/chrome
               tag: 148.0.7778.178@sha256:add05cc2d356b97d9af88e623a6c99e7c47cd4af648fef7f54b345708bfe6c60
             env:
-              PUID: "${PUID}"
-              PGID: "${PGID}"
+              PUID: 1024
+              PGID: 101
               TZ: ${TIMEZONE}
               AUTO_GPU: "true"
               HARDEN_DESKTOP: "true"
