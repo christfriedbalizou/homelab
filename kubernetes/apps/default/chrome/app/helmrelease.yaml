@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: ghcr.io/christfriedbalizou/chrome
-              tag: 148.0.7778.178@sha256:add05cc2d356b97d9af88e623a6c99e7c47cd4af648fef7f54b345708bfe6c60
+              tag: 148.0.7778.215@sha256:9c091a84e95836e8087cf9e50a537b4c9da8725795c849b2fd5cf7dafcb0ddca
             env:
               PUID: 1024
               PGID: 101
