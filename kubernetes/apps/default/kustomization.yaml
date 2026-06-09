@@ -19,4 +19,5 @@ resources:
   - ./thelounge/ks.yaml
   - ./memos/ks.yaml
   - ./nextcloud/ks.yaml
+  - ./immich/ks.yaml
   - ./vscode/ks.yaml

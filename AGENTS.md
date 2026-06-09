@@ -92,6 +92,12 @@ annotations over repeating long nginx auth annotations in each app.
 - Use NFS mounts in app-template persistence for most app data and media.
   App/config paths under `/volume1/apps/...` use `server: ${NFS_SERVER_APPS}`;
   media paths under `/volume1/media...` use `server: ${NFS_SERVER_MEDIA}`.
+- Treat NFS APPS as the protected, critical data tier. It is the only NFS
+  storage currently backed up, so irreplaceable application state, databases,
+  user uploads, generated app libraries, and configuration belong there.
+- Treat NFS MEDIA as bulk/recreatable storage. It can hold large media caches or
+  data that can be reconstructed from APPS, but it must not be the only copy of
+  user-critical state.
 - Use OpenEBS hostpath (`openebs-hostpath`) for local PVC-backed services that
   need it, such as CloudNativePG or monitoring storage.
 - Do not introduce Rook-Ceph, `ceph-block`, `ceph-filesystem`, or RBD settings.
