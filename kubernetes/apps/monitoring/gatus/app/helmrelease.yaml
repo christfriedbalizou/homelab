@@ -33,6 +33,7 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
+          automountServiceAccountToken: true
           hostUsers: false
           securityContext:
             runAsUser: 65534
@@ -134,8 +135,6 @@ spec:
                 service:
                   identifier: app
                   port: http
-    serviceAccount:
-      gatus: {}
     rbac:
       roles:
         gatus:
