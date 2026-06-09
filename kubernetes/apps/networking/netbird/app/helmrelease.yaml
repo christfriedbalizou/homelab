@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: netbirdio/management
-              tag: 0.71.4
+              tag: 0.72.2
             args:
               - '--port=80'
               - '--log-file=console'
