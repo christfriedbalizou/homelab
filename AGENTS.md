@@ -87,6 +87,30 @@ Kyverno policy `kubernetes/apps/kyverno/kyverno/policies/ingress-annotations.yam
 mutates Ingress annotations for DNS and Authelia. Prefer those short home.arpa
 annotations over repeating long nginx auth annotations in each app.
 
+## Database Rules
+
+PostgreSQL is centralized on CloudNativePG in the `storage` namespace.
+
+- Do not add app-local PostgreSQL containers, statefulsets, subcharts, or PVCs for
+  normal applications.
+- For apps that need PostgreSQL, add an init container using
+  `repository: ghcr.io/home-operations/postgres-init` and `tag: 18` to
+  create/update the database and role.
+- Point application database clients and `INIT_POSTGRES_HOST` at
+  `postgres-lb.storage.svc.cluster.local`; include `:5432` only when the app
+  expects host-and-port in one value.
+- Add `spec.dependsOn` for `cloudnative-pg` in namespace `storage` when the app
+  has a HelmRelease and needs the shared database.
+- Reuse each app's existing secret keys for `INIT_POSTGRES_USER` and
+  `INIT_POSTGRES_PASS` whenever they already exist; otherwise use
+  `valueFrom.secretKeyRef` and keep generated secrets in the bootstrap template
+  pipeline.
+- Use `${POSTGRES_SUPER_PASS}` for `INIT_POSTGRES_SUPER_PASS` unless the app
+  already sources that value from an encrypted app secret.
+- Only make an exception for a dedicated PostgreSQL deployment when the user
+  explicitly asks for isolation or the app requires extensions/features not
+  available in the shared cluster; document the reason in the manifest.
+
 ## Storage Rules
 
 - Use NFS mounts in app-template persistence for most app data and media.
