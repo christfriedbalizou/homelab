@@ -5,6 +5,7 @@ SOPS_CONFIG = "{{config_root}}/.sops.yaml"
 SOPS_AGE_KEY_FILE = "{{config_root}}/age.key"
 TALOSCONFIG = "{{config_root}}/talos/clusterconfig/talosconfig"
 JUST_UNSTABLE = "1"
+PYTHONPATH = "{{config_root}}/.venv/lib/python3.14/site-packages"
 
 [tools]
 "python" = "3.14.5"
