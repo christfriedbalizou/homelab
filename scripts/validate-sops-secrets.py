@@ -46,6 +46,16 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="File or directory to skip. Can be passed more than once.",
     )
+    parser.add_argument(
+        "--allow-empty-key",
+        action="append",
+        default=[],
+        help=(
+            "Secret key allowed to render empty. Use KEY or field.KEY, "
+            "for example smtp-username or stringData.smtp-username. "
+            "Can be passed more than once."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -106,7 +116,18 @@ def empty_keys(value: Any) -> Iterator[tuple[str, Any]]:
             yield str(key), item
 
 
-def validate_file(path: Path) -> tuple[list[EmptySecretValue], str | None]:
+def is_allowed_empty(
+    field: str,
+    key: str,
+    allowed_empty_keys: set[str],
+) -> bool:
+    return key in allowed_empty_keys or f"{field}.{key}" in allowed_empty_keys
+
+
+def validate_file(
+    path: Path,
+    allowed_empty_keys: set[str],
+) -> tuple[list[EmptySecretValue], str | None]:
     findings: list[EmptySecretValue] = []
     try:
         with path.open("r", encoding="utf-8") as file:
@@ -121,6 +142,8 @@ def validate_file(path: Path) -> tuple[list[EmptySecretValue], str | None]:
         name = secret_name(document)
         for field in ("stringData", "data"):
             for key, _ in empty_keys(document.get(field)):
+                if is_allowed_empty(field, key, allowed_empty_keys):
+                    continue
                 findings.append(
                     EmptySecretValue(
                         file=path,
@@ -137,6 +160,7 @@ def validate_file(path: Path) -> tuple[list[EmptySecretValue], str | None]:
 def main() -> int:
     args = parse_args()
     excluded = resolve_paths(args.exclude)
+    allowed_empty_keys = set(args.allow_empty_key)
 
     print("=== Validating rendered SOPS secrets ===")
 
@@ -144,7 +168,7 @@ def main() -> int:
     parse_errors: list[str] = []
 
     for file in iter_sops_files(args.paths, excluded):
-        file_findings, parse_error = validate_file(file)
+        file_findings, parse_error = validate_file(file, allowed_empty_keys)
         findings.extend(file_findings)
         if parse_error:
             parse_errors.append(parse_error)

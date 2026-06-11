@@ -72,8 +72,17 @@ render:
     PYTHONDONTWRITEBYTECODE=1 makejinja
 
 [private]
+[script]
 validate-rendered-sops-secrets:
-    PYTHONDONTWRITEBYTECODE=1 python "{{ justfile_dir() }}/scripts/validate-sops-secrets.py" "{{ ansible_dir }}" "{{ bootstrap_dir }}" "{{ kubernetes_dir }}" "{{ talos_dir }}" --exclude "{{ template_dir }}"
+    PYTHONDONTWRITEBYTECODE=1 python \
+        "{{ justfile_dir() }}/scripts/validate-sops-secrets.py" \
+        "{{ ansible_dir }}" \
+        "{{ bootstrap_dir }}" \
+        "{{ kubernetes_dir }}" \
+        "{{ talos_dir }}" \
+        --exclude "{{ template_dir }}" \
+        --allow-empty-key smtp-username \
+        --allow-empty-key smtp-password
 
 [private]
 [script]
