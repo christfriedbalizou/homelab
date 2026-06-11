@@ -231,6 +231,7 @@ spec:
           http:
             port: *mlPort
       valkey:
+        nameOverride: immich-valkey
         controller: immich-valkey
         ports:
           valkey:
