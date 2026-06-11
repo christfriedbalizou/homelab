@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - helmrelease.yaml
+  - httproute.yaml
   - ./scrapeconfigs
 generatorOptions:
   disableNameSuffixHash: true

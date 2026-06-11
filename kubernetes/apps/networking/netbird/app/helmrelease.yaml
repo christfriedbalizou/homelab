@@ -203,81 +203,81 @@ spec:
             primary: true
             port: *port80
 
-    ingress:
+    route:
       management:
-        className: external
-        annotations:
-          external-dns.home.arpa/enabled: 'true'
-        hosts:
-          - host: &host netbird.${SECRET_DOMAIN}
-            paths:
-              - path: /api
-                pathType: ImplementationSpecific
-                service:
-                  identifier: management
-                  port: http
+        hostnames:
+          - "netbird.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /api
+            backendRefs:
+              - identifier: management
+                port: http
       grpc:
-        className: external
-        annotations:
-          external-dns.home.arpa/enabled: 'true'
-          nginx.ingress.kubernetes.io/backend-protocol: GRPC
-          nginx.ingress.kubernetes.io/ssl-redirect: 'true'
-          nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
-          nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
-        hosts:
-          - host: *host
-            paths:
-              - path: /management.ManagementService
-                pathType: ImplementationSpecific
-                service:
-                  identifier: management
-                  port: grpc
-
+        kind: GRPCRoute
+        hostnames:
+          - "netbird.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - method:
+                  service: management.ManagementService
+            backendRefs:
+              - identifier: management
+                port: grpc
       signal:
-        className: external
-        annotations:
-          external-dns.home.arpa/enabled: 'true'
-          nginx.ingress.kubernetes.io/backend-protocol: GRPC
-          nginx.ingress.kubernetes.io/ssl-redirect: 'true'
-          nginx.ingress.kubernetes.io/proxy-read-timeout: '3600'
-          nginx.ingress.kubernetes.io/proxy-send-timeout: '3600'
-        hosts:
-          - host: *host
-            paths:
-              - path: /signalexchange.SignalExchange
-                pathType: ImplementationSpecific
-                service:
-                  identifier: signal
-                  port: grpc
-
+        kind: GRPCRoute
+        hostnames:
+          - "netbird.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - method:
+                  service: signalexchange.SignalExchange
+            backendRefs:
+              - identifier: signal
+                port: grpc
       relay:
-        className: external
-        annotations:
-          external-dns.home.arpa/enabled: 'true'
-        hosts:
-          - host: *host
-            paths:
-              - path: /relay
-                pathType: ImplementationSpecific
-                service:
-                  identifier: relay
-                  port: http
+        hostnames:
+          - "netbird.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /relay
+            backendRefs:
+              - identifier: relay
+                port: http
       dashboard:
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: 'true'
-          hajimari.io/enable: 'true'
+          hajimari.io/enable: "true"
           hajimari.io/icon: arcticons:netbird
           hajimari.io/group: Network
-        hosts:
-          - host: *host
-            paths:
-              - path: /
-                pathType: ImplementationSpecific
-                service:
-                  identifier: dashboard
-                  port: http
-
+        hostnames:
+          - "netbird.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: dashboard
+                port: http
     persistence:
       config:
         type: configMap

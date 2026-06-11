@@ -66,21 +66,24 @@ spec:
         path: /volume1/apps/networking/adguard/conf
         globalMounts:
           - path: /opt/adguardhome/conf
-    ingress:
+    route:
       app:
-        className: "external"
         annotations:
-          external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
           hajimari.io/icon: shield-check
           hajimari.io/group: Network
           hajimari.io/appName: adguard
-        hosts:
-          - host: &host "adguard-home.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
+        hostnames:
+          - "adguard-home.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: http

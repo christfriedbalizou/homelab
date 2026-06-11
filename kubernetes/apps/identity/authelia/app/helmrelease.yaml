@@ -108,29 +108,26 @@ spec:
             path: /metrics
             interval: 1m
             scrapeTimeout: 10s
-    ingress:
+    route:
       main:
-        enabled: true
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            add_header Cache-Control "no-store";
-            add_header Pragma "no-cache";
-            add_header X-Frame-Options "SAMEORIGIN";
-            add_header X-XSS-Protection "1; mode=block";
           hajimari.io/enable: "true"
-          hajimari.io/name: "Authelia"
-          hajimari.io/group: "Authentication"
+          hajimari.io/name: Authelia
+          hajimari.io/group: Authentication
           hajimari.io/icon: mdi:shield-account
-        hosts:
-          - host: &host auth.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
+        hostnames:
+          - "auth.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: main
+                port: http
     persistence:
       config:
         enabled: true

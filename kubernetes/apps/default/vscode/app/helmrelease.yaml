@@ -83,22 +83,26 @@ spec:
             port: 8080
           codex-oauth:
             port: 1455
-    ingress:
+    route:
       app:
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/group: "Tools"
-          hajimari.io/icon: "mdi:microsoft-visual-studio-code"
-        hosts:
-          - host: vscode.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+          hajimari.io/group: Tools
+          hajimari.io/icon: mdi:microsoft-visual-studio-code
+        hostnames:
+          - "vscode.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: http
     persistence:
       config:
         type: nfs

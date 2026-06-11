@@ -8,8 +8,8 @@ resources:
   - ./cert-manager
   - ./cloudnative-pg
   - ./descheduler
+  - ./envoy-gateway
   - ./external-dns
-  - ./ingress-nginx
   - ./intel-gpu-resource-driver
   - ./kubernetes-dashboard-charts
   - ./nextcloud

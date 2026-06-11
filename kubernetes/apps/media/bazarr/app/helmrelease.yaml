@@ -63,22 +63,26 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/group: "Media"
-          hajimari.io/icon: "cbi:bazarr"
-        hosts:
-          - host: &host bazarr.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+          hajimari.io/group: Media
+          hajimari.io/icon: cbi:bazarr
+        hostnames:
+          - "bazarr.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: http
     persistence:
       config:
         enabled: true

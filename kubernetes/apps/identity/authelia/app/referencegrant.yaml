@@ -1,0 +1,36 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/referencegrant_v1beta1.json
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: authelia-extauth-securitypolicies
+spec:
+  from:
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: default
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: flux-system
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: home-automation
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: identity
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: media
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: monitoring
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: networking
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
+      namespace: storage
+  to:
+    - group: ""
+      kind: Service
+      name: authelia

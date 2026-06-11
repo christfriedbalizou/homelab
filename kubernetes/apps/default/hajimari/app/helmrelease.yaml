@@ -50,6 +50,166 @@ spec:
       name: "${SECRET_GRAFANA_ADMIN_USER}"
       lightTheme: blackboard
       darkTheme: horizon
+      customApps:
+        - group: Authentication
+          apps:
+            - name: Authelia
+              url: "https://auth.${SECRET_DOMAIN}"
+              icon: "mdi:shield-account"
+            - name: LDAP Admin
+              url: "https://lldap.${SECRET_DOMAIN}"
+              icon: "mdi:dictionary"
+            - name: Vaultwarden
+              url: "https://vaultwarden.${SECRET_DOMAIN}"
+              icon: "cbi:vaultwarden"
+        - group: Cameras
+          apps:
+            - name: Entrance
+              url: "https://entrance-camera.${SECRET_DOMAIN}"
+              icon: "mdi:camera"
+        - group: Family
+          apps:
+            - name: actual
+              url: "https://actual.${SECRET_DOMAIN}"
+              icon: "simple-icons:actualbudget"
+            - name: immich
+              url: "https://immich.${SECRET_DOMAIN}"
+              icon: "simple-icons:immich"
+            - name: mealie
+              url: "https://mealie.${SECRET_DOMAIN}"
+              icon: "cbi:mealie"
+            - name: memos
+              url: "https://memos.${SECRET_DOMAIN}"
+              icon: "iconoir:notes"
+            - name: nextcloud
+              url: "https://nextcloud.${SECRET_DOMAIN}"
+              icon: "simple-icons:nextcloud"
+              info: "File and Calendar server"
+            - name: paperless
+              url: "https://paperless.${SECRET_DOMAIN}"
+              icon: "arcticons:paperless"
+        - group: Home Automation
+          apps:
+            - name: code-server
+              url: "https://hass-code.${SECRET_DOMAIN}"
+              icon: "mingcute:vscode-line"
+            - name: Frigate NVR
+              url: "https://frigate.${SECRET_DOMAIN}"
+              icon: "streamline-cyber:origami-paper-bird"
+            - name: go2rtc
+              url: "https://go2rtc.${SECRET_DOMAIN}"
+              icon: "icon-park-outline:surveillance-cameras"
+            - name: home-assistant
+              url: "https://hass.${SECRET_DOMAIN}"
+              icon: "mdi:home-assistant"
+            - name: zigbee2mqtt
+              url: "https://zigbee.${SECRET_DOMAIN}"
+              icon: "cbi:zigbee2mqtt"
+        - group: Media
+          apps:
+            - name: autobrr
+              url: "https://autobrr.${SECRET_DOMAIN}"
+              icon: "mdi:rabbit"
+            - name: bazarr
+              url: "https://bazarr.${SECRET_DOMAIN}"
+              icon: "cbi:bazarr"
+            - name: jellyfin
+              url: "https://jellyfin.${SECRET_DOMAIN}"
+              icon: "simple-icons:jellyfin"
+            - name: jellystat
+              url: "https://jellystat.${SECRET_DOMAIN}"
+              icon: "oui:stats"
+            - name: prowlarr
+              url: "https://prowlarr.${SECRET_DOMAIN}"
+              icon: "mdi:movie-search"
+            - name: QBittorrent
+              url: "https://torrent.${SECRET_DOMAIN}"
+              icon: "arcticons:utorrent"
+            - name: radarr
+              url: "https://radarr.${SECRET_DOMAIN}"
+              icon: "mdi:filmstrip"
+            - name: sabnzbd
+              url: "https://sabnzbd.${SECRET_DOMAIN}"
+              icon: "download-box"
+            - name: seerr
+              url: "https://seerr.${SECRET_DOMAIN}"
+              icon: "mdi:jellyfish-outline"
+            - name: sonarr
+              url: "https://sonarr.${SECRET_DOMAIN}"
+              icon: "mdi:television-classic"
+            - name: tdarr
+              url: "https://tdarr.${SECRET_DOMAIN}"
+              icon: "file-icons:adobe-mediaencoder"
+        - group: Monitoring
+          apps:
+            - name: Alertmanager
+              url: "https://alertmanager.${SECRET_DOMAIN}"
+              icon: "simple-icons:prometheus"
+            - name: gatus
+              url: "https://gatus.${SECRET_DOMAIN}"
+              icon: "material-symbols:ecg-heart-outline"
+            - name: Grafana
+              url: "https://grafana.${SECRET_DOMAIN}"
+              icon: "cbi:grafana"
+            - name: kromgo
+              url: "https://kromgo.${SECRET_DOMAIN}"
+              icon: "fa-brands:watchman-monitoring"
+            - name: Prometheus
+              url: "https://prometheus.${SECRET_DOMAIN}"
+              icon: "cbi:prometheusio"
+        - group: Network
+          apps:
+            - name: adguard
+              url: "https://adguard-home.${SECRET_DOMAIN}"
+              icon: "shield-check"
+            - name: dashboard
+              url: "https://netbird.${SECRET_DOMAIN}"
+              icon: "arcticons:netbird"
+            - name: echo-server
+              url: "https://echo-server.${SECRET_DOMAIN}"
+              icon: "mdi:broadcast"
+            - name: pihole
+              url: "https://pihole.${SECRET_DOMAIN}"
+              icon: "mdi:pi-hole"
+        - group: Storage
+          apps:
+            - name: cloudbeaver
+              url: "https://cloudbeaver.${SECRET_DOMAIN}"
+              icon: "devicon:dbeaver"
+            - name: minio
+              url: "https://minio.${SECRET_DOMAIN}"
+              icon: "mdi:pail"
+            - name: pgadmin
+              url: "https://pgadmin.${SECRET_DOMAIN}"
+              icon: "simple-icons:postgresql"
+        - group: System
+          apps:
+            - name: Kubernetes Dashboard
+              url: "https://kubernetes.${SECRET_DOMAIN}"
+              icon: "mdi:kubernetes"
+        - group: Tools
+          apps:
+            - name: chrome
+              url: "https://chrome.${SECRET_DOMAIN}"
+              icon: "simple-icons:googlechrome"
+            - name: it-tools
+              url: "https://it-tools.${SECRET_DOMAIN}"
+              icon: "mdi:tools"
+            - name: mazanoke
+              url: "https://mazanoke.${SECRET_DOMAIN}"
+              icon: "mdi:image-edit-outline"
+            - name: n8n
+              url: "https://n8n.${SECRET_DOMAIN}"
+              icon: "simple-icons:n8n"
+            - name: stirling-pdf
+              url: "https://pdf.${SECRET_DOMAIN}"
+              icon: "mdi:file-pdf-box"
+            - name: thelounge
+              url: "https://thelounge.${SECRET_DOMAIN}"
+              icon: "line-md:chat-filled"
+            - name: vscode
+              url: "https://vscode.${SECRET_DOMAIN}"
+              icon: "mdi:microsoft-visual-studio-code"
       globalBookmarks:
         - group: Second Brain
           bookmarks:
@@ -57,19 +217,6 @@ spec:
               url: "https://github.com/ChristfriedBalizou/homelab"
             - name: Cloudflare
               url: "https://www.cloudflare.com/"
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: external
-        annotations:
-          external-dns.home.arpa/enabled: "true"
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "false"
-        hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
     podAnnotations:
       configmap.reloader.stakater.com/reload: "{{ .Release.Name }}-settings"
     persistence:

@@ -46,26 +46,25 @@ spec:
         ports:
           http:
             port: 80
-    ingress:
+    route:
       main:
-        enabled: true
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "simple-icons:postgresql"
-          hajimari.io/group: "Storage"
-        hosts:
-          - host: &host pgadmin.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: pgadmin-production-tls
+          hajimari.io/icon: simple-icons:postgresql
+          hajimari.io/group: Storage
+        hostnames:
+          - "pgadmin.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: main
+                port: http
     persistence:
       config:
         enabled: true

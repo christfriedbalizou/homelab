@@ -45,21 +45,6 @@ spec:
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
       enabled: true
-      ingress:
-        enabled: true
-        ingressClassName: external
-        annotations:
-          external-dns.home.arpa/enabled: "true"
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/appName: "Alertmanager"
-          hajimari.io/group: "Monitoring"
-          hajimari.io/icon: simple-icons:prometheus
-        hosts:
-          - alertmanager.${SECRET_DOMAIN}
-        paths:
-          - /
-        pathType: Prefix
     kubeEtcd:
       service:
         selector:
@@ -67,19 +52,6 @@ spec:
     kubeProxy:
       enabled: false
     prometheus:
-      ingress:
-        enabled: true
-        ingressClassName: external
-        annotations:
-          external-dns.home.arpa/enabled: "true"
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/appNname: "Prometheus"
-          hajimari.io/group: "Monitoring"
-          hajimari.io/icon: cbi:prometheusio
-        pathType: Prefix
-        hosts:
-          - &host prometheus.${SECRET_DOMAIN}
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
