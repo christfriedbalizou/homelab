@@ -29,7 +29,7 @@ spec:
           init-db:
             image:
               repository: ghcr.io/home-operations/postgres-init
-              tag: 18
+              tag: 18@sha256:5086f94abc783f1147d7c2a32c01db00ab594820026e4f6a82ac2af3dbde7fc7
               pullPolicy: IfNotPresent
             env:
               INIT_POSTGRES_DBNAME: &db immich
@@ -48,7 +48,7 @@ spec:
           init-vector:
             image:
               repository: ghcr.io/cloudnative-pg/postgresql
-              tag: 17.5-22
+              tag: 17.5-22@sha256:b1deeed2aa998b2f381e39c5cadb9ec06127708c8bd62965743af19abf21628f
               pullPolicy: IfNotPresent
             command:
               - /bin/sh
@@ -56,9 +56,9 @@ spec:
               - |
                 psql \
                   --set=ON_ERROR_STOP=1 \
-                  --host="${INIT_POSTGRES_HOST}" \
+                  --host="$INIT_POSTGRES_HOST" \
                   --username=postgres \
-                  --dbname="${INIT_POSTGRES_DBNAME}" \
+                  --dbname="$INIT_POSTGRES_DBNAME" \
                   --command="CREATE EXTENSION IF NOT EXISTS vector CASCADE;"
             env:
               INIT_POSTGRES_DBNAME: *db
