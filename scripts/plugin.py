@@ -8,6 +8,7 @@ import makejinja
 import os
 import re
 import json
+from passlib.hash import pbkdf2_sha512
 
 
 # Return the filename of a path without the j2 extension
@@ -124,15 +125,7 @@ def talos_patches(value: str) -> list[str]:
 
 def pbkdf2(secret: str, iterations: int = 310000) -> str:
     salt = hashlib.sha256(secret.encode("utf-8")).digest()[:16]
-    std_b64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-    crypt_b64 = "./0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-    b64_trans = str.maketrans(std_b64, crypt_b64)
-
-    def crypt64_encode(raw: bytes) -> str:
-        return base64.b64encode(raw).decode("utf-8").rstrip("=").translate(b64_trans)
-
-    derived_key = hashlib.pbkdf2_hmac("sha512", secret.encode("utf-8"), salt, iterations)
-    return f"$pbkdf2-sha512${iterations}${crypt64_encode(salt)}${crypt64_encode(derived_key)}"
+    return pbkdf2_sha512.using(rounds=iterations, salt=salt).hash(secret)
 
 class Plugin(makejinja.plugin.Plugin):
     def __init__(self, data: dict[str, Any]):
