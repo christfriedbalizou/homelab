@@ -74,39 +74,44 @@ spec:
             port: 8123
           code-server:
             port: 12321
-    ingress:
+    route:
       app:
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/group: "Home Automation"
-          hajimari.io/icon: "mdi:home-assistant"
-          nginx.ingress.kubernetes.io/custom-http-errors: 400,404,405,409,410,411,412,413,414,415,416,417,418,421,425,431,451,500,501,502,503,504,505,506,510
-        hosts:
-          - host: hass.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+          hajimari.io/group: Home Automation
+          hajimari.io/icon: mdi:home-assistant
+        hostnames:
+          - "hass.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: http
       code-server:
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/group: "Home Automation"
-          hajimari.io/icon: "mingcute:vscode-line"
-          # disabled for 404
-          nginx.ingress.kubernetes.io/custom-http-errors: 400,403,405,409,410,411,412,413,414,415,416,417,418,421,425,431,451,500,501,502,503,504,505,506,510
-        hosts:
-          - host: hass-code.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: code-server
+          hajimari.io/group: Home Automation
+          hajimari.io/icon: mingcute:vscode-line
+        hostnames:
+          - "hass-code.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: code-server
     persistence:
       config:
         enabled: true

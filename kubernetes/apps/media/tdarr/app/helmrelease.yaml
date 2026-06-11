@@ -78,25 +78,26 @@ spec:
           server:
             port: *serverPort
 
-    ingress:
+    route:
       main:
-        enabled: true
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "file-icons:adobe-mediaencoder"
+          hajimari.io/icon: file-icons:adobe-mediaencoder
           hajimari.io/group: Media
-        hosts:
-          - host: "tdarr.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: app
-                  port: http
-
+        hostnames:
+          - "tdarr.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: http
     persistence:
       config:
           enabled: true

@@ -1,0 +1,26 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: entrance-camera
+  annotations:
+    auth.home.arpa/enabled: "true"
+    hajimari.io/enable: "true"
+    hajimari.io/icon: "mdi:camera"
+    hajimari.io/name: "Entrance"
+    hajimari.io/group: "Cameras"
+spec:
+  parentRefs:
+    - name: envoy-external
+      namespace: networking
+  hostnames:
+    - "entrance-camera.${SECRET_DOMAIN}"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: entrance-camera
+          port: 80

@@ -70,18 +70,22 @@ spec:
               - subPath: actual
                 path: /data
 
-    ingress:
+    route:
       app:
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/group: "Family"
-          hajimari.io/icon: "simple-icons:actualbudget"
-        hosts:
-          - host: &host actual.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+          hajimari.io/group: Family
+          hajimari.io/icon: simple-icons:actualbudget
+        hostnames:
+          - "actual.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: http

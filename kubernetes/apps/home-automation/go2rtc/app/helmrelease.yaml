@@ -64,22 +64,26 @@ spec:
           webrtc-udp:
             port: 8555
             protocol: UDP
-    ingress:
+    route:
       app:
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/group: "Home Automation"
-          hajimari.io/icon: "icon-park-outline:surveillance-cameras"
-        hosts:
-          - host: go2rtc.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+          hajimari.io/group: Home Automation
+          hajimari.io/icon: icon-park-outline:surveillance-cameras
+        hostnames:
+          - "go2rtc.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: http
     persistence:
       config:
         type: configMap

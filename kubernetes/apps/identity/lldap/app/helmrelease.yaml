@@ -89,28 +89,26 @@ spec:
           ldap:
             enabled: true
             port: *ldapPort
-    ingress:
+    route:
       main:
-        enabled: true
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/name: "LDAP Admin"
-          hajimari.io/group: "Authentication"
-          hajimari.io/icon: "mdi:dictionary"
-        hosts:
-          - host: &host "lldap.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: lldap-production-tls
+          hajimari.io/name: LDAP Admin
+          hajimari.io/group: Authentication
+          hajimari.io/icon: mdi:dictionary
+        hostnames:
+          - "lldap.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: main
+                port: http
     persistence:
       data:
         enabled: true

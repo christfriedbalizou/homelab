@@ -74,14 +74,6 @@ spec:
             editable: true
             options:
               path: /var/lib/grafana/dashboards/kubernetes
-          - name: nginx
-            orgId: 1
-            folder: Nginx
-            type: file
-            disableDeletion: false
-            editable: true
-            options:
-              path: /var/lib/grafana/dashboards/nginx
           - name: emqx
             orgId: 1
             folder: EMQX
@@ -208,15 +200,6 @@ spec:
           gnetId: 11454
           revision: 14
           datasource: Prometheus
-
-      nginx:
-        nginx:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/nginx.json
-          datasource: Prometheus
-        nginx-request-handling-performance:
-          url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/grafana/dashboards/request-handling-performance.json
-          datasource: Prometheus
-
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -288,18 +271,6 @@ spec:
 
     imageRenderer:
       enabled: true
-
-    ingress:
-      enabled: true
-      ingressClassName: external
-      annotations:
-        external-dns.home.arpa/enabled: "true"
-        hajimari.io/enable: "true"
-        hajimari.io/appNname: "Grafana"
-        hajimari.io/group: "Monitoring"
-        hajimari.io/icon: cbi:grafana
-      hosts:
-        - &host grafana.${SECRET_DOMAIN}
 
     persistence:
       enabled: false

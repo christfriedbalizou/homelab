@@ -66,39 +66,43 @@ spec:
         ports:
           http:
             port: &port 80
-    ingress:
+    route:
       app:
-        enabled: true
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/name: "Vaultwarden"
-          hajimari.io/group: "Authentication"
+          hajimari.io/name: Vaultwarden
+          hajimari.io/group: Authentication
           hajimari.io/icon: cbi:vaultwarden
-        hosts:
-          - host: &host vaultwarden.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames:
+          - "vaultwarden.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: app
+                port: http
       admin:
-        enabled: true
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           auth.home.arpa/enabled: "true"
           gatus.home-operations.com/enabled: "false"
-          nginx.ingress.kubernetes.io/custom-http-errors: 500,501,502,503,504,505,506,510
-          nginx.ingress.kubernetes.io/whitelist-source-range: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
-        hosts:
-          - host: *host
-            paths:
-              - path: /admin
-                service:
-                  identifier: app
-                  port: http
+        hostnames:
+          - "vaultwarden.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /admin
+            backendRefs:
+              - identifier: app
+                port: http
     persistence:
       data:
         enabled: true

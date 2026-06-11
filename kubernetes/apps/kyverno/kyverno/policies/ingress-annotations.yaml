@@ -2,79 +2,57 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: ingress-annotations
+  name: httproute-authentication
   annotations:
-    policies.kyverno.io/title: Ingress annotations
-    policies.kyverno.io/subject: Ingress
+    policies.kyverno.io/title: HTTPRoute authentication
+    policies.kyverno.io/subject: HTTPRoute, SecurityPolicy
     policies.kyverno.io/description: >-
-      This policy creates annotations on ingresses for external-dns,
-      cert-manager and authentication based on custom annotations.
-    policies.kyverno.io/category: Ingress, DNS, Authentication, Tailscale
+      This policy creates Envoy Gateway SecurityPolicy resources for HTTPRoutes
+      that opt in to Authelia authentication.
+    policies.kyverno.io/category: Gateway, Authentication
 spec:
   generateExisting: true
-  mutateExistingOnPolicyUpdate: true
   rules:
-    - name: external-dns
+    - name: authelia-extauth
       match:
         any:
           - resources:
-              kinds: ["Ingress"]
-              annotations:
-                external-dns.home.arpa/enabled: "true"
-      mutate:
-        targets:
-          - apiVersion: networking.k8s.io/v1
-            kind: Ingress
-            name: "{{ request.object.metadata.name }}"
-            namespace: "{{ request.object.metadata.namespace }}"
-        patchStrategicMerge:
-          metadata:
-            annotations:
-              +(external-dns.alpha.kubernetes.io/target): ipv4.${SECRET_DOMAIN}
-    - name: internal-dns
-      match:
-        any:
-          - resources:
-              kinds: ["Ingress"]
-              annotations:
-                external-dns.home.arpa/enabled: "false"
-      mutate:
-        targets:
-          - apiVersion: networking.k8s.io/v1
-            kind: Ingress
-            name: "{{ request.object.metadata.name }}"
-            namespace: "{{ request.object.metadata.namespace }}"
-        patchStrategicMerge:
-          metadata:
-            annotations:
-              +(external-dns.alpha.kubernetes.io/target): internal.${SECRET_DOMAIN}
-    - name: auth
-      match:
-        any:
-          - resources:
-              kinds: ["Ingress"]
+              kinds: ["HTTPRoute"]
               annotations:
                 auth.home.arpa/enabled: "true"
-      mutate:
-        targets:
-          - apiVersion: networking.k8s.io/v1
-            kind: Ingress
-            name: "{{ request.object.metadata.name }}"
-            namespace: "{{ request.object.metadata.namespace }}"
-        patchStrategicMerge:
+      generate:
+        synchronize: true
+        apiVersion: gateway.envoyproxy.io/v1alpha1
+        kind: SecurityPolicy
+        name: "{{ request.object.metadata.name }}-authelia"
+        namespace: "{{ request.object.metadata.namespace }}"
+        data:
           metadata:
-            annotations:
-              +(nginx.ingress.kubernetes.io/auth-method): |-
-                GET
-              +(nginx.ingress.kubernetes.io/auth-url): |-
-                http://authelia.identity.svc.cluster.local:9191/api/verify
-              +(nginx.ingress.kubernetes.io/auth-signin): |-
-                https://auth.${SECRET_DOMAIN}?rm=$request_method&rd=$scheme://$host$escaped_request_uri
-              +(nginx.ingress.kubernetes.io/auth-response-headers): |-
-                Remote-User,Remote-Name,Remote-Groups,Remote-Email
-              +(nginx.ingress.kubernetes.io/auth-snippet): |-
-                proxy_set_header X-Original-URL $scheme://$http_host$request_uri;
-                proxy_set_header X-Forwarded-Method $request_method;
-                proxy_set_header X-Forwarded-Proto $scheme;
-                proxy_set_header X-Forwarded-Host $http_host;
-                proxy_set_header X-Forwarded-URI $request_uri;
+            labels:
+              app.kubernetes.io/managed-by: kyverno
+              app.kubernetes.io/name: "{{ request.object.metadata.name }}"
+          spec:
+            targetRefs:
+              - group: gateway.networking.k8s.io
+                kind: HTTPRoute
+                name: "{{ request.object.metadata.name }}"
+            extAuth:
+              failOpen: false
+              headersToExtAuth:
+                - accept
+                - cookie
+                - location
+                - authorization
+                - proxy-authorization
+                - x-forwarded-proto
+              http:
+                backendRefs:
+                  - name: authelia
+                    namespace: identity
+                    port: 9191
+                path: /api/authz/ext-authz/
+                headersToBackend:
+                  - Remote-User
+                  - Remote-Groups
+                  - Remote-Name
+                  - Remote-Email

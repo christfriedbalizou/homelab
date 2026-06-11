@@ -61,25 +61,33 @@ spec:
         ports:
           http:
             port: *port
-    ingress:
+    route:
       main:
-        enabled: true
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
-          hajimari.io/enable: 'true'
+          hajimari.io/enable: "true"
           hajimari.io/icon: mdi:jellyfish-outline
           hajimari.io/group: Media
-        hosts:
-          - host: "seerr.${SECRET_DOMAIN}"
-            paths: &seerr
-              - path: /
-                pathType: Prefix
-                service:
-                  identifier: main
-                  port: http
-          - host: "jellyseerr.${SECRET_DOMAIN}"
-            paths: *seerr
+        hostnames:
+          - "seerr.${SECRET_DOMAIN}"
+          - "jellyseerr.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: main
+                port: http
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: main
+                port: http
     persistence:
       config:
         type: nfs

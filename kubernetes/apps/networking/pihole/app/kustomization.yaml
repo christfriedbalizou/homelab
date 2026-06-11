@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
   - service.yaml
   - endpoint.yaml
-  - ingress.yaml
+  - httproute.yaml

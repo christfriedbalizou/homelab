@@ -5,6 +5,7 @@ namespace: identity
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
+  - ./referencegrant.yaml
 configMapGenerator:
   - name: authelia-configmap
     files:

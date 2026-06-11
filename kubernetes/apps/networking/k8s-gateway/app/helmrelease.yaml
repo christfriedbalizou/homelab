@@ -32,7 +32,7 @@ spec:
       retries: 5
   values:
     replicaCount: 2
-    watchedResources: ["Ingress", "HTTPRoute"]
+    watchedResources: ["HTTPRoute"]
     domain: "${SECRET_DOMAIN}"
     ttl: 1
     service:

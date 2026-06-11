@@ -57,29 +57,33 @@ spec:
             interval: 1m
             scrapeTimeout: 10s
 
-    ingress:
+    route:
       main:
-        enabled: true
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
-          hajimari.io/enable: 'true'
-          hajimari.io/icon: "mdi:pail"
-          hajimari.io/group: "Storage"
-        hosts:
-          - host: "minio.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
-          - host: "s3.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: s3
-
+          hajimari.io/enable: "true"
+          hajimari.io/icon: mdi:pail
+          hajimari.io/group: Storage
+        hostnames:
+          - "minio.${SECRET_DOMAIN}"
+          - "s3.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: main
+                port: http
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: main
+                port: s3
     persistence:
       data:
         enabled: true

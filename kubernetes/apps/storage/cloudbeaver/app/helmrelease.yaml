@@ -42,22 +42,25 @@ spec:
         ports:
           http:
             port: 8978
-    ingress:
+    route:
       main:
-        enabled: true
-        className: external
         annotations:
-          external-dns.home.arpa/enabled: "true"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "devicon:dbeaver"
-          hajimari.io/group: "Storage"
-        hosts:
-          - host: cloudbeaver.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: main
-                  port: http
+          hajimari.io/icon: devicon:dbeaver
+          hajimari.io/group: Storage
+        hostnames:
+          - "cloudbeaver.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /
+            backendRefs:
+              - identifier: main
+                port: http
     persistence:
       config:
         enabled: true
