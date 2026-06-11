@@ -230,7 +230,7 @@ spec:
         ports:
           http:
             port: *mlPort
-      immich-valkey:
+      valkey:
         controller: immich-valkey
         ports:
           valkey:
