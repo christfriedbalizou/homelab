@@ -22,46 +22,6 @@ spec:
       namespace: storage
   values:
     controllers:
-      # Keep Immich on local Valkey: Bull queue Lua scripts fail against the
-      # shared Dragonfly cluster with undeclared-key script errors.
-      immich-valkey:
-        pod:
-          automountServiceAccountToken: false
-          enableServiceLinks: false
-          securityContext:
-            fsGroup: 999
-            fsGroupChangePolicy: OnRootMismatch
-            seccompProfile: { type: RuntimeDefault }
-        containers:
-          app:
-            image:
-              repository: docker.io/valkey/valkey
-              tag: 9@sha256:3b55fbaa0cd93cf0d9d961f405e4dfcc70efe325e2d84da207a0a8e6d8fde4f9
-            args:
-              - valkey-server
-              - --appendonly
-              - "yes"
-              - --dir
-              - /data
-            probes:
-              liveness: &valkeyProbe
-                enabled: true
-                custom: true
-                spec:
-                  exec:
-                    command:
-                      - valkey-cli
-                      - ping
-                  periodSeconds: 30
-                  timeoutSeconds: 5
-                  failureThreshold: 5
-              readiness: *valkeyProbe
-            resources:
-              requests:
-                cpu: 25m
-                memory: 64Mi
-              limits:
-                memory: 512Mi
       immich:
         annotations:
           reloader.stakater.com/auto: "true"
@@ -123,12 +83,12 @@ spec:
               IMMICH_CONFIG_FILE: /config/immich.json
               IMMICH_LOG_LEVEL: log
               IMMICH_TRUSTED_PROXIES: "${K8S_CLUSTER_CIDR},${K8S_SERVICE_CIDR}"
-              IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.default.svc.cluster.local:3003
+              IMMICH_MACHINE_LEARNING_URL: http://127.0.0.1:3003
               DB_HOSTNAME: *postgres
               DB_PORT: "5432"
               DB_DATABASE_NAME: *db
               DB_VECTOR_EXTENSION: pgvector
-              REDIS_HOSTNAME: immich-valkey.default.svc.cluster.local
+              REDIS_HOSTNAME: 127.0.0.1
               REDIS_PORT: "6379"
               REDIS_DBINDEX: "0"
               DB_USERNAME:
@@ -170,18 +130,7 @@ spec:
               limits:
                 memory: 2Gi
 
-      immich-machine-learning:
-        annotations:
-          reloader.stakater.com/auto: "true"
-        pod:
-          automountServiceAccountToken: false
-          enableServiceLinks: false
-          securityContext:
-            fsGroup: 568
-            fsGroupChangePolicy: OnRootMismatch
-            seccompProfile: { type: RuntimeDefault }
-        containers:
-          app:
+          machine-learning:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
               tag: v2.7.5@sha256:a2501141440f10516d329fdfba2c68082e19eb9ba6016c061ac80d23beadf7f3
@@ -217,9 +166,45 @@ spec:
               limits:
                 memory: 4Gi
 
+          # Keep Immich on local Valkey: Bull queue Lua scripts fail against the
+          # shared Dragonfly cluster with undeclared-key script errors.
+          valkey:
+            image:
+              repository: docker.io/valkey/valkey
+              tag: 9@sha256:3b55fbaa0cd93cf0d9d961f405e4dfcc70efe325e2d84da207a0a8e6d8fde4f9
+            args:
+              - valkey-server
+              - --appendonly
+              - "yes"
+              - --dir
+              - /data
+            probes:
+              liveness: &valkeyProbe
+                enabled: true
+                custom: true
+                spec:
+                  exec:
+                    command:
+                      - valkey-cli
+                      - ping
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 5
+              readiness: *valkeyProbe
+            resources:
+              requests:
+                cpu: 25m
+                memory: 64Mi
+              limits:
+                memory: 512Mi
+            securityContext:
+              runAsNonRoot: true
+              runAsUser: 999
+              runAsGroup: 999
+
     service:
       valkey:
-        controller: immich-valkey
+        controller: immich
         ports:
           valkey:
             port: 6379
@@ -229,7 +214,7 @@ spec:
           http:
             port: *serverPort
       machine-learning:
-        controller: immich-machine-learning
+        controller: immich
         ports:
           http:
             port: *mlPort
@@ -263,12 +248,10 @@ spec:
             app:
               - subPath: immich/library
                 path: /data
-          immich-machine-learning:
-            app:
+            machine-learning:
               - subPath: immich/machine-learning
                 path: /cache
-          immich-valkey:
-            app:
+            valkey:
               - subPath: immich/valkey
                 path: /data
       config:
