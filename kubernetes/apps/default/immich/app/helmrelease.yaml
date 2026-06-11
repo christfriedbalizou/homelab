@@ -17,11 +17,34 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: storage
   values:
     controllers:
       immich:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18
+              pullPolicy: IfNotPresent
+            env:
+              INIT_POSTGRES_DBNAME: &db immich
+              INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
+              INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
+              INIT_POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: &secret cluster-immich-secrets
+                    key: DB_USERNAME
+              INIT_POSTGRES_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: *secret
+                    key: DB_PASSWORD
         pod:
           automountServiceAccountToken: false
           enableServiceLinks: false
@@ -40,9 +63,9 @@ spec:
               IMMICH_LOG_LEVEL: log
               IMMICH_TRUSTED_PROXIES: "${K8S_CLUSTER_CIDR},${K8S_SERVICE_CIDR}"
               IMMICH_MACHINE_LEARNING_URL: http://immich-machine-learning.default.svc.cluster.local:3003
-              DB_HOSTNAME: immich-postgres.default.svc.cluster.local
+              DB_HOSTNAME: *postgres
               DB_PORT: "5432"
-              DB_DATABASE_NAME: immich
+              DB_DATABASE_NAME: *db
               DB_VECTOR_EXTENSION: vectorchord
               REDIS_HOSTNAME: immich-valkey.default.svc.cluster.local
               REDIS_PORT: "6379"
@@ -50,7 +73,7 @@ spec:
               DB_USERNAME:
                 valueFrom:
                   secretKeyRef:
-                    name: &secret cluster-immich-secrets
+                    name: *secret
                     key: DB_USERNAME
               DB_PASSWORD:
                 valueFrom:
@@ -133,57 +156,6 @@ spec:
               limits:
                 memory: 4Gi
 
-      immich-postgres:
-        type: statefulset
-        annotations:
-          reloader.stakater.com/auto: "true"
-        pod:
-          automountServiceAccountToken: false
-          enableServiceLinks: false
-          securityContext:
-            fsGroup: 999
-            fsGroupChangePolicy: OnRootMismatch
-            seccompProfile: { type: RuntimeDefault }
-        containers:
-          app:
-            image:
-              repository: ghcr.io/immich-app/postgres
-              tag: 14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
-            env:
-              POSTGRES_DB: immich
-              POSTGRES_INITDB_ARGS: "--data-checksums"
-              DB_STORAGE_TYPE: HDD
-              POSTGRES_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: *secret
-                    key: DB_USERNAME
-              POSTGRES_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: *secret
-                    key: DB_PASSWORD
-            probes:
-              liveness: &postgresProbe
-                enabled: true
-                custom: true
-                spec:
-                  exec:
-                    command:
-                      - /bin/sh
-                      - -c
-                      - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"
-                  periodSeconds: 30
-                  timeoutSeconds: 5
-                  failureThreshold: 5
-              readiness: *postgresProbe
-            resources:
-              requests:
-                cpu: 100m
-                memory: 512Mi
-              limits:
-                memory: 2Gi
-
       immich-valkey:
         type: statefulset
         pod:
@@ -235,11 +207,6 @@ spec:
         ports:
           http:
             port: *mlPort
-      postgres:
-        controller: immich-postgres
-        ports:
-          postgres:
-            port: 5432
       valkey:
         controller: immich-valkey
         ports:
@@ -279,10 +246,6 @@ spec:
             app:
               - subPath: immich/machine-learning
                 path: /cache
-          immich-postgres:
-            app:
-              - subPath: immich/postgres
-                path: /var/lib/postgresql/data
           immich-valkey:
             app:
               - subPath: immich/valkey
