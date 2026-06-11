@@ -180,7 +180,6 @@ spec:
       # Keep Immich on local Valkey: Bull queue Lua scripts fail against the
       # shared Dragonfly cluster with undeclared-key script errors.
       immich-valkey:
-        type: statefulset
         pod:
           automountServiceAccountToken: false
           enableServiceLinks: false
