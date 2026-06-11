@@ -24,7 +24,7 @@ default:
 [confirm("Any conflicting files in the kubernetes directory will be overwritten - continue? [y/N]")]
 [doc('Render and validate configuration files')]
 [group('template')]
-configure: configure-preconditions render encrypt-secrets validate-kubernetes validate-talos
+configure: configure-preconditions render validate-rendered-sops-secrets encrypt-secrets validate-kubernetes validate-talos
 
 [doc('Gather common resources in your cluster')]
 [group('template')]
@@ -70,6 +70,10 @@ render:
     test -f "{{ justfile_dir() }}/scripts/plugin.py"
     test -f "{{ makejinja_config }}"
     PYTHONDONTWRITEBYTECODE=1 makejinja
+
+[private]
+validate-rendered-sops-secrets:
+    PYTHONDONTWRITEBYTECODE=1 python "{{ justfile_dir() }}/scripts/validate-sops-secrets.py" "{{ ansible_dir }}" "{{ bootstrap_dir }}" "{{ kubernetes_dir }}" "{{ talos_dir }}" --exclude "{{ template_dir }}"
 
 [private]
 [script]
