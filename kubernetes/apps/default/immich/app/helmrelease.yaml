@@ -45,6 +45,25 @@ spec:
                   secretKeyRef:
                     name: *secret
                     key: DB_PASSWORD
+          init-vector:
+            image:
+              repository: ghcr.io/cloudnative-pg/postgresql
+              tag: 17.5-22
+              pullPolicy: IfNotPresent
+            command:
+              - /bin/sh
+              - -ec
+              - |
+                psql \
+                  --set=ON_ERROR_STOP=1 \
+                  --host="${INIT_POSTGRES_HOST}" \
+                  --username=postgres \
+                  --dbname="${INIT_POSTGRES_DBNAME}" \
+                  --command="CREATE EXTENSION IF NOT EXISTS vector CASCADE;"
+            env:
+              INIT_POSTGRES_DBNAME: *db
+              INIT_POSTGRES_HOST: *postgres
+              PGPASSWORD: "${POSTGRES_SUPER_PASS}"
         pod:
           automountServiceAccountToken: false
           enableServiceLinks: false
