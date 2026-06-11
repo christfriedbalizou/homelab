@@ -61,6 +61,12 @@ Use these defaults unless the surrounding app already does something different:
 - Add a HelmRelease health check when the app is Helm-managed.
 - Prefer `chartRef` to shared `OCIRepository` resources, especially
   `app-template` from `kubernetes/components/common/repos`.
+- For app-template apps with tightly coupled helper processes, prefer one
+  controller with multiple containers over separate controllers. Keep sidecars
+  such as app-local caches, workers, or machine-learning helpers in the main
+  controller when they share lifecycle, storage, and scheduling needs. Use
+  separate controllers only when the component needs independent scaling,
+  scheduling, rollout, persistence semantics, or fault isolation.
 
 ## Networking Rules
 
