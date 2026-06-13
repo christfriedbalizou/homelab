@@ -70,10 +70,6 @@ spec:
             port: 8096
     route:
       app:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: simple-icons:jellyfin
-          hajimari.io/group: Media
         hostnames:
           - "jellyfin.${SECRET_DOMAIN}"
         parentRefs:

@@ -66,11 +66,6 @@ spec:
             protocol: UDP
     route:
       app:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/group: Home Automation
-          hajimari.io/icon: icon-park-outline:surveillance-cameras
         hostnames:
           - "go2rtc.${SECRET_DOMAIN}"
         parentRefs:

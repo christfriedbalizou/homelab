@@ -68,12 +68,6 @@ spec:
           - path: /opt/adguardhome/conf
     route:
       app:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: shield-check
-          hajimari.io/group: Network
-          hajimari.io/appName: adguard
         hostnames:
           - "adguard-home.${SECRET_DOMAIN}"
         parentRefs:

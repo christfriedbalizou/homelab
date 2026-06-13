@@ -59,10 +59,6 @@ spec:
 
     route:
       main:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:pail
-          hajimari.io/group: Storage
         hostnames:
           - "minio.${SECRET_DOMAIN}"
           - "s3.${SECRET_DOMAIN}"

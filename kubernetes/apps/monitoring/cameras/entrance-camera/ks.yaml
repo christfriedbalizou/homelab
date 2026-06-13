@@ -5,6 +5,8 @@ metadata:
   name: &app entrance-camera
   namespace: flux-system
 spec:
+  components:
+    - ../../../../../components/ext-auth
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -17,6 +19,8 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: entrance-camera
   targetNamespace: monitoring
   prune: true
   sourceRef:

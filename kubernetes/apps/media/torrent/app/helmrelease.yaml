@@ -158,12 +158,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/appName: QBittorrent
-          hajimari.io/group: Media
-          hajimari.io/icon: arcticons:utorrent
         hostnames:
           - "torrent.${SECRET_DOMAIN}"
         parentRefs:

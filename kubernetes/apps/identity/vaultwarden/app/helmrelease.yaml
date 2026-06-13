@@ -65,14 +65,9 @@ spec:
         controller: *app
         ports:
           http:
-            port: &port 80
+            port: 80
     route:
       app:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/name: Vaultwarden
-          hajimari.io/group: Authentication
-          hajimari.io/icon: cbi:vaultwarden
         hostnames:
           - "vaultwarden.${SECRET_DOMAIN}"
         parentRefs:
@@ -83,23 +78,6 @@ spec:
               - path:
                   type: PathPrefix
                   value: /
-            backendRefs:
-              - identifier: app
-                port: http
-      admin:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          gatus.home-operations.com/enabled: "false"
-        hostnames:
-          - "vaultwarden.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: envoy-external
-            namespace: networking
-        rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /admin
             backendRefs:
               - identifier: app
                 port: http

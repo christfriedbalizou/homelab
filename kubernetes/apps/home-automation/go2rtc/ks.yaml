@@ -5,6 +5,8 @@ kind: Kustomization
 metadata:
   name: go2rtc
 spec:
+  components:
+    - ../../../../components/ext-auth
   path: ./kubernetes/apps/home-automation/go2rtc/app
   sourceRef:
     kind: GitRepository
@@ -19,4 +21,6 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: go2rtc
   targetNamespace: home-automation

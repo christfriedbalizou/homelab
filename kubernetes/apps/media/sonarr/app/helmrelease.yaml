@@ -112,11 +112,6 @@ spec:
             port: *port
     route:
       main:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:television-classic
-          hajimari.io/group: Media
         hostnames:
           - "sonarr.${SECRET_DOMAIN}"
         parentRefs:

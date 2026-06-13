@@ -9,8 +9,9 @@ resources:
   - ./cloudnative-pg
   - ./descheduler
   - ./envoy-gateway
-  - ./external-dns
+  - ./cloudflare-dns
   - ./intel-gpu-resource-driver
+  - ./k8s-gateway
   - ./kubernetes-dashboard-charts
   - ./nextcloud
   - ./nvidia

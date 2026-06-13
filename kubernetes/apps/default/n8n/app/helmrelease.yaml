@@ -108,11 +108,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/group: Tools
-          hajimari.io/icon: simple-icons:n8n
         hostnames:
           - "n8n.${SECRET_DOMAIN}"
         parentRefs:

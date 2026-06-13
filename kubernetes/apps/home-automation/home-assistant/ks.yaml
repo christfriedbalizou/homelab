@@ -7,6 +7,7 @@ metadata:
 spec:
   components:
     - ../../../../components/zeroscaler
+    - ../../../../components/ext-auth
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -21,6 +22,7 @@ spec:
         kind: Secret
     substitute:
       APP: home-assistant
+      ROUTE: home-assistant-code-server
   targetNamespace: home-automation
   prune: true
   sourceRef:

@@ -110,11 +110,6 @@ spec:
             scrapeTimeout: 10s
     route:
       main:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/name: Authelia
-          hajimari.io/group: Authentication
-          hajimari.io/icon: mdi:shield-account
         hostnames:
           - "auth.${SECRET_DOMAIN}"
         parentRefs:

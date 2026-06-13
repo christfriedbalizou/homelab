@@ -98,11 +98,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:rabbit
-          hajimari.io/group: Media
         hostnames:
           - "autobrr.${SECRET_DOMAIN}"
         parentRefs:

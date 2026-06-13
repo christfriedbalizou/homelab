@@ -112,11 +112,6 @@ spec:
             port: *port
     route:
       main:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:movie-search
-          hajimari.io/group: Media
         hostnames:
           - "prowlarr.${SECRET_DOMAIN}"
         parentRefs:

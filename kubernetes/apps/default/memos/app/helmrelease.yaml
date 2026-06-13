@@ -74,10 +74,6 @@ spec:
 
     route:
       app:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/group: Family
-          hajimari.io/icon: iconoir:notes
         hostnames:
           - "memos.${SECRET_DOMAIN}"
         parentRefs:

@@ -91,11 +91,6 @@ spec:
             port: *ldapPort
     route:
       main:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/name: LDAP Admin
-          hajimari.io/group: Authentication
-          hajimari.io/icon: mdi:dictionary
         hostnames:
           - "lldap.${SECRET_DOMAIN}"
         parentRefs:

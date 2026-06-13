@@ -6,6 +6,7 @@ metadata:
 spec:
   components:
     - ../../../../components/zeroscaler
+    - ../../../../components/ext-auth
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

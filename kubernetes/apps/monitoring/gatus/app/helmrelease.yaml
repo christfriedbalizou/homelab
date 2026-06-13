@@ -113,12 +113,7 @@ spec:
     route:
       app:
         annotations:
-          auth.home.arpa/enabled: "true"
           gatus.home-operations.com/enabled: "false"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: material-symbols:ecg-heart-outline
-          hajimari.io/group: Monitoring
-          hajimari.io/appName: gatus
         hostnames:
           - "gatus.${SECRET_DOMAIN}"
           - "status.${SECRET_DOMAIN}"

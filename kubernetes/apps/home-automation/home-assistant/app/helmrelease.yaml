@@ -76,10 +76,6 @@ spec:
             port: 12321
     route:
       app:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/group: Home Automation
-          hajimari.io/icon: mdi:home-assistant
         hostnames:
           - "hass.${SECRET_DOMAIN}"
         parentRefs:
@@ -94,11 +90,6 @@ spec:
               - identifier: app
                 port: http
       code-server:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/group: Home Automation
-          hajimari.io/icon: mingcute:vscode-line
         hostnames:
           - "hass-code.${SECRET_DOMAIN}"
         parentRefs:

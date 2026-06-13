@@ -55,12 +55,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/group: Home Automation
-          hajimari.io/icon: streamline-cyber:origami-paper-bird
-          hajimari.io/appName: Frigate NVR
         hostnames:
           - "frigate.${SECRET_DOMAIN}"
         parentRefs:

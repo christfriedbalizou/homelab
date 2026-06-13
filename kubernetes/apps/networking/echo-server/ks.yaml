@@ -5,6 +5,8 @@ metadata:
   name: &app echo-server
   namespace: flux-system
 spec:
+  components:
+    - ../../../../components/ext-auth
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -17,6 +19,8 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: echo-server
   targetNamespace: networking
   prune: true
   sourceRef:

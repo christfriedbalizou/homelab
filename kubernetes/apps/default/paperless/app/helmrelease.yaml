@@ -87,10 +87,6 @@ spec:
 
     route:
       app:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/group: Family
-          hajimari.io/icon: arcticons:paperless
         hostnames:
           - "paperless.${SECRET_DOMAIN}"
         parentRefs:

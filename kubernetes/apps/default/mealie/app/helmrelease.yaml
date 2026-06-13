@@ -90,10 +90,6 @@ spec:
 
     route:
       app:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/group: Family
-          hajimari.io/icon: cbi:mealie
         hostnames:
           - "mealie.${SECRET_DOMAIN}"
         parentRefs:

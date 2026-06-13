@@ -1,13 +1,5 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: k8s-gateway
-  namespace: networking
-spec:
-  interval: 1h
-  url: https://k8s-gateway.github.io/k8s_gateway/
----
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -15,14 +7,9 @@ metadata:
   namespace: networking
 spec:
   interval: 15m
-  chart:
-    spec:
-      chart: k8s-gateway
-      version: 3.7.1
-      sourceRef:
-        kind: HelmRepository
-        name: k8s-gateway
-        namespace: networking
+  chartRef:
+    kind: OCIRepository
+    name: k8s-gateway
   install:
     createNamespace: true
     remediation:
@@ -31,11 +18,15 @@ spec:
     remediation:
       retries: 5
   values:
-    replicaCount: 2
-    watchedResources: ["HTTPRoute"]
+    fullnameOverride: k8s-gateway
     domain: "${SECRET_DOMAIN}"
     ttl: 1
     service:
+      type: LoadBalancer
+      port: 53
       annotations:
         lbipam.cilium.io/ips: "${METALLB_K8S_GATEWAY_ADDR}"
       externalTrafficPolicy: Cluster
+    watchedResources:
+      - HTTPRoute
+      - Service

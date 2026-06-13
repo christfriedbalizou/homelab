@@ -92,10 +92,6 @@ spec:
             port: 8080
     route:
       app:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/group: Home Automation
-          hajimari.io/icon: cbi:zigbee2mqtt
         hostnames:
           - "zigbee.${SECRET_DOMAIN}"
         parentRefs:

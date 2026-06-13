@@ -1,11 +1,11 @@
 ---
-originRequest:
-  originServerName: "ipv4.${SECRET_DOMAIN}"
-  http2: true
-
 ingress:
   - hostname: ${SECRET_DOMAIN}
-    service: https://envoy-external.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: ${SECRET_DOMAIN}
+    service: &svc https://envoy-external.networking.svc.cluster.local:443
   - hostname: "*.${SECRET_DOMAIN}"
-    service: https://envoy-external.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: ipv4.${SECRET_DOMAIN}
+    service: *svc
   - service: http_status:404

@@ -66,11 +66,6 @@ spec:
 
     route:
       main:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/group: Tools
-          hajimari.io/icon: mdi:file-pdf-box
         hostnames:
           - "pdf.${SECRET_DOMAIN}"
         parentRefs:

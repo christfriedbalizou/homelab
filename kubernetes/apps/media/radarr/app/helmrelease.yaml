@@ -112,11 +112,6 @@ spec:
             port: *port
     route:
       main:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: mdi:filmstrip
-          hajimari.io/group: Media
         hostnames:
           - "radarr.${SECRET_DOMAIN}"
         parentRefs:

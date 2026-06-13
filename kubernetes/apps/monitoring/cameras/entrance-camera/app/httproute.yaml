@@ -4,12 +4,6 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: entrance-camera
-  annotations:
-    auth.home.arpa/enabled: "true"
-    hajimari.io/enable: "true"
-    hajimari.io/icon: "mdi:camera"
-    hajimari.io/name: "Entrance"
-    hajimari.io/group: "Cameras"
 spec:
   parentRefs:
     - name: envoy-external

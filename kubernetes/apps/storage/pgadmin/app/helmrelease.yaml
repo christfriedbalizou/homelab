@@ -48,10 +48,6 @@ spec:
             port: 80
     route:
       main:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: simple-icons:postgresql
-          hajimari.io/group: Storage
         hostnames:
           - "pgadmin.${SECRET_DOMAIN}"
         parentRefs:

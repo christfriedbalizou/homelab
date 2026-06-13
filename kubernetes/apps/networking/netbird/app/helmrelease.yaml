@@ -261,10 +261,6 @@ spec:
               - identifier: relay
                 port: http
       dashboard:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: arcticons:netbird
-          hajimari.io/group: Network
         hostnames:
           - "netbird.${SECRET_DOMAIN}"
         parentRefs:

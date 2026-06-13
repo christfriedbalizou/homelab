@@ -6,7 +6,6 @@ metadata:
   name: webhook-receiver
   annotations:
     gatus.home-operations.com/enabled: "false"
-    hajimari.io/enable: "false"
 spec:
   parentRefs:
     - name: envoy-external

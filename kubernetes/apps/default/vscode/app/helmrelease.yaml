@@ -85,11 +85,6 @@ spec:
             port: 1455
     route:
       app:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/group: Tools
-          hajimari.io/icon: mdi:microsoft-visual-studio-code
         hostnames:
           - "vscode.${SECRET_DOMAIN}"
         parentRefs:

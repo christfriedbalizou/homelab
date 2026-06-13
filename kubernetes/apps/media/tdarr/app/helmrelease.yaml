@@ -80,11 +80,6 @@ spec:
 
     route:
       main:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: file-icons:adobe-mediaencoder
-          hajimari.io/group: Media
         hostnames:
           - "tdarr.${SECRET_DOMAIN}"
         parentRefs:

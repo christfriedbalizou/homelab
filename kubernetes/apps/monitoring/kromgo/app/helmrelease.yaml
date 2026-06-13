@@ -70,12 +70,6 @@ spec:
             port: 8080
     route:
       app:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: fa-brands:watchman-monitoring
-          hajimari.io/group: Monitoring
-          hajimari.io/appName: kromgo
         hostnames:
           - "kromgo.${SECRET_DOMAIN}"
         parentRefs:

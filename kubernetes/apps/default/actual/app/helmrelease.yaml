@@ -72,10 +72,6 @@ spec:
 
     route:
       app:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/group: Family
-          hajimari.io/icon: simple-icons:actualbudget
         hostnames:
           - "actual.${SECRET_DOMAIN}"
         parentRefs:

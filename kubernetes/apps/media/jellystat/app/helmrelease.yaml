@@ -94,11 +94,6 @@ spec:
             port: 3000
     route:
       app:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: oui:stats
-          hajimari.io/group: Media
         hostnames:
           - "jellystat.${SECRET_DOMAIN}"
         parentRefs:

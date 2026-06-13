@@ -76,11 +76,6 @@ spec:
             port: *port
     route:
       app:
-        annotations:
-          auth.home.arpa/enabled: "true"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: download-box
-          hajimari.io/group: Media
         hostnames:
           - "sabnzbd.${SECRET_DOMAIN}"
         parentRefs:

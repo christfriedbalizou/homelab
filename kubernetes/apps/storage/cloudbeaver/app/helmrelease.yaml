@@ -44,10 +44,6 @@ spec:
             port: 8978
     route:
       main:
-        annotations:
-          hajimari.io/enable: "true"
-          hajimari.io/icon: devicon:dbeaver
-          hajimari.io/group: Storage
         hostnames:
           - "cloudbeaver.${SECRET_DOMAIN}"
         parentRefs:
