@@ -59,9 +59,6 @@ spec:
             - name: LDAP Admin
               url: "https://lldap.${SECRET_DOMAIN}"
               icon: "mdi:dictionary"
-            - name: Vaultwarden
-              url: "https://vaultwarden.${SECRET_DOMAIN}"
-              icon: "cbi:vaultwarden"
         - group: Cameras
           apps:
             - name: Entrance
@@ -189,9 +186,6 @@ spec:
               icon: "mdi:kubernetes"
         - group: Tools
           apps:
-            - name: chrome
-              url: "https://chrome.${SECRET_DOMAIN}"
-              icon: "simple-icons:googlechrome"
             - name: it-tools
               url: "https://it-tools.${SECRET_DOMAIN}"
               icon: "mdi:tools"
@@ -210,6 +204,9 @@ spec:
             - name: vscode
               url: "https://vscode.${SECRET_DOMAIN}"
               icon: "mdi:microsoft-visual-studio-code"
+            - name: Vaultwarden
+              url: "https://vaultwarden.${SECRET_DOMAIN}"
+              icon: "cbi:vaultwarden"
       globalBookmarks:
         - group: Second Brain
           bookmarks:

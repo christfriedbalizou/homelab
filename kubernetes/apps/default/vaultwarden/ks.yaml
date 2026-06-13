@@ -15,7 +15,7 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  path: ./kubernetes/apps/identity/vaultwarden/app
+  path: ./kubernetes/apps/default/vaultwarden/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -23,7 +23,7 @@ spec:
     substitute:
       APP: vaultwarden
       MAX_REPLICAS: "2"
-  targetNamespace: identity
+  targetNamespace: default
   prune: true
   sourceRef:
     kind: GitRepository
@@ -33,7 +33,7 @@ spec:
     - apiVersion: helm.toolkit.fluxcd.io/v2beta2
       kind: HelmRelease
       name: vaultwarden
-      namespace: identity
+      namespace: default
   wait: true
   interval: 30m
   retryInterval: 1m

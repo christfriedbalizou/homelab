@@ -20,3 +20,4 @@ resources:
   - ./nextcloud/ks.yaml
   - ./immich/ks.yaml
   - ./vscode/ks.yaml
+  - ./vaultwarden/ks.yaml

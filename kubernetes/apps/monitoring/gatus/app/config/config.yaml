@@ -98,7 +98,7 @@ endpoints:
 
   - name: Vaultwarden
     group: Identity
-    url: http://vaultwarden.identity.svc.cluster.local/alive
+    url: http://vaultwarden.default.svc.cluster.local/alive
     interval: 1m
     conditions:
       - "[STATUS] == 200"
