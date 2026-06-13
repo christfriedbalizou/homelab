@@ -9,6 +9,7 @@ spec:
     - name: envoy-external
       namespace: networking
   hostnames:
+    # yaml-language-server-disable
     - "entrance-camera.${SECRET_DOMAIN}"
   rules:
     - matches:

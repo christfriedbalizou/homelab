@@ -9,6 +9,7 @@ spec:
     - name: envoy-external
       namespace: networking
   hostnames:
+    # yaml-language-server-disable
     - hajimari.${SECRET_DOMAIN}
   rules:
     - matches:

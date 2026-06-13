@@ -9,6 +9,7 @@ spec:
     - name: envoy-external
       namespace: networking
   hostnames:
+    # yaml-language-server-disable
     - alertmanager.${SECRET_DOMAIN}
   rules:
     - matches:
@@ -29,6 +30,7 @@ spec:
     - name: envoy-external
       namespace: networking
   hostnames:
+    # yaml-language-server-disable
     - prometheus.${SECRET_DOMAIN}
   rules:
     - matches:

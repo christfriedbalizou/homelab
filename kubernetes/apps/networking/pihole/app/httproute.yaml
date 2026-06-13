@@ -9,6 +9,7 @@ spec:
     - name: envoy-external
       namespace: networking
   hostnames:
+    # yaml-language-server-disable
     - "pihole.${SECRET_DOMAIN}"
   rules:
     - matches:

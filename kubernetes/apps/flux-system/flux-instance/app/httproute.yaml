@@ -11,6 +11,7 @@ spec:
     - name: envoy-external
       namespace: networking
   hostnames:
+    # yaml-language-server-disable
     - "flux-webhook.${SECRET_DOMAIN}"
   rules:
     - matches:
