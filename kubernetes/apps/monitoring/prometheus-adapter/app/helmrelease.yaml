@@ -18,7 +18,7 @@ spec:
       retries: 3
   values:
     prometheus:
-      url: http://kube-prometheus-stack-prometheus.monitoring.svc
+      url: http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local
       port: 9090
     rules:
       default: false
