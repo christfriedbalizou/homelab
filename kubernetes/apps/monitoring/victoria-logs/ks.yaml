@@ -2,17 +2,16 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app grafana-operator
+  name: &app victoria-logs
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: prometheus-stack
+    - name: grafana-operator
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  path: ./kubernetes/apps/monitoring/grafana/app
+  path: ./kubernetes/apps/monitoring/victoria-logs/app
   postBuild:
     substituteFrom:
       - name: cluster-secrets
@@ -24,9 +23,9 @@ spec:
     name: home-kubernetes
     namespace: flux-system
   healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta2
+    - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
-      name: grafana-operator
+      name: victoria-logs
       namespace: monitoring
   interval: 30m
   retryInterval: 1m
@@ -36,24 +35,15 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app grafana
+  name: &app victoria-logs-collector
   namespace: flux-system
 spec:
   dependsOn:
-    - name: grafana-operator
-    - name: prometheus-stack
+    - name: victoria-logs
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
-  path: ./kubernetes/apps/monitoring/grafana/instance
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
+  path: ./kubernetes/apps/monitoring/victoria-logs/collector
   targetNamespace: monitoring
   prune: true
   sourceRef:
@@ -61,11 +51,11 @@ spec:
     name: home-kubernetes
     namespace: flux-system
   healthChecks:
-    - apiVersion: grafana.integreatly.org/v1beta1
-      kind: Grafana
-      name: grafana
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: victoria-logs-collector
       namespace: monitoring
   interval: 30m
   retryInterval: 1m
   timeout: 3m
-  wait: false
+  wait: true

@@ -10,13 +10,19 @@ resources:
   - ./descheduler
   - ./envoy-gateway
   - ./cloudflare-dns
+  - ./grafana-operator
   - ./intel-gpu-resource-driver
   - ./k8s-gateway
+  - ./kube-prometheus-stack
   - ./kubernetes-dashboard-charts
   - ./nextcloud
   - ./nvidia
   - ./node-feature-discovery
   - ./openebs
   - ./prometheus-adapter
+  - ./silence-operator
+  - ./smartctl-exporter
   - ./spegel
   - ./tuppr
+  - ./victoria-logs
+  - ./victoria-logs-collector

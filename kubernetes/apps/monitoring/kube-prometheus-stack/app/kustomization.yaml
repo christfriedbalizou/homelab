@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - ./helmrelease.yaml
+  - ./grafanadashboard.yaml
   - ./httproute.yaml
   - ./authentication.yaml
   - ./scrapeconfigs

@@ -1,0 +1,103 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafana_v1beta1.json
+apiVersion: grafana.integreatly.org/v1beta1
+kind: Grafana
+metadata:
+  name: grafana
+  labels:
+    dashboards: grafana
+    grafana.internal/instance: grafana
+spec:
+  config:
+    analytics:
+      check_for_updates: "false"
+      check_for_plugin_updates: "false"
+      feedback_links_enabled: "false"
+      reporting_enabled: "false"
+    auth:
+      oauth_auto_login: "false"
+      oauth_allow_insecure_email_lookup: "true"
+      signout_redirect_url: https://auth.${SECRET_DOMAIN}/logout
+    auth.basic:
+      enabled: "true"
+    auth.anonymous:
+      enabled: "false"
+    auth.generic_oauth:
+      enabled: "true"
+      name: Authelia
+      icon: signin
+      scopes: openid profile email groups
+      empty_scopes: "false"
+      auth_url: https://auth.${SECRET_DOMAIN}/api/oidc/authorization
+      token_url: https://auth.${SECRET_DOMAIN}/api/oidc/token
+      api_url: https://auth.${SECRET_DOMAIN}/api/oidc/userinfo
+      login_attribute_path: preferred_username
+      groups_attribute_path: groups
+      name_attribute_path: name
+      use_pkce: "true"
+    auth.generic_oauth.group_mapping:
+      org_id: "1"
+      role_attribute_path: |
+        contains(groups[*], 'admin') && 'Admin' || contains(groups[*], 'developer') && 'Developer'
+    date_formats:
+      use_browser_locale: "true"
+    explore:
+      enabled: "true"
+    feature_toggles:
+      enable: publicDashboards
+    log:
+      mode: console
+    metrics:
+      enabled: "true"
+    news:
+      news_feed_enabled: "false"
+    plugins:
+      plugins_admin_enabled: "false"
+    security:
+      angular_support_enabled: "true"
+    server:
+      enable_gzip: "true"
+      root_url: https://grafana.${SECRET_DOMAIN}
+  deployment:
+    spec:
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            reloader.stakater.com/auto: "true"
+        spec:
+          containers:
+            - name: grafana
+              envFrom:
+                - secretRef:
+                    name: cluster-grafana-secrets
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities: { drop: ["ALL"] }
+              resources:
+                limits:
+                  memory: 219M
+                requests:
+                  cpu: 23m
+                  memory: 127M
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+          volumes:
+            - name: grafana-data
+              persistentVolumeClaim:
+                claimName: grafana-pvc
+  persistentVolumeClaim:
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: openebs-hostpath
+  disableDefaultSecurityContext: All

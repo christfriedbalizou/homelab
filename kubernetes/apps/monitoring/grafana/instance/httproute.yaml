@@ -10,12 +10,12 @@ spec:
       namespace: networking
   hostnames:
     # yaml-language-server-disable
-    - "grafana.${SECRET_DOMAIN}"
+    - grafana.${SECRET_DOMAIN}
   rules:
     - matches:
         - path:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: grafana
-          port: 80
+        - name: grafana-service
+          port: 3000
