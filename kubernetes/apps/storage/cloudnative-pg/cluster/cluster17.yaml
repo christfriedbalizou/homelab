@@ -11,7 +11,7 @@ spec:
   instances: 2
   primaryUpdateStrategy: unsupervised
   # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
-  imageName: ghcr.io/cloudnative-pg/postgresql:17.5-22
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.4
   storage:
     size: 5Gi
     storageClass: openebs-hostpath
@@ -32,17 +32,4 @@ spec:
         barmanObjectName: minio
         # NOTE: serverName version needs to be incremented
         # when recovering from an existing cnpg cluster.
-        serverName: postgres17-v6
-
-  bootstrap:
-    recovery:
-      source: &previousCluster postgres17-v5
-  externalClusters:
-    - name: *previousCluster
-      plugin:
-        enabled: true
-        isWALArchiver: false
-        name: barman-cloud.cloudnative-pg.io
-        parameters:
-          barmanObjectName: minio
-          serverName: *previousCluster
+        serverName: postgres18-v1
