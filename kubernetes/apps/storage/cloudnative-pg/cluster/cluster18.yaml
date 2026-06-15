@@ -31,5 +31,5 @@ spec:
       parameters:
         barmanObjectName: minio
         # NOTE: serverName version needs to be incremented
-        # when recovering from an existing cnpg cluster.
+        # after a major upgrade or recovery.
         serverName: postgres18-v1
