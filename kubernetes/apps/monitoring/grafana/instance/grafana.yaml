@@ -71,7 +71,7 @@ spec:
             - name: grafana
               envFrom:
                 - secretRef:
-                    name: grafana-admin-credentials
+                    name: cluster-grafana-secrets
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
