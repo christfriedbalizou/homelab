@@ -12,6 +12,9 @@ spec:
   primaryUpdateStrategy: unsupervised
   # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
   imageName: ghcr.io/cloudnative-pg/postgresql:18.4
+  bootstrap:
+    recovery:
+      source: source
   storage:
     size: 5Gi
     storageClass: openebs-hostpath
@@ -33,3 +36,10 @@ spec:
         # NOTE: serverName version needs to be incremented
         # after a major upgrade or recovery.
         serverName: postgres18-v1
+  externalClusters:
+    - name: source
+      plugin:
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: minio
+          serverName: postgres18-v1
