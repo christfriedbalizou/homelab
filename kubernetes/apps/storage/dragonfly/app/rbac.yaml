@@ -39,6 +39,7 @@ rules:
   - apiGroups:
       - ""
     resources:
+      - configmaps
       - pods
       - services
     verbs:

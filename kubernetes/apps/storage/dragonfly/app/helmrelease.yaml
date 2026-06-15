@@ -74,7 +74,7 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app.kubernetes.io/name: dagronfly-operator
+              app.kubernetes.io/name: dragonfly-operator
     service:
       app:
         ports:
