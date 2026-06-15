@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/barmancloud.cnpg.io/objectstore_v1.json
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+  name: minio
+  namespace: storage
+spec:
+  configuration:
+    endpointURL: http://minio.storage.svc.cluster.local:9000
+    destinationPath: s3://cloudnative-pg/
+    s3Credentials:
+      accessKeyId:
+        name: cloudnative-pg
+        key: aws-access-key-id
+      secretAccessKey:
+        name: cloudnative-pg
+        key: aws-access-key-secret
+    data:
+      compression: bzip2
+    wal:
+      compression: bzip2
+      maxParallel: 4
+  retentionPolicy: 30d

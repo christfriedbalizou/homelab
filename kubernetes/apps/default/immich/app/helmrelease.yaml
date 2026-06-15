@@ -48,7 +48,7 @@ spec:
           init-vector:
             image:
               repository: ghcr.io/cloudnative-pg/postgresql
-              tag: 17.5-22@sha256:b1deeed2aa998b2f381e39c5cadb9ec06127708c8bd62965743af19abf21628f
+              tag: "18.4"
               pullPolicy: IfNotPresent
             command:
               - /bin/sh

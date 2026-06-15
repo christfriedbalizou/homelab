@@ -1,0 +1,48 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/postgresql.cnpg.io/cluster_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres18
+  namespace: storage
+  annotations:
+    cnpg.io/skipEmptyWalArchiveCheck: "enabled"
+spec:
+  instances: 2
+  primaryUpdateStrategy: unsupervised
+  # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
+  imageName: ghcr.io/cloudnative-pg/postgresql:18.4
+  storage:
+    size: 5Gi
+    storageClass: openebs-hostpath
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: cloudnative-pg
+  resources:
+    requests:
+      cpu: 200m
+    limits:
+      memory: 2Gi
+  monitoring:
+    enablePodMonitor: true
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: minio
+        # NOTE: serverName version needs to be incremented
+        # when recovering from an existing cnpg cluster.
+        serverName: postgres18-0
+
+  bootstrap:
+    recovery:
+      source: &previousCluster postgres17-v5
+  externalClusters:
+    - name: *previousCluster
+      plugin:
+        enabled: true
+        isWALArchiver: false
+        name: barman-cloud.cloudnative-pg.io
+        parameters:
+          barmanObjectName: minio
+          serverName: *previousCluster
