@@ -101,7 +101,7 @@ spec:
   healthChecks:
     - apiVersion: postgresql.cnpg.io/v1
       kind: Cluster
-      name: postgres17
+      name: postgres18
       namespace: storage
     - apiVersion: v1
       kind: Service
@@ -109,7 +109,7 @@ spec:
       namespace: storage
     - apiVersion: postgresql.cnpg.io/v1
       kind: ScheduledBackup
-      name: postgres17
+      name: postgres18
       namespace: storage
     - apiVersion: barmancloud.cnpg.io/v1
       kind: ObjectStore

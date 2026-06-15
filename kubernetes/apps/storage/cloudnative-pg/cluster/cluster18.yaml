@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres17
+  name: postgres18
   namespace: storage
   annotations:
     cnpg.io/skipEmptyWalArchiveCheck: "enabled"
@@ -12,9 +12,6 @@ spec:
   primaryUpdateStrategy: unsupervised
   # renovate: datasource=docker depName=ghcr.io/cloudnative-pg/postgresql
   imageName: ghcr.io/cloudnative-pg/postgresql:18.4
-  bootstrap:
-    recovery:
-      source: source
   storage:
     size: 5Gi
     storageClass: openebs-hostpath
@@ -31,15 +28,14 @@ spec:
   plugins:
     - name: barman-cloud.cloudnative-pg.io
       isWALArchiver: true
-      parameters:
+      parameters: &barmanParameters
         barmanObjectName: minio
-        # NOTE: serverName version needs to be incremented
-        # after a major upgrade or recovery.
         serverName: postgres18-v1
+  bootstrap:
+    recovery:
+      source: source
   externalClusters:
     - name: source
       plugin:
         name: barman-cloud.cloudnative-pg.io
-        parameters:
-          barmanObjectName: minio
-          serverName: postgres18-v1
+        parameters: *barmanParameters
