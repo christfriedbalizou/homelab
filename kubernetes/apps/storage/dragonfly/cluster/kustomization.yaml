@@ -4,6 +4,4 @@ kind: Kustomization
 resources:
   - ./cluster.yaml
   - ./grafanadashboard.yaml
-  - ./networkpolicy-clients.yaml
-  - ./networkpolicy.yaml
   - ./podmonitor.yaml
