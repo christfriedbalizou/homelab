@@ -42,6 +42,7 @@ spec:
               OAUTH_PROVIDER_NAME: Authelia
               OAUTH_ROLES_CLAIM: groups
               OAUTH_SCOPES: openid email profile groups
+              OAUTH_TOKEN_ENDPOINT_AUTH_METHOD: client_secret_post
               ENABLE_OPENAI_API: "false"
               ENABLE_OLLAMA_API: "true"
               OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local:11434
