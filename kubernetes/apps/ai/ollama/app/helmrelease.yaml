@@ -24,6 +24,7 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           enableServiceLinks: false
+          runtimeClassName: nvidia
         containers:
           app:
             image:
