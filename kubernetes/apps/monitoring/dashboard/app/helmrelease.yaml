@@ -22,5 +22,9 @@ spec:
       enabled: true
     cert-manager:
       enabled: false
+    kong:
+      proxy:
+        http:
+          enabled: true
     nginx:
       enabled: false
