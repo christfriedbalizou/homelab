@@ -1,0 +1,95 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app ollama
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      ollama:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          enableServiceLinks: false
+        containers:
+          app:
+            image:
+              repository: docker.io/ollama/ollama
+              tag: 0.30.8@sha256:05b6fe5143ed006d6d4abd39bdd575f962a5822bdf81e6fbb5e6894eb984ab9c
+            env:
+              OLLAMA_HOST: 0.0.0.0:11434
+              OLLAMA_KEEP_ALIVE: 5m
+              OLLAMA_MAX_LOADED_MODELS: "1"
+              OLLAMA_CONTEXT_LENGTH: 8192
+              OLLAMA_NUM_PARALLEL: "1"
+              OLLAMA_MODELS: /models
+              TZ: "${TIMEZONE}"
+              NVIDIA_DRIVER_CAPABILITIES: compute,utility
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: &port 11434
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 10
+                  periodSeconds: 5
+                  timeoutSeconds: 1
+                  failureThreshold: 30
+            resources:
+              requests:
+                cpu: 100m
+                memory: 2Gi
+                nvidia.com/gpu: "1"
+              limits:
+                memory: 8Gi
+                nvidia.com/gpu: "1"
+
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
+
+    persistence:
+      config:
+        type: nfs
+        server: ${NFS_SERVER_APPS}
+        path: /volume1/apps/ai
+        globalMounts:
+          - subPath: ollama
+            path: /root/.ollama
+      models:
+        type: nfs
+        server: ${NFS_SERVER_MEDIA}
+        path: /volume1/media/ai
+        globalMounts:
+          - subPath: ollama
+            path: /models

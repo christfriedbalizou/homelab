@@ -21,3 +21,4 @@ resources:
   - ./immich/ks.yaml
   - ./vscode/ks.yaml
   - ./vaultwarden/ks.yaml
+  - ./open-webui/ks.yaml

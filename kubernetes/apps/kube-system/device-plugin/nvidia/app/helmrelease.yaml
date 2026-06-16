@@ -36,7 +36,14 @@ spec:
     cdi:
       enabled: false
     dcgmExporter:
-      enabled: false
+      enabled: true
+      repository: nvcr.io/nvidia/k8s
+      image: dcgm-exporter
+      version: 4.5.1-4.8.0-distroless@sha256:b5d8813707469c5717ce27a5fefb933a29e8ba6cd2fd7d93ad3dcd6ae18579ef
+      imagePullPolicy: IfNotPresent
+      serviceMonitor:
+        enabled: true
+        interval: 15s
     validator:
       repository: nvcr.io/nvidia
       image: gpu-operator
