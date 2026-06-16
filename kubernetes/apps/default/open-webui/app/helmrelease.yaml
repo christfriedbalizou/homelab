@@ -58,6 +58,7 @@ spec:
               ENABLE_OAUTH_ROLE_MANAGEMENT: "true"
               ENABLE_SIGNUP: "false"
               DEFAULT_USER_ROLE: user
+              DEFAULT_MODELS: qwen3:4b
               OAUTH_ADMIN_ROLES: admin
               OAUTH_ALLOWED_ROLES: family
               OAUTH_CLIENT_ID: open-webui
@@ -71,6 +72,9 @@ spec:
               OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local:11434
               OPENID_PROVIDER_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
               OPENID_REDIRECT_URI: https://ai.${SECRET_DOMAIN}/oauth/oidc/callback
+              RAG_EMBEDDING_ENGINE: ollama
+              RAG_EMBEDDING_MODEL: nomic-embed-text:latest
+              RAG_EMBEDDING_MODEL_AUTO_UPDATE: "false"
               REDIS_KEY_PREFIX: open-webui
               REDIS_URL: redis://dragonfly.storage.svc.cluster.local:6379/4
               SCARF_NO_ANALYTICS: "true"
