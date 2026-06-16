@@ -112,7 +112,7 @@ spec:
       data:
         type: nfs
         server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/ai
+        path: /volume1/apps/default
         globalMounts:
           - subPath: open-webui
             path: /app/backend/data
