@@ -17,11 +17,34 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: storage
   values:
     controllers:
       open-webui:
         annotations:
           reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18
+              pullPolicy: IfNotPresent
+            env:
+              INIT_POSTGRES_DBNAME: open_webui
+              INIT_POSTGRES_HOST: postgres-lb.storage.svc.cluster.local
+              INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
+              INIT_POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: &secret cluster-open-webui-secrets
+                    key: POSTGRES_USER
+              INIT_POSTGRES_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: *secret
+                    key: POSTGRES_PASSWORD
         pod:
           enableServiceLinks: false
         containers:
@@ -48,10 +71,13 @@ spec:
               OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local:11434
               OPENID_PROVIDER_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
               OPENID_REDIRECT_URI: https://ai.${SECRET_DOMAIN}/oauth/oidc/callback
+              REDIS_KEY_PREFIX: open-webui
+              REDIS_URL: redis://dragonfly.storage.svc.cluster.local:6379/4
               SCARF_NO_ANALYTICS: "true"
               WEBUI_AUTH: "true"
               WEBUI_NAME: Private AI
               WEBUI_URL: https://ai.${SECRET_DOMAIN}
+              WEBSOCKET_MANAGER: redis
             envFrom:
               - secretRef:
                   name: cluster-open-webui-secrets
