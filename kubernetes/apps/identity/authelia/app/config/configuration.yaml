@@ -65,10 +65,8 @@ access_control:
     - domain:
         - "*.${SECRET_DOMAIN}"
       policy: bypass
-      query:
-        - - operator: "equal"
-            key: "apikey"
-            value: "${GATUS_AUTHELIA_APIKEY}"
+      resources:
+        - '^/__gatus/${GATUS_AUTHELIA_APIKEY}(/.*)?$'
 
     - domain: kubernetes.${SECRET_DOMAIN}
       policy: two_factor
@@ -80,10 +78,8 @@ access_control:
 
     - domain: kromgo.${SECRET_DOMAIN}
       policy: bypass
-      query:
-        - - operator: "pattern"
-            key: "apikey"
-            value: "${KROMGO_AUTHELIA_APIKEY}"
+      resources:
+        - '^/__gatus/${KROMGO_AUTHELIA_APIKEY}/.*$'
 
     - domain: auth.${SECRET_DOMAIN}
       policy: bypass

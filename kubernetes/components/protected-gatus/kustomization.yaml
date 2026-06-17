@@ -24,7 +24,10 @@ patches:
                       name: ${GATUS_ROUTE:=${APP}}
                       annotations:
                         gatus.home-operations.com/endpoint: |-
-                          url: "https://${GATUS_HOST:=${APP}}.${SECRET_DOMAIN}${GATUS_PATH:=/}?apikey=${GATUS_AUTHELIA_APIKEY}"
+                          url: "https://${GATUS_HOST:=${APP}}.${SECRET_DOMAIN}/__gatus/${GATUS_AUTHELIA_APIKEY}"
+                          conditions:
+                            - "[STATUS] != 302"
+                            - "[STATUS] < 500"
 
   - target:
       group: gateway.networking.k8s.io
@@ -35,4 +38,7 @@ patches:
         path: /metadata/annotations
         value:
           gatus.home-operations.com/endpoint: |-
-            url: "https://${GATUS_HOST:=${APP}}.${SECRET_DOMAIN}${GATUS_PATH:=/}?apikey=${GATUS_AUTHELIA_APIKEY}"
+            url: "https://${GATUS_HOST:=${APP}}.${SECRET_DOMAIN}/__gatus/${GATUS_AUTHELIA_APIKEY}"
+            conditions:
+              - "[STATUS] != 302"
+              - "[STATUS] < 500"

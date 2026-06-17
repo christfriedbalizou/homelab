@@ -79,6 +79,19 @@ spec:
           - matches:
               - path:
                   type: PathPrefix
+                  value: "/__gatus/${KROMGO_AUTHELIA_APIKEY}/"
+            filters:
+              - type: URLRewrite
+                urlRewrite:
+                  path:
+                    type: ReplacePrefixMatch
+                    replacePrefixMatch: /
+            backendRefs:
+              - identifier: app
+                port: http
+          - matches:
+              - path:
+                  type: PathPrefix
                   value: /
             backendRefs:
               - identifier: app

@@ -14,7 +14,7 @@ apikey = os.environ.get("KROMGO_AUTHELIA_APIKEY")
 
 def build_kromgo_url(tag: str, base_url: str = secret_domain):
     print(f"Building kromgo {tag} url", file=sys.stdout)
-    return f"https://kromgo.{secret_domain}/{tag}?apikey={apikey}"
+    return f"https://kromgo.{base_url}/__gatus/{apikey}/{tag}"
 
 
 def fetch_metric(tag: str):
