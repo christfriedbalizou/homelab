@@ -205,6 +205,8 @@ spec:
 
     route:
       management:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames:
           - "netbird.${SECRET_DOMAIN}"
         parentRefs:
@@ -247,6 +249,8 @@ spec:
               - identifier: signal
                 port: grpc
       relay:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames:
           - "netbird.${SECRET_DOMAIN}"
         parentRefs:
@@ -261,6 +265,8 @@ spec:
               - identifier: relay
                 port: http
       dashboard:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames:
           - "netbird.${SECRET_DOMAIN}"
         parentRefs:
