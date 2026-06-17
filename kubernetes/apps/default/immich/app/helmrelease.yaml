@@ -61,7 +61,8 @@ spec:
                   --dbname="$INIT_POSTGRES_DBNAME" \
                   --command="CREATE EXTENSION IF NOT EXISTS cube CASCADE;" \
                   --command="CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;" \
-                  --command="CREATE EXTENSION IF NOT EXISTS vector CASCADE;"
+                  --command="CREATE EXTENSION IF NOT EXISTS vector CASCADE;" \
+                  --command="ALTER EXTENSION vector UPDATE;"
             env:
               INIT_POSTGRES_DBNAME: *db
               INIT_POSTGRES_HOST: *postgres
