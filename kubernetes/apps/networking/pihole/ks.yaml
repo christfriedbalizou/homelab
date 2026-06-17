@@ -7,7 +7,6 @@ metadata:
 spec:
   components:
     - ../../../../components/ext-auth
-    - ../../../../components/protected-gatus
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -22,7 +21,6 @@ spec:
         kind: Secret
     substitute:
       APP: pihole
-      GATUS_PATH: /admin/__gatus
   targetNamespace: networking
   prune: true
   sourceRef:

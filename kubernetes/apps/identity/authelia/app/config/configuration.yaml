@@ -68,7 +68,7 @@ access_control:
       methods:
         - GET
       resources:
-        - "^/(admin/)?__gatus/${GATUS_AUTHELIA_APIKEY}$"
+        - "^/__gatus/${GATUS_AUTHELIA_APIKEY}$"
 
     - domain: kubernetes.${SECRET_DOMAIN}
       policy: two_factor
