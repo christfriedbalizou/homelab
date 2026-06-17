@@ -65,8 +65,10 @@ access_control:
     - domain:
         - "*.${SECRET_DOMAIN}"
       policy: bypass
-      resources:
-        - '^/.*[?&]apikey=${GATUS_AUTHELIA_APIKEY}'
+      query:
+        - - operator: "equal"
+            key: "apikey"
+            value: "${GATUS_AUTHELIA_APIKEY}"
 
     - domain: kubernetes.${SECRET_DOMAIN}
       policy: two_factor
