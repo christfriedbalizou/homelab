@@ -49,8 +49,8 @@ spec:
               repository: ghcr.io/home-operations/gatus-sidecar
               tag: 0.3.2@sha256:c6550b40f444337d953e622b3ad6dd9b28e80a664dfcd59d0f8551997e870b8e
             args:
-              - --auto-ingress
-              - --enable-ingress
+              - --auto-httproute
+              - --enable-httproute
               - --enable-service
             resources:
               requests:
@@ -143,9 +143,10 @@ spec:
                 - watch
                 - list
             - apiGroups:
-                - networking.k8s.io
+                - gateway.networking.k8s.io
               resources:
-                - ingresses
+                - gateways
+                - httproutes
               verbs:
                 - get
                 - watch
