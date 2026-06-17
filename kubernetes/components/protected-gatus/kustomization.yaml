@@ -1,0 +1,38 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patches:
+  - target:
+      group: helm.toolkit.fluxcd.io
+      kind: HelmRelease
+    patch: |-
+      - op: add
+        path: /spec/postRenderers
+        value:
+          - kustomize:
+              patches:
+                - target:
+                    group: gateway.networking.k8s.io
+                    version: v1
+                    kind: HTTPRoute
+                    name: ${GATUS_ROUTE:=${APP}}
+                  patch: |-
+                    apiVersion: gateway.networking.k8s.io/v1
+                    kind: HTTPRoute
+                    metadata:
+                      name: ${GATUS_ROUTE:=${APP}}
+                      annotations:
+                        gatus.home-operations.com/endpoint: |-
+                          url: "https://${GATUS_HOST:=${APP}}.${SECRET_DOMAIN}${GATUS_PATH:=/}?apikey=${GATUS_AUTHELIA_APIKEY}"
+
+  - target:
+      group: gateway.networking.k8s.io
+      version: v1
+      kind: HTTPRoute
+    patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          gatus.home-operations.com/endpoint: |-
+            url: "https://${GATUS_HOST:=${APP}}.${SECRET_DOMAIN}${GATUS_PATH:=/}?apikey=${GATUS_AUTHELIA_APIKEY}"

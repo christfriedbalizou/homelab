@@ -8,6 +8,7 @@ spec:
   components:
     - ../../../../components/zeroscaler
     - ../../../../components/ext-auth
+    - ../../../../components/protected-gatus
     - ../../../../components/persistence/jericho-nfs
     - ../../../../components/persistence/lordcommander-nfs
   path: ./kubernetes/apps/home-automation/frigate/app

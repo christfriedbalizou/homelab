@@ -62,6 +62,16 @@ access_control:
         - 172.16.0.0/12
         - 192.168.0.0/16
   rules:
+    - domain:
+        - "*.${SECRET_DOMAIN}"
+      policy: bypass
+      methods:
+        - GET
+      query:
+        - - operator: "pattern"
+            key: "apikey"
+            value: "${GATUS_AUTHELIA_APIKEY}"
+
     - domain: kubernetes.${SECRET_DOMAIN}
       policy: two_factor
       subject:
@@ -69,14 +79,6 @@ access_control:
 
     - domain: kubernetes.${SECRET_DOMAIN}
       policy: deny
-
-    - domain:
-        - "*.${SECRET_DOMAIN}"
-      policy: bypass
-      query:
-        - - operator: "pattern"
-            key: "apikey"
-            value: "${GATUS_AUTHELIA_APIKEY}"
 
     - domain: kromgo.${SECRET_DOMAIN}
       policy: bypass
