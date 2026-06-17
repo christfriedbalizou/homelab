@@ -90,13 +90,5 @@ spec:
           volumes:
             - name: grafana-data
               persistentVolumeClaim:
-                claimName: grafana-pvc
-  persistentVolumeClaim:
-    spec:
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 5Gi
-      storageClassName: openebs-hostpath
+                claimName: grafana-openebs
   disableDefaultSecurityContext: All

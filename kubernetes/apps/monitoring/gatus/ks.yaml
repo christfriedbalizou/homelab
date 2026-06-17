@@ -8,6 +8,7 @@ metadata:
 spec:
   components:
     - ../../../../components/ext-auth
+    - ../../../../components/persistence/openebs-pvc
   targetNamespace: monitoring
   commonMetadata:
     labels:
@@ -32,3 +33,4 @@ spec:
         name: cluster-secrets
     substitute:
       APP: gatus
+      OPENEBS_CAPACITY: 5Gi

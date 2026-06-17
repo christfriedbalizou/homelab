@@ -8,6 +8,8 @@ spec:
   dependsOn:
     - name: prometheus-stack
     - name: grafana-operator
+  components:
+    - ../../../../components/persistence/openebs-pvc
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -16,6 +18,9 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: victoria-logs
+      OPENEBS_CAPACITY: 50Gi
   targetNamespace: monitoring
   prune: true
   sourceRef:

@@ -89,12 +89,6 @@ spec:
                 cpu: 100m
               limits:
                 memory: 256Mi
-        statefulset:
-          volumeClaimTemplates:
-            - name: config
-              storageClass: openebs-hostpath
-              accessMode: ReadWriteOnce
-              size: 5Gi
     service:
       app:
         controller: gatus
@@ -164,6 +158,8 @@ spec:
           subjects:
             - identifier: gatus
     persistence:
+      config:
+        existingClaim: gatus-openebs
       config-file:
         type: configMap
         name: gatus-configmap
