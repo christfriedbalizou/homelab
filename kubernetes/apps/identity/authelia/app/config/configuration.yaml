@@ -79,7 +79,7 @@ access_control:
     - domain: kromgo.${SECRET_DOMAIN}
       policy: bypass
       resources:
-        - '^/__gatus/${KROMGO_AUTHELIA_APIKEY}/.*$'
+        - '^/__kromgo/${KROMGO_AUTHELIA_APIKEY}/.*$'
 
     - domain: auth.${SECRET_DOMAIN}
       policy: bypass
