@@ -141,9 +141,7 @@ spec:
 
     persistence:
       data:
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default
+        existingClaim: open-webui-jericho
         globalMounts:
           - subPath: open-webui
             path: /app/backend/data

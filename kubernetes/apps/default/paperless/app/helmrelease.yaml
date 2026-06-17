@@ -103,16 +103,12 @@ spec:
                 port: http
     persistence:
       data:
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default
+        existingClaim: paperless-jericho
         globalMounts:
           - subPath: paperless
             path: /data/local
       nas:
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media
+        existingClaim: paperless-lordcommander
         globalMounts:
           - subPath: paperless
             path: /data/nas

@@ -82,16 +82,12 @@ spec:
 
     persistence:
       config:
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/ai
+        existingClaim: ollama-jericho
         globalMounts:
           - subPath: ollama
             path: /root/.ollama
       models:
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media/ai
+        existingClaim: ollama-lordcommander
         globalMounts:
           - subPath: ollama
             path: /models

@@ -82,9 +82,7 @@ spec:
               - path: /var/run
                 subPath: var/run
       config:
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/networking/netbird-peers/littlecato
+        existingClaim: littlecato-jericho
         advancedMounts:
           littlecato:
             app:

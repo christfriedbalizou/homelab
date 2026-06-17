@@ -54,18 +54,16 @@ spec:
     persistence:
       data:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/networking/adguard/data
+        existingClaim: adguard-home-jericho
         globalMounts:
           - path: /opt/adguardhome/work
+            subPath: data
       conf:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/networking/adguard/conf
+        existingClaim: adguard-home-jericho
         globalMounts:
           - path: /opt/adguardhome/conf
+            subPath: conf
     route:
       app:
         hostnames:

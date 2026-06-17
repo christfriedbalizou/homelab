@@ -64,9 +64,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/storage
+        existingClaim: pgadmin-jericho
         globalMounts:
           - subPath: pgadmin
             path: /var/lib/pgadmin

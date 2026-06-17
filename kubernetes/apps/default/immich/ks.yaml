@@ -5,6 +5,8 @@ metadata:
   name: &app immich
   namespace: flux-system
 spec:
+  components:
+    - ../../../../components/persistence/jericho-nfs
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -17,6 +19,9 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: immich
+      JERICHO_PATH: /volume1/apps/default
   targetNamespace: default
   prune: true
   sourceRef:

@@ -83,9 +83,7 @@ spec:
     persistence:
       data:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/storage
+        existingClaim: minio-jericho
         globalMounts:
           - subPath: minio
             path: /data

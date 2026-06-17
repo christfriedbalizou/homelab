@@ -70,9 +70,7 @@ spec:
                 port: http
     persistence:
       data:
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/home-automation
+        existingClaim: frigate-jericho
         globalMounts:
           - path: /data
             subPath: frigate
@@ -102,8 +100,6 @@ spec:
           - path: /dev/bus/usb
             readOnly: false
       media:
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media/cameras
+        existingClaim: frigate-lordcommander
         globalMounts:
           - path: /media/frigate

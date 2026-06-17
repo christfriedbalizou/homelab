@@ -58,17 +58,13 @@ spec:
           - path: /logDir
 
       translate:
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default
+        existingClaim: autotranslate-jericho
         globalMounts:
           - subPath: autotranslate
             path: /outputDir
 
       consume:
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media
+        existingClaim: autotranslate-lordcommander
         globalMounts:
           - subPath: autotranslate
             path: /inputDir

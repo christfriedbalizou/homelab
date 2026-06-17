@@ -8,6 +8,8 @@ spec:
   components:
     - ../../../../components/zeroscaler
     - ../../../../components/ext-auth
+    - ../../../../components/persistence/jericho-nfs
+    - ../../../../components/persistence/lordcommander-nfs
   path: ./kubernetes/apps/home-automation/frigate/app
   sourceRef:
     kind: GitRepository
@@ -24,4 +26,6 @@ spec:
         kind: Secret
     substitute:
       APP: frigate
+      JERICHO_PATH: /volume1/apps/home-automation
+      LORDCOMMANDER_PATH: /volume1/media/cameras
   targetNamespace: home-automation

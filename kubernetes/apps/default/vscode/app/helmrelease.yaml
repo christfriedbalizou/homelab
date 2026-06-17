@@ -100,9 +100,7 @@ spec:
                 port: http
     persistence:
       config:
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default
+        existingClaim: vscode-jericho
         advancedMounts:
           vscode:
             dotfiles:

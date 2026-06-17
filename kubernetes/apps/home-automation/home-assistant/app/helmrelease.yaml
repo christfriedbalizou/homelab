@@ -106,9 +106,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/home-automation
+        existingClaim: home-assistant-jericho
         globalMounts:
           - subPath: home-assistant
       logs:

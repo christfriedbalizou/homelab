@@ -52,9 +52,7 @@ spec:
                   - ALL
     persistence:
       config:
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/storage
+        existingClaim: mosquitto-jericho
         advancedMounts:
           mosquitto:
             app:

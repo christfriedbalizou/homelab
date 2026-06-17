@@ -6,6 +6,9 @@ metadata:
   name: &app ollama
   namespace: flux-system
 spec:
+  components:
+    - ../../../../components/persistence/jericho-nfs
+    - ../../../../components/persistence/lordcommander-nfs
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -14,6 +17,10 @@ spec:
     substituteFrom:
       - name: cluster-secrets
         kind: Secret
+    substitute:
+      APP: ollama
+      JERICHO_PATH: /volume1/apps/ai
+      LORDCOMMANDER_PATH: /volume1/media/ai
   targetNamespace: ai
   prune: true
   sourceRef:

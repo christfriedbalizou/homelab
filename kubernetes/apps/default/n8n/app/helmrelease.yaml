@@ -123,9 +123,7 @@ spec:
                 port: http
     persistence:
       config:
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default
+        existingClaim: n8n-jericho
         advancedMounts:
           n8n:
             app:

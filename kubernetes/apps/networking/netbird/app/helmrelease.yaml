@@ -285,9 +285,7 @@ spec:
                 readOnly: true
       data:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/networking
+        existingClaim: netbird-management-jericho
         advancedMounts:
           management:
             app:

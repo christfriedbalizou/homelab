@@ -32,7 +32,7 @@ spec:
 
     persistence:
       enabled: true
-      existingClaim: nextcloud-apps
+      existingClaim: nextcloud-jericho
 
     cronjob:
       enabled: true

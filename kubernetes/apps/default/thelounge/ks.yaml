@@ -8,6 +8,7 @@ spec:
   components:
     - ../../../../components/zeroscaler
     - ../../../../components/ext-auth
+    - ../../../../components/persistence/jericho-nfs
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -22,6 +23,7 @@ spec:
         kind: Secret
     substitute:
       APP: thelounge
+      JERICHO_PATH: /volume1/apps/default
   targetNamespace: default
   prune: true
   sourceRef:

@@ -7,6 +7,7 @@ metadata:
 spec:
   components:
     - ../../../../components/zeroscaler
+    - ../../../../components/persistence/jericho-nfs
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -21,6 +22,7 @@ spec:
         kind: Secret
     substitute:
       APP: cloudbeaver
+      JERICHO_PATH: /volume1/apps/storage
   targetNamespace: storage
   prune: true
   sourceRef:

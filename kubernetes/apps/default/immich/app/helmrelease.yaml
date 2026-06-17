@@ -236,9 +236,7 @@ spec:
                 port: http
     persistence:
       library:
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default
+        existingClaim: immich-jericho
         advancedMounts:
           immich:
             app:

@@ -108,8 +108,6 @@ spec:
     persistence:
       data:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/home-automation
+        existingClaim: zigbee2mqtt-jericho
         globalMounts:
           - subPath: zigbee2mqtt

@@ -60,9 +60,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/storage
+        existingClaim: cloudbeaver-jericho
         globalMounts:
           - subPath: cloudbeaver
             path: /opt/cloudbeaver/workspace
