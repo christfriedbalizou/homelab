@@ -6,7 +6,10 @@ metadata:
   name: alertmanager
   annotations:
     gatus.home-operations.com/endpoint: |-
-      url: "https://alertmanager.${SECRET_DOMAIN}/?apikey=${GATUS_AUTHELIA_APIKEY}"
+      url: "https://alertmanager.${SECRET_DOMAIN}/__gatus/${GATUS_AUTHELIA_APIKEY}"
+      conditions:
+        - "[STATUS] != 302"
+        - "[STATUS] < 500"
 spec:
   parentRefs:
     - name: envoy-external
@@ -30,7 +33,10 @@ metadata:
   name: prometheus
   annotations:
     gatus.home-operations.com/endpoint: |-
-      url: "https://prometheus.${SECRET_DOMAIN}/?apikey=${GATUS_AUTHELIA_APIKEY}"
+      url: "https://prometheus.${SECRET_DOMAIN}/__gatus/${GATUS_AUTHELIA_APIKEY}"
+      conditions:
+        - "[STATUS] != 302"
+        - "[STATUS] < 500"
 spec:
   parentRefs:
     - name: envoy-external

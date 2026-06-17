@@ -22,7 +22,7 @@ spec:
         kind: Secret
     substitute:
       APP: pihole
-      GATUS_PATH: /admin
+      GATUS_PATH: /admin/__gatus
   targetNamespace: networking
   prune: true
   sourceRef:
