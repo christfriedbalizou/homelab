@@ -149,6 +149,11 @@ kind: ClientTrafficPolicy
 metadata:
   name: envoy
 spec:
+  headers:
+    earlyRequestHeaders:
+      set:
+        - name: X-Forwarded-uri
+          value: "%PATH(WQ:PATH)%"
   clientIPDetection:
     xForwardedFor:
       trustedCIDRs:

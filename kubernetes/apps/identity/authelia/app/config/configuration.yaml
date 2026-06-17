@@ -67,8 +67,10 @@ access_control:
       policy: bypass
       methods:
         - GET
-      resources:
-        - "^/__gatus/${GATUS_AUTHELIA_APIKEY}$"
+      query:
+        - - operator: "pattern"
+            key: "apikey"
+            value: "${GATUS_AUTHELIA_APIKEY}"
 
     - domain: kubernetes.${SECRET_DOMAIN}
       policy: two_factor
