@@ -96,30 +96,25 @@ spec:
     persistence:
       config:
           enabled: true
-          type: nfs
-          server: ${NFS_SERVER_APPS}
-          path: /volume1/apps/media
+          existingClaim: tdarr-jericho
           globalMounts:
             - subPath: tdarr
 
       movies:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media/movies
+        existingClaim: tdarr-lordcommander
         globalMounts:
           - path: /mnt/storage/video/movies
+            subPath: movies
       tv:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media/series
+        existingClaim: tdarr-lordcommander
         globalMounts:
           - path: /mnt/storage/video/tv
+            subPath: series
       shared:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media/.tdarr
+        existingClaim: tdarr-lordcommander
         globalMounts:
           - path: /mnt/cache
+            subPath: .tdarr

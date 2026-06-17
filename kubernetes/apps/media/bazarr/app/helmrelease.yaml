@@ -81,18 +81,14 @@ spec:
     persistence:
       config:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/media
+        existingClaim: bazarr-jericho
         advancedMounts:
           bazarr:
             app:
               - subPath: bazarr
       media:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media
+        existingClaim: bazarr-lordcommander
       tmpfs:
         type: emptyDir
         advancedMounts:

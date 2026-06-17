@@ -7,6 +7,7 @@ metadata:
 spec:
   components:
     - ../../../../components/zeroscaler
+    - ../../../../components/persistence/lordcommander-nfs
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -21,6 +22,7 @@ spec:
         kind: Secret
     substitute:
       APP: unpackerr
+      LORDCOMMANDER_PATH: /volume1/media
   targetNamespace: media
   prune: true
   sourceRef:

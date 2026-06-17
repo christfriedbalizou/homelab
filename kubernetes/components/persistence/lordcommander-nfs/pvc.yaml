@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ${APP}-lordcommander
+spec:
+  storageClassName: ${APP}-lordcommander
+  volumeName: ${APP}-lordcommander
+  accessModes:
+    - ${LORDCOMMANDER_ACCESS_MODE:=ReadWriteMany}
+  resources:
+    requests:
+      storage: ${LORDCOMMANDER_CAPACITY:=1Mi}

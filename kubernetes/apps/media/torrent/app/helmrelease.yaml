@@ -174,9 +174,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/media
+        existingClaim: qbittorrent-jericho
         advancedMounts:
           qbittorrent:
             app:
@@ -184,9 +182,7 @@ spec:
                 subPath: qbittorrent
       media:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media
+        existingClaim: qbittorrent-lordcommander
       empty-config:
         type: emptyDir
         advancedMounts:

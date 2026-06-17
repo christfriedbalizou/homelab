@@ -86,16 +86,12 @@ spec:
     persistence:
       config:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/media
+        existingClaim: jellyfin-jericho
         globalMounts:
           - subPath: jellyfin
       media:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media
+        existingClaim: jellyfin-lordcommander
         globalMounts:
           - path: /media
             readOnly: true

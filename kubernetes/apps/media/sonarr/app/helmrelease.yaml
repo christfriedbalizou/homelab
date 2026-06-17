@@ -128,13 +128,9 @@ spec:
     persistence:
       config:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/media
+        existingClaim: sonarr-jericho
         globalMounts:
           - subPath: sonarr
       media:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media
+        existingClaim: sonarr-lordcommander

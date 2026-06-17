@@ -70,6 +70,4 @@ spec:
             readOnly: true
       media:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media
+        existingClaim: tqm-lordcommander

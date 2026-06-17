@@ -4,6 +4,8 @@ kind: Kustomization
 metadata:
   name: &app tqm
 spec:
+  components:
+    - ../../../../components/persistence/lordcommander-nfs
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -30,3 +32,6 @@ spec:
     substituteFrom:
       - kind: Secret
         name: cluster-secrets
+    substitute:
+      APP: tqm
+      LORDCOMMANDER_PATH: /volume1/media

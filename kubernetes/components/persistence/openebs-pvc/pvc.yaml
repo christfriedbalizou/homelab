@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ${APP}-openebs
+spec:
+  storageClassName: openebs-hostpath
+  accessModes:
+    - ${OPENEBS_ACCESS_MODE:=ReadWriteOnce}
+  resources:
+    requests:
+      storage: ${OPENEBS_CAPACITY:=5Gi}

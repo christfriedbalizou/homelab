@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ${APP}-jericho
+spec:
+  storageClassName: ${APP}-jericho
+  accessModes:
+    - ${JERICHO_ACCESS_MODE:=ReadWriteMany}
+  capacity:
+    storage: ${JERICHO_CAPACITY:=1Mi}
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: "${NFS_SERVER_APPS}"
+    path: "${JERICHO_PATH}"

@@ -6,6 +6,7 @@ metadata:
 spec:
   components:
     - ../../../../components/zeroscaler
+    - ../../../../components/persistence/jericho-nfs
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -34,3 +35,4 @@ spec:
         name: cluster-secrets
     substitute:
       APP: seerr
+      JERICHO_PATH: /volume1/apps/media

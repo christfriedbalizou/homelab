@@ -92,16 +92,12 @@ spec:
     persistence:
       config:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/media
+        existingClaim: sabnzbd-jericho
         globalMounts:
           - subPath: sabnzbd
       media:
         enabled: true
-        type: nfs
-        server: ${NFS_SERVER_MEDIA}
-        path: /volume1/media
+        existingClaim: sabnzbd-lordcommander
       logs:
         type: emptyDir
         globalMounts:
