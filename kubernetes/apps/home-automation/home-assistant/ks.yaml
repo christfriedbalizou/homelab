@@ -8,7 +8,6 @@ spec:
   components:
     - ../../../../components/zeroscaler
     - ../../../../components/ext-auth
-    - ../../../../components/protected-gatus
     - ../../../../components/persistence/jericho-nfs
   commonMetadata:
     labels:
@@ -24,8 +23,6 @@ spec:
         kind: Secret
     substitute:
       APP: home-assistant
-      GATUS_HOST: hass-code
-      GATUS_ROUTE: home-assistant-code-server
       JERICHO_PATH: /volume1/apps/home-automation
       ROUTE: home-assistant-code-server
   targetNamespace: home-automation

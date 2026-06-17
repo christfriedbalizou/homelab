@@ -7,7 +7,6 @@ metadata:
 spec:
   components:
     - ../../../../components/ext-auth
-    - ../../../../components/protected-gatus
   path: ./kubernetes/apps/home-automation/go2rtc/app
   sourceRef:
     kind: GitRepository

@@ -7,7 +7,6 @@ spec:
   components:
     - ../../../../components/zeroscaler
     - ../../../../components/ext-auth
-    - ../../../../components/protected-gatus
     - ../../../../components/persistence/jericho-nfs
     - ../../../../components/persistence/lordcommander-nfs
   commonMetadata:
@@ -34,6 +33,5 @@ spec:
         name: cluster-secrets
     substitute:
       APP: qbittorrent
-      GATUS_HOST: torrent
       JERICHO_PATH: /volume1/apps/media
       LORDCOMMANDER_PATH: /volume1/media

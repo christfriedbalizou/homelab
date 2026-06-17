@@ -6,7 +6,6 @@ metadata:
 spec:
   components:
     - ../../../../components/ext-auth
-    - ../../../../components/protected-gatus
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
