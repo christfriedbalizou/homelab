@@ -25,6 +25,8 @@ spec:
       retentionPeriod: 90d
       route:
         enabled: true
+        annotations:
+          gatus.home-operations.com/enabled: "false"
         hostnames:
           - "vlogs.${SECRET_DOMAIN}"
         parentRefs:
