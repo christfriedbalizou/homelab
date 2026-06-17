@@ -14,8 +14,9 @@ spec:
     headersToExtAuth:
       - X-Forwarded-For
       - X-Forwarded-Proto
-      - X-Forwarded-Uri
+      - X-Original-URL
       - X-Forwarded-Host
+      - X-Forwarded-Method
       - accept
       - authorization
       - cookie
