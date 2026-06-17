@@ -15,6 +15,7 @@ spec:
       - X-Forwarded-For
       - X-Forwarded-Proto
       - X-Forwarded-Uri
+      - X-Forwarded-Host
       - accept
       - authorization
       - cookie
