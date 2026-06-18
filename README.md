@@ -33,14 +33,30 @@ Most of my infrastructure and workloads are self-hosted, but I rely on the cloud
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/2699_fe0f/512.gif" alt="⚙" width="20" height="20"> Hardware
 
-| Device                  | Count | Memory    | Role                                                                            | Storage                               |
-|-------------------------|-------|-----------|---------------------------------------------------------------------------------|---------------------------------------|
-| PowerEdge R630          |   2   | 64GB DDR4 |   Talos/Kubernetes control-plane nodes (`k8s-6`, `k8s-7`)                       | ~1.1TiB ephemeral each (`/dev/sdb`)   |
-| OptiPlex 7050           |   1   | 16GB DDR4 |   Talos/Kubernetes control-plane and accelerator node (`k8s-3`)                 | ~236GiB ephemeral (`/dev/sda`)        |
-| NVIDIA GeForce RTX 3050 |   1   | 6GB GDDR6 |   GPU acceleration via Talos NVIDIA extensions and `nvidia.com/gpu.shared`      | N/A                                   |
-| Google Coral TPU        |   1   | N/A       |   Edge TPU acceleration via Talos gasket/apex and `squat.ai/coral`              | N/A                                   |
-| Synology DS423+         |   1   |  2GB DDR4 |   Apps NFS storage (`NFS_SERVER_APPS`)                                          | 36.6T usable   |
-| Synology RS2416RP+      |   1   |  2GB DDR4 |   Media NFS storage and backup (`NFS_SERVER_MEDIA`)                             | 69.8T usable  |
+### Compute
+
+- **PowerEdge R630** (2): Talos/Kubernetes control-plane nodes `k8s-6`
+  (`192.168.0.128`) and `k8s-7` (`192.168.0.126`), each with 64GB DDR4 and a
+  ~1.1TiB ephemeral install disk at `/dev/sdb`.
+- **OptiPlex 7050** (1): Talos/Kubernetes control-plane and accelerator node
+  `k8s-3` (`192.168.0.127`), with 16GB DDR4 and a ~236GiB ephemeral install
+  disk at `/dev/sda`.
+
+### Accelerators
+
+- **NVIDIA GeForce RTX 3050** (1): 6GB GDDR6 GPU exposed through the Talos
+  NVIDIA extensions and consumed in Kubernetes as `nvidia.com/gpu.shared`.
+- **Google Coral TPU** (1): USB Edge TPU exposed through the Talos
+  `gasket-driver` extension and consumed in Kubernetes as `squat.ai/coral`.
+- **Intel iGPU**: enabled on Talos nodes with the `i915`, `intel-ucode`, and
+  `mei` extensions for media and hardware acceleration workloads.
+
+### Storage
+
+- **Synology DS423+** (1): apps NFS storage through `NFS_SERVER_APPS`, with
+  36.6T usable capacity and 2GB DDR4.
+- **Synology RS2416RP+** (1): media NFS storage and backup through
+  `NFS_SERVER_MEDIA`, with 69.8T usable capacity and 2GB DDR4.
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Gratitude and Thanks
 
