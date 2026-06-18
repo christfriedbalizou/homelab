@@ -27,6 +27,7 @@ Most of my infrastructure and workloads are self-hosted, but I rely on the cloud
 |-------------------------------------------|----------------------------------------------------------------|----------------|
 | [Cloudflare](https://www.cloudflare.com/) | Domain and security                                            | Free           |
 | [GitHub](https://github.com/)             | Hosting this repository and continuous integration/deployments | Free           |
+| [GCP](https://cloud.google.com/)          | Voice interactions with Home Assistant over Google Assistant   | Free           |
 | [Purelymail](https://purelymail.com/)     | Email hosting                                                  | ~$10/yr        |
 |                                           |                                                                | Total: ~$1/mo  |
 
