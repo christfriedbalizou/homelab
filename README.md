@@ -35,11 +35,10 @@ Most of my infrastructure and workloads are self-hosted, but I rely on the cloud
 
 ### Compute
 
-- **PowerEdge R630** (2): Talos/Kubernetes control-plane nodes `k8s-6`
-  (`192.168.0.128`) and `k8s-7` (`192.168.0.126`), each with 64GB DDR4 and a
+- **PowerEdge R630** (2): Talos/Kubernetes control-plane nodes `k8s-6` and `k8s-7`, each with 64GB DDR4 and a
   ~1.1TiB ephemeral install disk at `/dev/sdb`.
 - **OptiPlex 7050** (1): Talos/Kubernetes control-plane and accelerator node
-  `k8s-3` (`192.168.0.127`), with 16GB DDR4 and a ~236GiB ephemeral install
+  `k8s-3`, with 16GB DDR4 and a ~236GiB ephemeral install
   disk at `/dev/sda`.
 
 ### Accelerators
