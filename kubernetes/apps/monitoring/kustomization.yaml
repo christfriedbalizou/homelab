@@ -10,6 +10,7 @@ resources:
   - ./grafana/ks.yaml
   - ./kube-prometheus-stack/ks.yaml
   - ./blackbox-exporter/ks.yaml
+  - ./snmp-exporter/ks.yaml
   - ./prometheus-adapter/ks.yaml
   - ./silence-operator/ks.yaml
   - ./smartctl-exporter/ks.yaml

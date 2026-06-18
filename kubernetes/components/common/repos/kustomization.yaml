@@ -15,12 +15,14 @@ resources:
   - ./k8s-gateway
   - ./kube-prometheus-stack
   - ./kubernetes-dashboard-charts
+  - ./kromgo
   - ./nextcloud
   - ./nvidia
   - ./node-feature-discovery
   - ./openebs
   - ./prometheus-adapter
   - ./silence-operator
+  - ./snmp-exporter
   - ./smartctl-exporter
   - ./spegel
   - ./tuppr

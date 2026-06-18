@@ -36,6 +36,7 @@ if __name__ == "__main__":
         "cluster_pod_count",
         "cluster_cpu_usage",
         "cluster_memory_usage",
+        "cluster_power_usage",
         "cluster_uptime_days",
         "talos_version",
         "kubernetes_version",
