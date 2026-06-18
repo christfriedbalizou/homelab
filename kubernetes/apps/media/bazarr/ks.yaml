@@ -7,7 +7,7 @@ spec:
   components:
     - ../../../../components/zeroscaler
     - ../../../../components/ext-auth
-    - ../../../../components/protected-gatus
+    - ../../../../components/gatus/protected
     - ../../../../components/persistence/jericho-nfs
     - ../../../../components/persistence/lordcommander-nfs
   commonMetadata:

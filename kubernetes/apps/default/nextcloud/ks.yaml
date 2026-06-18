@@ -7,7 +7,7 @@ metadata:
 spec:
   components:
     - ../../../../components/zeroscaler
-    - ../../../../components/protected-gatus
+    - ../../../../components/gatus/protected
     - ../../../../components/persistence/jericho-nfs
   commonMetadata:
     labels:
