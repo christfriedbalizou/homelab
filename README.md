@@ -53,10 +53,10 @@ Most of my infrastructure and workloads are self-hosted, but I rely on the cloud
 
 ### Storage
 
-- **Synology DS423+** (1): apps NFS storage through `NFS_SERVER_APPS`, with
+- **Synology DS423+** (1): apps NFS storage through `jericho`, with
   36.6T usable capacity and 2GB DDR4.
 - **Synology RS2416RP+** (1): media NFS storage and backup through
-  `NFS_SERVER_MEDIA`, with 69.8T usable capacity and 2GB DDR4.
+  `lordcommander`, with 69.8T usable capacity and 2GB DDR4.
 
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Gratitude and Thanks
 
