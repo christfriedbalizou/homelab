@@ -39,7 +39,7 @@ spec:
               TZ: ${TIMEZONE}
               DOTFILES_REPO_URL: https://github.com/christfriedbalizou/dotfiles.git
               # renovate: datasource=github-tags depName=christfriedbalizou/dotfiles
-              DOTFILES_VERSION: v1.0.5
+              DOTFILES_VERSION: v2.0.1
             command:
               - /usr/bin/env
               - python3
