@@ -58,6 +58,7 @@ spec:
               MISE_TRUSTED_CONFIG_PATHS: /home/coder/src/github.com/christfriedbalizou/dotfiles.git:/home/coder/src:/home/coder
               SHELL: /bin/bash
               TZ: ${TIMEZONE}
+              VSCODE_RECONNECTION_GRACE_TIME: "300000"
               VSCODE_PROXY_URI: 'https://vscode.${SECRET_DOMAIN}/proxy/{{ "{{port}}" }}/'
             probes:
               liveness:
