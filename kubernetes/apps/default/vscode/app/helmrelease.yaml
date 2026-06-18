@@ -31,7 +31,7 @@ spec:
           dotfiles:
             image: &vscodeImage
               repository: ghcr.io/christfriedbalizou/vscode
-              tag: 4.122.0@sha256:01175ca0fe67a702bdca52230321eb480ef6a6ed5579262b6628d38477ac6fba
+              tag: 4.122.0@sha256:65e3a275f0f45a66c2e689753a48848b22bc4d32fa043431a926e6f675e1d739
             env:
               HOME: /home/coder
               MISE_TRUSTED_CONFIG_PATHS: /home/coder/src/github.com/christfriedbalizou/dotfiles.git:/home/coder/src:/home/coder
