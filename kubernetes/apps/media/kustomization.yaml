@@ -21,3 +21,4 @@ resources:
   - ./tqm/ks.yaml
   - ./tdarr/ks.yaml
   - ./bazarr/ks.yaml
+  - ./deduparr/ks.yaml
