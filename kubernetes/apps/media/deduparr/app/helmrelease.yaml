@@ -34,7 +34,7 @@ spec:
               DEDUPARR_SERVICE__INTERVAL: 2m
               DEDUPARR_SERVICE__PORT: &port 80
               DEDUPARR_SONARR_SERIES_ENABLED: "true"
-              DEDUPARR_SONARR_SERIES_URL: http://sonarr.media.svc.cluster.local
+              DEDUPARR_SONARR_SERIES_URL: http://sonarr.media.svc.cluster.local:8989
               DEDUPARR_SONARR_SERIES_API_KEY:
                 valueFrom:
                   secretKeyRef:

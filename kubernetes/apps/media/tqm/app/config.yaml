@@ -12,9 +12,11 @@ filters:
   default:
     MapHardlinksFor:
       - retag
+      - clean
 
     remove:
       - IsUnregistered()
+      - State == "missingFiles" && Label in ["tv-sonarr", "radarr"]
       - (
           HasAnyTag(
             "site:ANT", "site:AR", "site:FL", "site:FNP", "site:IPT",
