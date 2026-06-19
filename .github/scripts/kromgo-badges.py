@@ -1,5 +1,6 @@
 import os
 import sys
+from datetime import UTC, datetime
 
 import requests
 import yaml
@@ -18,11 +19,12 @@ def build_kromgo_url(tag: str, base_url: str = secret_domain):
 
 
 def fetch_metric(tag: str):
-    response = requests.get(build_kromgo_url(tag))
+    response = requests.get(build_kromgo_url(tag), params={"format": "shields"})
     print(f"Downloaded metric {tag} with status: {response.status_code}", file=sys.stdout)
     response.raise_for_status()
 
     metric_data = response.json()
+    metric_data["pulledAt"] = datetime.now(UTC).isoformat(timespec="seconds")
     print(f"Metric {tag} payload: {metric_data}", file=sys.stdout)
     return metric_data
 
