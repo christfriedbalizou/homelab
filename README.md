@@ -58,6 +58,10 @@ Most of my infrastructure and workloads are self-hosted, but I rely on the cloud
 - **Synology RS2416RP+** (1): media NFS storage and backup through
   `lordcommander`, with 69.8T usable capacity and 2GB DDR4.
 
+### Power
+
+**APC SMT1500RMI2UNC**: Smart-UPS 1500VA rackmount 2U, 230V
+
 ## <img src="https://fonts.gstatic.com/s/e/notoemoji/latest/1f64f/512.gif" alt="🙏" width="20" height="20"> Gratitude and Thanks
 
 I learned a lot from the people who have shared their clusters over from
