@@ -10,6 +10,7 @@ resources:
   - ./descheduler
   - ./envoy-gateway
   - ./cloudflare-dns
+  - ./forgejo
   - ./grafana-operator
   - ./intel-gpu-resource-driver
   - ./k8s-gateway

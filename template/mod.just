@@ -80,9 +80,7 @@ validate-rendered-sops-secrets:
         "{{ bootstrap_dir }}" \
         "{{ kubernetes_dir }}" \
         "{{ talos_dir }}" \
-        --exclude "{{ template_dir }}" \
-        --allow-empty-key smtp-username \
-        --allow-empty-key smtp-password
+        --exclude "{{ template_dir }}"
 
 [private]
 [script]

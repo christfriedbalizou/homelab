@@ -9,6 +9,11 @@ from typing import Any, Iterable, Iterator
 import yaml
 
 SOPS_SUFFIXES = (".sops.yaml", ".sops.yml")
+DEFAULT_ALLOWED_EMPTY_KEYS = {
+    "stringData.FORGEJO__STORAGE__MINIO_LOCATION",
+    "stringData.smtp-password",
+    "stringData.smtp-username",
+}
 
 
 @dataclass(frozen=True)
@@ -160,7 +165,7 @@ def validate_file(
 def main() -> int:
     args = parse_args()
     excluded = resolve_paths(args.exclude)
-    allowed_empty_keys = set(args.allow_empty_key)
+    allowed_empty_keys = DEFAULT_ALLOWED_EMPTY_KEYS | set(args.allow_empty_key)
 
     print("=== Validating rendered SOPS secrets ===")
 

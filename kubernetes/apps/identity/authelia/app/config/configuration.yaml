@@ -316,6 +316,25 @@ identity_providers:
         redirect_uris:
           - "http://localhost:3000/auth/callback"
         userinfo_signed_response_alg: none
+      - client_id: forgejo
+        client_name: Forgejo
+        client_secret: "${FORGEJO_OIDC_CLIENT_SECRET_PBKDF2}"
+        public: false
+        authorization_policy: two_factor
+        pre_configured_consent_duration: 1y
+        scopes:
+          - "openid"
+          - "profile"
+          - "groups"
+          - "email"
+        redirect_uris:
+          - https://git.${SECRET_DOMAIN}/user/oauth2/authelia/callback
+          - https://forgejo.${SECRET_DOMAIN}/user/oauth2/authelia/callback
+        response_types:
+          - "code"
+        grant_types:
+          - "authorization_code"
+        userinfo_signed_response_alg: none
       - client_id: nextcloud
         client_name: Nextcloud
         client_secret: '${NEXTCLOUD_OIDC_CLIENT_SECRET_PBKDF2}'
