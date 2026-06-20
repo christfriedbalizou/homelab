@@ -82,6 +82,25 @@ spec:
         rules:
           - matches:
               - path:
+                  type: Exact
+                  value: /
+            filters: &redirect
+              - type: RequestRedirect
+                requestRedirect:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /auth
+                  statusCode: 302
+          - matches:
+              - path:
+                  type: Exact
+                  value: /explore
+              - path:
+                  type: PathPrefix
+                  value: /explore/
+            filters: *redirect
+          - matches:
+              - path:
                   type: PathPrefix
                   value: /
             backendRefs:
