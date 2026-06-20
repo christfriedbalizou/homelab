@@ -75,7 +75,7 @@ spec:
           app:
             image:
               repository: netbirdio/relay
-              tag: v0.73.0
+              tag: 0.73.1
             env:
               NB_EXPOSED_ADDRESS: netbird.${SECRET_DOMAIN}:443/relay
               NB_LISTEN_PORT: ':443'
