@@ -162,6 +162,15 @@ spec:
           ROOT: /data/git/repositories
         repository.pull-request:
           DEFAULT_MERGE_STYLE: rebase
+        repository.signing:
+          FORMAT: ssh
+          SIGNING_KEY: /data/git/.ssh-signing/key.pub
+          SIGNING_NAME: Forgejo
+          SIGNING_EMAIL: "noreply@${SECRET_DOMAIN}"
+          INITIAL_COMMIT: always
+          WIKI: pubkey,twofa,parentsigned
+          CRUD_ACTIONS: pubkey,twofa,parentsigned
+          MERGES: pubkey,twofa,basesigned,headsigned,commitssigned,approved
         security:
           INSTALL_LOCK: true
           REVERSE_PROXY_TRUSTED_PROXIES: "${K8S_CLUSTER_CIDR},${K8S_SERVICE_CIDR}"
@@ -224,5 +233,15 @@ spec:
     service:
       ssh:
         port: *sshPort
+    signing:
+      enabled: true
+      ssh:
+        existingSecret: *secret
+    tcpRoute:
+      enabled: true
+      parentRefs:
+        - name: envoy-external
+          namespace: networking
+          sectionName: ssh
     valkey-cluster:
       enabled: false
