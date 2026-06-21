@@ -1,5 +1,0 @@
-ENABLED=true
-FROM=Forgejo <noreply@${SECRET_DOMAIN}>
-PROTOCOL=smtp
-SMTP_ADDR=smtp-relay.networking.svc.cluster.local
-SMTP_PORT=${SMTP_RELAY_PORT}

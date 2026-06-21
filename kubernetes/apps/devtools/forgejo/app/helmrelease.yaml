@@ -9,6 +9,10 @@ spec:
   chartRef:
     kind: OCIRepository
     name: forgejo
+  valuesFrom:
+    - kind: ConfigMap
+      name: forgejo-config
+      valuesKey: gitea.yaml
   dependsOn:
     - name: cloudnative-pg
       namespace: storage
@@ -59,78 +63,6 @@ spec:
                         secretKeyRef:
                           name: *secret
                           key: FORGEJO_POSTGRES_PASS
-    gitea:
-      admin:
-        username: ""
-      additionalConfigFromEnvs:
-        - name: FORGEJO__DATABASE__USER
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__DATABASE__USER
-        - name: FORGEJO__DATABASE__PASSWD
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__DATABASE__PASSWD
-        - name: FORGEJO__SECURITY__INTERNAL_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__SECURITY__INTERNAL_TOKEN
-        - name: FORGEJO__SECURITY__SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__SECURITY__SECRET_KEY
-        - name: FORGEJO__SERVER__LFS_JWT_SECRET
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__SERVER__LFS_JWT_SECRET
-        - name: FORGEJO__STORAGE__MINIO_ENDPOINT
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__STORAGE__MINIO_ENDPOINT
-        - name: FORGEJO__STORAGE__MINIO_ACCESS_KEY_ID
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__STORAGE__MINIO_ACCESS_KEY_ID
-        - name: FORGEJO__STORAGE__MINIO_SECRET_ACCESS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__STORAGE__MINIO_SECRET_ACCESS_KEY
-        - name: FORGEJO__STORAGE__MINIO_BUCKET
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__STORAGE__MINIO_BUCKET
-        - name: FORGEJO__STORAGE__MINIO_LOCATION
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__STORAGE__MINIO_LOCATION
-        - name: FORGEJO__STORAGE__MINIO_USE_SSL
-          valueFrom:
-            secretKeyRef:
-              name: *secret
-              key: FORGEJO__STORAGE__MINIO_USE_SSL
-      additionalConfigSources:
-        - configMap:
-            name: forgejo-config
-      oauth:
-        - name: authelia
-          adminGroup: admin
-          autoDiscoverUrl: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
-          existingSecret: *secret
-          groupClaimName: groups
-          provider: openidConnect
-          requiredClaimName: groups
-          requiredClaimValue: "${FORGEJO_OIDC_REQUIRED_GROUP}"
-          scopes: profile email groups
     image:
       digest: sha256:e7a59d193ad5e8bde19cffc68f26ee00e77a5b0014e95433eed5038f0c3888da
       rootless: true

@@ -1,4 +1,0 @@
-ENABLED=true
-RUN_AT_START=true
-SCHEDULE=@every 1h
-OLDER_THAN=2h

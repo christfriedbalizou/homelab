@@ -1,3 +1,0 @@
-ENABLE_AUTO_REGISTRATION=true
-OPENID_CONNECT_SCOPES=profile email groups
-USERNAME=nickname

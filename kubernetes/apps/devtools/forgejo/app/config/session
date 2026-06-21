@@ -1,3 +1,0 @@
-PROVIDER=redis
-PROVIDER_CONFIG=redis://dragonfly.storage.svc.cluster.local:6379/6?pool_size=100&idle_timeout=180s
-SESSION_LIFE_TIME=1209600
