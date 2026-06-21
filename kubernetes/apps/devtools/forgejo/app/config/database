@@ -1,0 +1,3 @@
+DB_TYPE=postgres
+HOST=postgres-lb.storage.svc.cluster.local:5432
+NAME=forgejo

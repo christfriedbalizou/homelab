@@ -1,0 +1,2 @@
+TYPE=redis
+CONN_STR=redis://dragonfly.storage.svc.cluster.local:6379/7?pool_size=100&idle_timeout=180s

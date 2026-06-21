@@ -7,3 +7,27 @@ resources:
   - ./helmrelease.yaml
   - ./httproute.yaml
   - ./secret.sops.yaml
+configMapGenerator:
+  - name: forgejo-config
+    files:
+      - ./config/actions
+      - ./config/cache
+      - ./config/cron.archive_cleanup
+      - ./config/database
+      - ./config/indexer
+      - ./config/mailer
+      - ./config/oauth2_client
+      - ./config/openid
+      - ./config/queue
+      - ./config/repository
+      - ./config/repository.pull-request
+      - ./config/repository.signing
+      - ./config/security
+      - ./config/server
+      - ./config/service
+      - ./config/service.explore
+      - ./config/session
+      - ./config/storage
+      - ./config/webhook
+generatorOptions:
+  disableNameSuffixHash: true

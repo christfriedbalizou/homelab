@@ -1,0 +1,3 @@
+ENABLED=true
+ADAPTER=redis
+HOST=redis://dragonfly.storage.svc.cluster.local:6379/5?pool_size=100&idle_timeout=180s

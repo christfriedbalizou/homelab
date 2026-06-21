@@ -1,0 +1,5 @@
+DEFAULT_PRIVATE=private
+DEFAULT_PUSH_CREATE_PRIVATE=true
+DEFAULT_REPO_UNITS=repo.code,repo.releases,repo.issues,repo.pulls,repo.actions
+DISABLED_REPO_UNITS=repo.ext_wiki,repo.ext_issues
+ROOT=/data/git/repositories
