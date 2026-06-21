@@ -2,67 +2,67 @@ metrics:
   cluster_age_days:
     schemaVersion: 1
     label: Age
-    message: 39d
+    message: 40d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-20T18:27:01+00:00'
+    pulledAt: '2026-06-21T00:35:50+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-20T18:27:01+00:00'
+    pulledAt: '2026-06-21T00:35:50+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '155'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-20T18:27:02+00:00'
+    pulledAt: '2026-06-21T00:35:51+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 11.2%
+    message: 8.6%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-20T18:27:02+00:00'
+    pulledAt: '2026-06-21T00:35:51+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 23.2%
+    message: 23.3%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-20T18:27:03+00:00'
+    pulledAt: '2026-06-21T00:35:51+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Power
-    message: 422w
+    message: 409w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-06-20T18:27:03+00:00'
+    pulledAt: '2026-06-21T00:35:51+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
-    message: 1d
+    message: 2d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-20T18:27:03+00:00'
+    pulledAt: '2026-06-21T00:35:51+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.13.4
     cacheSeconds: 300
-    pulledAt: '2026-06-20T18:27:03+00:00'
+    pulledAt: '2026-06-21T00:35:52+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.35.0
     cacheSeconds: 300
-    pulledAt: '2026-06-20T18:27:04+00:00'
+    pulledAt: '2026-06-21T00:35:52+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.8.8
     cacheSeconds: 300
-    pulledAt: '2026-06-20T18:27:04+00:00'
+    pulledAt: '2026-06-21T00:35:52+00:00'
