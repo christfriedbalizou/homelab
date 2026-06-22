@@ -8,7 +8,13 @@ spec:
   from:
     - group: gateway.envoyproxy.io
       kind: SecurityPolicy
+      namespace: ai
+    - group: gateway.envoyproxy.io
+      kind: SecurityPolicy
       namespace: default
+    - group: gateway.envoyproxy.io
+      kind: securitypolicy
+      namespace: devtools
     - group: gateway.envoyproxy.io
       kind: SecurityPolicy
       namespace: flux-system
