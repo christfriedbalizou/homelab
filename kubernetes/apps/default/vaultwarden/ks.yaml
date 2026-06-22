@@ -22,7 +22,7 @@ spec:
         kind: Secret
     substitute:
       APP: vaultwarden
-      JERICHO_PATH: /volume1/apps/identity
+      JERICHO_PATH: /volume1/apps/default
       MAX_REPLICAS: "2"
   targetNamespace: default
   prune: true
