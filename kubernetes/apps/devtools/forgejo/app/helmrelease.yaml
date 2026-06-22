@@ -75,7 +75,7 @@ spec:
       - name: signing-key
         secret:
           secretName: *secret
-          defaultMode: 0400
+          defaultMode: 0440
           items:
             - key: ed25519
               path: ed25519
@@ -96,6 +96,9 @@ spec:
       enabled: false
     postgresql-ha:
       enabled: false
+    podSecurityContext:
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
     redis-cluster:
       enabled: false
     service:
