@@ -116,9 +116,9 @@ gitea:
       REVERSE_PROXY_TRUSTED_PROXIES: "${K8S_CLUSTER_CIDR},${K8S_SERVICE_CIDR}"
     server:
       APP_DATA_PATH: /data/gitea
-      DOMAIN: git.${SECRET_DOMAIN}
+      DOMAIN: forgejo.${SECRET_DOMAIN}
       LFS_START_SERVER: true
-      ROOT_URL: https://git.${SECRET_DOMAIN}/
+      ROOT_URL: https://forgejo.${SECRET_DOMAIN}/
       SSH_DOMAIN: git.${SECRET_DOMAIN}
       SSH_PORT: 22
     service:

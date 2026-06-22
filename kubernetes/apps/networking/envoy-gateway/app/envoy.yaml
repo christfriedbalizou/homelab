@@ -80,7 +80,7 @@ spec:
         certificateRefs:
           - kind: Secret
             name: "${SECRET_DOMAIN/./-}-production-tls"
-    - name: ssh
+    - name: git
       protocol: TCP
       port: 22
       allowedRoutes:

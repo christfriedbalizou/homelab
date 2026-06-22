@@ -11,7 +11,7 @@ spec:
       sectionName: https
   hostnames:
     # yaml-language-server-disable
-    - git.${SECRET_DOMAIN}
+    - github.${SECRET_DOMAIN}
     # yaml-language-server-disable
     - forgejo.${SECRET_DOMAIN}
   rules:

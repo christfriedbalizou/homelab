@@ -109,6 +109,6 @@ spec:
       parentRefs:
         - name: envoy-external
           namespace: networking
-          sectionName: ssh
+          sectionName: git
     valkey-cluster:
       enabled: false
