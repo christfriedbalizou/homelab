@@ -29,10 +29,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    containerSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      runAsNonRoot: true
     extraDeploy:
       - apiVersion: batch/v1
         kind: Job
@@ -67,6 +63,12 @@ spec:
                         secretKeyRef:
                           name: *secret
                           key: FORGEJO_POSTGRES_PASS
+    extraVolumes:
+      - name: ssh-signing
+        emptyDir: {}
+    extraVolumeMounts:
+      - name: ssh-signing
+        mountPath: /data/git/.ssh-signing
     image:
       digest: sha256:e7a59d193ad5e8bde19cffc68f26ee00e77a5b0014e95433eed5038f0c3888da
       rootless: true
