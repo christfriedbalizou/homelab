@@ -5,64 +5,64 @@ metrics:
     message: 41d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-22T07:53:38+00:00'
+    pulledAt: '2026-06-22T13:49:28+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-22T07:53:38+00:00'
+    pulledAt: '2026-06-22T13:49:29+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
-    message: '155'
+    message: '157'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-22T07:53:38+00:00'
+    pulledAt: '2026-06-22T13:49:29+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 8.4%
+    message: 8.8%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-22T07:53:39+00:00'
+    pulledAt: '2026-06-22T13:49:29+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
     message: 23.8%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-22T07:53:39+00:00'
+    pulledAt: '2026-06-22T13:49:30+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Power
-    message: 422w
+    message: 409w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-06-22T07:53:39+00:00'
+    pulledAt: '2026-06-22T13:49:30+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
     message: 3d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-22T07:53:39+00:00'
+    pulledAt: '2026-06-22T13:49:30+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.13.4
     cacheSeconds: 300
-    pulledAt: '2026-06-22T07:53:39+00:00'
+    pulledAt: '2026-06-22T13:49:30+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.35.0
     cacheSeconds: 300
-    pulledAt: '2026-06-22T07:53:39+00:00'
+    pulledAt: '2026-06-22T13:49:31+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.8.8
     cacheSeconds: 300
-    pulledAt: '2026-06-22T07:53:40+00:00'
+    pulledAt: '2026-06-22T13:49:31+00:00'
