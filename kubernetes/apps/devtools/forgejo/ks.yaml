@@ -54,7 +54,7 @@ metadata:
 spec:
   dependsOn:
     - name: forgejo
-      namespace: flux-system
+      namespace: devtools
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

@@ -29,6 +29,10 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    containerSecurityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      runAsNonRoot: true
     extraDeploy:
       - apiVersion: batch/v1
         kind: Job
