@@ -63,12 +63,22 @@ spec:
                         secretKeyRef:
                           name: *secret
                           key: FORGEJO_POSTGRES_PASS
+    extraContainerVolumeMounts:
+      - name: signing-key
+        mountPath: /data/signing
+        readOnly: true
+    extraInitVolumeMounts:
+      - name: signing-key
+        mountPath: /data/signing
+        readOnly: true
     extraVolumes:
-      - name: ssh-signing
-        emptyDir: {}
-    extraVolumeMounts:
-      - name: ssh-signing
-        mountPath: /data/git/.ssh-signing
+      - name: signing-key
+        secret:
+          secretName: *secret
+          defaultMode: 0400
+          items:
+            - key: privateKey
+              path: privateKey
     image:
       digest: sha256:e7a59d193ad5e8bde19cffc68f26ee00e77a5b0014e95433eed5038f0c3888da
       rootless: true
@@ -89,10 +99,6 @@ spec:
     service:
       ssh:
         port: 22
-    signing:
-      enabled: true
-      ssh:
-        existingSecret: *secret
     tcpRoute:
       enabled: true
       parentRefs:

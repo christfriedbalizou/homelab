@@ -104,7 +104,7 @@ gitea:
       DEFAULT_MERGE_STYLE: rebase
     repository.signing:
       FORMAT: ssh
-      SIGNING_KEY: /data/git/.ssh-signing/key.pub
+      SIGNING_KEY: /data/signing/privateKey
       SIGNING_NAME: Forgejo
       SIGNING_EMAIL: "noreply@${SECRET_DOMAIN}"
       INITIAL_COMMIT: always
