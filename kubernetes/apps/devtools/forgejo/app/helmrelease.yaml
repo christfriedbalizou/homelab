@@ -101,14 +101,7 @@ spec:
       fsGroupChangePolicy: OnRootMismatch
     redis-cluster:
       enabled: false
-    service:
-      ssh:
-        port: 22
     tcpRoute:
-      enabled: true
-      parentRefs:
-        - name: envoy-external
-          namespace: networking
-          sectionName: git
+      enabled: false
     valkey-cluster:
       enabled: false

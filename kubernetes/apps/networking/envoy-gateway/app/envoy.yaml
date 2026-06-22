@@ -80,17 +80,6 @@ spec:
         certificateRefs:
           - kind: Secret
             name: "${SECRET_DOMAIN/./-}-production-tls"
-    - name: git
-      protocol: TCP
-      port: 22
-      allowedRoutes:
-        kinds:
-          - kind: TCPRoute
-        namespaces:
-          from: Selector
-          selector:
-            matchLabels:
-              kubernetes.io/metadata.name: devtools
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/gateway.networking.k8s.io/gateway_v1.json
 apiVersion: gateway.networking.k8s.io/v1

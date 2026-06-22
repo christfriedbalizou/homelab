@@ -5,9 +5,6 @@ ingress:
       originServerName: ${SECRET_DOMAIN}
     service: &svc https://envoy-external.networking.svc.cluster.local:443
 
-  - hostname: "git.${SECRET_DOMAIN}"
-    service: tcp://envoy-external.networking.svc.cluster.local:22
-
   - hostname: "*.${SECRET_DOMAIN}"
     originRequest:
       originServerName: ipv4.${SECRET_DOMAIN}
