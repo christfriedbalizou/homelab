@@ -77,8 +77,10 @@ spec:
           secretName: *secret
           defaultMode: 0400
           items:
-            - key: privateKey
-              path: privateKey
+            - key: ed25519
+              path: ed25519
+            - key: ed25519.pub
+              path: ed25519.pub
     image:
       digest: sha256:e7a59d193ad5e8bde19cffc68f26ee00e77a5b0014e95433eed5038f0c3888da
       rootless: true
