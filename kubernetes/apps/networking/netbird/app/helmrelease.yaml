@@ -104,7 +104,7 @@ spec:
           app:
             image:
               repository: netbirdio/signal
-              tag: 0.73.1
+              tag: 0.73.2
             args:
               - '--port=80'
               - '--log-file=console'
