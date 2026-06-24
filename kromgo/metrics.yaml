@@ -2,67 +2,67 @@ metrics:
   cluster_age_days:
     schemaVersion: 1
     label: Age
-    message: 42d
+    message: 43d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-23T18:37:56+00:00'
+    pulledAt: '2026-06-24T00:28:16+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-23T18:37:57+00:00'
+    pulledAt: '2026-06-24T00:28:17+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '157'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-23T18:37:57+00:00'
+    pulledAt: '2026-06-24T00:28:17+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 19.7%
+    message: 15.4%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-23T18:37:57+00:00'
+    pulledAt: '2026-06-24T00:28:17+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 24.9%
+    message: 24.8%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-23T18:37:57+00:00'
+    pulledAt: '2026-06-24T00:28:18+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Power
-    message: 461w
+    message: 429w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-06-23T18:37:58+00:00'
+    pulledAt: '2026-06-24T00:28:18+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
     message: 0d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-06-23T18:37:58+00:00'
+    pulledAt: '2026-06-24T00:28:18+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.13.5
     cacheSeconds: 300
-    pulledAt: '2026-06-23T18:37:58+00:00'
+    pulledAt: '2026-06-24T00:28:18+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.35.0
     cacheSeconds: 300
-    pulledAt: '2026-06-23T18:37:59+00:00'
+    pulledAt: '2026-06-24T00:28:19+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.8.8
     cacheSeconds: 300
-    pulledAt: '2026-06-23T18:37:59+00:00'
+    pulledAt: '2026-06-24T00:28:19+00:00'
