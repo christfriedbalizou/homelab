@@ -84,6 +84,8 @@ gitea:
       PROTOCOL: smtp
       SMTP_ADDR: smtp-relay.networking.svc.cluster.local
       SMTP_PORT: "${SMTP_RELAY_PORT}"
+    metrics:
+      ENABLED: true
     oauth2_client:
       ENABLE_AUTO_REGISTRATION: true
       OPENID_CONNECT_SCOPES: profile email groups
@@ -152,3 +154,7 @@ gitea:
       requiredClaimName: groups
       requiredClaimValue: "${FORGEJO_OIDC_REQUIRED_GROUP}"
       scopes: profile email groups
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true

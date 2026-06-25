@@ -5,3 +5,4 @@ namespace: devtools
 resources:
   - ./secret.sops.yaml
   - ./helmrelease.yaml
+  - ./grafanadashboard.yaml

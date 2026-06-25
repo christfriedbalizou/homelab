@@ -74,6 +74,9 @@ spec:
 
               # Endpoints
               N8N_METRICS: true
+              N8N_METRICS_INCLUDE_FORM_METRICS: true
+              N8N_METRICS_INCLUDE_WEBHOOK_METRICS: true
+              N8N_METRICS_INCLUDE_WORKFLOW_INFO: true
 
               # Database
               DB_TYPE: postgresdb
@@ -106,6 +109,16 @@ spec:
         ports:
           http:
             port: *port
+    serviceMonitor:
+      app:
+        enabled: true
+        serviceName: n8n
+        endpoints:
+          - port: http
+            scheme: http
+            path: /metrics
+            interval: 1m
+            scrapeTimeout: 10s
     route:
       app:
         hostnames:

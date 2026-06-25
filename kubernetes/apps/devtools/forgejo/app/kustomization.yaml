@@ -5,11 +5,15 @@ kind: Kustomization
 namespace: devtools
 resources:
   - ./helmrelease.yaml
+  - ./grafanadashboard.yaml
   - ./httproute.yaml
   - ./secret.sops.yaml
 configMapGenerator:
   - name: forgejo-config
     files:
       - gitea.yaml=./config/gitea.yaml
+  - name: forgejo-dashboard
+    files:
+      - forgejo.json=./config/forgejo-dashboard.json
 generatorOptions:
   disableNameSuffixHash: true
