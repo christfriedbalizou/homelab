@@ -134,9 +134,6 @@ spec:
             - name: sonarr
               url: "https://sonarr.${SECRET_DOMAIN}"
               icon: "mdi:television-classic"
-            - name: tdarr
-              url: "https://tdarr.${SECRET_DOMAIN}"
-              icon: "file-icons:adobe-mediaencoder"
         - group: Monitoring
           apps:
             - name: Alertmanager
