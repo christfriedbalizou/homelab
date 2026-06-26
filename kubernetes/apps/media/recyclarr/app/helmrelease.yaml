@@ -22,30 +22,46 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      recyclarr:
         type: cronjob
-        annotations:
-          reloader.stakater.com/auto: "true"
         cronjob:
           schedule: "@daily"
-          ttlSecondsAfterFinished: 86400
+          successfulJobsHistory: 1
+          failedJobsHistory: 1
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/recyclarr/recyclarr
-              tag: 8.6.0
-            command:
-              - /app/recyclarr/recyclarr
+              tag: 8.6.0@sha256:3c38ceeb54438dd8327e4e65c9b48ba601a6d20fff833342d93c9b0bc4b1930b
+            env:
+              COMPlus_EnableDiagnostics: "0"
             args:
               - sync
             envFrom:
               - secretRef:
                   name: cluster-media-secrets
-        pod:
-          restartPolicy: OnFailure
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: {drop: ["ALL"]}
+            resources:
+              requests:
+                cpu: 10m
+                memory: 100M
+              limits:
+                memory: 200M
     service:
       main:
-        controller: main
+        controller: recyclarr
         enabled: false
     persistence:
       config:
