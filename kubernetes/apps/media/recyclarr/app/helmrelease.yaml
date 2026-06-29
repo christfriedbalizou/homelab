@@ -64,7 +64,7 @@ spec:
         controller: recyclarr
         enabled: false
     persistence:
-      config:
+      recyclarr:
         enabled: true
         type: configMap
         name: recyclarr-configmap
@@ -72,13 +72,9 @@ spec:
           - path: /config/recyclarr.yml
             subPath: recyclarr.yaml
             readOnly: true
-      state:
+      config:
         enabled: true
         existingClaim: recyclarr-jericho
         globalMounts:
-          - path: /config/state
-            subPath: recyclarr/state
-      logs:
-        type: emptyDir
-        globalMounts:
-          - path: /config/logs
+          - path: /config
+            subPath: recyclarr
