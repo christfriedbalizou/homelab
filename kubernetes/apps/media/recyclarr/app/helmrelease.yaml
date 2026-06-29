@@ -78,3 +78,7 @@ spec:
         globalMounts:
           - path: /config/state
             subPath: recyclarr/state
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/logs
