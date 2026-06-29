@@ -72,3 +72,9 @@ spec:
           - path: /config/recyclarr.yml
             subPath: recyclarr.yaml
             readOnly: true
+      state:
+        enabled: true
+        existingClaim: recyclarr-jericho
+        globalMounts:
+          - path: /config/state
+            subPath: recyclarr/state
