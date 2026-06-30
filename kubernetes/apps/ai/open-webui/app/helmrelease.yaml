@@ -82,6 +82,7 @@ spec:
               WEBUI_NAME: Private AI
               WEBUI_URL: https://ai.${SECRET_DOMAIN}
               WEBSOCKET_MANAGER: redis
+              WEBSOCKET_REDIS_OPTIONS: '{"socket_timeout": null}'
             envFrom:
               - secretRef:
                   name: cluster-open-webui-secrets
