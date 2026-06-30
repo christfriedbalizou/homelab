@@ -46,7 +46,7 @@ spec:
               COMPlus_EnableDiagnostics: "0"
               GIT_CONFIG_COUNT: "1"
               GIT_CONFIG_KEY_0: safe.directory
-              GIT_CONFIG_VALUE_0: /config/resources/trash-guides/git/official
+              GIT_CONFIG_VALUE_0: /config/resources/*
             args:
               - sync
             envFrom:
