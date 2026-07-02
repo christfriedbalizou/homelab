@@ -2,67 +2,67 @@ metrics:
   cluster_age_days:
     schemaVersion: 1
     label: Age
-    message: 50d
+    message: 51d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-01T18:36:14+00:00'
+    pulledAt: '2026-07-02T00:32:28+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-01T18:36:14+00:00'
+    pulledAt: '2026-07-02T00:32:29+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '156'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-01T18:36:14+00:00'
+    pulledAt: '2026-07-02T00:32:29+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 19.5%
+    message: 19%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-01T18:36:15+00:00'
+    pulledAt: '2026-07-02T00:32:29+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 29.7%
+    message: 30.4%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-01T18:36:15+00:00'
+    pulledAt: '2026-07-02T00:32:30+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Power
     message: 429w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-07-01T18:36:15+00:00'
+    pulledAt: '2026-07-02T00:32:30+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
     message: 8d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-01T18:36:16+00:00'
+    pulledAt: '2026-07-02T00:32:30+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.13.5
     cacheSeconds: 300
-    pulledAt: '2026-07-01T18:36:16+00:00'
+    pulledAt: '2026-07-02T00:32:30+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.35.0
     cacheSeconds: 300
-    pulledAt: '2026-07-01T18:36:16+00:00'
+    pulledAt: '2026-07-02T00:32:31+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.0
     cacheSeconds: 300
-    pulledAt: '2026-07-01T18:36:17+00:00'
+    pulledAt: '2026-07-02T00:32:31+00:00'
