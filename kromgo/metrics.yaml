@@ -5,64 +5,64 @@ metrics:
     message: 54d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-05T07:03:14+00:00'
+    pulledAt: '2026-07-05T12:25:52+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-05T07:03:15+00:00'
+    pulledAt: '2026-07-05T12:25:52+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '156'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-05T07:03:15+00:00'
+    pulledAt: '2026-07-05T12:25:53+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 17.8%
+    message: 20.6%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-05T07:03:15+00:00'
+    pulledAt: '2026-07-05T12:25:53+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 32.8%
+    message: 31.8%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-05T07:03:15+00:00'
+    pulledAt: '2026-07-05T12:25:53+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Power
-    message: 500w
+    message: 435w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-07-05T07:03:16+00:00'
+    pulledAt: '2026-07-05T12:25:54+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
     message: 12d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-05T07:03:16+00:00'
+    pulledAt: '2026-07-05T12:25:54+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.13.5
     cacheSeconds: 300
-    pulledAt: '2026-07-05T07:03:16+00:00'
+    pulledAt: '2026-07-05T12:25:54+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.35.0
     cacheSeconds: 300
-    pulledAt: '2026-07-05T07:03:16+00:00'
+    pulledAt: '2026-07-05T12:25:55+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.0
     cacheSeconds: 300
-    pulledAt: '2026-07-05T07:03:17+00:00'
+    pulledAt: '2026-07-05T12:25:55+00:00'
