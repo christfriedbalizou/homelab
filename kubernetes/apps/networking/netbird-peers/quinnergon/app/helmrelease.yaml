@@ -39,7 +39,7 @@ spec:
           app:
             image:
               repository: netbirdio/netbird
-              tag: 0.74.2@sha256:a8305c12229c45a09fa65254408fd3ee43da2e61987a4dbcd9b8e2a9fea92931
+              tag: 0.74.3@sha256:07a8bf0773411d2b779447b2b6ab06f4fc300a9f2cf7013deec614e4ff8cf27d
             env:
               NB_MANAGEMENT_URL: https://netbird.${SECRET_DOMAIN}:443
               NB_HOSTNAME: quinnergon
