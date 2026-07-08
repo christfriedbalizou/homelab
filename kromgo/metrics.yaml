@@ -5,64 +5,64 @@ metrics:
     message: 57d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-08T00:24:00+00:00'
+    pulledAt: '2026-07-08T06:47:18+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-08T00:24:01+00:00'
+    pulledAt: '2026-07-08T06:47:19+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '156'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-08T00:24:01+00:00'
+    pulledAt: '2026-07-08T06:47:19+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 16%
+    message: 13.8%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-08T00:24:01+00:00'
+    pulledAt: '2026-07-08T06:47:20+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 32.4%
+    message: 32.6%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-08T00:24:01+00:00'
+    pulledAt: '2026-07-08T06:47:20+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Power
-    message: 442w
+    message: 429w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-07-08T00:24:02+00:00'
+    pulledAt: '2026-07-08T06:47:20+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
-    message: 14d
+    message: 15d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-08T00:24:02+00:00'
+    pulledAt: '2026-07-08T06:47:21+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.13.5
     cacheSeconds: 300
-    pulledAt: '2026-07-08T00:24:02+00:00'
+    pulledAt: '2026-07-08T06:47:21+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.35.0
     cacheSeconds: 300
-    pulledAt: '2026-07-08T00:24:02+00:00'
+    pulledAt: '2026-07-08T06:47:21+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.1
     cacheSeconds: 300
-    pulledAt: '2026-07-08T00:24:03+00:00'
+    pulledAt: '2026-07-08T06:47:21+00:00'
