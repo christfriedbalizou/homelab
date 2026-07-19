@@ -14,6 +14,29 @@ spec:
       frigate:
         annotations:
           configmap.reloader.stakater.com/reload: frigate-config
+        initContainers:
+          model-cache:
+            image:
+              repository: ghcr.io/blakeblackshear/frigate
+              tag: 0.17.2@sha256:d4351369984d4a9e2a49ac59736f6490856a7ea11f7790040746d21496967010
+            command:
+              - python3
+              - -c
+            args:
+              - |
+                from pathlib import Path
+                from urllib.request import urlretrieve
+
+                model_dir = Path("/config/model_cache/facedet")
+                model_dir.mkdir(parents=True, exist_ok=True)
+                base_url = "https://github.com/NickM-27/facenet-onnx/releases/download/v1.0"
+                for filename in ("facedet.onnx", "landmarkdet.yaml", "facenet.tflite"):
+                    target = model_dir / filename
+                    if target.is_file() and target.stat().st_size > 0:
+                        continue
+                    partial = target.with_suffix(f"{target.suffix}.part")
+                    urlretrieve(f"{base_url}/{filename}", partial)
+                    partial.replace(target)
         pod:
           runtimeClassName: nvidia
         containers:
@@ -81,6 +104,11 @@ spec:
           - path: /config/config.yml
             subPath: config.yml
             readOnly: true
+      model-cache:
+        type: emptyDir
+        sizeLimit: 1Gi
+        globalMounts:
+          - path: /config/model_cache
       cache:
         type: emptyDir
         medium: Memory
