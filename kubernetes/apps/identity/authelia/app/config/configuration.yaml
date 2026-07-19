@@ -316,6 +316,7 @@ identity_providers:
           - "email"
         redirect_uris:
           - "http://localhost:3000/auth/callback"
+          - "https://localhost:8443/auth/callback"
         userinfo_signed_response_alg: none
       - client_id: forgejo
         client_name: Forgejo
