@@ -15,13 +15,6 @@ detectors:
     device: usb
 face_recognition:
   enabled: true
-  detection_threshold: 0.5
-  recognition_threshold: 0.85
-  unknown_score: 0.2
-  min_area: 300
-  min_faces: 1
-  save_attempts: 200
-  blur_confidence_filter: true
   model_size: small
 audio:
   enabled: true
@@ -77,8 +70,10 @@ cameras:
       enabled: true
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_hq
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_lq
           roles:
             - detect
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_hq
+          roles:
             - record
             - audio
