@@ -28,10 +28,8 @@ spec:
               repository: ghcr.io/actualbudget/actual-server
               tag: 26.7.0
             env:
+              ACTUAL_CONFIG_PATH: /config/config.json
               ACTUAL_PORT: &httpPort 5006
-            envFrom:
-              - secretRef:
-                  name: cluster-actual-secrets
             probes:
               liveness:
                 enabled: true
@@ -67,6 +65,15 @@ spec:
             app:
               - subPath: actual
                 path: /data
+      config:
+        type: secret
+        name: cluster-actual-secrets
+        advancedMounts:
+          actual:
+            app:
+              - path: /config/config.json
+                subPath: config.json
+                readOnly: true
 
     route:
       app:
