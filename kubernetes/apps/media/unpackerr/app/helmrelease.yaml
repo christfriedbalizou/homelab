@@ -27,7 +27,8 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               UN_SONARR_0_URL: http://sonarr.media
-              UN_SONARR_0_PATHS_0: /media/series
+              UN_SONARR_0_PATHS_0: /media/downloads
+              UN_SONARR_0_TIMEOUT: 2m
               UN_SONARR_0_API_KEY:
                 secretKeyRef:
                   name: cluster-media-secrets
