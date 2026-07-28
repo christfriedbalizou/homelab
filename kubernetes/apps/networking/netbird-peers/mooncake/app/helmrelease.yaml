@@ -16,6 +16,10 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         pod:
+          hostAliases:
+            - ip: "${METALLB_EXTERNAL_INGRESS_ADDR}"
+              hostnames:
+                - "netbird.${SECRET_DOMAIN}"
           affinity:
             podAntiAffinity:
               requiredDuringSchedulingIgnoredDuringExecution:

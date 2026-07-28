@@ -5,12 +5,6 @@ ingress:
       originServerName: ${SECRET_DOMAIN}
     service: &svc https://envoy-external.networking.svc.cluster.local:443
 
-  - hostname: netbird.${SECRET_DOMAIN}
-    originRequest:
-      http2Origin: true
-      originServerName: ipv4.${SECRET_DOMAIN}
-    service: *svc
-
   - hostname: "*.${SECRET_DOMAIN}"
     originRequest:
       originServerName: ipv4.${SECRET_DOMAIN}
