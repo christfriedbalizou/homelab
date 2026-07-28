@@ -366,8 +366,8 @@ identity_providers:
         authorization_policy: one_factor
         require_pkce: false
         redirect_uris:
-          - https://netbird.${SECRET_DOMAIN}/peers
-          - https://netbird.${SECRET_DOMAIN}/add-peers
+          - https://netbird.${SECRET_DOMAIN}/auth/callback
+          - https://netbird.${SECRET_DOMAIN}/auth/silent-callback
           - http://localhost
         scopes:
           - openid

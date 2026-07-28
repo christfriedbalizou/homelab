@@ -12,6 +12,7 @@ resources:
   - ./pihole/ks.yaml
   - ./smtp-relay/ks.yaml
   - ./netbird/ks.yaml
+  - ./netbird-peers
   - ./adguard-home/ks.yaml
   - ./twingate/ks.yaml
   - ./twingate-backup/ks.yaml

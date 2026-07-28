@@ -132,8 +132,8 @@ spec:
               tag: v2.90.8
             env:
               AUTH_AUTHORITY: https://auth.${SECRET_DOMAIN}
-              AUTH_REDIRECT_URI: /peers
-              AUTH_SILENT_REDIRECT_URI: /add-peers
+              AUTH_REDIRECT_URI: /auth/callback
+              AUTH_SILENT_REDIRECT_URI: /auth/silent-callback
               AUTH_SUPPORTED_SCOPES: openid profile email
               NETBIRD_MGMT_API_ENDPOINT: &management https://netbird.${SECRET_DOMAIN}:443
               NETBIRD_MGMT_GRPC_API_ENDPOINT: *management
