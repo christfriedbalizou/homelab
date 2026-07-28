@@ -220,6 +220,13 @@ spec:
             backendRefs:
               - identifier: management
                 port: http
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /ws-proxy/management
+            backendRefs:
+              - identifier: management
+                port: http
       grpc:
         kind: GRPCRoute
         hostnames:
@@ -248,6 +255,22 @@ spec:
             backendRefs:
               - identifier: signal
                 port: grpc
+      signal-ws:
+        annotations:
+          gatus.home-operations.com/enabled: "false"
+        hostnames:
+          - "netbird.${SECRET_DOMAIN}"
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+        rules:
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /ws-proxy/signal
+            backendRefs:
+              - identifier: signal
+                port: http
       relay:
         annotations:
           gatus.home-operations.com/enabled: "false"
