@@ -5,64 +5,64 @@ metrics:
     message: 80d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-31T12:35:22+00:00'
+    pulledAt: '2026-07-31T18:28:18+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-31T12:35:23+00:00'
+    pulledAt: '2026-07-31T18:28:19+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '161'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-31T12:35:23+00:00'
+    pulledAt: '2026-07-31T18:28:19+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 12.6%
+    message: 13.5%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-31T12:35:23+00:00'
+    pulledAt: '2026-07-31T18:28:19+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 32.7%
+    message: 33%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-31T12:35:24+00:00'
+    pulledAt: '2026-07-31T18:28:19+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Power
     message: 442w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-07-31T12:35:24+00:00'
+    pulledAt: '2026-07-31T18:28:20+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
-    message: 9d
+    message: 10d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-07-31T12:35:25+00:00'
+    pulledAt: '2026-07-31T18:28:20+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.13.7
     cacheSeconds: 300
-    pulledAt: '2026-07-31T12:35:25+00:00'
+    pulledAt: '2026-07-31T18:28:20+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.35.0
     cacheSeconds: 300
-    pulledAt: '2026-07-31T12:35:26+00:00'
+    pulledAt: '2026-07-31T18:28:20+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.3
     cacheSeconds: 300
-    pulledAt: '2026-07-31T12:35:26+00:00'
+    pulledAt: '2026-07-31T18:28:21+00:00'
