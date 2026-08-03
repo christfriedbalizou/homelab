@@ -26,7 +26,7 @@ spec:
               tag: 0.15.2@sha256:89e13608521ece21dd300c39229fd595a55fbf4b8152771af5670a7455b5c747
             env:
               TZ: "${TIMEZONE}"
-              UN_SONARR_0_URL: http://sonarr.media
+              UN_SONARR_0_URL: http://sonarr.media:8989
               UN_SONARR_0_PATHS_0: /media/downloads
               UN_SONARR_0_TIMEOUT: 2m
               UN_SONARR_0_API_KEY:
@@ -34,7 +34,7 @@ spec:
                   name: cluster-media-secrets
                   key: SONARR_0_API_KEY
               UN_RADARR_0_URL: http://radarr.media
-              UN_RADARR_0_PATHS_0: /media/movies
+              UN_RADARR_0_PATHS_0: /media/downloads
               UN_RADARR_0_API_KEY:
                 secretKeyRef:
                   name: cluster-media-secrets
