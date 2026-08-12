@@ -49,6 +49,10 @@ spec:
               SECURITY_ENABLELOGIN: false
               SYSTEM_GOOGLEVISIBILITY: false
               SYSTEM_SHOW_UPDATE: false
+              SYSTEM_TEMPFILEMANAGEMENT_BASETMPDIR: /tmp/stirling-pdf
+              SYSTEM_TEMPFILEMANAGEMENT_MAXAGEHOURS: "1"
+              SYSTEM_TEMPFILEMANAGEMENT_CLEANUPINTERVALMINUTES: "5"
+              SYSTEM_TEMPFILEMANAGEMENT_STARTUPCLEANUP: "true"
             resources:
               requests:
                 cpu: "10m"
