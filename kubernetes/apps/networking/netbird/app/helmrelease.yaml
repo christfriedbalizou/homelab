@@ -78,8 +78,8 @@ spec:
                 custom: true
                 spec:
                   httpGet:
-                    path: /health
-                    port: 9000
+                    path: /oauth2/.well-known/openid-configuration
+                    port: 80
                     scheme: HTTP
                   initialDelaySeconds: 10
                   periodSeconds: 10
