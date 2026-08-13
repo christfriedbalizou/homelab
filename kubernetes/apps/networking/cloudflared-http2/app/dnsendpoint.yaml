@@ -9,4 +9,4 @@ spec:
     - dnsName: "netbird.${SECRET_DOMAIN}"
       recordType: CNAME
       targets:
-        - ${CLOUDFLARE_HTTP2_TUNNEL_ID}.cfargotunnel.com
+        - ${CLOUDFLARE_TUNNEL_ID}.cfargotunnel.com
