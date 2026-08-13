@@ -26,7 +26,10 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         replicas: 1
-        strategy: Recreate
+        strategy: RollingUpdate
+        rollingUpdate:
+          surge: "0"
+          unavailable: 1
         pod:
           automountServiceAccountToken: false
           securityContext:
