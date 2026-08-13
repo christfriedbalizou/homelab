@@ -38,64 +38,36 @@
   "HttpConfig": {
     "LetsEncryptDomain": "",
     "CertFile": "",
-    "CertKey": "",
-    "AuthAudience": "{{ .IDP_AUDIENCE }}",
-    "AuthIssuer": "https://auth.${SECRET_DOMAIN}",
-    "AuthUserIDClaim": "sub",
-    "AuthUserEmailClaim": "email",
-    "AuthKeysLocation": "https://auth.${SECRET_DOMAIN}/jwks.json",
-    "OIDCConfigEndpoint": "https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration",
-    "IdpSignKeyRefreshEnabled": true
+    "CertKey": ""
   },
-  "IdpManagerConfig": {
-    "ManagerType": "none",
-    "ClientConfig": {
-      "Issuer": "https://auth.${SECRET_DOMAIN}",
-      "TokenEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/token",
-      "ClientID": "{{ .IDP_CLIENT_ID }}",
-      "ClientSecret": "",
-      "GrantType": "client_credentials"
-    },
-    "ExtraConfig": {
-      "Password": "{{ .IDP_SERVICE_ACCOUNT_PASSWORD }}",
-      "Username": "{{ .IDP_SERVICE_ACCOUNT_USER }}"
-    },
-    "Auth0ClientCredentials": null,
-    "AzureClientCredentials": null,
-    "KeycloakClientCredentials": null,
-    "ZitadelClientCredentials": null
-  },
-  "DeviceAuthorizationFlow": {
-    "Provider": "none",
-    "ProviderConfig": {
-      "ClientID": "",
-      "ClientSecret": "",
-      "Domain": "",
-      "Audience": "{{ .IDP_AUDIENCE }}",
-      "TokenEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/token/",
-      "DeviceAuthEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/device-authorization",
-      "AuthorizationEndpoint": "",
-      "Scope": "openid",
-      "UseIDToken": false,
-      "RedirectURLs": null
-    }
-  },
-  "PKCEAuthorizationFlow": {
-    "ProviderConfig": {
-      "ClientID": "{{ .IDP_CLIENT_ID }}",
-      "ClientSecret": "{{ .IDP_CLIENT_SECRET }}",
-      "Domain": "",
-      "Audience": "{{ .IDP_AUDIENCE }}",
-      "TokenEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/token/",
-      "DeviceAuthEndpoint": "",
-      "AuthorizationEndpoint": "https://auth.${SECRET_DOMAIN}/api/oidc/authorization",
-      "Scope": "openid profile email",
-      "UseIDToken": true,
-      "DisablePromptLogin": true,
-      "RedirectURLs": [
-        "http://localhost:53000"
-      ]
-    }
+  "EmbeddedIdP": {
+    "Enabled": true,
+    "Issuer": "https://netbird.${SECRET_DOMAIN}/oauth2",
+    "DashboardRedirectURIs": [
+      "https://netbird.${SECRET_DOMAIN}/nb-auth",
+      "https://netbird.${SECRET_DOMAIN}/nb-silent-auth"
+    ],
+    "StaticConnectors": [
+      {
+        "type": "oidc",
+        "name": "Authelia",
+        "id": "authelia",
+        "config": {
+          "issuer": "https://auth.${SECRET_DOMAIN}",
+          "clientID": "{{ .IDP_CLIENT_ID }}",
+          "clientSecret": "{{ .IDP_CLIENT_SECRET }}",
+          "redirectURI": "https://netbird.${SECRET_DOMAIN}/oauth2/callback",
+          "scopes": [
+            "openid",
+            "profile",
+            "email",
+            "groups"
+          ],
+          "getUserInfo": true,
+          "basicAuthUnsupported": true
+        }
+      }
+    ]
   },
   "StoreConfig": {
     "Engine": "postgres"

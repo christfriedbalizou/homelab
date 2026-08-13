@@ -368,6 +368,8 @@ identity_providers:
         redirect_uris:
           - https://netbird.${SECRET_DOMAIN}/auth/callback
           - https://netbird.${SECRET_DOMAIN}/auth/silent-callback
+          - https://netbird.${SECRET_DOMAIN}/oauth2/callback
+          - https://netbird.${SECRET_DOMAIN}/oauth2/logout/callback
           - http://localhost
         scopes:
           - openid

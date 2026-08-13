@@ -131,13 +131,16 @@ spec:
               repository: netbirdio/dashboard
               tag: v2.90.10
             env:
-              AUTH_AUTHORITY: https://auth.${SECRET_DOMAIN}
-              AUTH_REDIRECT_URI: /auth/callback
-              AUTH_SILENT_REDIRECT_URI: /auth/silent-callback
-              AUTH_SUPPORTED_SCOPES: openid profile email
+              AUTH_AUDIENCE: netbird-dashboard
+              AUTH_AUTHORITY: https://netbird.${SECRET_DOMAIN}/oauth2
+              AUTH_CLIENT_ID: netbird-dashboard
+              AUTH_CLIENT_SECRET: ""
+              AUTH_REDIRECT_URI: /nb-auth
+              AUTH_SILENT_REDIRECT_URI: /nb-silent-auth
+              AUTH_SUPPORTED_SCOPES: openid profile email groups
               NETBIRD_MGMT_API_ENDPOINT: &management https://netbird.${SECRET_DOMAIN}:443
               NETBIRD_MGMT_GRPC_API_ENDPOINT: *management
-              NETBIRD_TOKEN_SOURCE: idToken
+              NETBIRD_TOKEN_SOURCE: accessToken
               USE_AUTH0: 'false'
             envFrom:
               - secretRef:
@@ -218,6 +221,13 @@ spec:
               - path:
                   type: PathPrefix
                   value: /api
+            backendRefs:
+              - identifier: management
+                port: http
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /oauth2
             backendRefs:
               - identifier: management
                 port: http
