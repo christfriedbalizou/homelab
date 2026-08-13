@@ -23,113 +23,79 @@ spec:
   values:
     controllers:
       management:
+        annotations:
+          reloader.stakater.com/auto: "true"
         replicas: 1
-        strategy: RollingUpdate
+        strategy: Recreate
+        pod:
+          automountServiceAccountToken: false
+          securityContext:
+            seccompProfile: { type: RuntimeDefault }
         initContainers:
           01-init-db:
-              image:
-                repository: ghcr.io/home-operations/postgres-init
-                tag: 18
-                pullPolicy: IfNotPresent
-              envFrom:
-                - secretRef:
-                    name: netbird-secret
+            image:
+              repository: ghcr.io/home-operations/postgres-init
+              tag: 18
+              pullPolicy: IfNotPresent
+            envFrom:
+              - secretRef:
+                  name: netbird-secret
+          02-render-config:
+            image: &serverImage
+              repository: netbirdio/netbird-server
+              tag: 0.76.3@sha256:162e66f9a2ee5ff669b14857deef7f42ff2d818ae8ffd860b67837108f69f187
+            command:
+              - sh
+              - -c
+              - |
+                set -eu
+                umask 077
+                sed \
+                  -e "s|@@RELAY_PASSWORD@@|$RELAY_PASSWORD|g" \
+                  -e "s|@@DATASTORE_ENCRYPTION_KEY@@|$DATASTORE_ENCRYPTION_KEY|g" \
+                  -e "s|@@STUN_SERVER@@|$STUN_SERVER|g" \
+                  /config-template/config.yaml > /config/config.yaml
+            envFrom:
+              - secretRef:
+                  name: netbird-secret
         containers:
           app:
-            image:
-              repository: netbirdio/management
-              tag: 0.76.3
+            image: *serverImage
             args:
-              - '--port=80'
-              - '--log-file=console'
-              - '--log-level=info'
-              - '--disable-anonymous-metrics=false'
-              - '--single-account-mode-domain=netbird.selfhosted'
-              - '--dns-domain=netbird.selfhosted'
+              - --config
+              - /etc/netbird/config.yaml
             env:
-              NETBIRD_DISABLE_GEOLITE_UPDATE: 'true'
-              USE_AUTH0: 'false'
-              AUTH_SUPPORTED_SCOPES: 'openid email profile'
-              AUTH_REDIRECT_URI: '/peers'
-              AUTH_SILENT_REDIRECT_URI: '/add-peers'
+              TZ: ${TIMEZONE}
             envFrom:
               - secretRef:
                   name: netbird-secret
             probes:
-              liveness: &managementProbes
+              liveness: &serverProbes
                 enabled: true
                 custom: true
                 spec:
-                  tcpSocket:
-                    port: &port80 80
-                  initialDelaySeconds: 15
+                  httpGet:
+                    path: /health
+                    port: 9000
+                    scheme: HTTP
+                  initialDelaySeconds: 10
                   periodSeconds: 10
                   timeoutSeconds: 3
                   failureThreshold: 3
-              readiness: *managementProbes
-
-      relay:
-        replicas: 1
-        strategy: RollingUpdate
-        containers:
-          app:
-            image:
-              repository: netbirdio/relay
-              tag: 0.76.3
-            env:
-              NB_EXPOSED_ADDRESS: netbird.${SECRET_DOMAIN}:443/relay
-              NB_LISTEN_PORT: ':443'
-              NB_LOG_LEVEL: info
-              NB_LOG_FILE: console
-            envFrom:
-              - secretRef:
-                  name: netbird-secret
-            probes:
-              liveness: &relayProbes
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: &port443 443
-                  initialDelaySeconds: 5
-                  periodSeconds: 5
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *relayProbes
-
-      signal:
-        replicas: 1
-        strategy: RollingUpdate
-        containers:
-          app:
-            image:
-              repository: netbirdio/signal
-              tag: 0.76.3
-            args:
-              - '--port=80'
-              - '--log-file=console'
-              - '--log-level=info'
-            probes:
-              liveness: &signalProbes
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: 10000
-                  initialDelaySeconds: 5
-                  periodSeconds: 5
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness: *signalProbes
+              readiness: *serverProbes
 
       dashboard:
         replicas: 1
         strategy: RollingUpdate
+        pod:
+          automountServiceAccountToken: false
+          securityContext:
+            seccompProfile: { type: RuntimeDefault }
         containers:
           app:
             image:
               repository: netbirdio/dashboard
-              tag: v2.90.10
+              tag: v2.91.0@sha256:aae926912ca43704e66b8146164eb2d285e36adb816a3beb95224ee80253ecfb
             env:
               AUTH_AUDIENCE: netbird-dashboard
               AUTH_AUTHORITY: https://netbird.${SECRET_DOMAIN}/oauth2
@@ -141,34 +107,21 @@ spec:
               NETBIRD_MGMT_API_ENDPOINT: &management https://netbird.${SECRET_DOMAIN}:443
               NETBIRD_MGMT_GRPC_API_ENDPOINT: *management
               NETBIRD_TOKEN_SOURCE: accessToken
-              USE_AUTH0: 'false'
-            envFrom:
-              - secretRef:
-                  name: netbird-secret
+              USE_AUTH0: "false"
             probes:
-              liveness:
+              liveness: &dashboardProbes
                 enabled: true
                 custom: true
                 spec:
                   httpGet:
                     path: /
-                    port: *port80
-                    scheme: HTTP
-                  periodSeconds: 5
-                  timeoutSeconds: 1
-                  failureThreshold: 3
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  httpGet:
-                    path: /
-                    port: *port80
+                    port: &port80 80
                     scheme: HTTP
                   initialDelaySeconds: 5
                   periodSeconds: 5
                   timeoutSeconds: 1
                   failureThreshold: 3
+              readiness: *dashboardProbes
 
     service:
       management:
@@ -177,26 +130,6 @@ spec:
           http:
             primary: true
             port: *port80
-          grpc:
-            port: 33073
-          metrics:
-            port: 9090
-      relay:
-        controller: relay
-        ports:
-          http:
-            primary: true
-            port: *port443
-          metrics:
-            port: 9090
-      signal:
-        controller: signal
-        ports:
-          http:
-            primary: true
-            port: *port80
-          grpc:
-            port: 10000
           metrics:
             port: 9090
       dashboard:
@@ -221,23 +154,24 @@ spec:
               - path:
                   type: PathPrefix
                   value: /api
-            backendRefs:
+            backendRefs: &serverBackend
               - identifier: management
                 port: http
           - matches:
               - path:
                   type: PathPrefix
                   value: /oauth2
-            backendRefs:
-              - identifier: management
-                port: http
+            backendRefs: *serverBackend
           - matches:
               - path:
                   type: PathPrefix
-                  value: /ws-proxy/management
-            backendRefs:
-              - identifier: management
-                port: http
+                  value: /relay
+            backendRefs: *serverBackend
+          - matches:
+              - path:
+                  type: PathPrefix
+                  value: /ws-proxy
+            backendRefs: *serverBackend
       grpc:
         kind: GRPCRoute
         hostnames:
@@ -249,57 +183,15 @@ spec:
           - matches:
               - method:
                   service: management.ManagementService
-            backendRefs:
-              - identifier: management
-                port: grpc
-      signal:
-        kind: GRPCRoute
-        hostnames:
-          - "netbird.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: envoy-external
-            namespace: networking
-        rules:
+            backendRefs: *serverBackend
+          - matches:
+              - method:
+                  service: management.ProxyService
+            backendRefs: *serverBackend
           - matches:
               - method:
                   service: signalexchange.SignalExchange
-            backendRefs:
-              - identifier: signal
-                port: grpc
-      signal-ws:
-        annotations:
-          external-dns.alpha.kubernetes.io/controller: none
-          gatus.home-operations.com/enabled: "false"
-        hostnames:
-          - "netbird.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: envoy-external
-            namespace: networking
-        rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /ws-proxy/signal
-            backendRefs:
-              - identifier: signal
-                port: http
-      relay:
-        annotations:
-          external-dns.alpha.kubernetes.io/controller: none
-          gatus.home-operations.com/enabled: "false"
-        hostnames:
-          - "netbird.${SECRET_DOMAIN}"
-        parentRefs:
-          - name: envoy-external
-            namespace: networking
-        rules:
-          - matches:
-              - path:
-                  type: PathPrefix
-                  value: /relay
-            backendRefs:
-              - identifier: relay
-                port: http
+            backendRefs: *serverBackend
       dashboard:
         annotations:
           external-dns.alpha.kubernetes.io/controller: none
@@ -317,12 +209,22 @@ spec:
             backendRefs:
               - identifier: dashboard
                 port: http
+
     persistence:
-      config:
+      config-template:
         type: configMap
         name: netbird-configmap
         advancedMounts:
           management:
+            02-render-config:
+              - path: /config-template
+                readOnly: true
+      config:
+        type: emptyDir
+        advancedMounts:
+          management:
+            02-render-config:
+              - path: /config
             app:
               - path: /etc/netbird
                 readOnly: true

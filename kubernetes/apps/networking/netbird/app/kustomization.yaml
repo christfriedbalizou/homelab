@@ -8,6 +8,6 @@ resources:
 configMapGenerator:
   - name: netbird-configmap
     files:
-      - management.json=./configs/management.json
+      - config.yaml=./configs/config.yaml
 generatorOptions:
   disableNameSuffixHash: true

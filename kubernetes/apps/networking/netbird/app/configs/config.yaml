@@ -1,0 +1,33 @@
+---
+server:
+  listenAddress: ":80"
+  exposedAddress: "https://netbird.${SECRET_DOMAIN}:443"
+  metricsPort: 9090
+  healthcheckAddress: ":9000"
+  logLevel: info
+  logFile: console
+  authSecret: "@@RELAY_PASSWORD@@"
+  dataDir: /var/lib/netbird
+  stuns:
+    - uri: "@@STUN_SERVER@@"
+  disableAnonymousMetrics: false
+  disableGeoliteUpdate: true
+  auth:
+    issuer: "https://netbird.${SECRET_DOMAIN}/oauth2"
+    localAuthDisabled: false
+    signKeyRefreshEnabled: true
+    dashboardRedirectURIs:
+      - "https://netbird.${SECRET_DOMAIN}/nb-auth"
+      - "https://netbird.${SECRET_DOMAIN}/nb-silent-auth"
+    cliRedirectURIs:
+      - http://localhost:53000/
+    dashboardPostLogoutRedirectURIs:
+      - "https://netbird.${SECRET_DOMAIN}/"
+  store:
+    engine: postgres
+    encryptionKey: "@@DATASTORE_ENCRYPTION_KEY@@"
+  reverseProxy:
+    trustedHTTPProxies:
+      - 10.42.0.0/16
+    trustedPeers:
+      - 10.42.0.0/16
