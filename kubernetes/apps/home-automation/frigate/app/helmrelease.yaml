@@ -30,7 +30,7 @@ spec:
                 model_dir = Path("/config/model_cache/facedet")
                 model_dir.mkdir(parents=True, exist_ok=True)
                 base_url = "https://github.com/NickM-27/facenet-onnx/releases/download/v1.0"
-                for filename in ("facedet.onnx", "landmarkdet.yaml", "facenet.tflite"):
+                for filename in ("facedet.onnx", "landmarkdet.yaml", "arcface.onnx"):
                     target = model_dir / filename
                     if target.is_file() and target.stat().st_size > 0:
                         continue
@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: ghcr.io/blakeblackshear/frigate
-              tag: 0.17.2@sha256:d4351369984d4a9e2a49ac59736f6490856a7ea11f7790040746d21496967010
+              tag: 0.17.2-tensorrt@sha256:8a364092b03561b9c08ac00730206e363a53d07ea0304f7d543b403b65432b5e
             env:
               NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
             probes:

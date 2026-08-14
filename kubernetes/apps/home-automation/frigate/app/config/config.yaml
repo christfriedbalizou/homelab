@@ -5,17 +5,20 @@ mqtt:
   host: mosquitto.storage.svc.cluster.local
 database:
   path: /data/frigate.db
-logger:
-  logs:
-    frigate.data_processing.real_time.face: debug
-    frigate.data_processing.common.face.model: debug
 detectors:
   coral:
     type: edgetpu
     device: usb
 face_recognition:
   enabled: true
-  model_size: small
+  model_size: large
+  detection_threshold: 0.7
+  recognition_threshold: 0.9
+  unknown_score: 0.8
+  min_area: 1000
+  min_faces: 2
+  save_attempts: 200
+  blur_confidence_filter: true
 audio:
   enabled: true
   listen:
@@ -68,12 +71,13 @@ cameras:
   entrance:
     detect:
       enabled: true
+      width: 2880
+      height: 1620
+      fps: 5
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_lq
-          roles:
-            - detect
         - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_hq
           roles:
+            - detect
             - record
             - audio
