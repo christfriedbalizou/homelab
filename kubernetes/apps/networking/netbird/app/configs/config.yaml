@@ -14,7 +14,7 @@ server:
   disableGeoliteUpdate: true
   auth:
     issuer: "https://netbird.${SECRET_DOMAIN}/oauth2"
-    localAuthDisabled: false
+    localAuthDisabled: true
     signKeyRefreshEnabled: true
     dashboardRedirectURIs:
       - "https://netbird.${SECRET_DOMAIN}/nb-auth"
