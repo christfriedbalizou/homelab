@@ -78,6 +78,17 @@ spec:
         rules:
           - matches:
               - path:
+                  type: Exact
+                  value: /
+            filters:
+              - type: RequestRedirect
+                requestRedirect:
+                  path:
+                    type: ReplaceFullPath
+                    replaceFullPath: /sso/OID/start/authelia
+                  statusCode: 302
+          - matches:
+              - path:
                   type: PathPrefix
                   value: /
             backendRefs:
