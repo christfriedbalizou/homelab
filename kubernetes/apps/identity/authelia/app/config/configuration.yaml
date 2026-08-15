@@ -153,6 +153,7 @@ identity_providers:
         scopes:
           - openid
           - profile
+          - email
           - groups
         redirect_uris:
           - "https://jellyfin.${SECRET_DOMAIN}/sso/OID/redirect/authelia"
