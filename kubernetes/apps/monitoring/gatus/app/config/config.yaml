@@ -116,9 +116,9 @@ endpoints:
       - type: discord
         description: "LLDAP HTTP endpoint failed."
 
-  - name: LLDAP LDAP
+  - name: LLDAP LDAPS
     group: Identity
-    url: tcp://lldap.identity.svc.cluster.local:389
+    url: tcp://lldap.identity.svc.cluster.local:6360
     interval: 1m
     conditions:
       - "[CONNECTED] == true"
