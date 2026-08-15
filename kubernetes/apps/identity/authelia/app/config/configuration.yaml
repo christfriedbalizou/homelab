@@ -143,7 +143,7 @@ identity_providers:
     clients:
       - client_id: jellyfin
         client_name: Jellyfin
-        client_secret: "${JELLYFIN_0_API_KEY}"
+        client_secret: '{{ secret "/config/secrets/JELLYFIN_OAUTH_CLIENT_SECRET" }}'
         public: false
         authorization_policy: one_factor
         pre_configured_consent_duration: 1y
