@@ -61,6 +61,10 @@ spec:
               LLDAP_HTTP_URL: https://lldap.${SECRET_DOMAIN}
               LLDAP_LDAP_PORT: &ldapPort 389
               LLDAP_LDAP_BASE_DN: ${SECRET_LDAP_ROOT}
+              LLDAP_LDAPS_OPTIONS__ENABLED: "true"
+              LLDAP_LDAPS_OPTIONS__PORT: &ldapsPort 6360
+              LLDAP_LDAPS_OPTIONS__CERT_FILE: /certs/ldap/tls.crt
+              LLDAP_LDAPS_OPTIONS__KEY_FILE: /certs/ldap/tls.key
 
               LLDAP_JWT_SECRET: "${LLDAP_JWT_SECRET}"
               LLDAP_LDAP_USER_PASS: "${LLDAP_LDAP_USER_PASS}"
@@ -89,6 +93,9 @@ spec:
           ldap:
             enabled: true
             port: *ldapPort
+          ldaps:
+            enabled: true
+            port: *ldapsPort
     route:
       main:
         hostnames:
@@ -108,3 +115,10 @@ spec:
       data:
         enabled: true
         type: emptyDir
+      tls:
+        enabled: true
+        type: secret
+        name: lldap-server-tls
+        globalMounts:
+          - path: /certs/ldap
+            readOnly: true

@@ -124,6 +124,14 @@ spec:
               - identifier: main
                 port: http
     persistence:
+      ldap-ca:
+        enabled: true
+        type: secret
+        name: lldap-server-tls
+        globalMounts:
+          - path: /config/certs/lldap-ca.crt
+            subPath: ca.crt
+            readOnly: true
       config:
         enabled: true
         type: configMap

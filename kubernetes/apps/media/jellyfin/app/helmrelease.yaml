@@ -84,6 +84,14 @@ spec:
               - identifier: app
                 port: http
     persistence:
+      ldap-ca:
+        enabled: true
+        type: secret
+        name: lldap-client-trust
+        globalMounts:
+          - path: /etc/jellyfin/certs/lldap-ca.crt
+            subPath: ca.crt
+            readOnly: true
       config:
         enabled: true
         existingClaim: jellyfin-jericho

@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cert-manager.io/certificate_v1.json
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: lldap-client-trust
+spec:
+  secretName: lldap-client-trust
+  duration: 2160h
+  renewBefore: 360h
+  privateKey:
+    algorithm: RSA
+    size: 2048
+    rotationPolicy: Always
+  issuerRef:
+    name: lldap-internal-ca
+    kind: ClusterIssuer
+    group: cert-manager.io
+  commonName: jellyfin-lldap-client

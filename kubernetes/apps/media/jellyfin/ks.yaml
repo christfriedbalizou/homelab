@@ -4,6 +4,9 @@ kind: Kustomization
 metadata:
   name: &app jellyfin
 spec:
+  dependsOn:
+    - name: cert-manager-issuers
+      namespace: flux-system
   components:
     - ../../../../components/zeroscaler
     - ../../../../components/persistence/jericho-nfs

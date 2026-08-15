@@ -4,6 +4,8 @@ server:
   buffers:
     read: 2048000
 
+certificates_directory: /config/certs
+
 telemetry:
   metrics:
     enabled: true
@@ -13,7 +15,7 @@ theme: dark
 authentication_backend:
   ldap:
     implementation: lldap
-    address: ldap://lldap.identity.svc.cluster.local:389
+    address: ldaps://lldap.identity.svc.cluster.local:6360
     base_dn: ${SECRET_LDAP_ROOT}
     user: ${LLDAP_USER_DN}
     password: ${LLDAP_LDAP_USER_PASS}
