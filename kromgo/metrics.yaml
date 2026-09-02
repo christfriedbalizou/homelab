@@ -2,67 +2,67 @@ metrics:
   cluster_age_days:
     schemaVersion: 1
     label: Age
-    message: 112d
+    message: 113d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-01T20:19:39+00:00'
+    pulledAt: '2026-09-02T02:05:31+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-01T20:19:39+00:00'
+    pulledAt: '2026-09-02T02:05:32+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '157'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-01T20:19:40+00:00'
+    pulledAt: '2026-09-02T02:05:32+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 17%
+    message: 19.3%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-01T20:19:40+00:00'
+    pulledAt: '2026-09-02T02:05:32+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 35.3%
+    message: 35.9%
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-09-01T20:19:41+00:00'
+    pulledAt: '2026-09-02T02:05:33+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Power
-    message: 429w
+    message: 435w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-09-01T20:19:41+00:00'
+    pulledAt: '2026-09-02T02:05:33+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
-    message: 12d
+    message: 13d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-01T20:19:42+00:00'
+    pulledAt: '2026-09-02T02:05:33+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.13.9
     cacheSeconds: 300
-    pulledAt: '2026-09-01T20:19:42+00:00'
+    pulledAt: '2026-09-02T02:05:33+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.36.0
     cacheSeconds: 300
-    pulledAt: '2026-09-01T20:19:42+00:00'
+    pulledAt: '2026-09-02T02:05:34+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.4
     cacheSeconds: 300
-    pulledAt: '2026-09-01T20:19:43+00:00'
+    pulledAt: '2026-09-02T02:05:34+00:00'
