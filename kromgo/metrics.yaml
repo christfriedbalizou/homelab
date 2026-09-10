@@ -5,64 +5,64 @@ metrics:
     message: 121d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-10T15:32:03+00:00'
+    pulledAt: '2026-09-10T20:14:45+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-10T15:32:04+00:00'
+    pulledAt: '2026-09-10T20:14:46+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '157'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-10T15:32:04+00:00'
+    pulledAt: '2026-09-10T20:14:46+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 22%
+    message: 19.5%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-10T15:32:05+00:00'
+    pulledAt: '2026-09-10T20:14:47+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 32.1%
+    message: 32.7%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-10T15:32:06+00:00'
+    pulledAt: '2026-09-10T20:14:47+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Power
     message: 429w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-09-10T15:32:06+00:00'
+    pulledAt: '2026-09-10T20:14:47+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
     message: 2d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-10T15:32:07+00:00'
+    pulledAt: '2026-09-10T20:14:48+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.13.10
     cacheSeconds: 300
-    pulledAt: '2026-09-10T15:32:07+00:00'
+    pulledAt: '2026-09-10T20:14:49+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.36.0
     cacheSeconds: 300
-    pulledAt: '2026-09-10T15:32:08+00:00'
+    pulledAt: '2026-09-10T20:14:49+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.5
     cacheSeconds: 300
-    pulledAt: '2026-09-10T15:32:08+00:00'
+    pulledAt: '2026-09-10T20:14:49+00:00'
