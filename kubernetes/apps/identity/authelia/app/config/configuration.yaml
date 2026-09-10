@@ -384,6 +384,28 @@ identity_providers:
         access_token_signed_response_alg: none
         userinfo_signed_response_alg: none
         token_endpoint_auth_method: client_secret_basic
+      - client_id: translator
+        client_name: Translator
+        client_secret: "${TRANSLATOR_OIDC_CLIENT_SECRET_PBKDF2}"
+        public: false
+        authorization_policy: one_factor
+        pre_configured_consent_duration: 1y
+        require_pkce: true
+        pkce_challenge_method: S256
+        scopes:
+          - openid
+          - profile
+          - email
+        redirect_uris:
+          - https://translator.${SECRET_DOMAIN}/api/v1/auth/callback
+          - https://localhost:8443/auth/callback
+        response_types:
+          - code
+        grant_types:
+          - authorization_code
+        access_token_signed_response_alg: none
+        userinfo_signed_response_alg: none
+        token_endpoint_auth_method: client_secret_post
       - client_id: netbird
         client_name: netbird
         client_secret: '${NETBIRD_OIDC_CLIENT_SECRET_PBKDF2}'
