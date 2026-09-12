@@ -5,64 +5,64 @@ metrics:
     message: 123d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-12T09:49:35+00:00'
+    pulledAt: '2026-09-12T14:40:30+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-12T09:49:35+00:00'
+    pulledAt: '2026-09-12T14:40:30+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '157'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-12T09:49:36+00:00'
+    pulledAt: '2026-09-12T14:40:31+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 22.8%
+    message: 20.7%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-12T09:49:36+00:00'
+    pulledAt: '2026-09-12T14:40:32+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 33.2%
+    message: 33.1%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-12T09:49:36+00:00'
+    pulledAt: '2026-09-12T14:40:32+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Power
-    message: 422w
+    message: 429w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-09-12T09:49:37+00:00'
+    pulledAt: '2026-09-12T14:40:33+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
-    message: 3d
+    message: 4d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-12T09:49:37+00:00'
+    pulledAt: '2026-09-12T14:40:33+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.13.10
     cacheSeconds: 300
-    pulledAt: '2026-09-12T09:49:37+00:00'
+    pulledAt: '2026-09-12T14:40:33+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.36.0
     cacheSeconds: 300
-    pulledAt: '2026-09-12T09:49:37+00:00'
+    pulledAt: '2026-09-12T14:40:34+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.5
     cacheSeconds: 300
-    pulledAt: '2026-09-12T09:49:38+00:00'
+    pulledAt: '2026-09-12T14:40:34+00:00'
