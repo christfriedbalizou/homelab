@@ -12,6 +12,7 @@ containers:
         cpu: 1000m
         memory: 2Gi
       limits:
+        cpu: "2"
         memory: 10Gi
     volumeMounts:
       - name: test-shm
