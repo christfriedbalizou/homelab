@@ -1,4 +1,5 @@
 ---
+automountServiceAccountToken: false
 containers:
   - env:
       - name: DEBIAN_FRONTEND
@@ -8,8 +9,16 @@ containers:
     name: main
     resources:
       requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
+        cpu: 1000m
         memory: 2Gi
+      limits:
+        memory: 10Gi
+    volumeMounts:
+      - name: test-shm
+        mountPath: /dev/shm
+volumes:
+  - name: test-shm
+    emptyDir:
+      medium: Memory
+      sizeLimit: 6Gi
 restartPolicy: Never
