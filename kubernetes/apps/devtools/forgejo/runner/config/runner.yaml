@@ -20,7 +20,7 @@ plugins:
       poll_timeout: 10m
       labels: "app.kubernetes.io/name=forgejo-runner-instance,app.kubernetes.io/instance=runner-${CLUSTER_NAME}"
 runner:
-  capacity: 4
+  capacity: 1
   file: /data/.runner
   labels:
     - ubuntu-latest:k8s:/config/podspec-default.yaml
