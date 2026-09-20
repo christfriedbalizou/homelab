@@ -40,7 +40,7 @@ session:
 notifier:
   disable_startup_check: true
   smtp:
-    address: smpt-relay.networking.svc.cluster.local:${SMTP_RELAY_PORT}
+    address: smtp-relay.networking.svc.cluster.local:${SMTP_RELAY_PORT}
     sender: "Authelia <noreply@${SECRET_DOMAIN}>"
     disable_require_tls: true
 
