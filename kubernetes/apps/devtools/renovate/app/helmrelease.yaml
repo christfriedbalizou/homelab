@@ -1,0 +1,66 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: renovate
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      renovate:
+        type: cronjob
+        cronjob:
+          schedule: "0 3 * * *"
+          timeZone: "${TIMEZONE}"
+          concurrencyPolicy: Forbid
+          successfulJobsHistory: 1
+          failedJobsHistory: 2
+        containers:
+          app:
+            image:
+              repository: ghcr.io/renovatebot/renovate
+              tag: 44.79.5
+            env:
+              LOG_LEVEL: info
+              RENOVATE_PLATFORM: forgejo
+              RENOVATE_ENDPOINT: "https://git.${SECRET_DOMAIN}/api/v1"
+              RENOVATE_AUTODISCOVER: "true"
+              RENOVATE_ONBOARDING: "true"
+              RENOVATE_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-renovate-secrets
+                    key: RENOVATE_TOKEN
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: renovate
+        enabled: false
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp

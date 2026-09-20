@@ -7,6 +7,7 @@ components:
   - ../../components/common
 resources:
   - ./forgejo/ks.yaml
+  - ./renovate/ks.yaml
   - ./cloudbeaver/ks.yaml
   - ./it-tools/ks.yaml
   - ./n8n/ks.yaml
