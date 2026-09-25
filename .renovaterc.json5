@@ -27,6 +27,30 @@
   kustomize: {
     managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
   },
+  packageRules: [
+    // NVIDIA chart values split the image path across repository and image.
+    {
+      description: "Resolve NVIDIA DCGM exporter image",
+      matchFileNames: ["kubernetes/apps/kube-system/device-plugin/nvidia/app/helmrelease.yaml"],
+      matchDatasources: ["docker"],
+      matchPackageNames: ["dcgm-exporter"],
+      overridePackageName: "nvcr.io/nvidia/k8s/dcgm-exporter",
+    },
+    {
+      description: "Resolve NVIDIA GPU operator and validator images",
+      matchFileNames: ["kubernetes/apps/kube-system/device-plugin/nvidia/app/helmrelease.yaml"],
+      matchDatasources: ["docker"],
+      matchPackageNames: ["gpu-operator"],
+      overridePackageName: "nvcr.io/nvidia/gpu-operator",
+    },
+    {
+      description: "Resolve NVIDIA driver manager image",
+      matchFileNames: ["kubernetes/apps/kube-system/device-plugin/nvidia/app/helmrelease.yaml"],
+      matchDatasources: ["docker"],
+      matchPackageNames: ["k8s-driver-manager"],
+      overridePackageName: "nvcr.io/nvidia/cloud-native/k8s-driver-manager",
+    },
+  ],
   customManagers: [
     {
       customType: "regex",
