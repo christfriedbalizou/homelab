@@ -146,6 +146,7 @@ spec:
       management:
         annotations:
           external-dns.alpha.kubernetes.io/controller: none
+          external-dns.kubernetes.io/controller: none
           gatus.home-operations.com/enabled: "false"
         hostnames:
           - "netbird.${SECRET_DOMAIN}"
@@ -198,6 +199,7 @@ spec:
       dashboard:
         annotations:
           external-dns.alpha.kubernetes.io/controller: none
+          external-dns.kubernetes.io/controller: none
           gatus.home-operations.com/enabled: "false"
         hostnames:
           - "netbird.${SECRET_DOMAIN}"
