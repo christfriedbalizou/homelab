@@ -60,8 +60,8 @@ spec:
         containers:
           runner:
             image:
-              repository: registry.erwanleboucher.dev/erwanleboucher.dev/eleboucher/runner
-              tag: 12.13.0@sha256:b71959782cea9cbc86eaeb47e5ba32bf8179fbd117dd849e001c9a13807b1a07
+              repository: data.forgejo.org/forgejo/runner
+              tag: 13.2.0@sha256:ca3d5eea46004789a175d1369eec6829d3ea9bfbe2011a06625b4bdaa55f7552
             command:
               - sh
               - -ec

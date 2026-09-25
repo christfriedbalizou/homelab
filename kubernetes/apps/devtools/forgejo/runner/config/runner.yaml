@@ -7,9 +7,6 @@ container:
   workdir_parent: shared/workdir
 host:
   workdir_parent: /data/act
-kubernetes:
-  namespace: devtools
-  poll_timeout: 10m
 log:
   level: info
 plugins:
@@ -24,7 +21,7 @@ runner:
   file: /data/.runner
   labels:
     - ubuntu-latest:k8s:/config/podspec-default.yaml
-    - ubuntu-24.04:k8spod:/config/podspec-default.yaml
+    - ubuntu-24.04:k8s:/config/podspec-default.yaml
     - default:k8s:/config/podspec-default.yaml
     - docker:k8s:/config/podspec-dind.yaml
   timeout: 3h
