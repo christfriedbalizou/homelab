@@ -145,7 +145,6 @@ spec:
     route:
       management:
         annotations:
-          external-dns.alpha.kubernetes.io/controller: none
           external-dns.kubernetes.io/controller: none
           gatus.home-operations.com/enabled: "false"
         hostnames:
@@ -198,7 +197,6 @@ spec:
             backendRefs: *serverBackend
       dashboard:
         annotations:
-          external-dns.alpha.kubernetes.io/controller: none
           external-dns.kubernetes.io/controller: none
           gatus.home-operations.com/enabled: "false"
         hostnames:

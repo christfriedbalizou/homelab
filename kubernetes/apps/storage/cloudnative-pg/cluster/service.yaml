@@ -5,7 +5,6 @@ metadata:
   name: postgres-lb
   namespace: storage
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: postgres-lb.storage.svc.cluster.local
     external-dns.kubernetes.io/hostname: postgres-lb.storage.svc.cluster.local
     lbipam.cilium.io/ips: "${POSTGRES_IP}"
 spec:
