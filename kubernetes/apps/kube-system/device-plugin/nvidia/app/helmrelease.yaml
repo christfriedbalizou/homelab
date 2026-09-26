@@ -59,7 +59,7 @@ spec:
       manager:
         repository: nvcr.io/nvidia/cloud-native
         image: k8s-driver-manager
-        version: v0.10.0@sha256:6677437faff2c45506484dd9f0f04ad3b4880aa65b26d11f76d169e65497fade
+        version: v0.12.1@sha256:37e6bf0cf02b5888288a173353b858da8823cc9f9fb9c6e8d6d1e2cf5bfb16c8
         imagePullPolicy: IfNotPresent
         env:
           - name: NODE_LABEL_FOR_GPU_POD_EVICTION
