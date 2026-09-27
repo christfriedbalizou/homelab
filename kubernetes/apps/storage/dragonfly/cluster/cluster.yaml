@@ -8,14 +8,8 @@ spec:
   image: ghcr.io/dragonflydb/dragonfly:v2.0.0@sha256:7426fdb31ddcf7bd9499b4205f36ebaa83b26149ba1609a0d5f8f474b3631233
   replicas: 3
   networkPolicyEnabled: false
-  env:
-    - name: MAX_MEMORY
-      valueFrom:
-        resourceFieldRef:
-          resource: limits.memory
-          divisor: 1Mi
   args:
-    - --maxmemory=$(MAX_MEMORY)Mi
+    - --maxmemory=384Mi
     - --proactor_threads=2
     - --cluster_mode=emulated
   resources:

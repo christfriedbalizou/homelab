@@ -13,7 +13,7 @@ plugins:
   k8s:
     address: unix:///plugin/forgejo-runner-k8s.sock
     options:
-      namespace: devtools
+      namespace: forgejo-ci
       poll_timeout: 10m
       labels: "app.kubernetes.io/name=forgejo-runner-instance,app.kubernetes.io/instance=runner-${CLUSTER_NAME}"
 runner:
@@ -23,6 +23,5 @@ runner:
     - ubuntu-latest:k8s:/config/podspec-default.yaml
     - ubuntu-24.04:k8s:/config/podspec-default.yaml
     - default:k8s:/config/podspec-default.yaml
-    - docker:k8s:/config/podspec-dind.yaml
   timeout: 3h
   shutdown_timeout: 3m

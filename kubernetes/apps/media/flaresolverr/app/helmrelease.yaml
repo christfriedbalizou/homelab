@@ -27,14 +27,14 @@ spec:
           main:
             image:
               repository: flaresolverr/flaresolverr
-              tag: v3.5.2
+              tag: v3.5.2@sha256:c80ae007ce2ccdcd217a12426e4f039ef763ff90738c808d38810c3e59323767
             resources:
               requests:
                 cpu: 50m
-                memory: 150Mi
+                memory: 512Mi
               limits:
                 cpu: 1
-                memory: 500Mi
+                memory: 1Gi
     service:
       main:
         controller: main

@@ -5,6 +5,7 @@ namespace: storage
 components:
   - ../../components/common
 resources:
+  - ./networkpolicy.yaml
   - ./cloudnative-pg/ks.yaml
   - ./minio/ks.yaml
   - ./mosquitto/ks.yaml

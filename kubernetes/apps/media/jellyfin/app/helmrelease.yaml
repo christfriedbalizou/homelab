@@ -21,6 +21,24 @@ spec:
   values:
     controllers:
       jellyfin:
+        annotations:
+          configmap.reloader.stakater.com/reload: jellyfin-encoding-init
+        initContainers:
+          configure-encoding:
+            image:
+              repository: python
+              tag: 3.13-alpine@sha256:79e7a9b9ff1cbceff819f856fb374477792a5967759d94df266de7b7b4120e6f
+            command: [python3, /scripts/configure-encoding.py]
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: [ALL] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 64Mi
         pod:
           runtimeClassName: nvidia
           securityContext:
@@ -29,7 +47,7 @@ spec:
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
-            seccompProfile: { type: Unconfined }
+            seccompProfile: { type: RuntimeDefault }
             supplementalGroups:
               - 44 # video
               - 109 # render
@@ -48,16 +66,38 @@ spec:
               readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             probes:
-              liveness: &probes
-                enabled: false
-              readiness: *probes
-              startup: *probes
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet: &health
+                    path: /health
+                    port: 8096
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 6
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet: *health
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 3
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet: *health
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 60
             resources:
               requests:
                 cpu: 100m
-                memory: 8Gi
+                memory: 4Gi
               limits:
-                memory: 16Gi
+                memory: 8Gi
                 "nvidia.com/gpu.shared": 1
     service:
       app:
@@ -84,6 +124,14 @@ spec:
               - identifier: app
                 port: http
     persistence:
+      encoding-init:
+        type: configMap
+        name: jellyfin-encoding-init
+        advancedMounts:
+          jellyfin:
+            configure-encoding:
+              - path: /scripts
+                readOnly: true
       ldap-ca:
         enabled: true
         type: secret

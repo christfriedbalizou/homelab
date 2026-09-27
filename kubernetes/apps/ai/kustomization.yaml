@@ -6,6 +6,7 @@ namespace: ai
 components:
   - ../../components/common
 resources:
+  - ./networkpolicy.yaml
   - ./ollama/ks.yaml
   - ./open-webui/ks.yaml
   - ./llmkube/ks.yaml

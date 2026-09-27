@@ -56,6 +56,11 @@
       groupName: "kubernetes",
       minimumGroupSize: 1,
     },
+    {
+      description: "Pin container images to immutable digests",
+      matchDatasources: ["docker"],
+      pinDigests: true,
+    },
     // NVIDIA chart values split the image path across repository and image.
     {
       description: "Resolve NVIDIA DCGM exporter image",
