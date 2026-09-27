@@ -12,4 +12,3 @@ resources:
   - ./it-tools/ks.yaml
   - ./n8n/ks.yaml
   - ./pgadmin/ks.yaml
-  - ./vscode/ks.yaml

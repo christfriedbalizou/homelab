@@ -1,7 +1,0 @@
-blueglassblock.better-json5
-irongeek.vscode-env
-openai.chatgpt
-redhat.vscode-yaml
-signageos.signageos-vscode-sops
-vscodevim.vim
-zhuangtongfa.Material-theme

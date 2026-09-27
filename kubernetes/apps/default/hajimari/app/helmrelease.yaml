@@ -201,9 +201,6 @@ spec:
             - name: thelounge
               url: "https://thelounge.${SECRET_DOMAIN}"
               icon: "line-md:chat-filled"
-            - name: vscode
-              url: "https://vscode.${SECRET_DOMAIN}"
-              icon: "mdi:microsoft-visual-studio-code"
             - name: Vaultwarden
               url: "https://vaultwarden.${SECRET_DOMAIN}"
               icon: "cbi:vaultwarden"
