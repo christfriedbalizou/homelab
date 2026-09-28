@@ -6,7 +6,6 @@ namespace: ai
 resources:
   # Uncomment after rendering and encrypting this app's secret; see ../../README.md.
   # - ./secret.sops.yaml
-  - ./ocirepository.yaml
   - ./helmrelease.yaml
   - ./pvc.yaml
 configMapGenerator:

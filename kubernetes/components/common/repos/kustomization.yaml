@@ -17,6 +17,9 @@ resources:
   - ./kube-prometheus-stack
   - ./kubernetes-dashboard-charts
   - ./kromgo
+  - ./litellm-operator
+  - ./llmkube
+  - ./memini
   - ./nextcloud
   - ./nvidia
   - ./node-feature-discovery
