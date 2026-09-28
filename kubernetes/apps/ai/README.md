@@ -9,11 +9,14 @@ LLMKube, LiteLLM and its operator, Home Assistant MCP, Context7, and the Ollama
 local-model overlay. NVIDIA scheduling is configured for four shared allocations.
 Their required Secrets are SOPS-encrypted. LiteLLM SSO is restricted to the
 configured administrator with two-factor authentication; its dashboard is admin-only.
-These changes have not been pushed or applied to the live cluster.
+These changes are on the feature PR and have not been applied to the live cluster.
 
-Memini and the Open WebUI LiteLLM overlay remain unregistered until separate
-scoped LiteLLM client keys have been issued. Existing Open WebUI stays on its
-current configuration during this first stage.
+Memini remains unregistered until its scoped LiteLLM client key is issued.
+Open WebUI has one configuration (`ks.yaml` and `app/`), with LiteLLM as its
+only backend. Its Flux Kustomization is temporarily suspended because the
+Open WebUI virtual key has not been issued. After provisioning the key, render
+it into the existing app Secret and remove `spec.suspend`. Suspension does not
+stop an existing deployment; it prevents applying the incomplete configuration.
 
 Storage placement: Lordcommander holds replaceable Ollama model downloads.
 Ollama configuration and Open WebUI data stay on Jericho. The embedding cache
@@ -41,7 +44,7 @@ first-stage registrations, SSO client, and provider credentials are now prepared
 | `ha-mcp/` | Runs Home Assistant MCP inside the cluster and registers it with LiteLLM. |
 | `context7-mcp/` | Optional hosted documentation lookup through LiteLLM; separate from model inference and disabled until registered. |
 | `memini/` | Persistent memory, using local Qwen embeddings directly and local Qwen3 4B through LiteLLM. |
-| `open-webui/litellm/` | Optional overlay switching existing Open WebUI to LiteLLM for chat and embeddings. |
+| `open-webui/app/` | Single Open WebUI deployment using LiteLLM for chat and embeddings; temporarily suspended until its virtual key is available. |
 | `../../components/ai-nvidia-sharing/` | Optional NVIDIA ConfigMap patch allowing four shared GPU scheduling allocations. |
 
 ```text
@@ -272,7 +275,7 @@ Set the relevant flag and inputs in the ignored `bootstrap/vars/config.yaml`:
 | `ai_context7_secrets_enabled` | `context7_api_key` | `cluster-context7-mcp-secrets` |
 | `ai_ha_mcp_secrets_enabled` | `ha_mcp_homeassistant_token` | `cluster-ha-mcp-secrets` |
 | `ai_memini_secrets_enabled` | `memini_api_key`, `memini_litellm_api_key` | `cluster-memini-secrets` |
-| `ai_open_webui_litellm_secrets_enabled` | `open_webui_litellm_api_key` | `cluster-open-webui-litellm-secrets` in `open-webui/litellm/secret.sops.yaml` |
+| `ai_open_webui_litellm_secrets_enabled` | `open_webui_litellm_api_key` | `OPENAI_API_KEY` in the existing `cluster-open-webui-secrets` at `open-webui/app/secret.sops.yaml` |
 
 Use fresh random credentials on the personal laptop. LiteLLM master/virtual
 keys use the `sk-` prefix. Use a URL-safe database password. Supply the OpenAI
@@ -332,8 +335,10 @@ the relevant prerequisites and encrypted secrets are ready:
 4. `./ha-mcp/ks.yaml` when its Home Assistant token is ready.
 5. `./memini/ks.yaml` after its local-only client key, storage and embeddings
    are ready.
-6. **Replace** `./open-webui/ks.yaml` with `./open-webui/ks-litellm.yaml`.
-   Never include both: they name the same Flux Kustomization.
+6. Issue the scoped Open WebUI key, set `open_webui_litellm_api_key` and
+   `ai_open_webui_litellm_secrets_enabled: true`, and render/encrypt the app
+   Secret. Remove `spec.suspend: true` from `open-webui/ks.yaml`. There is no
+   alternate deployment or backend overlay.
 7. Optionally register `./context7-mcp/ks.yaml` after rendering/encrypting its
    separate key and uncommenting its Secret resource. Grant Context7 tool
    access only to the chosen MCP clients. This permits hosted documentation
@@ -347,9 +352,9 @@ embeddings running; test OpenAI separately only after granting its client key.
 Use LiteLLM request/provider records to verify Memini stays on local inference.
 Check that Memini writes a usable NFS snapshot and can recover from it.
 
-Open WebUI can retain connection settings in its database. Inspect its admin
-connections and document settings after switching: saved values may override
-environment defaults. Back up the existing PostgreSQL database and APPS data
+Open WebUI sets `ENABLE_PERSISTENT_CONFIG: "false"` so saved administrator
+settings cannot override the declared LiteLLM connections. Admin configuration
+must be managed through the manifests; user data remains in PostgreSQL/APPS. Back up the existing PostgreSQL database and APPS data
 before migrating document embeddings; reindex existing knowledge from
 `nomic-embed-text` to Qwen. Verify chats and existing Authelia access still work.
 
@@ -392,8 +397,9 @@ the administrator-only authorization policy structure. No live checks were run.
 Preparation checks passed on 2026-09-28: unchanged active AI build and Flux
 entrypoint, all namespace Kustomize builds, the pinned Helm charts and both overlays,
 custom resources against the installed chart CRDs, and core/Flux schemas.
-All five disabled templates were checked with makejinja 2.9.1 and produce no
-output files. Synthetic SQLite tests verified WAL recovery, repeated snapshots,
+The original five disabled templates were checked with makejinja 2.9.1 and
+produced no output files. Open WebUI now uses a conditional key inside its
+always-rendered app Secret instead of a separate optional Secret. Synthetic SQLite tests verified WAL recovery, repeated snapshots,
 retention, and preserving previous backups when the source is unavailable.
 
 No live Kubernetes credentials are needed:
@@ -409,7 +415,7 @@ mise exec -- kustomize build kubernetes/apps/storage/cloudnative-pg/databases >/
 mise exec -- kustomize build kubernetes/apps/ai/litellm/app/models >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/ollama/local --load-restrictor LoadRestrictionsNone >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/ollama/models >/dev/null
-mise exec -- kustomize build kubernetes/apps/ai/open-webui/litellm --load-restrictor LoadRestrictionsNone >/dev/null
+mise exec -- kustomize build kubernetes/apps/ai/open-webui/app --load-restrictor LoadRestrictionsNone >/dev/null
 ```
 
 Also render the pinned Helm charts and validate custom resources against those
