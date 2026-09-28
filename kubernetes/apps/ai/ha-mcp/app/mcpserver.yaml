@@ -1,0 +1,60 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmmcpserver_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMMCPServer
+metadata:
+  name: ha-mcp
+spec:
+  alias: ha_mcp
+  workload:
+    # renovate: datasource=docker depName=ghcr.io/homeassistant-ai/ha-mcp
+    image: ghcr.io/homeassistant-ai/ha-mcp:8.5.0@sha256:e1538bcdadb13a5467bbb8258fba3262a05518585e18115742da638adec7057c
+    port: 8086
+    command:
+      - ha-mcp-web
+    env:
+      - name: TZ
+        value: ${TIMEZONE}
+      - name: HOMEASSISTANT_URL
+        value: http://home-assistant.home-automation.svc.cluster.local:8123
+      - name: HOMEASSISTANT_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: cluster-ha-mcp-secrets
+            key: HOMEASSISTANT_TOKEN
+      - name: MCP_HOST
+        value: 0.0.0.0
+      - name: MCP_PORT
+        value: '8086'
+      - name: HA_MCP_CONFIG_DIR
+        value: /tmp/ha-mcp
+      - name: HA_MCP_DISABLE_UPDATE_CHECK
+        value: 'true'
+      - name: FASTMCP_CHECK_FOR_UPDATES
+        value: 'off'
+    volumes:
+      - name: tmp
+        emptyDir: {}
+    volumeMounts:
+      - name: tmp
+        mountPath: /tmp
+    automountServiceAccountToken: false
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop:
+          - ALL
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+    resources:
+      requests:
+        cpu: 10m
+        memory: 128Mi
+      limits:
+        memory: 512Mi

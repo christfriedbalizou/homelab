@@ -1,0 +1,68 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: llmkube
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: llmkube
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    namespace: ai
+    crds:
+      install: true
+      keep: true
+    controllerManager:
+      replicaCount: 1
+      leaderElection:
+        enabled: false
+      resources:
+        requests:
+          cpu: 10m
+          memory: 128Mi
+        limits:
+          memory: 512Mi
+      podSecurityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
+      securityContext:
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL
+      image:
+        tag: 0.9.30
+        digest: sha256:f9296df16c4da4fb67efe29d725543e99e4b0aef1a51d6b45d86efa187b0a622
+      initContainer:
+        repository: docker.io/curlimages/curl
+        tag: 8.22.0@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777
+    metrics:
+      enabled: false
+    prometheus:
+      serviceMonitor:
+        enabled: false
+        interval: 30s
+      inferencePodMonitor:
+        enabled: false
+        interval: 30s
+      prometheusRule:
+        enabled: false
+    modelCache:
+      enabled: true
+      mode: perService
+      size: 5Gi
+      storageClass: openebs-hostpath
+      accessMode: ReadWriteOnce
+      mountPath: /models
