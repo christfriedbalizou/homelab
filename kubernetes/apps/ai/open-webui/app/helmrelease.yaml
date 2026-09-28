@@ -81,7 +81,7 @@ spec:
               OPENID_REDIRECT_URI: https://ai.${SECRET_DOMAIN}/oauth/oidc/callback
               RAG_EMBEDDING_ENGINE: openai
               RAG_EMBEDDING_MODEL: qwen3-embedding-0.6b
-              RAG_EMBEDDING_BATCH_SIZE: "4"
+              RAG_EMBEDDING_BATCH_SIZE: "16"
               RAG_OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1
               RAG_OPENAI_API_KEY:
                 valueFrom:
