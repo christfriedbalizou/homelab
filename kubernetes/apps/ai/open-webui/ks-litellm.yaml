@@ -41,6 +41,6 @@ spec:
   timeout: 3m
   dependsOn:
     - name: litellm
-      namespace: flux-system
+      namespace: ai
     - name: llmkube-models
-      namespace: flux-system
+      namespace: ai

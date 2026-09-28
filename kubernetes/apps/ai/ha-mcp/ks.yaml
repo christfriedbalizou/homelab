@@ -22,9 +22,9 @@ spec:
     namespace: flux-system
   dependsOn:
     - name: litellm
-      namespace: flux-system
+      namespace: ai
     - name: home-assistant
-      namespace: flux-system
+      namespace: home-automation
   decryption:
     provider: sops
     secretRef:

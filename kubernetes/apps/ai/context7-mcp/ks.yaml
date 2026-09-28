@@ -23,7 +23,7 @@ spec:
     namespace: flux-system
   dependsOn:
     - name: litellm
-      namespace: flux-system
+      namespace: ai
   decryption:
     provider: sops
     secretRef:

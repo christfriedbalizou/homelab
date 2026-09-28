@@ -34,7 +34,7 @@ first-stage registrations, SSO client, and provider credentials are now prepared
 | --- | --- |
 | `llmkube/` | Operator and Qwen3-Embedding-0.6B served by CUDA llama.cpp on the shared NVIDIA GPU. Downloaded model cache uses OpenEBS hostpath. |
 | `litellm-operator/` | Manages proxy, model and MCP resources; auto-registers ready LLMKube models. |
-| `litellm/database/` | Provisions a role/database on shared CloudNativePG using a postgres-init init container. |
+| `../storage/cloudnative-pg/databases/` | Declares a retained CloudNativePG DatabaseRole and Database in storage, with an encrypted role password Secret. |
 | `litellm/app/` | Internal gateway to local Ollama models, OpenAI models and embeddings; uses shared Dragonfly. |
 | `litellm/app/models/` | One model catalog containing all local and OpenAI model declarations, following the upstream layout. |
 | `ollama/local/`, `ollama/models/` | Optional NVIDIA memory settings and a one-time Job that downloads the selected chat models through the existing Ollama server. |
@@ -256,8 +256,11 @@ Only enable each template flag after all its inputs are present. Complete
 the GPU, NFS backup directory and SSO prerequisites before activation;
 credential generation alone does not make the stack ready to deploy.
 
-New templates live in `bootstrap/templates/kubernetes/apps/ai/`. Each has a
-separate opt-in flag, defaulting to false, so normal `just configure` does not
+App credential templates live in `bootstrap/templates/kubernetes/apps/ai/`.
+The LiteLLM database password template lives at
+`bootstrap/templates/kubernetes/apps/storage/cloudnative-pg/databases/litellm.sops.yaml.j2`.
+Both LiteLLM templates share `ai_litellm_secrets_enabled`; each other integration
+has its own opt-in flag. Flags default to false, so normal `just configure` does not
 require new credentials. Disabled templates render no Secret documents.
 These flags render secrets; they do **not** deploy apps.
 
@@ -265,7 +268,7 @@ Set the relevant flag and inputs in the ignored `bootstrap/vars/config.yaml`:
 
 | Flag | Inputs | Destination Secret |
 | --- | --- | --- |
-| `ai_litellm_secrets_enabled` | `litellm_postgres_password`, `litellm_master_key`, `litellm_oauth_client_secret`, `litellm_admin_id`, `litellm_openai_api_key` | `cluster-litellm-secrets` in `litellm/database/secret.sops.yaml` |
+| `ai_litellm_secrets_enabled` | `litellm_postgres_password`, `litellm_master_key`, `litellm_oauth_client_secret`, `litellm_admin_id`, `litellm_openai_api_key` | `cluster-litellm-secrets` in `litellm/app/secret.sops.yaml` (ai) and `litellm-db` in `../storage/cloudnative-pg/databases/litellm.sops.yaml` (storage) |
 | `ai_context7_secrets_enabled` | `context7_api_key` | `cluster-context7-mcp-secrets` |
 | `ai_ha_mcp_secrets_enabled` | `ha_mcp_homeassistant_token` | `cluster-ha-mcp-secrets` |
 | `ai_memini_secrets_enabled` | `memini_api_key`, `memini_litellm_api_key` | `cluster-memini-secrets` |
@@ -274,8 +277,13 @@ Set the relevant flag and inputs in the ignored `bootstrap/vars/config.yaml`:
 Use fresh random credentials on the personal laptop. LiteLLM master/virtual
 keys use the `sk-` prefix. Use a URL-safe database password. Supply the OpenAI
 API key with the other LiteLLM inputs before activating the staged catalog.
-The shared Secret is created in the database phase so both postgres-init and
-the proxy can use it; LiteLLM waits for that phase through its existing dependency.
+The role password Secret is deployed to `storage` alongside `postgres18`.
+The connection/API/OIDC Secret stays in `ai`; both templates use the same
+`litellm_postgres_password` input. LiteLLM waits for the database phase, which
+checks both resources for `status.applied: true` at their current generation.
+The `cloudnative-pg-databases` Flux Kustomization and its resources live in
+`storage`; LiteLLM in `ai` depends on it.
+No superuser credential is passed to an AI bootstrap Job.
 
 Run `mise exec -- just configure` using the existing Age key, review the diff,
 and verify every new rendered Secret is SOPS-encrypted. Then uncomment
@@ -288,10 +296,16 @@ and Memini. Open WebUI needs its chosen chat models and
 Then enable the corresponding client secret flags and run `just configure`
 again. Do not distribute the LiteLLM master key to clients.
 
-The database Job deliberately remains after completion for Flux dependency
-health. If the PostgreSQL password is rotated later, rerun this idempotent Job
-as part of the rotation before rolling the proxy; changing only a Secret does
-not rerun an already completed Job.
+CloudNativePG manages LiteLLM's role and database; there is no initialization
+Job. Both resources use explicit `retain` reclaim policies. The role password
+Secret carries `cnpg.io/reload: "true"` so password updates are observed.
+For rotation, regenerate both Secrets from the same password input, apply the
+storage Secret first, confirm the role has applied its new Secret resource
+version, then update the app Secret and roll the proxy. A rotation is not atomic
+across namespaces; generation checks alone cannot prove a password-only change
+has been applied. Application schema migrations remain LiteLLM's responsibility.
+This feature adopts the new approach only for LiteLLM. Existing Open WebUI
+postgres-init and database provisioning in other namespaces are unchanged.
 
 ## Activation order
 
@@ -308,8 +322,10 @@ the relevant prerequisites and encrypted secrets are ready:
    upstream; record the returned model IDs when activating.
 2. `./llmkube/ks.yaml` and `./litellm-operator/ks.yaml`. The first file contains
    both the operator and the separate `llmkube-models` Flux Kustomization.
-3. `./litellm/ks.yaml`. Its database Job waits for `cloudnative-pg-cluster`;
-   the proxy waits for that Job, its operator, `ollama-models` and shared
+3. `./litellm/ks.yaml`. The central `cloudnative-pg-databases` Kustomization
+   waits for `cloudnative-pg-cluster` in `storage`; the proxy waits for the
+   applied role/database through that dependency, its operator,
+   `ollama-models` and shared
    `dragonfly-cluster`. This also registers the local and OpenAI model catalog.
    Prepare the shared LiteLLM Secret, including `OPENAI_API_KEY`, first. Grant
    cloud aliases explicitly to the desired client keys; Memini remains local-only.
@@ -389,7 +405,7 @@ for app in litellm-operator llmkube litellm ha-mcp context7-mcp memini; do
   mise exec -- kustomize build "kubernetes/apps/ai/$app/app" --load-restrictor LoadRestrictionsNone >/dev/null
 done
 mise exec -- kustomize build kubernetes/apps/ai/llmkube/models >/dev/null
-mise exec -- kustomize build kubernetes/apps/ai/litellm/database >/dev/null
+mise exec -- kustomize build kubernetes/apps/storage/cloudnative-pg/databases >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/litellm/app/models >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/ollama/local --load-restrictor LoadRestrictionsNone >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/ollama/models >/dev/null

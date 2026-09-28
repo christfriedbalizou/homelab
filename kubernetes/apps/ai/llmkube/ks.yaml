@@ -53,9 +53,9 @@ spec:
     namespace: flux-system
   dependsOn:
     - name: llmkube
-      namespace: flux-system
+      namespace: ai
     - name: nvidia
-      namespace: flux-system
+      namespace: kube-system
   postBuild:
     substituteFrom:
       - name: cluster-secrets

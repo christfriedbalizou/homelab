@@ -61,4 +61,4 @@ spec:
     namespace: flux-system
   dependsOn:
     - name: ollama
-      namespace: flux-system
+      namespace: ai
