@@ -4,6 +4,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: ai
 resources:
-  # Uncomment after rendering and encrypting this app's secret; see ../../README.md.
-  # - ./secret.sops.yaml
+  - ./secret.sops.yaml
   - ./job.yaml

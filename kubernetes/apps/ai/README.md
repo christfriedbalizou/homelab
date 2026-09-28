@@ -4,10 +4,29 @@ Prepared from [Diaoul/home-ops at 5e337d3](https://github.com/Diaoul/home-ops/tr
 The [onedr0p Home Assistant MCP deployment](https://github.com/onedr0p/home-ops/blob/main/kubernetes/apps/default/home-assistant/mcp/helmrelease.yaml)
 was also checked for its internal Home Assistant endpoint and container settings.
 
-**Nothing new is registered in `ai/kustomization.yaml`.** Existing Ollama and
-Open WebUI manifests remain unchanged. New apps, the NVIDIA component and the
-Ollama/Open WebUI overlays are dormant. This branch is preparation, not an activation.
-No credentials were generated and no cluster commands were run.
+**First activation stage is registered in Git.** The AI namespace now includes
+LLMKube, LiteLLM and its operator, Home Assistant MCP, Context7, and the Ollama
+local-model overlay. NVIDIA scheduling is configured for four shared allocations.
+Their required Secrets are SOPS-encrypted. LiteLLM SSO is restricted to the
+configured administrator with two-factor authentication; its dashboard is admin-only.
+These changes have not been pushed or applied to the live cluster.
+
+Memini and the Open WebUI LiteLLM overlay remain unregistered until separate
+scoped LiteLLM client keys have been issued. Existing Open WebUI stays on its
+current configuration during this first stage.
+
+Storage placement: Lordcommander holds replaceable Ollama model downloads.
+Ollama configuration and Open WebUI data stay on Jericho. The embedding cache
+is disposable OpenEBS storage. Memini's SQLite database uses OpenEBS with hourly
+snapshots on Jericho/APPS; never put memories or backups on Lordcommander.
+Before enabling Memini, create `/volume1/apps/ai/memini-backups` on the APPS
+NFS server, owned by UID/GID 1000, and include it in APPS backups. A direct NFS
+mount does not create this server directory. The OpenEBS PVC is provisioned
+automatically. Local memory writes since the last successful snapshot can be
+lost if the OpenEBS node is lost.
+
+The remaining sections describe the full setup and activation sequence; the
+first-stage registrations, SSO client, and provider credentials are now prepared.
 
 ## Layout and connections
 
@@ -75,7 +94,7 @@ buffers also need memory. The 4B model plus embeddings is the intended fit,
 subject to an actual GPU test. Larger 7-8B models leave insufficient headroom
 for this simultaneous embedding workload; CPU offload is not the baseline.
 
-The dormant Ollama overlay uses an 8192-token context, Flash Attention, a
+The registered Ollama overlay uses an 8192-token context, Flash Attention, a
 `q8_0` KV cache, one loaded chat model and one parallel request. Unused chat
 weights unload after 60 seconds. These settings follow the
 [Ollama memory guidance](https://docs.ollama.com/faq). Selecting another chat
@@ -154,7 +173,7 @@ enabled now. To avoid all external tool lookups, leave it unregistered.
      - ../../../../../components/ai-nvidia-sharing
    ```
 
-   This component is not registered now. Idle video workloads can still reserve
+   This component is now registered for the first activation stage. Idle video workloads can still reserve
    scheduling shares. Four shares still share the same 6 GB
    of VRAM; they provide neither memory isolation nor additional capacity.
    Validate concurrent inference, video workloads and rollouts before enabling
@@ -169,16 +188,17 @@ enabled now. To avoid all external tool lookups, leave it unregistered.
    existing APPS backup policy.
 5. Prepare the OpenAI API key, the Home Assistant token, LiteLLM
    database/master/OIDC credentials and Memini API key as described below.
-6. Configure the LiteLLM Authelia client before using its admin UI. Add the
-   snippet below under `identity_providers.oidc.clients` in the existing
-   Authelia configuration:
+6. The LiteLLM Authelia client is now registered under
+   `identity_providers.oidc.clients`. Its `litellm_admin` authorization policy
+   denies everyone except `user:${LITELLM_ADMIN_ID}`, who must use two-factor
+   authentication. The client configuration is:
 
    ```yaml
    - client_id: litellm
      client_name: LiteLLM
      client_secret: "${LITELLM_OAUTH_CLIENT_SECRET_PBKDF2}"
      public: false
-     authorization_policy: two_factor
+     authorization_policy: litellm_admin
      require_pkce: false
      pkce_challenge_method: ""
      redirect_uris:
@@ -190,9 +210,10 @@ enabled now. To avoid all external tool lookups, leave it unregistered.
      token_endpoint_auth_method: client_secret_basic
    ```
 
-   Add `LITELLM_OAUTH_CLIENT_SECRET_PBKDF2` to the existing **cluster-secrets
-   bootstrap template**, using `{{ pbkdf2(litellm_oauth_client_secret) }}` like
-   the other OIDC clients. The clear client secret is only in the encrypted
+   The **cluster-secrets bootstrap template** now includes
+   `LITELLM_OAUTH_CLIENT_SECRET_PBKDF2` when `ai_litellm_secrets_enabled` is true,
+   using `{{ pbkdf2(litellm_oauth_client_secret) }}` like the other OIDC clients.
+   The clear client secret is only in the encrypted
    LiteLLM app Secret. `litellm_admin_id` must match the intended Authelia user
    identity returned to LiteLLM. Keep API access token-based: do not attach
    an interactive ext-auth redirect to LiteLLM's API/MCP endpoints.
@@ -203,6 +224,37 @@ LAN/VPN DNS resolves them to the internal Envoy Gateway. Open WebUI retains
 `ai.${SECRET_DOMAIN}` and its current Authelia family/admin role mapping.
 
 ## Secrets: templates only until credentials are available
+
+### Collect the remaining credentials
+
+Keep all inputs in the ignored `bootstrap/vars/config.yaml`; do not paste
+credentials into chat or commit that file. Locally generated inputs are
+`litellm_postgres_password`, `litellm_master_key`,
+`litellm_oauth_client_secret`, and `memini_api_key`. Preserve existing values
+on subsequent runs rather than rotating them during setup.
+
+1. **OpenAI:** sign in to the [API platform](https://platform.openai.com/api-keys),
+   select the intended project, and create a secret API key named
+   `homelab-litellm`. Save it as `litellm_openai_api_key`. See the
+   [official quickstart](https://developers.openai.com/api/docs/quickstart).
+2. **Home Assistant:** open your profile, select **Security**, and create a
+   **Long-lived access token** named `homelab-ha-mcp`. Save it as
+   `ha_mcp_homeassistant_token`. See
+   [Home Assistant authentication](https://www.home-assistant.io/docs/authentication/).
+3. **LiteLLM administrator:** supply `litellm_admin_id` matching the identity
+   returned by Authelia to LiteLLM. This is an account identifier, not a newly
+   generated password; verify the SSO identity when activating.
+4. **Context7 (optional):** sign in at [Context7](https://context7.com/dashboard),
+   create an API key, and save it as `context7_api_key`. Leave its secret flag
+   disabled if this integration is not wanted.
+5. After LiteLLM is running, issue separate virtual keys for Open WebUI and
+   Memini and save them as `open_webui_litellm_api_key` and
+   `memini_litellm_api_key`. These must be registered with LiteLLM, not merely
+   generated as random strings. Use the model grants described below.
+
+Only enable each template flag after all its inputs are present. Complete
+the GPU, NFS backup directory and SSO prerequisites before activation;
+credential generation alone does not make the stack ready to deploy.
 
 New templates live in `bootstrap/templates/kubernetes/apps/ai/`. Each has a
 separate opt-in flag, defaulting to false, so normal `just configure` does not
@@ -228,7 +280,7 @@ the proxy can use it; LiteLLM waits for that phase through its existing dependen
 Run `mise exec -- just configure` using the existing Age key, review the diff,
 and verify every new rendered Secret is SOPS-encrypted. Then uncomment
 `- ./secret.sops.yaml` in that app's `kustomization.yaml`. No missing Secret
-files are referenced in the staged builds.
+files are referenced in the builds.
 
 Activate LiteLLM first to issue **separate scoped virtual keys** for Open WebUI
 and Memini. Open WebUI needs its chosen chat models and
@@ -314,6 +366,12 @@ model alias and 1024 dimensions, then restart and test recall. Memini's
 also describes logical export/import for changing embedding dimensions.
 
 ## Offline validation
+
+First-stage activation checks passed on 2026-09-29: all namespace and
+first-stage app Kustomize builds, the repository kubeconform sweep, SOPS
+decryption/integrity checks, matching LiteLLM/Authelia client credentials, and
+the administrator-only authorization policy structure. No live checks were run.
+
 
 Preparation checks passed on 2026-09-28: unchanged active AI build and Flux
 entrypoint, all namespace Kustomize builds, the pinned Helm charts and both overlays,

@@ -11,6 +11,7 @@ spec:
   generalSettings:
     health_check_endpoint: /v1/health
     disable_env_credential_login: true
+    ui_access_mode: admin_only
     forward_client_headers_to_llm_api: false
   routerSettings:
     routing_strategy: simple-shuffle
@@ -64,6 +65,8 @@ spec:
           key: PROXY_ADMIN_ID
     - name: GENERIC_CLIENT_ID
       value: litellm
+    - name: GENERIC_USER_ID_ATTRIBUTE
+      value: preferred_username
     - name: GENERIC_CLIENT_SECRET
       valueFrom:
         secretKeyRef:
