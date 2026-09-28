@@ -16,8 +16,8 @@ No credentials were generated and no cluster commands were run.
 | `llmkube/` | Operator and Qwen3-Embedding-0.6B served by CUDA llama.cpp on the shared NVIDIA GPU. Downloaded model cache uses OpenEBS hostpath. |
 | `litellm-operator/` | Manages proxy, model and MCP resources; auto-registers ready LLMKube models. |
 | `litellm/database/` | Provisions a role/database on shared CloudNativePG using a postgres-init init container. |
-| `litellm/app/` | Internal gateway to local Ollama models and embeddings; uses shared Dragonfly. |
-| `litellm/openai/` | Optional OpenAI API models, isolated behind their own Flux registration and Secret. |
+| `litellm/app/` | Internal gateway to local Ollama models, OpenAI models and embeddings; uses shared Dragonfly. |
+| `litellm/app/models/` | One model catalog containing all local and OpenAI model declarations, following the upstream layout. |
 | `ollama/local/`, `ollama/models/` | Optional NVIDIA memory settings and a one-time Job that downloads the selected chat models through the existing Ollama server. |
 | `ha-mcp/` | Runs Home Assistant MCP inside the cluster and registers it with LiteLLM. |
 | `context7-mcp/` | Optional hosted documentation lookup through LiteLLM; separate from model inference and disabled until registered. |
@@ -27,7 +27,7 @@ No credentials were generated and no cluster commands were run.
 
 ```text
 Open WebUI -> LiteLLM -> Ollama (one local chat model loaded at a time)
-                     -> OpenAI API (optional, explicitly selected cloud aliases)
+                     -> OpenAI API (explicitly selected cloud aliases)
                      -> LLMKube embedding service
 MCP clients -> LiteLLM -> ha-mcp -> Home Assistant
                      -> Context7 documentation API (optional tool)
@@ -38,8 +38,9 @@ Memory clients -> Memini -> embedding service
 All local chat aliases point to `ollama.ai.svc.cluster.local:11434`. Open WebUI
 defaults to `qwen3-local`, and Memini's processing model is also `qwen3-local`.
 There are no automatic fallbacks. Anthropic and OpenCode Go have been removed.
-OpenAI is the only configured external inference provider, and it is excluded
-from the local LiteLLM build. Context7 is an optional external documentation
+OpenAI is the only configured external inference provider. Local and OpenAI
+models are registered together through LiteLLM's model catalog, and OpenAI
+requests require explicit model selection. Context7 is an optional external documentation
 tool, with its own registration and credential.
 
 Selecting an enabled `openai-...-cloud` alias sends that conversation and any
@@ -84,13 +85,15 @@ latency and memory use before increasing context or concurrency. Memini's
 JSON extraction/consolidation quality must be tested with representative
 memories; a 4B model is not equivalent to a large hosted model.
 
-## Optional OpenAI models
+## OpenAI models
 
-The GPT-6 manifests are in [`litellm/openai/`](litellm/openai/), not
-`litellm/app/models/`. [`litellm/ks-openai.yaml`](litellm/ks-openai.yaml) adds
-them separately from the local stack. They will not appear in the running
-LiteLLM model list until this registration is activated, the encrypted OpenAI
-Secret is present, and the client key is granted the aliases.
+The GPT-6 and local model manifests all live in
+[`litellm/app/models/`](litellm/app/models/) and are included by its
+`kustomization.yaml`, following the upstream structure. The normal
+[`litellm/ks.yaml`](litellm/ks.yaml) registers the entire catalog. OpenAI's API
+key is stored in the shared `cluster-litellm-secrets` Secret, alongside the
+other LiteLLM credentials. There is no provider-specific folder or Flux
+registration. Models will appear after LiteLLM activation and client-key grants.
 
 | Alias | API model | Use |
 | --- | --- | --- |
@@ -164,7 +167,7 @@ enabled now. To avoid all external tool lookups, leave it unregistered.
 4. Create `/volume1/apps/ai/memini-backups` on the APPS NFS server, writable by
    UID/GID 1000. Confirm the export permits this path and includes it in the
    existing APPS backup policy.
-5. Prepare the optional OpenAI API key, the Home Assistant token, LiteLLM
+5. Prepare the OpenAI API key, the Home Assistant token, LiteLLM
    database/master/OIDC credentials and Memini API key as described below.
 6. Configure the LiteLLM Authelia client before using its admin UI. Add the
    snippet below under `identity_providers.oidc.clients` in the existing
@@ -210,16 +213,17 @@ Set the relevant flag and inputs in the ignored `bootstrap/vars/config.yaml`:
 
 | Flag | Inputs | Destination Secret |
 | --- | --- | --- |
-| `ai_litellm_secrets_enabled` | `litellm_postgres_password`, `litellm_master_key`, `litellm_oauth_client_secret`, `litellm_admin_id` | `cluster-litellm-secrets` in `litellm/database/secret.sops.yaml` |
-| `ai_openai_secrets_enabled` | `litellm_openai_api_key` | `cluster-litellm-openai-secrets` in `litellm/openai/secret.sops.yaml` |
+| `ai_litellm_secrets_enabled` | `litellm_postgres_password`, `litellm_master_key`, `litellm_oauth_client_secret`, `litellm_admin_id`, `litellm_openai_api_key` | `cluster-litellm-secrets` in `litellm/database/secret.sops.yaml` |
 | `ai_context7_secrets_enabled` | `context7_api_key` | `cluster-context7-mcp-secrets` |
 | `ai_ha_mcp_secrets_enabled` | `ha_mcp_homeassistant_token` | `cluster-ha-mcp-secrets` |
 | `ai_memini_secrets_enabled` | `memini_api_key`, `memini_litellm_api_key` | `cluster-memini-secrets` |
 | `ai_open_webui_litellm_secrets_enabled` | `open_webui_litellm_api_key` | `cluster-open-webui-litellm-secrets` in `open-webui/litellm/secret.sops.yaml` |
 
 Use fresh random credentials on the personal laptop. LiteLLM master/virtual
-keys use the `sk-` prefix. Use a URL-safe database password. Leave the OpenAI
-flag disabled for a local-only deployment; the local stack needs no provider key.
+keys use the `sk-` prefix. Use a URL-safe database password. Supply the OpenAI
+API key with the other LiteLLM inputs before activating the staged catalog.
+The shared Secret is created in the database phase so both postgres-init and
+the proxy can use it; LiteLLM waits for that phase through its existing dependency.
 
 Run `mise exec -- just configure` using the existing Age key, review the diff,
 and verify every new rendered Secret is SOPS-encrypted. Then uncomment
@@ -254,16 +258,15 @@ the relevant prerequisites and encrypted secrets are ready:
    both the operator and the separate `llmkube-models` Flux Kustomization.
 3. `./litellm/ks.yaml`. Its database Job waits for `cloudnative-pg-cluster`;
    the proxy waits for that Job, its operator, `ollama-models` and shared
-   `dragonfly-cluster`.
+   `dragonfly-cluster`. This also registers the local and OpenAI model catalog.
+   Prepare the shared LiteLLM Secret, including `OPENAI_API_KEY`, first. Grant
+   cloud aliases explicitly to the desired client keys; Memini remains local-only.
 4. `./ha-mcp/ks.yaml` when its Home Assistant token is ready.
 5. `./memini/ks.yaml` after its local-only client key, storage and embeddings
    are ready.
 6. **Replace** `./open-webui/ks.yaml` with `./open-webui/ks-litellm.yaml`.
    Never include both: they name the same Flux Kustomization.
-7. Optionally register `./litellm/ks-openai.yaml` after rendering/encrypting the
-   separate OpenAI Secret and uncommenting it in `litellm/openai/kustomization.yaml`.
-   Grant the cloud aliases explicitly to the desired client keys.
-8. Optionally register `./context7-mcp/ks.yaml` after rendering/encrypting its
+7. Optionally register `./context7-mcp/ks.yaml` after rendering/encrypting its
    separate key and uncommenting its Secret resource. Grant Context7 tool
    access only to the chosen MCP clients. This permits hosted documentation
    queries independently of whether a local or OpenAI model is selected.
@@ -315,7 +318,7 @@ also describes logical export/import for changing embedding dimensions.
 Preparation checks passed on 2026-09-28: unchanged active AI build and Flux
 entrypoint, all namespace Kustomize builds, the pinned Helm charts and both overlays,
 custom resources against the installed chart CRDs, and core/Flux schemas.
-All six disabled templates were checked with makejinja 2.9.1 and produce no
+All five disabled templates were checked with makejinja 2.9.1 and produce no
 output files. Synthetic SQLite tests verified WAL recovery, repeated snapshots,
 retention, and preserving previous backups when the source is unavailable.
 
@@ -329,7 +332,7 @@ for app in litellm-operator llmkube litellm ha-mcp context7-mcp memini; do
 done
 mise exec -- kustomize build kubernetes/apps/ai/llmkube/models >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/litellm/database >/dev/null
-mise exec -- kustomize build kubernetes/apps/ai/litellm/openai >/dev/null
+mise exec -- kustomize build kubernetes/apps/ai/litellm/app/models >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/ollama/local --load-restrictor LoadRestrictionsNone >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/ollama/models >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/open-webui/litellm --load-restrictor LoadRestrictionsNone >/dev/null

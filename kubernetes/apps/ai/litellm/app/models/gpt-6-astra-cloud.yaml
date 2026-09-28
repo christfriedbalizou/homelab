@@ -11,7 +11,7 @@ spec:
     model: openai/gpt-6-astra
     apiBase: https://api.openai.com/v1
     apiKeyRef:
-      name: cluster-litellm-openai-secrets
+      name: cluster-litellm-secrets
       key: OPENAI_API_KEY
     additional:
       # Astra requires reasoning; none is not supported.
