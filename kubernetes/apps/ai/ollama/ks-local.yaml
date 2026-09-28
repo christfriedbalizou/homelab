@@ -1,0 +1,64 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
+# Replace ollama/ks.yaml with this file at activation; never include both.
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app ollama
+  namespace: flux-system
+spec:
+  components:
+    - ../../../../components/persistence/jericho-nfs
+    - ../../../../components/persistence/lordcommander-nfs
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/apps/ai/ollama/local
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+    substitute:
+      APP: ollama
+      JERICHO_PATH: /volume1/apps/ai
+      LORDCOMMANDER_PATH: /volume1/media/ai
+  targetNamespace: ai
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+    namespace: flux-system
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      name: ollama
+      namespace: ai
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ollama-models
+  namespace: flux-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: ollama-models
+  path: ./kubernetes/apps/ai/ollama/models
+  targetNamespace: ai
+  prune: true
+  wait: true
+  force: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 65m
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+    namespace: flux-system
+  dependsOn:
+    - name: ollama
+      namespace: flux-system

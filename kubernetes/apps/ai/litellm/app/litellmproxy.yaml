@@ -11,7 +11,7 @@ spec:
   generalSettings:
     health_check_endpoint: /v1/health
     disable_env_credential_login: true
-    forward_client_headers_to_llm_api: true
+    forward_client_headers_to_llm_api: false
   routerSettings:
     routing_strategy: simple-shuffle
     redis_host: os.environ/REDIS_HOST
@@ -20,11 +20,10 @@ spec:
     timeout: 600
     allowed_fails: 1
     cooldown_time: 300
-    context_window_fallbacks:
-      - claude-haiku-4-5:
-          - claude-sonnet-5
-      - claude-sonnet-5:
-          - claude-opus-5
+    # Explicit model selection only: local failures must not send prompts outside.
+    fallbacks: []
+    context_window_fallbacks: []
+    content_policy_fallbacks: []
   litellmSettings:
     success_callback:
       - prometheus

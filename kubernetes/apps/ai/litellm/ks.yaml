@@ -61,6 +61,8 @@ spec:
       namespace: flux-system
     - name: dragonfly-cluster
       namespace: flux-system
+    - name: ollama-models
+      namespace: flux-system
   decryption:
     provider: sops
     secretRef:

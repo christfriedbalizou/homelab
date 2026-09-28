@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/batch/job_v1.json
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ollama-pull-local-models-v1
+spec:
+  backoffLimit: 3
+  activeDeadlineSeconds: 3600
+  template:
+    spec:
+      automountServiceAccountToken: false
+      restartPolicy: OnFailure
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: pull
+          # The CLI asks the existing Ollama server to download into its model volume.
+          # This Job neither starts another server nor requests a GPU.
+          image: docker.io/ollama/ollama:0.34.4@sha256:8262851b2846b87c649eddf3e76beb270c52f4d1bc94559f47efde16b0841551
+          command:
+            - /bin/sh
+            - -ec
+            - |
+              for model in qwen3:4b-q4_K_M qwen3:1.7b-q4_K_M qwen2.5-coder:3b-instruct-q4_K_M; do
+                ollama pull "$model"
+                ollama show "$model" >/dev/null
+              done
+          env:
+            - name: OLLAMA_HOST
+              value: http://ollama.ai.svc.cluster.local:11434
+            - name: HOME
+              value: /tmp
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64Mi
+            limits:
+              memory: 256Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}

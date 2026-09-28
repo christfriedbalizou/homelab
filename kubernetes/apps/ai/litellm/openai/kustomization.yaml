@@ -4,7 +4,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: ai
 resources:
-  - ./qwen3-local-ollama.yaml
-  - ./qwen3-local-think-ollama.yaml
-  - ./qwen3-local-fast-ollama.yaml
-  - ./qwen2-5-coder-local-ollama.yaml
+  # Uncomment after rendering and encrypting the OpenAI key; see ../../README.md.
+  # - ./secret.sops.yaml
+  - ./gpt-6-luna-cloud.yaml
+  - ./gpt-6-sol-cloud.yaml

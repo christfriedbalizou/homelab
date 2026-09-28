@@ -1,4 +1,4 @@
-# Staged AI stack
+# Staged local AI stack
 
 Prepared from [Diaoul/home-ops at 5e337d3](https://github.com/Diaoul/home-ops/tree/5e337d342fd403850146a0817ddffec228ec855e/kubernetes/apps/ai).
 The [onedr0p Home Assistant MCP deployment](https://github.com/onedr0p/home-ops/blob/main/kubernetes/apps/default/home-assistant/mcp/helmrelease.yaml)
@@ -6,7 +6,7 @@ was also checked for its internal Home Assistant endpoint and container settings
 
 **Nothing new is registered in `ai/kustomization.yaml`.** Existing Ollama and
 Open WebUI manifests remain unchanged. New apps, the NVIDIA component and the
-Open WebUI overlay are dormant. This branch is preparation, not an activation.
+Ollama/Open WebUI overlays are dormant. This branch is preparation, not an activation.
 No credentials were generated and no cluster commands were run.
 
 ## Layout and connections
@@ -16,31 +16,97 @@ No credentials were generated and no cluster commands were run.
 | `llmkube/` | Operator and Qwen3-Embedding-0.6B served by CUDA llama.cpp on the shared NVIDIA GPU. Downloaded model cache uses OpenEBS hostpath. |
 | `litellm-operator/` | Manages proxy, model and MCP resources; auto-registers ready LLMKube models. |
 | `litellm/database/` | Provisions a role/database on shared CloudNativePG using a postgres-init init container. |
-| `litellm/app/` | Internal gateway to existing Ollama, Anthropic and OpenCode Go models; uses shared Dragonfly. |
-| `context7-mcp/` | Registers the hosted Context7 documentation endpoint with LiteLLM. |
+| `litellm/app/` | Internal gateway to local Ollama models and embeddings; uses shared Dragonfly. |
+| `litellm/openai/` | Optional OpenAI API models, isolated behind their own Flux registration and Secret. |
+| `ollama/local/`, `ollama/models/` | Optional NVIDIA memory settings and a one-time Job that downloads the selected chat models through the existing Ollama server. |
 | `ha-mcp/` | Runs Home Assistant MCP inside the cluster and registers it with LiteLLM. |
-| `memini/` | Persistent memory, using Qwen embeddings directly and Claude Haiku through LiteLLM. |
+| `memini/` | Persistent memory, using local Qwen embeddings directly and local Qwen3 4B through LiteLLM. |
 | `open-webui/litellm/` | Optional overlay switching existing Open WebUI to LiteLLM for chat and embeddings. |
 | `../../components/ai-nvidia-sharing/` | Optional NVIDIA ConfigMap patch allowing four shared GPU scheduling allocations. |
 
 ```text
-Open WebUI -> LiteLLM -> Ollama (existing qwen3:4b)
-                     -> Anthropic / OpenCode Go
+Open WebUI -> LiteLLM -> Ollama (one local chat model loaded at a time)
+                     -> OpenAI API (optional, explicitly selected cloud aliases)
                      -> LLMKube embedding service
-MCP clients -> LiteLLM -> Context7 / ha-mcp -> Home Assistant
+MCP clients -> LiteLLM -> ha-mcp -> Home Assistant
 Memory clients -> Memini -> embedding service
-                        -> LiteLLM -> Claude Haiku
+                        -> LiteLLM -> local Qwen3 4B
 ```
 
-Local aliases are `qwen3-local` and `qwen3-local-think`, both pointing to
-`ollama.ai.svc.cluster.local:11434`. There is no Jupiter hostname or Intel
-resource claim. Local requests have no automatic cloud fallback. The provider
-model declarations follow the referenced upstream commit; verify account/model
-availability before enabling providers.
+All local chat aliases point to `ollama.ai.svc.cluster.local:11434`. Open WebUI
+defaults to `qwen3-local`, and Memini's processing model is also `qwen3-local`.
+There are no automatic fallbacks. Anthropic, OpenCode Go and the hosted Context7
+MCP integration have been removed. OpenAI is the only configured external AI
+provider, and it is excluded from the local LiteLLM build.
+
+Selecting an enabled `openai-...-cloud` alias sends that conversation and any
+attached context/tool results to OpenAI. Local aliases keep inference in the
+cluster. Image/model downloads still use external registries; this is a routing
+configuration, not a cluster-wide egress firewall. No Intel GPU is used.
 
 LLMKube owns the generated embedding Service `qwen3-embedding-0-6b`. Its direct
 model alias is `qwen3-embedding`; LiteLLM auto-registers it as
 `qwen3-embedding-0.6b`. These different names are intentional.
+
+## Models selected for the RTX 3050 6 GB
+
+The repository documents a 6 GB NVIDIA GPU on `k8s-3` with 16 GB system RAM.
+Selection assumes the full 6 GB is available for AI, as confirmed by the owner;
+Frigate and Jellyfin retain their existing scheduling reservations.
+
+| LiteLLM alias | Ollama model | Approximate model download | Use |
+| --- | --- | --- | --- |
+| `qwen3-local` | `qwen3:4b-q4_K_M` | 2.6 GB | Default chat, tool use and Memini processing; thinking disabled. |
+| `qwen3-local-think` | Same 4B model | Same stored weights | Optional reasoning mode; slower and shares the same context budget. |
+| `qwen3-local-fast` | `qwen3:1.7b-q4_K_M` | 1.4 GB | Faster, simpler chat when lower answer quality is acceptable. |
+| `qwen2.5-coder-local` | `qwen2.5-coder:3b-instruct-q4_K_M` | 1.9 GB | Code explanation and small edits; agent tool support is not advertised. |
+| `qwen3-embedding-0.6b` | Separate CUDA llama.cpp service | Q8_0 weights, about 0.7 GB | Document and memory embeddings, 1024 dimensions. |
+
+The explicit quantization tags avoid accidentally selecting larger weights.
+Sizes come from the [4B](https://ollama.com/library/qwen3:4b-q4_K_M),
+[1.7B](https://ollama.com/library/qwen3:1.7b-q4_K_M), and
+[coder](https://ollama.com/library/qwen2.5-coder:3b-instruct-q4_K_M) model pages.
+Download sizes are not total VRAM consumption: context caches and runtime
+buffers also need memory. The 4B model plus embeddings is the intended fit,
+subject to an actual GPU test. Larger 7-8B models leave insufficient headroom
+for this simultaneous embedding workload; CPU offload is not the baseline.
+
+The dormant Ollama overlay uses an 8192-token context, Flash Attention, a
+`q8_0` KV cache, one loaded chat model and one parallel request. Unused chat
+weights unload after 60 seconds. These settings follow the
+[Ollama memory guidance](https://docs.ollama.com/faq). Selecting another chat
+model swaps weights; it does not reserve another GPU share. The embedding
+service stays separate. Start with short prompts and confirm model loading,
+latency and memory use before increasing context or concurrency. Memini's
+JSON extraction/consolidation quality must be tested with representative
+memories; a 4B model is not equivalent to a large hosted model.
+
+## Optional OpenAI models
+
+`litellm/ks-openai.yaml` adds these separately from the local stack:
+
+| Alias | API model | Use |
+| --- | --- | --- |
+| `openai-gpt-6-luna-cloud` | `gpt-6-luna` | Lower-cost everyday external requests. |
+| `openai-gpt-6-sol-cloud` | `gpt-6-sol` | More demanding coding and general tasks. |
+
+The [OpenAI model catalog](https://developers.openai.com/api/docs/models)
+documents these choices. Both declarations use `https://api.openai.com/v1`,
+disable background health probes, request `store: false`, and default to at
+most 4096 output tokens. `store: false` does not mean no provider retention;
+OpenAI's [data controls](https://developers.openai.com/api/docs/guides/your-data)
+still apply. The Chat Completions interface uses `reasoning_effort: none` to
+retain tool calling, as required by the
+[Sol](https://developers.openai.com/api/docs/models/gpt-6-sol) and
+[Luna](https://developers.openai.com/api/docs/models/gpt-6-luna) documentation.
+Confirm model access with your API project when activating.
+
+Use your OpenAI Platform API key, not a ChatGPT browser session or password.
+API requests use separate API billing. Add the key only to the ignored local
+bootstrap configuration, then render/encrypt it using the template below.
+Memini's key must remain restricted to `qwen3-local`; grant the OpenAI aliases
+only to clients/users that should be able to select them. There is no automatic
+local-to-OpenAI fallback, including on context overflow or local failures.
 
 ## Before activation on the personal laptop
 
@@ -56,7 +122,8 @@ model alias is `qwen3-embedding`; LiteLLM auto-registers it as
      - ../../../../../components/ai-nvidia-sharing
    ```
 
-   This component is not registered now. Four shares still share the same 6 GB
+   This component is not registered now. Idle video workloads can still reserve
+   scheduling shares. Four shares still share the same 6 GB
    of VRAM; they provide neither memory isolation nor additional capacity.
    Validate concurrent inference, video workloads and rollouts before enabling
    all consumers. Embeddings use one replica, one shared GPU resource, a 2048
@@ -68,7 +135,7 @@ model alias is `qwen3-embedding`; LiteLLM auto-registers it as
 4. Create `/volume1/apps/ai/memini-backups` on the APPS NFS server, writable by
    UID/GID 1000. Confirm the export permits this path and includes it in the
    existing APPS backup policy.
-5. Prepare provider credentials, the Home Assistant token, Context7 key, LiteLLM
+5. Prepare the optional OpenAI API key, the Home Assistant token, LiteLLM
    database/master/OIDC credentials and Memini API key as described below.
 6. Configure the LiteLLM Authelia client before using its admin UI. Add the
    snippet below under `identity_providers.oidc.clients` in the existing
@@ -114,16 +181,15 @@ Set the relevant flag and inputs in the ignored `bootstrap/vars/config.yaml`:
 
 | Flag | Inputs | Destination Secret |
 | --- | --- | --- |
-| `ai_litellm_secrets_enabled` | `litellm_postgres_password`, `litellm_master_key`, `litellm_oauth_client_secret`, `litellm_admin_id`, `litellm_anthropic_api_key`, `litellm_opencode_go_api_key` | `cluster-litellm-secrets` in `litellm/database/secret.sops.yaml` |
-| `ai_context7_secrets_enabled` | `context7_api_key` | `cluster-context7-mcp-secrets` |
+| `ai_litellm_secrets_enabled` | `litellm_postgres_password`, `litellm_master_key`, `litellm_oauth_client_secret`, `litellm_admin_id` | `cluster-litellm-secrets` in `litellm/database/secret.sops.yaml` |
+| `ai_openai_secrets_enabled` | `litellm_openai_api_key` | `cluster-litellm-openai-secrets` in `litellm/openai/secret.sops.yaml` |
 | `ai_ha_mcp_secrets_enabled` | `ha_mcp_homeassistant_token` | `cluster-ha-mcp-secrets` |
 | `ai_memini_secrets_enabled` | `memini_api_key`, `memini_litellm_api_key` | `cluster-memini-secrets` |
 | `ai_open_webui_litellm_secrets_enabled` | `open_webui_litellm_api_key` | `cluster-open-webui-litellm-secrets` in `open-webui/litellm/secret.sops.yaml` |
 
 Use fresh random credentials on the personal laptop. LiteLLM master/virtual
-keys use the `sk-` prefix. Use a URL-safe database password. If a provider is
-unwanted, remove its model resource entries and matching secret-template key
-before enabling LiteLLM; do not insert a fake credential.
+keys use the `sk-` prefix. Use a URL-safe database password. Leave the OpenAI
+flag disabled for a local-only deployment; the local stack needs no provider key.
 
 Run `mise exec -- just configure` using the existing Age key, review the diff,
 and verify every new rendered Secret is SOPS-encrypted. Then uncomment
@@ -132,7 +198,7 @@ files are referenced in the staged builds.
 
 Activate LiteLLM first to issue **separate scoped virtual keys** for Open WebUI
 and Memini. Open WebUI needs its chosen chat models and
-`qwen3-embedding-0.6b`; Memini's initial LLM key only needs `claude-haiku-4-5`.
+`qwen3-embedding-0.6b`; Memini's LLM key only needs `qwen3-local`.
 Then enable the corresponding client secret flags and run `just configure`
 again. Do not distribute the LiteLLM master key to clients.
 
@@ -146,19 +212,34 @@ not rerun an already completed Job.
 Register the new entries in `kubernetes/apps/ai/kustomization.yaml` only after
 the relevant prerequisites and encrypted secrets are ready:
 
-1. `./llmkube/ks.yaml` and `./litellm-operator/ks.yaml`. The first file contains
+1. **Replace** `./ollama/ks.yaml` with `./ollama/ks-local.yaml`; never include
+   both. This applies the memory settings and registers `ollama-models`, which
+   waits for Ollama and downloads the three explicit model tags. Allow at least
+   10 GB free in its existing model store (MEDIA NFS); existing weights are not
+   deleted. Pulls do not load all three models into GPU memory. The completed
+   Job is retained for Flux health; rerun it after model-store loss, or change
+   its versioned name when intentionally refreshing tags. Model tags can change
+   upstream; record the returned model IDs when activating.
+2. `./llmkube/ks.yaml` and `./litellm-operator/ks.yaml`. The first file contains
    both the operator and the separate `llmkube-models` Flux Kustomization.
-2. `./litellm/ks.yaml`. Its database Job waits for `cloudnative-pg-cluster`;
-   the proxy waits for that Job, its operator and shared `dragonfly-cluster`.
-3. `./context7-mcp/ks.yaml` and `./ha-mcp/ks.yaml` when their tokens are ready.
-4. `./memini/ks.yaml` after its client key, storage and embeddings are ready.
-5. **Replace** `./open-webui/ks.yaml` with `./open-webui/ks-litellm.yaml`.
-   Never include both: they name the same Flux Kustomization. Keep
-   `./ollama/ks.yaml`, since local chat still uses your existing Ollama.
+3. `./litellm/ks.yaml`. Its database Job waits for `cloudnative-pg-cluster`;
+   the proxy waits for that Job, its operator, `ollama-models` and shared
+   `dragonfly-cluster`.
+4. `./ha-mcp/ks.yaml` when its Home Assistant token is ready.
+5. `./memini/ks.yaml` after its local-only client key, storage and embeddings
+   are ready.
+6. **Replace** `./open-webui/ks.yaml` with `./open-webui/ks-litellm.yaml`.
+   Never include both: they name the same Flux Kustomization.
+7. Optionally register `./litellm/ks-openai.yaml` after rendering/encrypting the
+   separate OpenAI Secret and uncommenting it in `litellm/openai/kustomization.yaml`.
+   Grant the cloud aliases explicitly to the desired client keys.
 
 After the activation commit is merged, use the repository webhook or explicit
 Flux reconciliation. Check operator/HelmRelease readiness, embedding output
-(1024 dimensions), each provider, the local-only alias, and both MCP tools.
+(1024 dimensions), all local aliases, and the Home Assistant MCP tools.
+Confirm Ollama reports GPU inference and healthy memory use with chat plus
+embeddings running; test OpenAI separately only after granting its client key.
+Use LiteLLM request/provider records to verify Memini stays on local inference.
 Check that Memini writes a usable NFS snapshot and can recover from it.
 
 Open WebUI can retain connection settings in its database. Inspect its admin
@@ -198,8 +279,8 @@ also describes logical export/import for changing embedding dimensions.
 ## Offline validation
 
 Preparation checks passed on 2026-09-28: unchanged active AI build and Flux
-entrypoint, all namespace Kustomize builds, the four pinned Helm charts,
-20 custom resources against the installed chart CRDs, and core/Flux schemas.
+entrypoint, all namespace Kustomize builds, the pinned Helm charts and both overlays,
+custom resources against the installed chart CRDs, and core/Flux schemas.
 All five disabled templates were checked with makejinja 2.9.1 and produce no
 output files. Synthetic SQLite tests verified WAL recovery, repeated snapshots,
 retention, and preserving previous backups when the source is unavailable.
@@ -209,11 +290,14 @@ No live Kubernetes credentials are needed:
 ```sh
 mise exec -- just --list
 mise exec -- bash template/resources/kubeconform.sh kubernetes
-for app in litellm-operator llmkube litellm context7-mcp ha-mcp memini; do
+for app in litellm-operator llmkube litellm ha-mcp memini; do
   mise exec -- kustomize build "kubernetes/apps/ai/$app/app" --load-restrictor LoadRestrictionsNone >/dev/null
 done
 mise exec -- kustomize build kubernetes/apps/ai/llmkube/models >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/litellm/database >/dev/null
+mise exec -- kustomize build kubernetes/apps/ai/litellm/openai >/dev/null
+mise exec -- kustomize build kubernetes/apps/ai/ollama/local --load-restrictor LoadRestrictionsNone >/dev/null
+mise exec -- kustomize build kubernetes/apps/ai/ollama/models >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/open-webui/litellm --load-restrictor LoadRestrictionsNone >/dev/null
 ```
 

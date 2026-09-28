@@ -1,21 +1,22 @@
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# Optional: register separately only after creating the encrypted OpenAI key.
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: context7-mcp
+  name: litellm-openai
   namespace: flux-system
 spec:
   commonMetadata:
     labels:
-      app.kubernetes.io/name: context7-mcp
-  path: ./kubernetes/apps/ai/context7-mcp/app
+      app.kubernetes.io/name: litellm-openai
+  path: ./kubernetes/apps/ai/litellm/openai
   targetNamespace: ai
   prune: true
   wait: false
   interval: 30m
   retryInterval: 1m
-  timeout: 10m
+  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
@@ -27,7 +28,3 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
-  postBuild:
-    substituteFrom:
-      - name: cluster-secrets
-        kind: Secret
