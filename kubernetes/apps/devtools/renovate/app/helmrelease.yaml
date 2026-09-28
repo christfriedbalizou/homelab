@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: ghcr.io/renovatebot/renovate
-              tag: 44.115.13
+              tag: 44.117.0
             env:
               LOG_LEVEL: info
               RENOVATE_PLATFORM: forgejo
