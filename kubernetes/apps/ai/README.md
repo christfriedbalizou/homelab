@@ -20,6 +20,7 @@ No credentials were generated and no cluster commands were run.
 | `litellm/openai/` | Optional OpenAI API models, isolated behind their own Flux registration and Secret. |
 | `ollama/local/`, `ollama/models/` | Optional NVIDIA memory settings and a one-time Job that downloads the selected chat models through the existing Ollama server. |
 | `ha-mcp/` | Runs Home Assistant MCP inside the cluster and registers it with LiteLLM. |
+| `context7-mcp/` | Optional hosted documentation lookup through LiteLLM; separate from model inference and disabled until registered. |
 | `memini/` | Persistent memory, using local Qwen embeddings directly and local Qwen3 4B through LiteLLM. |
 | `open-webui/litellm/` | Optional overlay switching existing Open WebUI to LiteLLM for chat and embeddings. |
 | `../../components/ai-nvidia-sharing/` | Optional NVIDIA ConfigMap patch allowing four shared GPU scheduling allocations. |
@@ -29,15 +30,17 @@ Open WebUI -> LiteLLM -> Ollama (one local chat model loaded at a time)
                      -> OpenAI API (optional, explicitly selected cloud aliases)
                      -> LLMKube embedding service
 MCP clients -> LiteLLM -> ha-mcp -> Home Assistant
+                     -> Context7 documentation API (optional tool)
 Memory clients -> Memini -> embedding service
                         -> LiteLLM -> local Qwen3 4B
 ```
 
 All local chat aliases point to `ollama.ai.svc.cluster.local:11434`. Open WebUI
 defaults to `qwen3-local`, and Memini's processing model is also `qwen3-local`.
-There are no automatic fallbacks. Anthropic, OpenCode Go and the hosted Context7
-MCP integration have been removed. OpenAI is the only configured external AI
-provider, and it is excluded from the local LiteLLM build.
+There are no automatic fallbacks. Anthropic and OpenCode Go have been removed.
+OpenAI is the only configured external inference provider, and it is excluded
+from the local LiteLLM build. Context7 is an optional external documentation
+tool, with its own registration and credential.
 
 Selecting an enabled `openai-...-cloud` alias sends that conversation and any
 attached context/tool results to OpenAI. Local aliases keep inference in the
@@ -83,23 +86,36 @@ memories; a 4B model is not equivalent to a large hosted model.
 
 ## Optional OpenAI models
 
-`litellm/ks-openai.yaml` adds these separately from the local stack:
+The GPT-6 manifests are in [`litellm/openai/`](litellm/openai/), not
+`litellm/app/models/`. [`litellm/ks-openai.yaml`](litellm/ks-openai.yaml) adds
+them separately from the local stack. They will not appear in the running
+LiteLLM model list until this registration is activated, the encrypted OpenAI
+Secret is present, and the client key is granted the aliases.
 
 | Alias | API model | Use |
 | --- | --- | --- |
 | `openai-gpt-6-luna-cloud` | `gpt-6-luna` | Lower-cost everyday external requests. |
 | `openai-gpt-6-sol-cloud` | `gpt-6-sol` | More demanding coding and general tasks. |
+| `openai-gpt-6-astra-cloud` | `gpt-6-astra` | Complex reasoning/chat; tool calling requires the Responses API. |
 
 The [OpenAI model catalog](https://developers.openai.com/api/docs/models)
-documents these choices. Both declarations use `https://api.openai.com/v1`,
-disable background health probes, request `store: false`, and default to at
-most 4096 output tokens. `store: false` does not mean no provider retention;
+documents these choices. All three declarations use `https://api.openai.com/v1`,
+disable background health probes and request `store: false`. Sol/Luna default
+to at most 4096 output tokens. Astra defaults to low reasoning and an 8192-token
+completion budget including reasoning and visible output. `store: false` does
+not mean no provider retention;
 OpenAI's [data controls](https://developers.openai.com/api/docs/guides/your-data)
-still apply. The Chat Completions interface uses `reasoning_effort: none` to
+still apply. Sol/Luna's Chat Completions interface uses `reasoning_effort: none` to
 retain tool calling, as required by the
 [Sol](https://developers.openai.com/api/docs/models/gpt-6-sol) and
 [Luna](https://developers.openai.com/api/docs/models/gpt-6-luna) documentation.
 Confirm model access with your API project when activating.
+
+[Astra](https://developers.openai.com/api/docs/guides/reasoning) does not accept
+`reasoning_effort: none`, and its Chat Completions endpoint cannot call tools.
+Its current declaration therefore advertises reasoning and vision, but not
+function calling. Use Sol/Luna for tool use through the current Chat Completions
+integration; Astra tool use needs a client/integration using Responses.
 
 Use your OpenAI Platform API key, not a ChatGPT browser session or password.
 API requests use separate API billing. Add the key only to the ignored local
@@ -107,6 +123,19 @@ bootstrap configuration, then render/encrypt it using the template below.
 Memini's key must remain restricted to `qwen3-local`; grant the OpenAI aliases
 only to clients/users that should be able to select them. There is no automatic
 local-to-OpenAI fallback, including on context overflow or local failures.
+
+## Optional Context7 documentation tool
+
+[Context7](https://github.com/upstash/context7) retrieves current library
+documentation and code examples for an assistant. It is not a replacement
+chat model and does not require a local GPU. A local model can use the returned
+documentation while doing its own inference in the cluster.
+
+The staged integration calls the hosted `https://mcp.context7.com/mcp` endpoint.
+When a client invokes it, library names and search queries supplied as tool
+arguments leave the cluster; sensitive text included in a query leaves too.
+Restoring these manifests makes the tool available for later activation, not
+enabled now. To avoid all external tool lookups, leave it unregistered.
 
 ## Before activation on the personal laptop
 
@@ -183,6 +212,7 @@ Set the relevant flag and inputs in the ignored `bootstrap/vars/config.yaml`:
 | --- | --- | --- |
 | `ai_litellm_secrets_enabled` | `litellm_postgres_password`, `litellm_master_key`, `litellm_oauth_client_secret`, `litellm_admin_id` | `cluster-litellm-secrets` in `litellm/database/secret.sops.yaml` |
 | `ai_openai_secrets_enabled` | `litellm_openai_api_key` | `cluster-litellm-openai-secrets` in `litellm/openai/secret.sops.yaml` |
+| `ai_context7_secrets_enabled` | `context7_api_key` | `cluster-context7-mcp-secrets` |
 | `ai_ha_mcp_secrets_enabled` | `ha_mcp_homeassistant_token` | `cluster-ha-mcp-secrets` |
 | `ai_memini_secrets_enabled` | `memini_api_key`, `memini_litellm_api_key` | `cluster-memini-secrets` |
 | `ai_open_webui_litellm_secrets_enabled` | `open_webui_litellm_api_key` | `cluster-open-webui-litellm-secrets` in `open-webui/litellm/secret.sops.yaml` |
@@ -233,6 +263,10 @@ the relevant prerequisites and encrypted secrets are ready:
 7. Optionally register `./litellm/ks-openai.yaml` after rendering/encrypting the
    separate OpenAI Secret and uncommenting it in `litellm/openai/kustomization.yaml`.
    Grant the cloud aliases explicitly to the desired client keys.
+8. Optionally register `./context7-mcp/ks.yaml` after rendering/encrypting its
+   separate key and uncommenting its Secret resource. Grant Context7 tool
+   access only to the chosen MCP clients. This permits hosted documentation
+   queries independently of whether a local or OpenAI model is selected.
 
 After the activation commit is merged, use the repository webhook or explicit
 Flux reconciliation. Check operator/HelmRelease readiness, embedding output
@@ -281,7 +315,7 @@ also describes logical export/import for changing embedding dimensions.
 Preparation checks passed on 2026-09-28: unchanged active AI build and Flux
 entrypoint, all namespace Kustomize builds, the pinned Helm charts and both overlays,
 custom resources against the installed chart CRDs, and core/Flux schemas.
-All five disabled templates were checked with makejinja 2.9.1 and produce no
+All six disabled templates were checked with makejinja 2.9.1 and produce no
 output files. Synthetic SQLite tests verified WAL recovery, repeated snapshots,
 retention, and preserving previous backups when the source is unavailable.
 
@@ -290,7 +324,7 @@ No live Kubernetes credentials are needed:
 ```sh
 mise exec -- just --list
 mise exec -- bash template/resources/kubeconform.sh kubernetes
-for app in litellm-operator llmkube litellm ha-mcp memini; do
+for app in litellm-operator llmkube litellm ha-mcp context7-mcp memini; do
   mise exec -- kustomize build "kubernetes/apps/ai/$app/app" --load-restrictor LoadRestrictionsNone >/dev/null
 done
 mise exec -- kustomize build kubernetes/apps/ai/llmkube/models >/dev/null

@@ -3,6 +3,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: ai
+# GPT-6 Astra, Sol and Luna are in ../../openai, registered by ../../ks-openai.yaml.
+# Keep cloud models separate so the local stack works without an OpenAI key.
 resources:
   - ./qwen3-local-ollama.yaml
   - ./qwen3-local-think-ollama.yaml
