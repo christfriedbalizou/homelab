@@ -69,6 +69,7 @@ access_control:
         - vlogs.${SECRET_DOMAIN}
         - memini.${SECRET_DOMAIN}
         - memini-api.${SECRET_DOMAIN}
+        - minio.${SECRET_DOMAIN}
       policy: two_factor
       subject:
         - ["group:admin"]
@@ -78,6 +79,7 @@ access_control:
         - vlogs.${SECRET_DOMAIN}
         - memini.${SECRET_DOMAIN}
         - memini-api.${SECRET_DOMAIN}
+        - minio.${SECRET_DOMAIN}
       policy: deny
 
     - domain:

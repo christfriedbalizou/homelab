@@ -19,6 +19,7 @@ spec:
           values:
           - networking
           - monitoring
+          - ai
           - home-automation
           - devtools
   - from:

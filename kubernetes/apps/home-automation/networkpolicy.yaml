@@ -19,6 +19,7 @@ spec:
           values:
           - networking
           - monitoring
+          - ai
           - default
           - media
   - from:

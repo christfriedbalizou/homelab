@@ -11,7 +11,7 @@ are encrypted in Git and staged for the next approved deployment.
 | S1 Dashboard | Replace cluster-admin with view; remove permanent token Secret and insecure login arguments. | Obtain a short-lived token, verify viewing works and writes/secrets are denied. |
 | S2 CI isolation | Move job RBAC and jobs into forgejo-ci, enforce baseline Pod Security, restrict network access and resource consumption. Remove privileged Docker/DinD label and template. Controller credentials remain in devtools. | Test a normal workflow. Workflows using runs-on: docker must migrate before deployment; the removed label will not schedule jobs. |
 | S3 Network isolation | Restrict ingress in application namespaces; restrict storage service ports; restrict CI egress to public Git/package endpoints, DNS, Forgejo, and HTTPS ingress. | Exercise service integrations, OIDC, webhook callbacks, media clients, DB initialization, metrics, and backups. |
-| S4 MinIO | Separate encrypted root credentials from Grafana, secretKeyRef injection, internal authenticated console, separate S3 route, realistic memory budget, remove scale-to-zero. | Rotate on deployment; check IAM users/service accounts and all storage clients. Image upgrade remains a separate publication prerequisite below. |
+| S4 MinIO | Separate encrypted root credentials from Grafana, secretKeyRef injection, external console protected by admin-only Authelia two-factor authentication, separate S3 route, realistic memory budget, remove scale-to-zero. | Rotate on deployment; check IAM users/service accounts and all storage clients. Image upgrade remains a separate publication prerequisite below. |
 | S5 Pod security/audit | Restore metadata-only Kubernetes audit policy in both Talos template and patch. Enable restricted audit/warn defaults. CI enforces baseline. | Talos changes require an explicit rollout. Other namespaces deliberately start in audit/warn mode to inventory exceptions. |
 | S6 Grafana | Disable insecure OAuth email lookup; correct group mapping location and Admin/Editor/Viewer roles. | Verify existing accounts still map correctly; use the existing admin recovery path if necessary. |
 | S7 Hardware apps | Jellyfin RuntimeDefault seccomp. Frigate no longer privileged and no longer mounts the entire USB directory; Coral/NVIDIA access comes from existing device-plugin allocations. | Verify Coral detection, camera decode, recordings and GPU transcoding before accepting rollout. These checks cannot be proven by Helm rendering. |
@@ -104,7 +104,33 @@ across nodes and prefer spreading Envoy proxies. These reduce voluntary-drain
 outages; they do not make single-replica storage highly available. Existing
 PostgreSQL and Dragonfly operator-managed budgets remain intact.
 
-## Validation performed
+## Rebase review (2026-09-29)
+
+Rebased onto main after the AI deployment and declarative database migration.
+Preserved SearXNG registration and pinned the current Renovate 44.117.0 image.
+Fixed the following deployment defects:
+
+- Give Dashboard's read-only ClusterRoleBinding a new name: Kubernetes cannot
+  update the old binding's immutable roleRef. Flux prunes the old admin binding.
+- Permit AI integrations into default and home-automation, including SearXNG and
+  Home Assistant MCP.
+- Keep MinIO's console on envoy-external and explicitly require the admin group
+  with two-factor authentication before any wildcard network bypass rule.
+- Allow API-server admission calls to CloudNativePG, Prometheus Operator,
+  LiteLLM Operator and LLMkube on their actual webhook ports. Cilium entity rules
+  preserve control-plane access without opening these ports to every source.
+  See https://docs.cilium.io/en/stable/security/policy/layer3/ for node/CIDR semantics.
+
+Server-side dry runs accepted the updated policies and Dashboard binding without
+changing live resources. Namespace Kustomize builds, repository schema validation
+and the three Jellyfin tests passed after the rebase. Full Flux/Helm validation and
+PR CI must pass for the final branch revision before merge.
+
+MinIO IAM/service-account parentage, GPU/Coral compatibility, real CI execution,
+and cross-namespace application reachability remain runtime checks. This review
+does not authorize a production rollout or resolve the old MinIO image issue.
+
+## Original validation performed
 
 - Full Flux/Helm render suite: 183 tests passed after the runner namespace changes.
 - Repository kubeconform sweep passed (using its normal CRD/Secret skips).
