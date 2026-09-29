@@ -53,10 +53,6 @@ spec:
       customApps:
         - group: AI
           apps:
-            - name: Open WebUI
-              url: "https://ai.${SECRET_DOMAIN}"
-              icon: "mdi:chat-processing-outline"
-              info: "Private AI chat"
             - name: LiteLLM
               url: "https://litellm.${SECRET_DOMAIN}/ui"
               icon: "mdi:brain"
@@ -65,10 +61,6 @@ spec:
               url: "https://litellm.${SECRET_DOMAIN}/v1/models"
               icon: "mdi:api"
               info: "Models API — requires a LiteLLM API key"
-            - name: SearXNG
-              url: "https://search.${SECRET_DOMAIN}"
-              icon: "mdi:magnify"
-              info: "Private search — admin access with 2FA"
             - name: Home Assistant MCP
               url: "https://litellm.${SECRET_DOMAIN}/ha_mcp/mcp"
               icon: "mdi:home-assistant"
@@ -119,6 +111,10 @@ spec:
             - name: paperless
               url: "https://paperless.${SECRET_DOMAIN}"
               icon: "arcticons:paperless"
+            - name: Open WebUI
+              url: "https://ai.${SECRET_DOMAIN}"
+              icon: "mdi:chat-processing-outline"
+              info: "Private AI chat"
         - group: Home Automation
           apps:
             - name: code-server
@@ -229,6 +225,10 @@ spec:
             - name: n8n
               url: "https://n8n.${SECRET_DOMAIN}"
               icon: "simple-icons:n8n"
+            - name: SearXNG
+              url: "https://search.${SECRET_DOMAIN}"
+              icon: "mdi:magnify"
+              info: "Private search — admin access with 2FA"
             - name: stirling-pdf
               url: "https://pdf.${SECRET_DOMAIN}"
               icon: "mdi:file-pdf-box"
