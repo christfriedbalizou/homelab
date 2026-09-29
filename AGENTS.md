@@ -249,6 +249,8 @@ do not add `hajimari.io/*` annotations to routes.
 ## Database Rules
 
 PostgreSQL is centralized on CloudNativePG in the `storage` namespace.
+The declarative procedure below applies to every namespace, including existing
+applications. The earlier AI-only adoption scope is obsolete.
 
 - Do not add app-local PostgreSQL containers, statefulsets, subcharts, or PVCs for
   normal applications.
@@ -276,7 +278,9 @@ PostgreSQL is centralized on CloudNativePG in the `storage` namespace.
 - Point application database clients at `postgres-lb.storage.svc.cluster.local`;
   include `:5432` only when the app expects host-and-port in one value.
 - Add `spec.dependsOn` for `cloudnative-pg` in namespace `storage` when the app
-  has a HelmRelease and needs the shared database.
+  has a HelmRelease and needs the shared database. This HelmRelease dependency
+  complements, but does not replace, the app Flux Kustomization's dependency on
+  `cloudnative-pg-databases`.
 - Reuse existing database names, role names, and bootstrap password inputs when
   adopting an application. Check live role attributes, memberships, ownership,
   and password authentication first. Verify the declarative resources are applied
@@ -289,6 +293,26 @@ PostgreSQL is centralized on CloudNativePG in the `storage` namespace.
 - Only make an exception for a dedicated PostgreSQL deployment when the user
   explicitly asks for isolation or the app requires extensions/features not
   available in the shared cluster; document the reason in the manifest.
+
+For each new database or migration:
+
+1. Use `databases/litellm.yaml` as the basic example. Set both resources'
+   `spec.cluster.name` to `postgres18`, set `DatabaseRole.spec.name` to the
+   PostgreSQL role, and set `Database.spec.owner` to that role. Kubernetes object
+   names and PostgreSQL identifiers are separate fields; preserve existing SQL
+   names during adoption.
+2. Add the role's password Secret template under
+   `bootstrap/templates/kubernetes/apps/storage/cloudnative-pg/databases/` and
+   reuse the same password input in the app connection Secret template. Render
+   and SOPS-encrypt through the bootstrap pipeline; register the encrypted Secret
+   and database manifest in `databases/kustomization.yaml`.
+3. Add the app's Flux dependency on `cloudnative-pg-databases` in `storage`.
+   For migrations, deploy and verify the role/database resources before removing
+   `postgres-init`; retain existing credentials and data throughout adoption.
+4. Verify both resources report `status.applied: true` for their current
+   generation, then verify the application connects with its own role. Keep
+   application schema migrations enabled. Never delete/recreate a database or
+   rotate its password merely to adopt declarative provisioning.
 
 ## Storage Rules
 
