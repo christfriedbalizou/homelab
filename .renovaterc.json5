@@ -1,6 +1,9 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: ["github>christfriedbalizou/renovate"],
+  extends: [
+    "github>christfriedbalizou/renovate",
+    "github>home-operations/renovate-presets//apps/talosFactory.json5#8.1.0",
+  ],
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: [
     "prEditedNotification",
@@ -28,6 +31,22 @@
     managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
   },
   packageRules: [
+    {
+      description: "Keep Talos installation and rolling upgrade versions together",
+      matchDatasources: ["custom.talos-factory"],
+      matchPackageNames: ["siderolabs/talos"],
+      versioning: "semver",
+      groupName: "talos",
+      minimumGroupSize: 2,
+    },
+    {
+      // Talos manages the control-plane images; only kubelet is tracked here.
+      description: "Allow Kubernetes updates without five separate component images",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/siderolabs/kubelet"],
+      groupName: "kubernetes",
+      minimumGroupSize: 1,
+    },
     // NVIDIA chart values split the image path across repository and image.
     {
       description: "Resolve NVIDIA DCGM exporter image",

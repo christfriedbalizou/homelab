@@ -1,7 +1,9 @@
-machine:
-  network:
-    disableSearchDomain: true
-    nameservers:
-      #% for item in bootstrap_node_dns_servers %#
-      - {{ item }}
-      #% endfor %#
+---
+apiVersion: v1alpha1
+kind: ResolverConfig
+searchDomains:
+  disableDefault: true
+nameservers:
+  #% for item in bootstrap_node_dns_servers %#
+  - address: {{ item }}
+  #% endfor %#
