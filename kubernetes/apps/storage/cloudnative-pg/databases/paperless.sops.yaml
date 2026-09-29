@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: paperless-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:9X4Qq1DGkriV,iv:hto15+nFdQQFS9dGN9YrqfZor2vm715y8IP1dzZXJ5k=,tag:bBPbYWT3ZZVUbWB3l70ftA==,type:str]
+  password: ENC[AES256_GCM,data:LZSJFYT3CEdZvbHgbgI=,iv:nvymIY2MMLRO59B9fm9sPpb9wx+9NY7PwHmINYo/sT0=,tag:Hrj5/6Z/Y92djbWGP5xLLw==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBBekVPbHR6RkFBKzFEclRq
+        QVlmV1o2UEFXekZ2YU9DLytDWEh0Z2hGdjBvCjNxVlo0MVRhZStUY01RYVlPZHVL
+        WUZPeWxEK3AzUGZrTURaOFhBRzdTcmcKLS0tIG5DOFB0WGVpQ3ljb0p5ZWZhd1RI
+        dWJuUERIcXliZ0V6M2lTQlZvc3hqMlEKhwDUOQVXpQLoKMii5v7G918mD/TKnRBa
+        crU8LhdVXpsiDp3HirpGFb9XYvOT5myTDzunrP3jMG3w8SsflREgyA==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-09-29T01:24:57Z"
+  mac: ENC[AES256_GCM,data:PA0InP8NCzv518xR1kgPW6cEWOOapeeCpsqPWT+Ar2IfafgJZ75eo6Z+aCk6ljMDk7xZprsLnLfYiSlgkhLCluYXC3UnsM0JVbmMy4/16J/Djlbp4K+RP2wWacS7igJz8Mnf5i/K9ylQ+uNJP//sID4Wt/ueIpD0wyHL8ADHAY0=,iv:Es+I3AlhTKqOCXg+scJJd3vX20iwJKSdgsV75mjcSnQ=,tag:TnRa/09EzdxNUnqNumwvHQ==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3

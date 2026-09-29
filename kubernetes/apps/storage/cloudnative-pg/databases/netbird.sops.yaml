@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: netbird-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:BsNR+W3L9Q==,iv:IYapUfPesCJTL18FZFynbyVBEMoupM16Vjh1AOWmJME=,tag:VVyafqQxpvFRgnmG+/uPAw==,type:str]
+  password: ENC[AES256_GCM,data:SoHyckFYnjr+sacnAryISH10f1MV,iv:0M8IERLi5UCOT2uMC+FE9TFj538oQh4gtbZebmxd60Q=,tag:BHN47/eif5YhilaLaiyhOg==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAxNUFpelorb2pNZm9IbkNU
+        dWJmVkFzWE9wajBCZlNOY2dOTk5TeUNvU0M4ClR3Q2d5MFBHTFZqc2FZdVVWbXY2
+        aThlTDc4cXBEZVlHUVZSQWFRRDhEUVkKLS0tIDEyQjlON3JiQ01MMkNlSWZDN1lF
+        K211T3VMZDZ2QnVtNTVHWjdrSTdaYkEKiaT448YYoUdpX01GUOUaP0bETFwzSyXo
+        wXRfd9cAMJwJ7yg0W5t+QFS6Q6AYkZe9rpVzsYofh6icPTUu5nMfxw==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-09-29T01:24:57Z"
+  mac: ENC[AES256_GCM,data:K/cvaoOEsXEES43ilNow0tNOnIFawhyFAOPjmEjuquJLvUWVhFUopXJYDwUpRSmMIRwh/X9os/vGux2EZ19GBGegkZfrS8t+NTQ3lgyvw4r8Fz9cIgYGINgzdKwbSKtTjeD8ldHtZPgfiIuu9rqP4YBZAIRSTaVIdLsSGsoaHhs=,iv:FI6ql6/c1XW8fkEpflRUzcwRnd8wo3+Y/fXbAP8uV8g=,tag:ShAD+/KYHAtaqoqjaONe5A==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3

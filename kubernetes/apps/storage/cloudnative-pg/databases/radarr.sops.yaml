@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: radarr-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:jo7knakb,iv:WXc01Sega+og8U38O0qaqjwXZOhfpUn/uZrLUV6Pvxg=,tag:E7krWqhxCoUnR++rTzJYEw==,type:str]
+  password: ENC[AES256_GCM,data:e+R1NVmdY+63rwo1ZX/kFRixcrPcWQ==,iv:l8UJO/FyECWA/ZcXkFbbvklZq3uwgjfOLeYV6yujF9U=,tag:Q6D2JgOqBzY4Jp5t6DfyMA==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAyWGF3TkJXNDIrblpQd01q
+        bzFOaTYvaEhteGptVHhDRWVtWDUxSVFMTzJNCk9JTjVJbW9lRzg3b3RBMlBkM0hx
+        eFh3VmhZMHdrVWdZZ2NkcHdPbVl5OTAKLS0tIE01dGxGMmFMMDNDQkJoRjF6V00v
+        V01vTFM0akM2d3JXVVM3SXZDTVAzcDAKmNGU32oHYJvYRLIsPdhYMdT31ELyEBvA
+        8WsEzM4Je2vzDVDGxgGRn2XupDtdJNiJjqz3lS+ESNV+AcfzXzeEgQ==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-09-29T01:24:57Z"
+  mac: ENC[AES256_GCM,data:oED1lzm43pzJa8nNEBh+OTvLAL7pzuvGbEhvnQRhZ+6pZF+7IyPeojjn3RvzNshVLJfIKKCvfvYetMh8LH+RTuq6Q/aJxCX6eDU73KqJd9Shoa4U5uTRpte0GcBn6RPsxIh2reUD4Kq7RGC0SgZuLM2GZcrIPavFufGo9XMPGdI=,iv:BSgzFosQ8p4pr4o8hTtvW1vzGG8+MfGXhIC+mYjbvYU=,tag:hEC4SOd29+5DCO0CqJQvXw==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3

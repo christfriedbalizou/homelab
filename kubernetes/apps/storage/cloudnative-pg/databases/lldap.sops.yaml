@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: lldap-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:oFOWkcU=,iv:61zgd1f16GlXeDWJLbUyAmuDbCvyT3gjWlVCGjuAHSs=,tag:OuGExtX2vIfueVcZXTWBPQ==,type:str]
+  password: ENC[AES256_GCM,data:g/GuSwyVW1bDZioY6mm951f0UjFJ+SEx,iv:zHYVNTymqhFnlqpCc6JoCOQZ52B1zNxRG+jChzh0KFE=,tag:wBFiLRPhuAbPfAhfF+Mngw==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB1L0JtV3U0cExoRHNaSXRN
+        VTRkcEVKcXNOK3gyb1F5dzdNZGN1c2Z1R3lNCitXaHI0RkVWQi9SZ0JMUmxSYkxY
+        MGlDakFneHFRYWJnWW04aSs5TWFzWW8KLS0tIHBGbThlaC9Pb1gvaFBMOXhGVUR5
+        YXNOS2xjMXdVSFRBcFhCZzlRcDJoak0KPgKoJXVNHfpwf6gsNfxITockVmNDx50P
+        1WA28bXjIYjvIs57d0kTUOaG5MrKU2QCOun6FjX6GDBChn+UAwF8YQ==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-09-29T01:24:57Z"
+  mac: ENC[AES256_GCM,data:WaDymJY55LaoE9cK8fmfEn1NZCnko7X30BMic1rBBn12tiHPi7Jegvt9wJlnFAg2k4pcESqNIaumYok5xGp1PIL6cpbKD5tTNBulq1K1vXzhKQusuTOXf7oZU/NUDzpds1QZv2H0YSmmge4Cmp6ABLOtJ3/qrHgEhVgvvLOjVuQ=,iv:0VB4n3y5z9MAQN7aGYqi8AsyB4y1RwFwL0X7VSuKAZk=,tag:/bM1UdHOkWh1zxrYSTJ0Og==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3

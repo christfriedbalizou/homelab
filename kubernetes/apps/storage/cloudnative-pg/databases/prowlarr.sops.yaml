@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: prowlarr-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:OjvJzZPk6/s=,iv:8/h61fo6T3LJS3837Bypdwf9bZ22QChqU3/Q+QRetg0=,tag:yIT9TE2JSa8KuGKVkRxwhg==,type:str]
+  password: ENC[AES256_GCM,data:h54HHxBQ2hkKIahmz/wR0zeIkBTTn5Sa,iv:X+QfIcjwcag+Kdoo2KoV+1wKeHDDihC3PISRP49nyVg=,tag:DMrvq1MbR0eSC3BisOaHqg==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBXSERKUERqY04rV1BYZFRX
+        ZC9lN1NGU29seGE3cmZvd3k5MExPTDFrSWpNCmgzRyt1OU55QTFUaEN4bVJSdDBI
+        dGt1Mnp4YXppL3NKY1dJcVBmOTZ1bkkKLS0tIFF5S1phSmJwbUpQbVNEbmY1RDYr
+        Ti8yMDBpZHFrdlJYY0FkeWhWZ1pUbVEKPzLlTNVOLHrMQNZj51Y2Nrk6h+y7EMrb
+        cvVtOL86AWxMsSkdD4P3urtxXlk/UNbfsM4CrHESrMxpC4JBsReGrg==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-09-29T01:24:57Z"
+  mac: ENC[AES256_GCM,data:+QjJtljbIMgMpfWNPzxtpSQPUMOpvC9GQNbYnLiNZHx2cyoSp0QjUE13y7rrWnYv6rQkzlB5h5iP7QhcN0PD729Nj3710UtFX/A8hhBfiCMzmtAhwtWddMYIFzsQLklqiLdt2Mgz925WmTXc3bHrNf2MCq4cSV7SOa+3lHmrkxs=,iv:xMXWK82C0MYH84U4ERGs9xy+AgNwYz6FDZKPhUT+lCc=,tag:sSMEynUXR0yUjV1RPLs9Tg==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3

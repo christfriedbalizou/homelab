@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vaultwarden-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:stcx9cEUhQEaNUs=,iv:sYzr/vTsC/fOMZiKWAfIuwFeif+MFwfqSinpznR96Rc=,tag:6twxuY0olSy9p3aeOwJCmA==,type:str]
+  password: ENC[AES256_GCM,data:2XPiuR2CpUBF4sd48ok1OLzMFTUOfY/4Bg==,iv:xpTL/ckT+pg0CqWGUoxrkGZZXiv6lT0F1muosllGPd4=,tag:O53HD3MLmFjrUXP7LLIt4A==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB5Vkw2ZCtTNlZrd0l4enlO
+        RnRNdFNtZjNJQ09YWmxYOGtkQ0psOExiVFE4ClNyR2IvT050QzlRWjArak9aSExn
+        UEJpcnZpQ2E3MndoWGJJK3JSZ0V2SE0KLS0tIEJ4T1F3a1lTaGdacWJLeGo5cmQz
+        ZDBJOU93eFFuSWNTVHQ2VjhIbFJyYzAKOMGQ7ZpP9+Jsg7F3YtoX345GKQPvKMqX
+        8/FNYJOnwJKv48aYFpQGik0JBHhMnV0CSx5gCA2jMPtRCgcp2aJ8Bg==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-09-29T01:24:57Z"
+  mac: ENC[AES256_GCM,data:ElIr2VLkI8MuIq1DZz7N/0rBkWFELPQbElmzpD1Z7uNCgMr/GKyBKF6u4vaYbktEWuXkSCDWtqHQiTKt5aZreB/2YmmfHpCx3H/Hi4GY+oH/x8P25maYwNsWvSRurjg81pwT9/yXQEH/MDY3AkWnS5cXoYKiE3d2Lkft04WoHE0=,iv:7xKM6nt59UIV4Lf6xxsLTC8Sg+YIMEypgLgKTaAfR5A=,tag:OECM1/rJdJParn3/e6IAVQ==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3

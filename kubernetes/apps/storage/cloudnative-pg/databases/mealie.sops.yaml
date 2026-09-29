@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mealie-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:tPvw1oUD,iv:+Y5BX02VvYXYK+n6xX00eTHHy0Yh33mIANREYa7mGEg=,tag:mFkpEYcQ1y1rHOuV1Z1qHQ==,type:str]
+  password: ENC[AES256_GCM,data:JMzLpYyXMAooG3fLwnG2NL0Yg3Y=,iv:ti3VTWy3CdYs6I9+Ila7FzuB133jWHuKCJuK8jMWANg=,tag:/VirrLrQzJW3+7cSyk+eYw==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA1OEg1TkgySWtaWmErcUps
+        emxvRHRwaGpTNkI5cGM3WW01RHhVeFA4ZGdJClAraVFHaVFMWmM4SnRZR0p0Slhy
+        T1JlYS9NdjhseitmdFAxNy9VY1ZwSnMKLS0tIEpyd1ZES1V0ZS9EdGVZWTZyTFBW
+        M1dVZ2FXSWpiQ2lqeGJ3OWtQcGg3MlUKChMKbUknNnovfNFqLwsIzRZ7mXQRbMTl
+        ivATHUfO7CKmHWGpNzYVTy+BvyWAYRD9mc8YaqhrchJHzqsGyIyXyg==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-09-29T01:24:57Z"
+  mac: ENC[AES256_GCM,data:ADSE4zzQsFXdmiSJ56v9EE84qJ3EAGPPMSC2M85vfW2oAMbiW4vhjdmBQt+kLzG5VEvJINXKhs4Yb9g3M2pxir/1hFz69eU/URQGCmDfm+ZKrLiCNDrKTsnmahCOsh90HMhgvztuX31/8W+XfsgohHHJd2UciufEi0yROI+cXt8=,iv:z9HqHWqQevSrstyGctmuWlhvBo6siNOn8BTmaxkIAyc=,tag:k8eT6ulhJGKX3yTEzGUNUQ==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3

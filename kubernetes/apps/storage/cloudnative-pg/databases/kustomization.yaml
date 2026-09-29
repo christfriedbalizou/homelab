@@ -6,3 +6,37 @@ namespace: storage
 resources:
   - ./litellm.sops.yaml
   - ./litellm.yaml
+  - ./authelia.sops.yaml
+  - ./authelia.yaml
+  - ./autobrr.sops.yaml
+  - ./autobrr.yaml
+  - ./forgejo.sops.yaml
+  - ./forgejo.yaml
+  - ./immich.sops.yaml
+  - ./immich.yaml
+  - ./jellystat.sops.yaml
+  - ./jellystat.yaml
+  - ./lldap.sops.yaml
+  - ./lldap.yaml
+  - ./mealie.sops.yaml
+  - ./mealie.yaml
+  - ./memos.sops.yaml
+  - ./memos.yaml
+  - ./n8n.sops.yaml
+  - ./n8n.yaml
+  - ./netbird.sops.yaml
+  - ./netbird.yaml
+  - ./nextcloud.sops.yaml
+  - ./nextcloud.yaml
+  - ./open-webui.sops.yaml
+  - ./open-webui.yaml
+  - ./paperless.sops.yaml
+  - ./paperless.yaml
+  - ./prowlarr.sops.yaml
+  - ./prowlarr.yaml
+  - ./radarr.sops.yaml
+  - ./radarr.yaml
+  - ./sonarr.sops.yaml
+  - ./sonarr.yaml
+  - ./vaultwarden.sops.yaml
+  - ./vaultwarden.yaml

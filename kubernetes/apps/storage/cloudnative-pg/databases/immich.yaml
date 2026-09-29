@@ -1,0 +1,40 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: immich
+spec:
+  cluster:
+    name: postgres18
+  name: immich
+  login: true
+  inherit: true
+  superuser: false
+  createdb: false
+  createrole: false
+  replication: false
+  bypassrls: false
+  connectionLimit: -1
+  databaseRoleReclaimPolicy: retain
+  passwordSecret:
+    name: immich-db
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: immich
+spec:
+  cluster:
+    name: postgres18
+  name: immich
+  owner: immich
+  databaseReclaimPolicy: retain
+  extensions:
+  - name: cube
+    ensure: present
+  - name: earthdistance
+    ensure: present
+  - name: vector
+    ensure: present

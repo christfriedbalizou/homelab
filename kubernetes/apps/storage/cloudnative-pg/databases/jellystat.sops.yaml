@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: jellystat-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:Cuz+I5530IbZ,iv:CNX8zcrlHqcdqofoR/BD124ZIqpVWVe8DfGAZWTuSJk=,tag:DYPpBzdjez188qBOKk2WiA==,type:str]
+  password: ENC[AES256_GCM,data:8TMqJqjbLeUCvGeDbe8C4/Sk8fI+gdBW,iv:xgzbujEDTBW5nzEU5tm8M4uLeNmFH0HtDbEKWncJryQ=,tag:3UJ0iFnBMK0MZLpwe85prQ==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBQY0JsbG5WQWFxOTMwNnJO
+        QVBaODBiUU45OFlpNTVZaWxtT3B2OW5yMXpNCjJCVCtmWkczVG5FQ0ZXZXN4enNI
+        MENDcEdrT2I5TEduc0RqZDRkZDhqV2sKLS0tIFJnbmVkM0ZIN003bEM3VUxGWGRK
+        Ti9uTmxPMVc5QVNrK1pob1AzZzBuSTgKgRvP7/mdbEaP9w870UmioNTT5/iRsFhK
+        mUp/UjNqIfxkrSNtc8wtk0G5bKyQX3lTNCkIi4e6+gVyGkNsGgswEA==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-09-29T01:24:57Z"
+  mac: ENC[AES256_GCM,data:buuPGGiYD9qBNTOJS3EDE0o4tIj9DoAMYhopVLnn1PgULMakfkTxoSuQNc3Chr175CiWkVj81aCe6uBLgNRZbL4xe3hmC2fBSYPAtq43IKIwlcSBGQtOSsGbR2aKyGDgfYA77JM6a50P+HJYXBQyeD5qcXpyDRZNMWro1vA1h48=,iv:g7mXG/9I3AO9yDCeIYoNXVxY4lw/lv2REVw5jcdtzIo=,tag:AQIdqmc3D97Pqohl4VYkrw==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3

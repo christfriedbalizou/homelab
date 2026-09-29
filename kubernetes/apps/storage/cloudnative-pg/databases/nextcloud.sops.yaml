@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nextcloud-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:iCDy0qxjumfR,iv:XtuLUV6mQ1lzfTIbnytLKDZkSg0bsE5nnk+2UjoCnkI=,tag:44HuhhGfLjzJxB7DuDJ4Vg==,type:str]
+  password: ENC[AES256_GCM,data:ZTFaFeU9hnDtJhIKY3fNjt+XSAyn,iv:2HCszjFndDWoCNKg8Eq8/jvUq+eoM99vYNNNVKHRoJE=,tag:R3QwlejhV109w8wND27JyQ==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBZWDlaZHhyNkpMTis1UU1G
+        M2E2TExIU01XSlJOdkEvRXM0L2RKTVZHNTM4Clp5TnhBSXJiL1g4aXU2SVBMbkZp
+        SXdoM3F0Nm9ZT1hmdm45eHZ5U3RxeHMKLS0tIGVyMXFHYWZHNXdweVYyQkxvcXM5
+        cUlaY28vRzE0WnB4TlZlSVVpQklhdDgKQ81WYvs6pb9PCe3225twhRoGiWOCZdo4
+        ReUhnOu3vGhlE+GoNTfrg0nucFRTTZlV3Ga3ZkOnJ/CBTrVESvGEeg==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-09-29T01:24:57Z"
+  mac: ENC[AES256_GCM,data:/eHXIYxesa8j5o7LDx/t7q8t2+aVDvZCmlNgVK9iKQSDu6dlyZGzORrZ9qsMam936kXYPX5lpN2nLHyvI/TuWMa49HjaanHSWNtisfnmrcfwFaXF8VwrsraFpCBahB2w6wHYj4i/nimGqLbKd5uILIMBc2B/rf8JB1Z3dDv5qkY=,iv:6uS4EFi3w3oZjY7e0aoLKAGFj6XKyRjqscRQg8IyTrw=,tag:QzPOp17BVAdHa/HPKrhztQ==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3

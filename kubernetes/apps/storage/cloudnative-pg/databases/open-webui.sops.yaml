@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: open-webui-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:+o+wMVNzMhLmeQ==,iv:H6JihubEu5SgZxT/yGGBwBNcbJ2qalq/zQ/VTNdohrU=,tag:zFpa6BD7eM2IIo+Yl++AoQ==,type:str]
+  password: ENC[AES256_GCM,data:EWb/OvQdtXJ8A4WBO38B5gzbB/JKb6vrUW9EVxF4sspbzAjWNw4M3tSifL/G2Ejg7s4REx+90WpIA3UoUhBw3Q==,iv:bTeTBEUz4ZH3htwuDxvURkMNZ2YKkQr9ruLHu2nwcUU=,tag:Fx2SSPM6PyhuR5IF6qN8Vw==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBMM2FaSElmTkpQeG5pVGIw
+        K29RWko4M3FUbThDM0k2byttUTRsU2RDMTFnCjZiRFlEOGhPeWFlWnlSSlNTUzkv
+        b2QvTFNzV0Q1aitGbWxHRXQ2d1ZjaHcKLS0tIHc3QmRCc1JqSnhoWlBMMjVaaGRv
+        U1FXbVVVRmtkSm1zdTFzWll3enc4QWcKG/4FqvMyunlCsTuGECgkkSQIqI+eM5ZD
+        x8MN5fWmz0MfrLyiRAoGYOhOCUpSRZLtCgKce8S3X9HM/YRfPkTxqg==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-09-29T01:24:57Z"
+  mac: ENC[AES256_GCM,data:lHIhztBiIqGLLaOd0ngeDJAYSsTf3WYIORFR8xq6ee279lM18ZxxjcFPkmC6tB2qpFDL5pEr75N4/YMB4pNGJUr35l5s4o/ODnAdegsf+/uwnWMQumH1ZIyQTlBgBHKPY/PeT+LRKBdTQNEwFOM+X8ohIh9C7qy0vPSv52WjP6o=,iv:TlIWPONzo051P+9q9u9QbKnrOWkJ5W9v+3/7vBir7Pw=,tag:+4QpaMqk2QtKVY1BweahTQ==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3
