@@ -13,4 +13,4 @@ resources:
   - ./litellm/ks.yaml
   - ./ha-mcp/ks.yaml
   - ./context7-mcp/ks.yaml
-  # Enable Memini and resume Open WebUI after issuing scoped LiteLLM keys.
+  - ./memini/ks.yaml
