@@ -192,8 +192,10 @@ This cluster uses Envoy Gateway and Gateway API for HTTP exposure.
   not enough or the app is not managed by app-template.
 - Use `parentRefs` with `name: envoy-external` and `namespace: networking` for
   public routes through Cloudflare/cloudflare-dns.
-- Use `parentRefs` with `name: envoy-internal` and `namespace: networking` for
-  LAN-only routes.
+- Use `envoy-external` for application routes: this homelab has no local DNS
+  for `envoy-internal` hostnames. Require either application-native Authelia
+  OIDC or the Authelia external-auth component before exposing an app. Keep
+  cluster-only APIs on Kubernetes Services when browser access is unnecessary.
 - Do not add Kubernetes `Ingress`, ingress-nginx, Traefik, or nginx auth
   annotations for app exposure.
 - The `cloudflare-dns` app uses the external-dns chart and watches

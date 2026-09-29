@@ -30,7 +30,7 @@ spec:
         hostnames:
           - "vlogs.${SECRET_DOMAIN}"
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: networking
       serviceMonitor:
         enabled: true

@@ -159,7 +159,7 @@ spec:
       ui:
         enabled: true
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: networking
         hostnames:
           - memini.${SECRET_DOMAIN}
@@ -168,7 +168,7 @@ spec:
         hostnames:
           - memini-api.${SECRET_DOMAIN}
         parentRefs:
-          - name: envoy-internal
+          - name: envoy-external
             namespace: networking
     serviceMonitor:
       main:
