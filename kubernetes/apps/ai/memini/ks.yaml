@@ -21,6 +21,8 @@ spec:
     name: home-kubernetes
     namespace: flux-system
   dependsOn:
+    - name: authelia
+      namespace: identity
     - name: litellm
       namespace: ai
     - name: llmkube-models

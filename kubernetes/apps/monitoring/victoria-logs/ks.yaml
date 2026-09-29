@@ -6,9 +6,12 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: authelia
+      namespace: identity
     - name: prometheus-stack
     - name: grafana-operator
   components:
+    - ../../../../components/ext-auth
     - ../../../../components/persistence/openebs-pvc
   commonMetadata:
     labels:
