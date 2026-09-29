@@ -35,14 +35,6 @@ spec:
           securityContext:
             seccompProfile: { type: RuntimeDefault }
         initContainers:
-          01-init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-              pullPolicy: IfNotPresent
-            envFrom:
-              - secretRef:
-                  name: netbird-secret
           02-render-config:
             image: &serverImage
               repository: netbirdio/netbird-server
@@ -239,3 +231,6 @@ spec:
             app:
               - path: /var/lib/netbird
                 subPath: netbird
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: storage

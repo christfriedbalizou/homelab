@@ -25,48 +25,6 @@ spec:
       immich:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18@sha256:b6d3af974df781c673d37e49bdddfa14a6f5be28b18d2cb7713f0449bea4057b
-              pullPolicy: IfNotPresent
-            env:
-              INIT_POSTGRES_DBNAME: &db immich
-              INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
-              INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
-              INIT_POSTGRES_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: &secret cluster-immich-secrets
-                    key: DB_USERNAME
-              INIT_POSTGRES_PASS:
-                valueFrom:
-                  secretKeyRef:
-                    name: *secret
-                    key: DB_PASSWORD
-          init-vector:
-            image:
-              repository: ghcr.io/cloudnative-pg/postgresql
-              tag: "18.6"
-              pullPolicy: IfNotPresent
-            command:
-              - /bin/sh
-              - -ec
-              - |
-                psql \
-                  --set=ON_ERROR_STOP=1 \
-                  --host="$INIT_POSTGRES_HOST" \
-                  --username=postgres \
-                  --dbname="$INIT_POSTGRES_DBNAME" \
-                  --command="CREATE EXTENSION IF NOT EXISTS cube CASCADE;" \
-                  --command="CREATE EXTENSION IF NOT EXISTS earthdistance CASCADE;" \
-                  --command="CREATE EXTENSION IF NOT EXISTS vector CASCADE;" \
-                  --command="ALTER EXTENSION vector UPDATE;"
-            env:
-              INIT_POSTGRES_DBNAME: *db
-              INIT_POSTGRES_HOST: *postgres
-              PGPASSWORD: "${POSTGRES_SUPER_PASS}"
         pod:
           automountServiceAccountToken: false
           enableServiceLinks: false
@@ -85,9 +43,9 @@ spec:
               IMMICH_LOG_LEVEL: log
               IMMICH_TRUSTED_PROXIES: "${K8S_CLUSTER_CIDR},${K8S_SERVICE_CIDR}"
               IMMICH_MACHINE_LEARNING_URL: http://127.0.0.1:3003
-              DB_HOSTNAME: *postgres
+              DB_HOSTNAME: &postgres postgres-lb.storage.svc.cluster.local
               DB_PORT: "5432"
-              DB_DATABASE_NAME: *db
+              DB_DATABASE_NAME: &db immich
               DB_VECTOR_EXTENSION: pgvector
               REDIS_HOSTNAME: 127.0.0.1
               REDIS_PORT: "6379"
@@ -95,7 +53,7 @@ spec:
               DB_USERNAME:
                 valueFrom:
                   secretKeyRef:
-                    name: *secret
+                    name: &secret cluster-immich-secrets
                     key: DB_USERNAME
               DB_PASSWORD:
                 valueFrom:

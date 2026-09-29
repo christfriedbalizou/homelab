@@ -25,6 +25,8 @@ spec:
       namespace: identity
     - name: dragonfly-operator
       namespace: storage
+    - name: cloudnative-pg
+      namespace: storage
   values:
     controllers:
       main:
@@ -32,18 +34,6 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          01-init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-              pullPolicy: IfNotPresent
-            env:
-              INIT_POSTGRES_DBNAME: &db authelia
-              INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
-              INIT_POSTGRES_USER: "${AUTHELIA_STORAGE_POSTGRES_USERNAME}"
-              INIT_POSTGRES_PASS: "${AUTHELIA_STORAGE_POSTGRES_PASSWORD}"
-              INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
         pod:
           enableServiceLinks: false
           topologySpreadConstraints:

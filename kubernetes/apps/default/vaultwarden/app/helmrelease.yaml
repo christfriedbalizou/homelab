@@ -27,14 +27,6 @@ spec:
         replicas: 2
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-            envFrom: &envFrom
-              - secretRef:
-                  name: cluster-vaultwarden-secrets
         containers:
           app:
             image:
@@ -49,7 +41,9 @@ spec:
               SMTP_PORT: "${SMTP_RELAY_PORT}"
               SMTP_FROM: noreply@${SECRET_DOMAIN}
               SMTP_SECURITY: "off"
-            envFrom: *envFrom
+            envFrom:
+              - secretRef:
+                  name: cluster-vaultwarden-secrets
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -87,3 +81,6 @@ spec:
         existingClaim: vaultwarden-jericho
         globalMounts:
           - subPath: vaultwarden
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: storage

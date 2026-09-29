@@ -252,10 +252,10 @@ PostgreSQL is centralized on CloudNativePG in the `storage` namespace.
 
 - Do not add app-local PostgreSQL containers, statefulsets, subcharts, or PVCs for
   normal applications.
-- For new PostgreSQL provisioning in the AI feature, use CloudNativePG
-  `DatabaseRole` and `Database` resources instead of `postgres-init`. LiteLLM
-  is the first adoption; existing Open WebUI provisioning and other namespaces
-  remain unchanged until separately requested migrations.
+- Use CloudNativePG `DatabaseRole` and `Database` resources for PostgreSQL
+  provisioning in every namespace. Do not add `postgres-init` containers or
+  database-creation Helm hooks. Applications remain responsible for their own
+  schema migrations.
 - Keep adopted apps' database manifests in
   `kubernetes/apps/storage/cloudnative-pg/databases/<app>.yaml` and their role
   password Secrets in `<app>.sops.yaml` in the same directory. Register them in
@@ -273,20 +273,19 @@ PostgreSQL is centralized on CloudNativePG in the `storage` namespace.
   `status.observedGeneration` through `healthCheckExprs`. Make the app depend on
   `cloudnative-pg-databases` in `storage`. Dependency namespaces must match the rendered
   Kustomizations, not the GitRepository's `flux-system` namespace.
-- For existing apps outside this adoption scope, retain the init container using
-  `repository: ghcr.io/home-operations/postgres-init` and `tag: 18` to
-  create/update the database and role.
-- Point application database clients and `INIT_POSTGRES_HOST` at
-  `postgres-lb.storage.svc.cluster.local`; include `:5432` only when the app
-  expects host-and-port in one value.
+- Point application database clients at `postgres-lb.storage.svc.cluster.local`;
+  include `:5432` only when the app expects host-and-port in one value.
 - Add `spec.dependsOn` for `cloudnative-pg` in namespace `storage` when the app
   has a HelmRelease and needs the shared database.
-- Reuse each app's existing secret keys for `INIT_POSTGRES_USER` and
-  `INIT_POSTGRES_PASS` whenever they already exist; otherwise use
-  `valueFrom.secretKeyRef` and keep generated secrets in the bootstrap template
-  pipeline.
-- Use `${POSTGRES_SUPER_PASS}` for `INIT_POSTGRES_SUPER_PASS` unless the app
-  already sources that value from an encrypted app secret.
+- Reuse existing database names, role names, and bootstrap password inputs when
+  adopting an application. Check live role attributes, memberships, ownership,
+  and password authentication first. Verify the declarative resources are applied
+  before removing the old provisioning path.
+- Manage required PostgreSQL extensions through `Database.spec.extensions`;
+  do not inject the PostgreSQL superuser password into application pods or hooks.
+- Remove unused provisioning keys from app Secrets and their templates. Legacy
+  key names may remain when a chart still references them as client credentials
+  (for example, Nextcloud's `INIT_POSTGRES_USER` and `INIT_POSTGRES_PASS`).
 - Only make an exception for a dedicated PostgreSQL deployment when the user
   explicitly asks for isolation or the app requires extensions/features not
   available in the shared cluster; document the reason in the manifest.

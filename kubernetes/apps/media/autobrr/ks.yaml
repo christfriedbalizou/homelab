@@ -35,3 +35,6 @@ spec:
         name: cluster-secrets
     substitute:
       APP: autobrr
+  dependsOn:
+    - name: cloudnative-pg-databases
+      namespace: storage

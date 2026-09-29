@@ -38,3 +38,6 @@ spec:
     substitute:
       APP: jellystat
       JERICHO_PATH: /volume1/apps/media
+  dependsOn:
+    - name: cloudnative-pg-databases
+      namespace: storage

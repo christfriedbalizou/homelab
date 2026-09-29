@@ -14,26 +14,6 @@ spec:
       mealie:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-              image:
-                repository: ghcr.io/home-operations/postgres-init
-                tag: 18
-                pullPolicy: IfNotPresent
-              env:
-                INIT_POSTGRES_DBNAME: &db mealie
-                INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
-                INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
-                INIT_POSTGRES_USER:
-                  valueFrom:
-                    secretKeyRef:
-                      name: &secret cluster-mealie-secrets
-                      key: POSTGRES_USER
-                INIT_POSTGRES_PASS:
-                  valueFrom:
-                    secretKeyRef:
-                      name: *secret
-                      key: POSTGRES_PASSWORD
         pod:
           securityContext:
             runAsNonRoot: true
@@ -64,9 +44,9 @@ spec:
               OIDC_GROUPS_CLAIM: groups
               OIDC_ADMIN_GROUP: admin
               OIDC_USER_GROUP: family
-              POSTGRES_SERVER: *postgres
+              POSTGRES_SERVER: &postgres postgres-lb.storage.svc.cluster.local
               POSTGRES_PORT: 5432
-              POSTGRES_DB: *db
+              POSTGRES_DB: &db mealie
               DB_ENGINE: postgres
             envFrom:
               - secretRef:
@@ -111,3 +91,6 @@ spec:
             app:
               - subPath: mealie
                 path: /app/data
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: storage

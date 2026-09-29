@@ -23,26 +23,6 @@ spec:
   values:
     controllers:
       paperless:
-        initContainers:
-          01-init-db:
-              image:
-                repository: ghcr.io/home-operations/postgres-init
-                tag: 18
-                pullPolicy: IfNotPresent
-              env:
-                INIT_POSTGRES_DBNAME: paperless
-                INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
-                INIT_POSTGRES_USER:
-                  valueFrom:
-                    secretKeyRef:
-                      name: cluster-paperless-secrets
-                      key: "PAPERLESS_DBUSER"
-                INIT_POSTGRES_PASS:
-                  valueFrom:
-                    secretKeyRef:
-                      name: cluster-paperless-secrets
-                      key: "PAPERLESS_DBPASS"
-                INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
         containers:
           app:
             image:
@@ -65,7 +45,7 @@ spec:
               PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
               PAPERLESS_OCR_LANGUAGE: fra+eng
               PAPERLESS_OCR_LANGUAGES: fra+eng
-              PAPERLESS_DBHOST: *postgres
+              PAPERLESS_DBHOST: &postgres postgres-lb.storage.svc.cluster.local
               PAPERLESS_REDIS: redis://dragonfly.storage.svc.cluster.local:6379/3
               USERMAP_UID: "568"
               USERMAP_GID: "568"

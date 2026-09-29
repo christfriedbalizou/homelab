@@ -14,26 +14,6 @@ spec:
       memos:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-              image:
-                repository: ghcr.io/home-operations/postgres-init
-                tag: 18
-                pullPolicy: IfNotPresent
-              env:
-                INIT_POSTGRES_DBNAME: memos
-                INIT_POSTGRES_HOST: postgres-lb.storage.svc.cluster.local
-                INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
-                INIT_POSTGRES_USER:
-                  valueFrom:
-                    secretKeyRef:
-                      name: &secret cluster-memos-secrets
-                      key: POSTGRES_USER
-                INIT_POSTGRES_PASS:
-                  valueFrom:
-                    secretKeyRef:
-                      name: *secret
-                      key: POSTGRES_PASSWORD
         pod:
           securityContext:
             runAsNonRoot: true
@@ -114,3 +94,6 @@ spec:
             app:
               - subPath: memos
                 path: /var/opt/memos
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: storage

@@ -31,25 +31,6 @@ spec:
             fsGroup: 65534
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-            env:
-              INIT_POSTGRES_DBNAME: &db jellystat
-              INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
-              INIT_POSTGRES_USER: &postgres_user
-                valueFrom:
-                  secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "JELLYSTAT_0_POSTGRES_USER"
-              INIT_POSTGRES_PASS: &postgres_pass
-                valueFrom:
-                  secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "JELLYSTAT_0_POSTGRES_PASSWORD"
-              INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
         containers:
           app:
             image:
@@ -57,10 +38,18 @@ spec:
               tag: 1.1.12@sha256:e61c759ec706da378bc8374e797da1dfd298ab30f804cefd82d192c301a888c7
             env:
               POSTGRES_PORT: "5432"
-              POSTGRES_IP: *postgres
-              POSTGRES_PASSWORD: *postgres_pass
-              POSTGRES_USER: *postgres_user
-              POSTGRES_DB: *db
+              POSTGRES_IP: &postgres postgres-lb.storage.svc.cluster.local
+              POSTGRES_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-media-secrets
+                    key: "JELLYSTAT_0_POSTGRES_PASSWORD"
+              POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-media-secrets
+                    key: "JELLYSTAT_0_POSTGRES_USER"
+              POSTGRES_DB: &db jellystat
               JWT_SECRET:
                 valueFrom:
                   secretKeyRef:
@@ -116,3 +105,6 @@ spec:
             app:
               - subPath: jellystat
                 path: /app/backend/backup-data
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: storage

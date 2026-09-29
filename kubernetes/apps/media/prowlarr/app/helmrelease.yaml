@@ -35,26 +35,6 @@ spec:
             fsGroupChangePolicy: "OnRootMismatch"
             supplementalGroups:
               - 100
-        initContainers:
-          01-init-db:
-              image:
-                repository: ghcr.io/home-operations/postgres-init
-                tag: 18
-                pullPolicy: IfNotPresent
-              env:
-                INIT_POSTGRES_DBNAME: prowlarr prowlarr-log
-                INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
-                INIT_POSTGRES_USER:
-                  valueFrom:
-                    secretKeyRef:
-                      name: cluster-media-secrets
-                      key: "PROWLARR_0_POSTGRES_USER"
-                INIT_POSTGRES_PASS:
-                  valueFrom:
-                    secretKeyRef:
-                      name: cluster-media-secrets
-                      key: "PROWLARR_0_POSTGRES_PASSWORD"
-                INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
         containers:
           main:
             image:
@@ -67,7 +47,7 @@ spec:
               PROWLARR__INSTANCE_NAME: Prowlarr
               PROWLARR__PORT: &port 80
               PROWLARR__LOG_LEVEL: info
-              PROWLARR__POSTGRES_HOST: *postgres
+              PROWLARR__POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
               PROWLARR__POSTGRES_MAIN_DB: "prowlarr"
               PROWLARR__POSTGRES_LOG_DB: "prowlarr-log"
               PROWLARR__POSTGRES_PASSWORD:

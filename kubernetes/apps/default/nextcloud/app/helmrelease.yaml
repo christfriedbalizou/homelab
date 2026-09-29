@@ -83,11 +83,6 @@ spec:
           subPath: redis-session.ini
 
       extraInitContainers:
-        - name: init-db
-          image: ghcr.io/home-operations/postgres-init:18
-          envFrom:
-            - secretRef:
-                name: *secret
         - name: init-redis
           image: busybox:latest
           command:
@@ -119,7 +114,7 @@ spec:
         fromAddress: noreply
         domain: ${SECRET_DOMAIN}
         smtp:
-          port : ${SMTP_RELAY_PORT}
+          port: ${SMTP_RELAY_PORT}
           secure:
           authtype:
           name:
@@ -236,3 +231,6 @@ spec:
             'oidc_login_update_avatar' => false,
             'oidc_login_code_challenge_method' => 'S256',
           );
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: storage

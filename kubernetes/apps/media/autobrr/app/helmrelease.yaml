@@ -29,25 +29,6 @@ spec:
             runAsUser: 568
             runAsGroup: 568
             seccompProfile: { type: RuntimeDefault }
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-            env:
-              INIT_POSTGRES_DBNAME: &dbName autobrr
-              INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
-              INIT_POSTGRES_USER: &dbUser
-                valueFrom:
-                  secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "AUTOBRR_0_POSTGRES_USER"
-              INIT_POSTGRES_PASS: &dbPass
-                valueFrom:
-                  secretKeyRef:
-                    name: cluster-media-secrets
-                    key: "AUTOBRR_0_POSTGRES_PASSWORD"
-              INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
         containers:
           app:
             image:
@@ -58,10 +39,18 @@ spec:
               AUTOBRR__HOST: 0.0.0.0
               AUTOBRR__LOG_LEVEL: INFO
               AUTOBRR__DATABASE_TYPE: postgres
-              AUTOBRR__POSTGRES_HOST: *postgres
-              AUTOBRR__POSTGRES_DATABASE: *dbName
-              AUTOBRR__POSTGRES_USER: *dbUser
-              AUTOBRR__POSTGRES_PASS: *dbPass
+              AUTOBRR__POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
+              AUTOBRR__POSTGRES_DATABASE: &dbName autobrr
+              AUTOBRR__POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-media-secrets
+                    key: "AUTOBRR_0_POSTGRES_USER"
+              AUTOBRR__POSTGRES_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-media-secrets
+                    key: "AUTOBRR_0_POSTGRES_PASSWORD"
               AUTOBRR__POSTGRES_PORT: "5432"
               AUTOBRR__SESSION_SECRET:
                 valueFrom:
@@ -114,3 +103,6 @@ spec:
     persistence:
       tmp:
         type: emptyDir
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: storage

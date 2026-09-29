@@ -13,6 +13,8 @@ spec:
       namespace: storage
     - name: minio
       namespace: storage
+    - name: cloudnative-pg-databases
+      namespace: storage
   components:
     - ../../../../components/persistence/jericho-nfs
   commonMetadata:

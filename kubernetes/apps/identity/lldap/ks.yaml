@@ -8,6 +8,8 @@ spec:
   dependsOn:
     - name: cert-manager-issuers
       namespace: cert-manager
+    - name: cloudnative-pg-databases
+      namespace: storage
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app

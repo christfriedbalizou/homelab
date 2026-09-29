@@ -30,18 +30,6 @@ spec:
         strategy: RollingUpdate
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          01-init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-              pullPolicy: IfNotPresent
-            env:
-              INIT_POSTGRES_DBNAME: lldap
-              INIT_POSTGRES_HOST: postgres-lb.storage.svc.cluster.local
-              INIT_POSTGRES_USER: "${LLDAP_POSTGRES_USER}"
-              INIT_POSTGRES_PASS: "${LLDAP_POSTGRES_PASS}"
-              INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
         pod:
           topologySpreadConstraints:
             - maxSkew: 1

@@ -29,40 +29,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    extraDeploy:
-      - apiVersion: batch/v1
-        kind: Job
-        metadata:
-          name: forgejo-init-db
-          annotations:
-            helm.sh/hook: pre-install,pre-upgrade
-            helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
-        spec:
-          backoffLimit: 6
-          template:
-            spec:
-              restartPolicy: OnFailure
-              containers:
-                - name: init-db
-                  image: ghcr.io/home-operations/postgres-init:18
-                  imagePullPolicy: IfNotPresent
-                  env:
-                    - name: INIT_POSTGRES_DBNAME
-                      value: forgejo
-                    - name: INIT_POSTGRES_HOST
-                      value: postgres-lb.storage.svc.cluster.local
-                    - name: INIT_POSTGRES_SUPER_PASS
-                      value: "${POSTGRES_SUPER_PASS}"
-                    - name: INIT_POSTGRES_USER
-                      valueFrom:
-                        secretKeyRef:
-                          name: &secret cluster-forgejo-secrets
-                          key: FORGEJO_POSTGRES_USER
-                    - name: INIT_POSTGRES_PASS
-                      valueFrom:
-                        secretKeyRef:
-                          name: *secret
-                          key: FORGEJO_POSTGRES_PASS
     extraContainerVolumeMounts:
       - name: signing-key
         mountPath: /data/signing
@@ -74,7 +40,7 @@ spec:
     extraVolumes:
       - name: signing-key
         secret:
-          secretName: *secret
+          secretName: &secret cluster-forgejo-secrets
           defaultMode: 0440
           items:
             - key: ed25519

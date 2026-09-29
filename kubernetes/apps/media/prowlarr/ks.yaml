@@ -41,3 +41,6 @@ spec:
       APP: prowlarr
       JERICHO_PATH: /volume1/apps/media
       LORDCOMMANDER_PATH: /volume1/media
+  dependsOn:
+    - name: cloudnative-pg-databases
+      namespace: storage

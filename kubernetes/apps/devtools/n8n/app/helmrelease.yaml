@@ -21,26 +21,6 @@ spec:
       n8n:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 18
-              pullPolicy: IfNotPresent
-            env:
-              INIT_POSTGRES_DBNAME: n8n
-              INIT_POSTGRES_HOST: &postgres postgres-lb.storage.svc.cluster.local
-              INIT_POSTGRES_SUPER_PASS: "${POSTGRES_SUPER_PASS}"
-              INIT_POSTGRES_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: &secret cluster-n8n-secrets
-                    key: DB_POSTGRESDB_USER
-              INIT_POSTGRES_PASS:
-                valueFrom:
-                  secretKeyRef:
-                    name: *secret
-                    key: DB_POSTGRESDB_PASSWORD
         containers:
           app:
             image:
@@ -77,7 +57,7 @@ spec:
 
               # Database
               DB_TYPE: postgresdb
-              DB_POSTGRESDB_HOST: *postgres
+              DB_POSTGRESDB_HOST: &postgres postgres-lb.storage.svc.cluster.local
 
               # User Management
               N8N_SMTP_HOST: smtp-relay.networking.svc.cluster.local
@@ -87,7 +67,7 @@ spec:
               N8N_EMAIL_MODE: smtp
             envFrom:
               - secretRef:
-                  name: *secret
+                  name: &secret cluster-n8n-secrets
             resources:
               requests:
                 cpu: 5m
@@ -129,3 +109,6 @@ spec:
             app:
               - subPath: n8n
                 path: /home/n8n/app
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: storage
