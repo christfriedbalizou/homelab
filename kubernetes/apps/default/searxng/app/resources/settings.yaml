@@ -26,7 +26,6 @@ general:
 
 ui:
   default_theme: simple
-  infinite_scroll: true
   query_in_title: true
   results_on_new_tab: true
   static_use_hash: true
@@ -39,17 +38,27 @@ categories_as_tabs:
   videos:
   map:
 
-enabled_plugins:
-  - Basic Calculator
-  - Hash plugin
-  - Open Access DOI rewrite
-  - Self Informations
-  - Tracker URL remover
-  - Unit converter plugin
+# Current SearXNG registers plugins by class name, not enabled_plugins labels.
+plugins:
+  searx.plugins.calculator.SXNGPlugin:
+    active: true
+  searx.plugins.hash_plugin.SXNGPlugin:
+    active: true
+  searx.plugins.oa_doi_rewrite.SXNGPlugin:
+    active: true
+  searx.plugins.self_info.SXNGPlugin:
+    active: true
+  searx.plugins.tracker_url_remover.SXNGPlugin:
+    active: true
+  searx.plugins.unit_converter.SXNGPlugin:
+    active: true
+  searx.plugins.infinite_scroll.SXNGPlugin:
+    active: true
+  searx.plugins.hostnames.SXNGPlugin:
+    active: true
 
 hostnames:
   high_priority:
-    - (.*)\/blog\/(.*)
     - (.*\.)?wikipedia.org$
     - (.*\.)?github.com$
     - (.*\.)?reddit.com$
