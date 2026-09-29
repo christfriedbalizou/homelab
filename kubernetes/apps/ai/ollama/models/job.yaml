@@ -3,7 +3,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: ollama-pull-local-models-v1
+  name: ollama-pull-local-models-v2
 spec:
   backoffLimit: 3
   activeDeadlineSeconds: 3600
@@ -26,6 +26,11 @@ spec:
             - /bin/sh
             - -ec
             - |
+              # A healthy Helm release can still have a temporarily unavailable
+              # server during GPU rescheduling. Wait within the Job deadline.
+              until ollama list >/dev/null 2>&1; do
+                sleep 5
+              done
               for model in qwen3:4b-q4_K_M qwen3:1.7b-q4_K_M qwen2.5-coder:3b-instruct-q4_K_M; do
                 ollama pull "$model"
                 ollama show "$model" >/dev/null
