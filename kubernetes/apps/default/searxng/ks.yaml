@@ -23,6 +23,8 @@ spec:
     name: home-kubernetes
     namespace: flux-system
   dependsOn:
+    - name: dragonfly-cluster
+      namespace: storage
     - name: authelia
       namespace: identity
   decryption:

@@ -41,6 +41,7 @@ spec:
               TZ: ${TIMEZONE}
               SEARXNG_BASE_URL: https://search.${SECRET_DOMAIN}
               SEARXNG_PORT: "8080"
+              SEARXNG_VALKEY_URL: redis://dragonfly.storage.svc.cluster.local:6379/8
               SEARXNG_SECRET:
                 valueFrom:
                   secretKeyRef:
@@ -101,6 +102,9 @@ spec:
         type: configMap
         name: searxng-config
         globalMounts:
+          - path: /etc/searxng/limiter.toml
+            subPath: limiter.toml
+            readOnly: true
           - path: /etc/searxng/settings.yml
             subPath: settings.yml
             readOnly: true

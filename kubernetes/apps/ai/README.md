@@ -371,6 +371,11 @@ membership in `admin`, and denies everyone else. Search queries go to external
 search engines even when chat inference uses a local model. SearXNG's signing
 key is generated locally and stored through the bootstrap/SOPS pipeline; its
 configuration is in Git and its disposable cache uses emptyDir storage.
+Search preferences and limiter configuration follow
+[Diaoul's SearXNG resources](https://github.com/Diaoul/home-ops/tree/main/kubernetes/apps/default/searxng/app/resources).
+The limiter uses the shared Dragonfly service in `storage`, database `8`.
+Private network clients, including Open WebUI, bypass bot detection; this does
+not bypass Authelia on the public route.
 
 ## Memini storage and recovery
 
