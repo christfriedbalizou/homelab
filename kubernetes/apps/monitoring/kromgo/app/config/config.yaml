@@ -44,7 +44,7 @@ badges:
     valueExpr: string(result) + "%"
     colorExpr: 'colorScale(result, [35.0, 75.0], ["green", "orange", "red"])'
 
-  - title: Power
+  - title: Homelab power
     id: cluster_power_usage
     query: avg(upsAdvOutputActivePower)
     valueExpr: humanizeCommas(math.round(result)) + "w"

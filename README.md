@@ -14,7 +14,7 @@
 [![Pods](https://img.shields.io/badge/dynamic/yaml?label=Pods&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_pod_count.message&color=%24.metrics.cluster_pod_count.color&style=for-the-badge&logo=podcast&logoColor=white)](https://github.com/home-operations/kromgo)
 [![CPU](https://img.shields.io/badge/dynamic/yaml?label=CPU&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_cpu_usage.message&color=%24.metrics.cluster_cpu_usage.color&style=for-the-badge&logo=cpu&logoColor=white)](https://github.com/home-operations/kromgo)
 [![Memory](https://img.shields.io/badge/dynamic/yaml?label=Memory&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_memory_usage.message&color=%24.metrics.cluster_memory_usage.color&style=for-the-badge&logo=memory&logoColor=white)](https://github.com/home-operations/kromgo)
-[![Power](https://img.shields.io/badge/dynamic/yaml?label=Power&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_power_usage.message&color=%24.metrics.cluster_power_usage.color&style=for-the-badge&logo=power&logoColor=white)](https://github.com/home-operations/kromgo)
+[![Homelab power](https://img.shields.io/badge/dynamic/yaml?label=Homelab%20power&url=https://raw.githubusercontent.com/ChristfriedBalizou/homelab/main/kromgo/metrics.yaml&query=%24.metrics.cluster_power_usage.message&color=%24.metrics.cluster_power_usage.color&style=for-the-badge&logo=power&logoColor=white)](https://github.com/home-operations/kromgo)
 
 </div>
 

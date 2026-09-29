@@ -36,7 +36,7 @@ metrics:
     pulledAt: '2026-09-28T22:46:53+00:00'
   cluster_power_usage:
     schemaVersion: 1
-    label: Power
+    label: Homelab power
     message: 435w
     color: orange
     cacheSeconds: 300
