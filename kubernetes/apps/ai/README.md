@@ -40,7 +40,7 @@ first-stage registrations, SSO client, and provider credentials are now prepared
 | `../storage/cloudnative-pg/databases/` | Declares a retained CloudNativePG DatabaseRole and Database in storage, with an encrypted role password Secret. |
 | `litellm/app/` | Internal gateway to local Ollama models, OpenAI models and embeddings; uses shared Dragonfly. |
 | `litellm/app/models/` | One model catalog containing all local and OpenAI model declarations, following the upstream layout. |
-| `ollama/local/`, `ollama/models/` | Optional NVIDIA memory settings and a one-time Job that downloads the selected chat models through the existing Ollama server. |
+| `ollama/app/`, `ollama/models/` | NVIDIA memory settings and a one-time Job that downloads the selected chat models through the existing Ollama server. |
 | `ha-mcp/` | Runs Home Assistant MCP inside the cluster and registers it with LiteLLM. |
 | `context7-mcp/` | Optional hosted documentation lookup through LiteLLM; separate from model inference and disabled until registered. |
 | `memini/` | Persistent memory, using local Qwen embeddings directly and local Qwen3 4B through LiteLLM. |
@@ -97,7 +97,7 @@ buffers also need memory. The 4B model plus embeddings is the intended fit,
 subject to an actual GPU test. Larger 7-8B models leave insufficient headroom
 for this simultaneous embedding workload; CPU offload is not the baseline.
 
-The registered Ollama overlay uses an 8192-token context, Flash Attention, a
+The Ollama app uses an 8192-token context, Flash Attention, a
 `q8_0` KV cache, one loaded chat model and one parallel request. Unused chat
 weights unload after 60 seconds. These settings follow the
 [Ollama memory guidance](https://docs.ollama.com/faq). Selecting another chat
@@ -315,8 +315,8 @@ postgres-init and database provisioning in other namespaces are unchanged.
 Register the new entries in `kubernetes/apps/ai/kustomization.yaml` only after
 the relevant prerequisites and encrypted secrets are ready:
 
-1. **Replace** `./ollama/ks.yaml` with `./ollama/ks-local.yaml`; never include
-   both. This applies the memory settings and registers `ollama-models`, which
+1. `./ollama/ks.yaml` applies the app's memory settings and registers
+   `ollama-models`, which
    waits for Ollama and downloads the three explicit model tags. Allow at least
    10 GB free in its existing model store (MEDIA NFS); existing weights are not
    deleted. Pulls do not load all three models into GPU memory. The completed
@@ -373,6 +373,9 @@ key is generated locally and stored through the bootstrap/SOPS pipeline; its
 configuration is in Git and its disposable cache uses emptyDir storage.
 Search preferences and limiter configuration follow
 [Diaoul's SearXNG resources](https://github.com/Diaoul/home-ops/tree/main/kubernetes/apps/default/searxng/app/resources).
+Plugin declarations use the current class-based format so DOI rewriting and
+infinite scrolling are actually enabled. Hostname priorities apply to domains;
+URL path patterns such as `/blog/` cannot be matched by this plugin.
 The limiter uses the shared Dragonfly service in `storage`, database `8`.
 Private network clients, including Open WebUI, bypass bot detection; this does
 not bypass Authelia on the public route.
@@ -425,7 +428,7 @@ done
 mise exec -- kustomize build kubernetes/apps/ai/llmkube/models >/dev/null
 mise exec -- kustomize build kubernetes/apps/storage/cloudnative-pg/databases >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/litellm/app/models >/dev/null
-mise exec -- kustomize build kubernetes/apps/ai/ollama/local --load-restrictor LoadRestrictionsNone >/dev/null
+mise exec -- kustomize build kubernetes/apps/ai/ollama/app --load-restrictor LoadRestrictionsNone >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/ollama/models >/dev/null
 mise exec -- kustomize build kubernetes/apps/ai/open-webui/app --load-restrictor LoadRestrictionsNone >/dev/null
 ```
