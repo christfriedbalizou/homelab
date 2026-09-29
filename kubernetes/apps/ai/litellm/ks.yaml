@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: litellm
+  namespace: flux-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: litellm
+  path: ./kubernetes/apps/ai/litellm/app
+  targetNamespace: ai
+  prune: true
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 10m
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+    namespace: flux-system
+  dependsOn:
+    - name: litellm-operator
+      namespace: ai
+    - name: cloudnative-pg-databases
+      namespace: storage
+    - name: dragonfly-cluster
+      namespace: storage
+    - name: ollama-models
+      namespace: ai
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: litellm
+      namespace: ai

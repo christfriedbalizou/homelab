@@ -1,0 +1,69 @@
+---
+use_default_settings: true
+
+server:
+  limiter: true
+  image_proxy: true
+  method: GET # https://github.com/searxng/searxng/pull/3619
+  public_instance: false
+
+search:
+  autocomplete: duckduckgo
+  favicon_resolver: duckduckgo
+  languages:
+    - all
+    - en
+    - en-US
+    - fr
+    - fr-FR
+  # json is required by open-webui's searxng RAG backend and is off by default
+  formats:
+    - html
+    - json
+
+general:
+  instance_name: Search
+
+ui:
+  default_theme: simple
+  query_in_title: true
+  results_on_new_tab: true
+  static_use_hash: true
+  theme_args:
+    simple_style: auto
+
+categories_as_tabs:
+  general:
+  images:
+  videos:
+  map:
+
+# Current SearXNG registers plugins by class name, not enabled_plugins labels.
+plugins:
+  searx.plugins.calculator.SXNGPlugin:
+    active: true
+  searx.plugins.hash_plugin.SXNGPlugin:
+    active: true
+  searx.plugins.oa_doi_rewrite.SXNGPlugin:
+    active: true
+  searx.plugins.self_info.SXNGPlugin:
+    active: true
+  searx.plugins.tracker_url_remover.SXNGPlugin:
+    active: true
+  searx.plugins.unit_converter.SXNGPlugin:
+    active: true
+  searx.plugins.infinite_scroll.SXNGPlugin:
+    active: true
+  searx.plugins.hostnames.SXNGPlugin:
+    active: true
+
+hostnames:
+  high_priority:
+    - (.*\.)?wikipedia.org$
+    - (.*\.)?github.com$
+    - (.*\.)?reddit.com$
+    - (.*\.)?docker.com$
+    - (.*\.)?archlinux.org$
+    - (.*\.)?stackoverflow.com$
+    - (.*\.)?askubuntu.com$
+    - (.*\.)?superuser.com$

@@ -250,7 +250,28 @@ PostgreSQL is centralized on CloudNativePG in the `storage` namespace.
 
 - Do not add app-local PostgreSQL containers, statefulsets, subcharts, or PVCs for
   normal applications.
-- For apps that need PostgreSQL, add an init container using
+- For new PostgreSQL provisioning in the AI feature, use CloudNativePG
+  `DatabaseRole` and `Database` resources instead of `postgres-init`. LiteLLM
+  is the first adoption; existing Open WebUI provisioning and other namespaces
+  remain unchanged until separately requested migrations.
+- Keep adopted apps' database manifests in
+  `kubernetes/apps/storage/cloudnative-pg/databases/<app>.yaml` and their role
+  password Secrets in `<app>.sops.yaml` in the same directory. Register them in
+  its Kustomization; the `cloudnative-pg-databases` Flux Kustomization deploys
+  them to `storage`, alongside the `postgres18` Cluster. Keep the corresponding
+  SOPS templates under the matching bootstrap path.
+- Set `databaseRoleReclaimPolicy: retain` and `databaseReclaimPolicy: retain`.
+  Use a login role without superuser, database-creation, or role-creation rights.
+- Use a SOPS-encrypted `kubernetes.io/basic-auth` Secret with `username` and
+  `password` in `storage`, labeled `cnpg.io/reload: "true"`. Render it and the
+  app's connection Secret from the same bootstrap password input. Keep app-only
+  API/OIDC credentials in the app namespace; do not copy them into `storage`.
+- Make the database Flux Kustomization depend on `cloudnative-pg-cluster` in
+  `storage` and wait for both resources' `status.applied` and current
+  `status.observedGeneration` through `healthCheckExprs`. Make the app depend on
+  `cloudnative-pg-databases` in `storage`. Dependency namespaces must match the rendered
+  Kustomizations, not the GitRepository's `flux-system` namespace.
+- For existing apps outside this adoption scope, retain the init container using
   `repository: ghcr.io/home-operations/postgres-init` and `tag: 18` to
   create/update the database and role.
 - Point application database clients and `INIT_POSTGRES_HOST` at

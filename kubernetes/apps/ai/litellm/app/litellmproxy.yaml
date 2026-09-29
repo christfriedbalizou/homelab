@@ -1,0 +1,108 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmproxy_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMProxy
+metadata:
+  name: litellm
+spec:
+  # renovate: datasource=docker depName=ghcr.io/berriai/litellm
+  image: ghcr.io/berriai/litellm:v1.103.0@sha256:bd089afdcd35b894b14a93f9743cdc8b591f82da1a38dd43a010a7b0c9de5fd7
+  replicas: 1
+  generalSettings:
+    health_check_endpoint: /v1/health
+    disable_env_credential_login: true
+    ui_access_mode: admin_only
+    forward_client_headers_to_llm_api: false
+  routerSettings:
+    routing_strategy: simple-shuffle
+    redis_host: os.environ/REDIS_HOST
+    redis_port: os.environ/REDIS_PORT
+    num_retries: 3
+    timeout: 600
+    allowed_fails: 1
+    cooldown_time: 300
+    # Explicit model selection only: local failures must not send prompts outside.
+    fallbacks: []
+    context_window_fallbacks: []
+    content_policy_fallbacks: []
+  litellmSettings:
+    success_callback:
+      - prometheus
+    prometheus_adapter: true
+    cache: true
+    cache_params:
+      type: redis
+      host: os.environ/REDIS_HOST
+      port: os.environ/REDIS_PORT
+      namespace: litellm
+    drop_params: true
+    merge_reasoning_content_in_choices: true
+  env:
+    - name: LITELLM_LOG
+      value: INFO
+    - name: LITELLM_MODE
+      value: PRODUCTION
+    - name: REDIS_HOST
+      value: dragonfly.storage.svc.cluster.local
+    - name: REDIS_PORT
+      value: '6379'
+    - name: LITELLM_MASTER_KEY
+      valueFrom:
+        secretKeyRef:
+          name: cluster-litellm-secrets
+          key: LITELLM_MASTER_KEY
+    - name: DATABASE_URL
+      valueFrom:
+        secretKeyRef:
+          name: cluster-litellm-secrets
+          key: DATABASE_URL
+    - name: PROXY_BASE_URL
+      value: https://litellm.${SECRET_DOMAIN}
+    - name: PROXY_ADMIN_ID
+      valueFrom:
+        secretKeyRef:
+          name: cluster-litellm-secrets
+          key: PROXY_ADMIN_ID
+    - name: GENERIC_CLIENT_ID
+      value: litellm
+    - name: GENERIC_USER_ID_ATTRIBUTE
+      value: preferred_username
+    - name: GENERIC_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: cluster-litellm-secrets
+          key: LITELLM_OAUTH_CLIENT_SECRET
+    - name: GENERIC_AUTHORIZATION_ENDPOINT
+      value: https://auth.${SECRET_DOMAIN}/api/oidc/authorization
+    - name: GENERIC_TOKEN_ENDPOINT
+      value: https://auth.${SECRET_DOMAIN}/api/oidc/token
+    - name: GENERIC_USERINFO_ENDPOINT
+      value: https://auth.${SECRET_DOMAIN}/api/oidc/userinfo
+    - name: GENERIC_SCOPE
+      value: openid email profile
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 2Gi
+  service:
+    type: ClusterIP
+    port: 4000
+  route:
+    hostnames:
+      - litellm.${SECRET_DOMAIN}
+    parentRefs:
+      - name: envoy-internal
+        namespace: networking
+  automountServiceAccountToken: false
+  securityContext:
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+  podSecurityContext:
+    seccompProfile:
+      type: RuntimeDefault
+  podAnnotations:
+    reloader.stakater.com/auto: 'true'

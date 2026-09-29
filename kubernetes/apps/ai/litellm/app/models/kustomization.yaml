@@ -1,0 +1,13 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: ai
+resources:
+  - ./gpt-6-astra-cloud.yaml
+  - ./gpt-6-luna-cloud.yaml
+  - ./gpt-6-sol-cloud.yaml
+  - ./qwen3-local-ollama.yaml
+  - ./qwen3-local-think-ollama.yaml
+  - ./qwen3-local-fast-ollama.yaml
+  - ./qwen2-5-coder-local-ollama.yaml

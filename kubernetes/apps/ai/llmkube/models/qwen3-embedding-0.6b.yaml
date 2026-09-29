@@ -1,0 +1,82 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/inference.llmkube.dev/model_v1alpha1.json
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: Model
+metadata:
+  name: qwen3-embedding-0.6b
+spec:
+  source: hf://Qwen/Qwen3-Embedding-0.6B-GGUF
+  files:
+    - Qwen3-Embedding-0.6B-Q8_0.gguf
+  format: gguf
+  quantization: Q8_0
+  hardware:
+    accelerator: cuda
+    gpu:
+      enabled: true
+      vendor: nvidia
+      count: 1
+      layers: 99
+      # Use the existing renamed time-slicing resource, not an exclusive GPU.
+      resourceName: nvidia.com/gpu.shared
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/inference.llmkube.dev/inferenceservice_v1alpha1.json
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: InferenceService
+metadata:
+  name: qwen3-embedding-0.6b
+  annotations:
+    litellm.home-operations.com/mode: embedding
+spec:
+  modelRef: qwen3-embedding-0.6b
+  runtime: llamacpp
+  # renovate: datasource=docker depName=ghcr.io/ggml-org/llama.cpp
+  image: ghcr.io/ggml-org/llama.cpp:server-cuda-b11206@sha256:3e7673cce183a55f97a1bc3c80817f3c61452483c13bc088a6766388af4775fe
+  replicas: 1
+  priority: normal
+  contextSize: 2048
+  parallelSlots: 1
+  batchSize: 512
+  uBatchSize: 512
+  extraArgs:
+    - --alias
+    - qwen3-embedding
+    - --embeddings
+    - --pooling
+    - last
+    - --cont-batching
+    - --threads
+    - '2'
+    - --threads-batch
+    - '4'
+  endpoint:
+    port: 8080
+    type: ClusterIP
+  resources:
+    cpu: 100m
+    memory: 2Gi
+  probeOverrides:
+    startup:
+      httpGet:
+        path: /health
+        port: 8080
+      periodSeconds: 10
+      failureThreshold: 360
+    liveness:
+      httpGet:
+        path: /health
+        port: 8080
+      initialDelaySeconds: 30
+      periodSeconds: 30
+      failureThreshold: 6
+    readiness:
+      httpGet:
+        path: /health
+        port: 8080
+      initialDelaySeconds: 20
+      periodSeconds: 10
+      failureThreshold: 6
+  runtimeClassName: nvidia
+  env:
+    - name: NVIDIA_DRIVER_CAPABILITIES
+      value: compute,utility

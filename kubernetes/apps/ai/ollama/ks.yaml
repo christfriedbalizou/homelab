@@ -28,10 +28,36 @@ spec:
     name: home-kubernetes
     namespace: flux-system
   healthChecks:
-    - apiVersion: helm.toolkit.fluxcd.io/v2beta2
+    - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       name: ollama
       namespace: ai
   interval: 30m
   retryInterval: 1m
   timeout: 3m
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: ollama-models
+  namespace: flux-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: ollama-models
+  path: ./kubernetes/apps/ai/ollama/models
+  targetNamespace: ai
+  prune: true
+  wait: true
+  force: true
+  interval: 30m
+  retryInterval: 1m
+  timeout: 65m
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+    namespace: flux-system
+  dependsOn:
+    - name: ollama
+      namespace: ai

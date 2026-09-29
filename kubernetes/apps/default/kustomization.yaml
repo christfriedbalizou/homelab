@@ -6,6 +6,7 @@ namespace: default
 components:
   - ../../components/common
 resources:
+  - ./searxng/ks.yaml
   - ./hajimari/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./paperless/ks.yaml

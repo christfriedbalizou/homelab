@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: gpt-6-sol-cloud
+spec:
+  # Explicitly selected external model; never a fallback for a local alias.
+  modelName: openai-gpt-6-sol-cloud
+  params:
+    model: openai/gpt-6-sol
+    apiBase: https://api.openai.com/v1
+    apiKeyRef:
+      name: cluster-litellm-secrets
+      key: OPENAI_API_KEY
+    additional:
+      # Chat Completions tool calling requires none for this model.
+      reasoning_effort: none
+      max_completion_tokens: 4096
+      store: false
+  info:
+    maxTokens: 1050000
+    maxInputTokens: 1050000
+    maxOutputTokens: 4096
+    supportsFunctionCalling: true
+    supportsVision: true
+    extra:
+      disable_background_health_check: true

@@ -1,0 +1,15 @@
+#% if ai_litellm_secrets_enabled | default(false) %#
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: litellm-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: litellm
+  password: {{ litellm_postgres_password | tojson }}
+#% endif %#

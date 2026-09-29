@@ -1,0 +1,24 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+# Optional: four scheduling shares for Ollama, Frigate, Jellyfin and embeddings.
+# Time slicing does not partition or increase the physical 6 GB of VRAM.
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+patches:
+  - target:
+      kind: ConfigMap
+      name: nvidia-time-slicing
+    patch: |-
+      - op: replace
+        path: /data/any
+        value: |
+          version: v1
+          flags:
+            migStrategy: none
+          sharing:
+            timeSlicing:
+              renameByDefault: true
+              failRequestsGreaterThanOne: true
+              resources:
+                - name: nvidia.com/gpu
+                  replicas: 4

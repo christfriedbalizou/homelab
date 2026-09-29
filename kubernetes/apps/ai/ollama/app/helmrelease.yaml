@@ -32,9 +32,11 @@ spec:
               tag: 0.34.4@sha256:8262851b2846b87c649eddf3e76beb270c52f4d1bc94559f47efde16b0841551
             env:
               OLLAMA_HOST: 0.0.0.0:11434
-              OLLAMA_KEEP_ALIVE: 5m
+              OLLAMA_KEEP_ALIVE: 60s
               OLLAMA_MAX_LOADED_MODELS: "1"
-              OLLAMA_CONTEXT_LENGTH: 8192
+              OLLAMA_CONTEXT_LENGTH: "8192"
+              OLLAMA_FLASH_ATTENTION: "true"
+              OLLAMA_KV_CACHE_TYPE: q8_0
               OLLAMA_NUM_PARALLEL: "1"
               OLLAMA_MODELS: /models
               OLLAMA_NO_CLOUD: "true"
