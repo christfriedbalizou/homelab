@@ -9,6 +9,12 @@ spec:
     # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
     version: v1.37.1
   healthChecks:
+    # The current Talos release supplies the Kubernetes upgrade client's version.
+    - apiVersion: tuppr.home-operations.com/v1alpha1
+      kind: TalosUpgrade
+      expr: >-
+        status.phase == 'Completed' &&
+        status.observedGeneration == object.metadata.generation
     - apiVersion: v1
       kind: Node
       expr: status.conditions.exists(c, c.type == "Ready" && c.status == "True")
