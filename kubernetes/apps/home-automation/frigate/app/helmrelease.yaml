@@ -74,13 +74,19 @@ spec:
                   timeoutSeconds: 5
                   failureThreshold: 30
             securityContext:
-              privileged: true
+              privileged: false
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop: [ALL]
+                add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]
+              seccompProfile:
+                type: RuntimeDefault
             resources:
               requests:
                 cpu: 500m
-                memory: 1Gi
+                memory: 3Gi
               limits:
-                memory: 4Gi
+                memory: 6Gi
                 squat.ai/coral: 1
                 "nvidia.com/gpu.shared": 1
     service:
@@ -124,21 +130,15 @@ spec:
       cache:
         type: emptyDir
         medium: Memory
-        sizeLimit: 4Gi
+        sizeLimit: 1Gi
         globalMounts:
           - path: /tmp/cache
       shm:
         type: emptyDir
         medium: Memory
-        sizeLimit: 4Gi
+        sizeLimit: 512Mi
         globalMounts:
           - path: /dev/shm
-      usb:
-        type: hostPath
-        hostPath: /dev/bus/usb
-        globalMounts:
-          - path: /dev/bus/usb
-            readOnly: false
       media:
         existingClaim: frigate-lordcommander
         globalMounts:

@@ -7,6 +7,7 @@ components:
   - ../../components/common
 resources:
   - ./searxng/ks.yaml
+  - ./networkpolicy.yaml
   - ./hajimari/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./paperless/ks.yaml

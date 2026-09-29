@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/policy/poddisruptionbudget_v1.json
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: envoy-external
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      gateway.envoyproxy.io/owning-gateway-name: envoy-external
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: envoy-internal
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      gateway.envoyproxy.io/owning-gateway-name: envoy-internal

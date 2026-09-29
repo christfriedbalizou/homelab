@@ -1,40 +1,21 @@
-# For dashboard sign in token:
-# kubectl -n monitoring get secret kubernetes-dashboard -o jsonpath='{.data.token}' | base64 -d
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/v1/serviceaccount.json
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: kubernetes-dashboard
   namespace: monitoring
-  labels:
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: kubernetes-dashboard
-    meta.helm.sh/release-namespace: monitoring
-secrets:
-  - name: kubernetes-dashboard
+automountServiceAccountToken: false
 ---
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/service-account-token
-metadata:
-  name: kubernetes-dashboard
-  namespace: monitoring
-  labels:
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: kubernetes-dashboard
-    meta.helm.sh/release-namespace: monitoring
-    kubernetes.io/service-account.name: kubernetes-dashboard
----
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/rbac.authorization.k8s.io/clusterrolebinding_v1.json
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: system:kubernetes-dashboard
+  name: kubernetes-dashboard-view
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: cluster-admin
+  name: view
 subjects:
   - kind: ServiceAccount
     name: kubernetes-dashboard

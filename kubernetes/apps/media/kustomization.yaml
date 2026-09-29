@@ -5,6 +5,7 @@ namespace: media
 components:
   - ../../components/common
 resources:
+  - ./networkpolicy.yaml
   - ./secret.sops.yaml
   - ./sonarr/ks.yaml
   - ./radarr/ks.yaml

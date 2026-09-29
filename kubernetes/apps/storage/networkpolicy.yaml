@@ -1,0 +1,75 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/networking.k8s.io/networkpolicy_v1.json
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: storage-ingress
+  namespace: storage
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector: {}
+    - namespaceSelector:
+        matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: In
+          values:
+          - monitoring
+          - networking
+  - from:
+    - namespaceSelector:
+        matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: In
+          values:
+          - default
+          - devtools
+          - media
+          - home-automation
+          - ai
+          - identity
+    ports:
+    - port: 5432
+      protocol: TCP
+    - port: 6379
+      protocol: TCP
+    - port: 3306
+      protocol: TCP
+    - port: 1883
+      protocol: TCP
+    - port: 8883
+      protocol: TCP
+    - port: 9000
+      protocol: TCP
+  - from:
+    - ipBlock:
+        cidr: 192.168.0.0/24
+    ports:
+    - port: 5432
+      protocol: TCP
+    - port: 1883
+      protocol: TCP
+    - port: 8883
+      protocol: TCP
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumnetworkpolicy_v2.json
+# Admission calls originate from control-plane nodes, not application pods.
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: admission-webhook-ingress
+  namespace: storage
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: cloudnative-pg
+  ingress:
+    - fromEntities:
+        - kube-apiserver
+      toPorts:
+        - ports:
+            - port: "9443"
+              protocol: TCP

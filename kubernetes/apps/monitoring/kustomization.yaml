@@ -5,6 +5,7 @@ namespace: monitoring
 components:
   - ../../components/common
 resources:
+  - ./networkpolicy.yaml
   - ./gatus/ks.yaml
   - ./dashboard/ks.yaml
   - ./grafana/ks.yaml

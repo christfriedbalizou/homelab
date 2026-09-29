@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/v1/resourcequota.json
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: build-budget
+spec:
+  hard:
+    pods: '6'
+    requests.cpu: '6'
+    requests.memory: 12Gi
+    limits.cpu: '12'
+    limits.memory: 32Gi
+    requests.storage: '0'
+    persistentvolumeclaims: '0'
+    services.loadbalancers: '0'
+    services.nodeports: '0'

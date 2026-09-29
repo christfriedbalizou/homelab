@@ -13,6 +13,16 @@ spec:
     kubernetes:
       envoyDeployment:
         replicas: 2
+        pod:
+          affinity:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    topologyKey: kubernetes.io/hostname
+                    labelSelector:
+                      matchLabels:
+                        app.kubernetes.io/name: envoy
         container:
           image: mirror.gcr.io/envoyproxy/envoy:v1.39.1
           resources:
@@ -149,12 +159,10 @@ kind: ClientTrafficPolicy
 metadata:
   name: envoy
 spec:
-  clientIPDetection:
-    xForwardedFor:
-      trustedCIDRs:
-        - 10.42.0.0/16
+  # Use the connection source until trusted proxy identity is isolated.
+  # Trusting the entire pod CIDR lets arbitrary workloads spoof client addresses.
   connection:
-    bufferLimit: 64Mi
+    bufferLimit: 1Mi
     maxAcceptPerSocketEvent: 0
   http2:
     initialStreamWindowSize: 512Ki
@@ -167,7 +175,7 @@ spec:
   tcpKeepalive: {}
   timeout:
     http:
-      requestReceivedTimeout: 0s
+      requestReceivedTimeout: 900s
   tls:
     minVersion: "1.2"
     alpnProtocols:

@@ -12,11 +12,32 @@ cluster:
 apiVersion: v1alpha1
 kind: KubeAdmissionControlConfig
 name: PodSecurity
-$$patch: delete
+configuration:
+  apiVersion: pod-security.admission.config.k8s.io/v1
+  kind: PodSecurityConfiguration
+  defaults:
+    enforce: privileged
+    enforce-version: latest
+    audit: restricted
+    audit-version: latest
+    warn: restricted
+    warn-version: latest
+  exemptions:
+    usernames: []
+    runtimeClasses: []
+    namespaces: [kube-system]
 ---
 apiVersion: v1alpha1
 kind: KubeAuditPolicyConfig
-$$patch: delete
+configuration:
+  apiVersion: audit.k8s.io/v1
+  kind: Policy
+  omitStages: [RequestReceived]
+  rules:
+    - level: None
+      users: [system:kube-proxy]
+      verbs: [watch]
+    - level: Metadata
 ---
 apiVersion: v1alpha1
 kind: KubeAPIServerConfig

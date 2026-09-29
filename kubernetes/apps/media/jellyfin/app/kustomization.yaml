@@ -4,3 +4,9 @@ kind: Kustomization
 resources:
   - ./certificate.yaml
   - ./helmrelease.yaml
+configMapGenerator:
+  - name: jellyfin-encoding-init
+    files:
+      - ./configure-encoding.py
+generatorOptions:
+  disableNameSuffixHash: true
