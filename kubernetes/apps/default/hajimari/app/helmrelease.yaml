@@ -51,6 +51,32 @@ spec:
       lightTheme: blackboard
       darkTheme: horizon
       customApps:
+        - group: AI
+          apps:
+            - name: Open WebUI
+              url: "https://ai.${SECRET_DOMAIN}"
+              icon: "mdi:chat-processing-outline"
+              info: "Private AI chat"
+            - name: LiteLLM
+              url: "https://litellm.${SECRET_DOMAIN}/ui"
+              icon: "mdi:brain"
+              info: "AI gateway administration"
+            - name: Model Catalog
+              url: "https://litellm.${SECRET_DOMAIN}/v1/models"
+              icon: "mdi:api"
+              info: "Models API — requires a LiteLLM API key"
+            - name: SearXNG
+              url: "https://search.${SECRET_DOMAIN}"
+              icon: "mdi:magnify"
+              info: "Private search — admin access with 2FA"
+            - name: Home Assistant MCP
+              url: "https://litellm.${SECRET_DOMAIN}/ha_mcp/mcp"
+              icon: "mdi:home-assistant"
+              info: "MCP client endpoint — requires a permitted LiteLLM key"
+            - name: Context7 MCP
+              url: "https://litellm.${SECRET_DOMAIN}/context7/mcp"
+              icon: "mdi:book-open-page-variant"
+              info: "Documentation MCP — requires a permitted LiteLLM key"
         - group: Authentication
           apps:
             - name: Authelia
@@ -183,9 +209,6 @@ spec:
               icon: "mdi:kubernetes"
         - group: Tools
           apps:
-            - name: Search
-              url: "https://search.${SECRET_DOMAIN}"
-              icon: "mdi:magnify"
             - name: Forgejo
               url: "https://git.${SECRET_DOMAIN}"
               icon: "simple-icons:forgejo"
