@@ -362,8 +362,15 @@ Configure MCP client connections and tool permissions explicitly. Add the
 Memini integration to chosen clients (Open WebUI's filter/tools or an MCP client
 at `https://memini-api.<domain>/mcp`); deploying the server alone does not attach
 memory to chats. Separate family/user memory namespaces and client keys before
-using private memories. The upstream SearXNG web-search setting is deliberately
-deferred: this repo has no SearXNG deployment yet.
+using private memories. Open WebUI web search uses SearXNG at
+`http://searxng.default.svc.cluster.local:8080/search?q=<query>` with JSON
+results enabled. This direct Kubernetes Service path does not pass through
+Envoy or Authelia. The separate browser UI at `search.${SECRET_DOMAIN}` uses
+the external Envoy Gateway, requires Authelia two-factor authentication and
+membership in `admin`, and denies everyone else. Search queries go to external
+search engines even when chat inference uses a local model. SearXNG's signing
+key is generated locally and stored through the bootstrap/SOPS pipeline; its
+configuration is in Git and its disposable cache uses emptyDir storage.
 
 ## Memini storage and recovery
 

@@ -183,6 +183,9 @@ spec:
               icon: "mdi:kubernetes"
         - group: Tools
           apps:
+            - name: Search
+              url: "https://search.${SECRET_DOMAIN}"
+              icon: "mdi:magnify"
             - name: Forgejo
               url: "https://git.${SECRET_DOMAIN}"
               icon: "simple-icons:forgejo"

@@ -89,6 +89,9 @@ spec:
                     name: *secret
                     key: OPENAI_API_KEY
               RAG_EMBEDDING_MODEL_AUTO_UPDATE: "false"
+              ENABLE_WEB_SEARCH: "true"
+              WEB_SEARCH_ENGINE: searxng
+              SEARXNG_QUERY_URL: http://searxng.default.svc.cluster.local:8080/search?q=<query>
               REDIS_KEY_PREFIX: open-webui
               REDIS_URL: redis://dragonfly.storage.svc.cluster.local:6379/4
               SCARF_NO_ANALYTICS: "true"

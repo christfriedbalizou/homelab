@@ -1,0 +1,16 @@
+---
+# SearXNG application settings; Kubernetes mounts this file through a ConfigMap.
+use_default_settings: true
+general:
+  instance_name: Homelab Search
+server:
+  # Public access is protected by Authelia; internal API clients need no bot challenge.
+  limiter: false
+  public_instance: false
+  image_proxy: true
+  method: GET
+search:
+  # Open WebUI requests the JSON API, which is disabled in upstream defaults.
+  formats:
+    - html
+    - json
