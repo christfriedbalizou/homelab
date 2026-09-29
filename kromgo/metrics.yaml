@@ -2,67 +2,67 @@ metrics:
   cluster_age_days:
     schemaVersion: 1
     label: Age
-    message: 139d
+    message: 140d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-28T22:46:51+00:00'
+    pulledAt: '2026-09-29T03:24:50+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-28T22:46:51+00:00'
+    pulledAt: '2026-09-29T03:24:50+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
-    message: '158'
+    message: '163'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-28T22:46:52+00:00'
+    pulledAt: '2026-09-29T03:24:51+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 17.3%
+    message: 13.7%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-28T22:46:52+00:00'
+    pulledAt: '2026-09-29T03:24:51+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 41.3%
-    color: orange
+    message: 34.1%
+    color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-28T22:46:53+00:00'
+    pulledAt: '2026-09-29T03:24:51+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Homelab power
-    message: 435w
+    message: 429w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-09-28T22:46:53+00:00'
+    pulledAt: '2026-09-29T03:24:52+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
-    message: 20d
+    message: 0d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-09-28T22:46:53+00:00'
+    pulledAt: '2026-09-29T03:24:53+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
-    message: 1.13.10
+    message: 1.14.1
     cacheSeconds: 300
-    pulledAt: '2026-09-28T22:46:53+00:00'
+    pulledAt: '2026-09-29T03:24:53+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
-    message: 1.36.0
+    message: 1.37.1
     cacheSeconds: 300
-    pulledAt: '2026-09-28T22:46:54+00:00'
+    pulledAt: '2026-09-29T03:24:53+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.5
     cacheSeconds: 300
-    pulledAt: '2026-09-28T22:46:54+00:00'
+    pulledAt: '2026-09-29T03:24:54+00:00'
