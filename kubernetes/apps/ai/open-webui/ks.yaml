@@ -6,15 +6,6 @@ metadata:
   name: &app open-webui
   namespace: flux-system
 spec:
-  # Remove after LiteLLM issues its scoped key and the app Secret is rendered.
-  suspend: true
-  dependsOn:
-    - name: searxng
-      namespace: default
-    - name: litellm
-      namespace: ai
-    - name: llmkube-models
-      namespace: ai
   components:
     - ../../../../components/persistence/jericho-nfs
   commonMetadata:

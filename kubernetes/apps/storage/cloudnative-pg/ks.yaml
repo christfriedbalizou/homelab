@@ -166,10 +166,10 @@ spec:
     - apiVersion: postgresql.cnpg.io/v1
       kind: DatabaseRole
       current: >-
-        has(status) && has(status.applied) && status.applied &&
+        has(status.applied) && status.applied &&
         has(status.observedGeneration) && status.observedGeneration == metadata.generation
     - apiVersion: postgresql.cnpg.io/v1
       kind: Database
       current: >-
-        has(status) && has(status.applied) && status.applied &&
+        has(status.applied) && status.applied &&
         has(status.observedGeneration) && status.observedGeneration == metadata.generation

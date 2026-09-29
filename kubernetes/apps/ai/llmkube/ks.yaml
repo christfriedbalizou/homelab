@@ -63,5 +63,5 @@ spec:
   healthCheckExprs:
     - apiVersion: inference.llmkube.dev/v1alpha1
       kind: InferenceService
-      failed: has(status) && has(status.phase) && status.phase == 'Failed'
-      current: has(status) && has(status.phase) && status.phase == 'Ready'
+      failed: has(status.phase) && status.phase == 'Failed'
+      current: has(status.phase) && status.phase == 'Ready'

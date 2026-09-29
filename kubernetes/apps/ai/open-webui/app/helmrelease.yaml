@@ -53,14 +53,12 @@ spec:
               repository: docker.io/openwebui/open-webui
               tag: 0.11.4@sha256:9591b13f13843c7721c2b8eaf7382846c81b3ffe126526d1888d1fed50c6a33f
             env:
-              # Keep backend settings in Git authoritative over saved admin settings.
-              ENABLE_PERSISTENT_CONFIG: "false"
               ENABLE_LOGIN_FORM: "false"
               ENABLE_OAUTH_SIGNUP: "true"
               ENABLE_OAUTH_ROLE_MANAGEMENT: "true"
               ENABLE_SIGNUP: "false"
               DEFAULT_USER_ROLE: user
-              DEFAULT_MODELS: qwen3-local
+              DEFAULT_MODELS: qwen3:4b
               OAUTH_ADMIN_ROLES: admin
               OAUTH_ALLOWED_ROLES: family
               OAUTH_CLIENT_ID: open-webui
@@ -69,38 +67,21 @@ spec:
               OAUTH_ROLES_CLAIM: groups
               OAUTH_SCOPES: openid email profile groups
               OAUTH_TOKEN_ENDPOINT_AUTH_METHOD: client_secret_post
-              ENABLE_OPENAI_API: "true"
-              ENABLE_OLLAMA_API: "false"
-              OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1
-              OPENAI_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: *secret
-                    key: OPENAI_API_KEY
+              ENABLE_OPENAI_API: "false"
+              ENABLE_OLLAMA_API: "true"
+              OLLAMA_BASE_URL: http://ollama:11434
               OPENID_PROVIDER_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
               OPENID_REDIRECT_URI: https://ai.${SECRET_DOMAIN}/oauth/oidc/callback
-              RAG_EMBEDDING_ENGINE: openai
-              RAG_EMBEDDING_MODEL: qwen3-embedding-0.6b
-              RAG_EMBEDDING_BATCH_SIZE: "16"
-              RAG_OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1
-              RAG_OPENAI_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: *secret
-                    key: OPENAI_API_KEY
+              RAG_EMBEDDING_ENGINE: ollama
+              RAG_EMBEDDING_MODEL: nomic-embed-text:latest
               RAG_EMBEDDING_MODEL_AUTO_UPDATE: "false"
-              ENABLE_WEB_SEARCH: "true"
-              WEB_SEARCH_ENGINE: searxng
-              SEARXNG_QUERY_URL: http://searxng.default.svc.cluster.local:8080/search?q=<query>
               REDIS_KEY_PREFIX: open-webui
               REDIS_URL: redis://dragonfly.storage.svc.cluster.local:6379/4
               SCARF_NO_ANALYTICS: "true"
               WEBUI_AUTH: "true"
               WEBUI_NAME: Private AI
               WEBUI_URL: https://ai.${SECRET_DOMAIN}
-              ENABLE_WEBSOCKET_SUPPORT: "true"
               WEBSOCKET_MANAGER: redis
-              WEBSOCKET_REDIS_URL: redis://dragonfly.storage.svc.cluster.local:6379/4
               WEBSOCKET_REDIS_OPTIONS: '{"socket_timeout": null}'
             envFrom:
               - secretRef:
