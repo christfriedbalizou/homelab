@@ -1,6 +1,18 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  extends: ["github>christfriedbalizou/renovate"],
+  extends: [
+    "github>home-operations/renovate-presets#8.1.0",
+    "github>home-operations/renovate-presets//apps/cnpg.json5#8.1.0",
+    "github>home-operations/renovate-presets//apps/grafanaDashboards.json5#8.1.0",
+    "github>home-operations/renovate-presets//apps/llamacpp.json5#8.1.0",
+    "github>home-operations/renovate-presets//apps/searxng.json5#8.1.0",
+    "github>home-operations/renovate-presets//apps/talosFactory.json5#8.1.0",
+    // Keep repository policies without importing duplicate dependency managers.
+    "github>christfriedbalizou/renovate:autoMerge.json5",
+    "github>christfriedbalizou/renovate:groups.json5",
+    "github>christfriedbalizou/renovate:labels.json5",
+    ":timezone(Europe/London)",
+  ],
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: [
     "prEditedNotification",
@@ -28,6 +40,22 @@
     managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
   },
   packageRules: [
+    {
+      description: "Keep Talos installation and rolling upgrade versions together",
+      matchDatasources: ["custom.talos-factory"],
+      matchPackageNames: ["siderolabs/talos"],
+      versioning: "semver",
+      groupName: "talos",
+      minimumGroupSize: 2,
+    },
+    {
+      // Talos manages the control-plane images; only kubelet is tracked here.
+      description: "Allow Kubernetes updates without five separate component images",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/siderolabs/kubelet"],
+      groupName: "kubernetes",
+      minimumGroupSize: 1,
+    },
     // NVIDIA chart values split the image path across repository and image.
     {
       description: "Resolve NVIDIA DCGM exporter image",
@@ -49,19 +77,6 @@
       matchDatasources: ["docker"],
       matchPackageNames: ["k8s-driver-manager"],
       overridePackageName: "nvcr.io/nvidia/cloud-native/k8s-driver-manager",
-    },
-  ],
-  customManagers: [
-    {
-      customType: "regex",
-      description: "Update vscode dotfiles tag",
-      managerFilePatterns: [
-        "/(^|/)kubernetes/apps/default/vscode/app/helmrelease\\.ya?ml$/",
-      ],
-      matchStrings: [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+DOTFILES_VERSION:\\s*\"?(?<currentValue>v?[^\"\\s]+)\"?",
-      ],
-      versioningTemplate: "semver",
     },
   ],
 }

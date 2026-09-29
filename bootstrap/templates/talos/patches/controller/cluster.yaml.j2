@@ -1,18 +1,6 @@
+---
 cluster:
   allowSchedulingOnControlPlanes: true
-  apiServer:
-    admissionControl:
-      $$patch: delete
-    auditPolicy:
-      $$patch: delete
-    extraArgs:
-      # https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/
-      enable-aggregator-routing: true
-      feature-gates: HPAScaleToZero=true
-  controllerManager:
-    extraArgs:
-      bind-address: 0.0.0.0
-      feature-gates: HPAScaleToZero=true
   coreDNS:
     disabled: true
   etcd:
@@ -20,8 +8,34 @@ cluster:
       listen-metrics-urls: http://0.0.0.0:2381
     advertisedSubnets:
       - {{ bootstrap_node_cidr }}
-  proxy:
-    disabled: true
-  scheduler:
-    extraArgs:
-      bind-address: 0.0.0.0
+---
+apiVersion: v1alpha1
+kind: KubeAdmissionControlConfig
+name: PodSecurity
+$$patch: delete
+---
+apiVersion: v1alpha1
+kind: KubeAuditPolicyConfig
+$$patch: delete
+---
+apiVersion: v1alpha1
+kind: KubeAPIServerConfig
+extraArgs:
+  # https://kubernetes.io/docs/tasks/extend-kubernetes/configure-aggregation-layer/
+  enable-aggregator-routing: "true"
+  feature-gates: HPAScaleToZero=true
+---
+apiVersion: v1alpha1
+kind: KubeControllerManagerConfig
+extraArgs:
+  bind-address: 0.0.0.0
+  feature-gates: HPAScaleToZero=true
+---
+apiVersion: v1alpha1
+kind: KubeSchedulerConfig
+extraArgs:
+  bind-address: 0.0.0.0
+---
+apiVersion: v1alpha1
+kind: KubeProxyConfig
+enabled: false
