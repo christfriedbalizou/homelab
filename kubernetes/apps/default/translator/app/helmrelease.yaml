@@ -25,11 +25,6 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           automountServiceAccountToken: false
-          # Keep exact FQDN egress rules compatible with CoreDNS autopath.
-          dnsConfig:
-            options:
-              - name: ndots
-                value: "1"
           terminationGracePeriodSeconds: 90
           nodeSelector:
             kubernetes.io/arch: amd64
@@ -277,65 +272,3 @@ spec:
           translator:
             worker:
               - path: /dev/shm
-    # Render after Flux substitution so hostname schema validation sees the FQDN.
-    rawResources:
-      network-policy:
-        manifest:
-          apiVersion: cilium.io/v2
-          kind: CiliumNetworkPolicy
-          spec:
-            endpointSelector:
-              matchLabels:
-                app.kubernetes.io/name: translator
-            ingress:
-              - fromEndpoints:
-                  - matchLabels:
-                      k8s:io.kubernetes.pod.namespace: networking
-                      app.kubernetes.io/name: envoy
-                toPorts:
-                  - ports:
-                      - port: "8000"
-                        protocol: TCP
-            egress:
-              - toEndpoints:
-                  - matchLabels:
-                      k8s:io.kubernetes.pod.namespace: kube-system
-                      k8s:k8s-app: kube-dns
-                toPorts:
-                  - ports:
-                      - port: "53"
-                        protocol: ANY
-                    rules:
-                      dns:
-                        - matchPattern: "*"
-              - toEndpoints:
-                  - matchLabels:
-                      k8s:io.kubernetes.pod.namespace: storage
-                      cnpg.io/cluster: postgres18
-                toPorts:
-                  - ports:
-                      - port: "5432"
-                        protocol: TCP
-              - toEndpoints:
-                  - matchLabels:
-                      k8s:io.kubernetes.pod.namespace: ai
-                      app.kubernetes.io/name: litellm
-                toPorts:
-                  - ports:
-                      - port: "4000"
-                        protocol: TCP
-              - toFQDNs:
-                  - matchName: auth.${SECRET_DOMAIN}
-                  - matchName: litellm.${SECRET_DOMAIN}
-                toPorts:
-                  - ports:
-                      - port: "443"
-                        protocol: TCP
-              - toEndpoints:
-                  - matchLabels:
-                      k8s:io.kubernetes.pod.namespace: networking
-                      app.kubernetes.io/name: envoy
-                toPorts:
-                  - ports:
-                      - port: "10443"
-                        protocol: TCP
