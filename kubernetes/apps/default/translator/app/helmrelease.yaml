@@ -33,6 +33,11 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           automountServiceAccountToken: false
+          # Keep exact FQDN egress rules compatible with CoreDNS autopath.
+          dnsConfig:
+            options:
+              - name: ndots
+                value: "1"
           terminationGracePeriodSeconds: 90
           nodeSelector:
             kubernetes.io/arch: amd64
