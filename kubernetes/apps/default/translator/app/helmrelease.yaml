@@ -48,7 +48,7 @@ spec:
           migrate:
             image: &image
               repository: ghcr.io/christfriedbalizou/translator
-              tag: 0.3.0@sha256:98d911ad65a0662a008cb5bd7ee86b8a6c779991bba48e665f6f3c3e8ab8cbfc
+              tag: 0.3.0@sha256:b5ec50cce3d8a1c9d3d9674d158dde66b8b4ed823ffed7cdbdfcd7b089991789
             command: [/bin/sh, -ec]
             args:
               - >-
