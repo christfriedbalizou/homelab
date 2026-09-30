@@ -53,6 +53,7 @@ spec:
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
+                annotationSelector: homelab.home.arpa/custom-helm-remediation!=true
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
