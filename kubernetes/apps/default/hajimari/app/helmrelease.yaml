@@ -57,26 +57,10 @@ spec:
               url: "https://litellm.${SECRET_DOMAIN}/ui"
               icon: "mdi:brain"
               info: "AI gateway administration"
-            - name: Model Catalog
-              url: "https://litellm.${SECRET_DOMAIN}/v1/models"
-              icon: "mdi:api"
-              info: "Models API — requires a LiteLLM API key"
-            - name: Home Assistant MCP
-              url: "https://litellm.${SECRET_DOMAIN}/ha_mcp/mcp"
-              icon: "mdi:home-assistant"
-              info: "MCP client endpoint — requires a permitted LiteLLM key"
-            - name: Context7 MCP
-              url: "https://litellm.${SECRET_DOMAIN}/context7/mcp"
-              icon: "mdi:book-open-page-variant"
-              info: "Documentation MCP — requires a permitted LiteLLM key"
             - name: Memini
               url: "https://memini.${SECRET_DOMAIN}"
               icon: "mdi:memory"
               info: "Persistent AI memory — admin access with 2FA"
-            - name: Memini MCP
-              url: "https://memini-api.${SECRET_DOMAIN}/mcp"
-              icon: "mdi:head-cog-outline"
-              info: "Memory MCP — requires Authelia and a Memini API key"
         - group: Authentication
           apps:
             - name: Authelia

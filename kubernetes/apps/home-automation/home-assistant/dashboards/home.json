@@ -1,0 +1,680 @@
+{
+  "title": "Home",
+  "views": [
+    {
+      "title": "Home",
+      "path": "default_view",
+      "icon": "mdi:home-heart",
+      "type": "sections",
+      "theme": "Bubble Home",
+      "max_columns": 2,
+      "dense_section_placement": false,
+      "header": {
+        "card": {
+          "type": "markdown",
+          "text_only": true,
+          "content": "# Home\nComfort, activity, and the people who make it home."
+        }
+      },
+      "sections": [
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "type": "custom:bubble-card",
+              "card_type": "separator",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "name": "Master bedroom",
+              "icon": "mdi:bed-king-outline"
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.0x881a14fffee9617e",
+                      "state_not": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "card": {
+                    "type": "custom:bubble-card",
+                    "card_type": "climate",
+                    "grid_options": {
+                      "columns": 12,
+                      "rows": "auto"
+                    },
+                    "entity": "climate.0x881a14fffee9617e",
+                    "name": "Master bedroom",
+                    "icon": "mdi:radiator",
+                    "show_state": true,
+                    "card_layout": "large",
+                    "sub_button": [
+                      {
+                        "name": "Heating mode",
+                        "select_attribute": "hvac_modes",
+                        "show_arrow": false,
+                        "state_background": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.0x881a14fffee9617e",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "card": {
+                    "type": "custom:bubble-card",
+                    "card_type": "button",
+                    "grid_options": {
+                      "columns": 12,
+                      "rows": "auto"
+                    },
+                    "button_type": "state",
+                    "entity": "climate.0x881a14fffee9617e",
+                    "name": "Bedroom heating \u00b7 offline",
+                    "show_state": true,
+                    "card_layout": "large",
+                    "button_action": {
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "icon": "mdi:radiator-disabled"
+                  }
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "condition": "state",
+                  "entity": "sensor.0x881a14fffee9617e_local_temperature",
+                  "state_not": [
+                    "unavailable",
+                    "unknown"
+                  ]
+                }
+              ],
+              "card": {
+                "type": "vertical-stack",
+                "cards": [
+                  {
+                    "type": "custom:bubble-card",
+                    "card_type": "button",
+                    "grid_options": {
+                      "columns": 12,
+                      "rows": "auto"
+                    },
+                    "button_type": "state",
+                    "entity": "sensor.0x881a14fffee9617e_local_temperature",
+                    "name": "Room temperature",
+                    "show_state": true,
+                    "card_layout": "large",
+                    "button_action": {
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "icon": "mdi:thermometer"
+                  },
+                  {
+                    "type": "history-graph",
+                    "hours_to_show": 12,
+                    "entities": [
+                      {
+                        "entity": "sensor.0x881a14fffee9617e_local_temperature",
+                        "name": "Bedroom"
+                      }
+                    ],
+                    "grid_options": {
+                      "columns": 12,
+                      "rows": "auto"
+                    }
+                  }
+                ]
+              },
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "condition": "state",
+                  "entity": "climate.0x881a14fffee9617e",
+                  "state": [
+                    "unavailable",
+                    "unknown"
+                  ]
+                }
+              ],
+              "card": {
+                "type": "markdown",
+                "content": "The bedroom thermostat is offline. Temperature and heating controls will return when it reconnects."
+              },
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "name",
+              "name": "Heating details",
+              "icon": "mdi:tune-variant",
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "navigate",
+                  "navigation_path": "#heating"
+                }
+              },
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "#heating"
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "type": "custom:bubble-card",
+              "card_type": "separator",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "name": "Front door",
+              "icon": "mdi:door"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "name",
+              "name": "View entrance camera",
+              "icon": "mdi:cctv",
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "navigate",
+                  "navigation_path": "/dashboard-home/cameras"
+                }
+              },
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "/dashboard-home/cameras"
+              }
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "state",
+              "entity": "binary_sensor.entrance_person_occupancy",
+              "name": "Person detected",
+              "show_state": true,
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "more-info"
+                }
+              },
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:account-eye-outline"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "state",
+              "entity": "binary_sensor.entrance_motion",
+              "name": "Motion",
+              "show_state": true,
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "more-info"
+                }
+              },
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:motion-sensor"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "separator",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "name": "Household",
+              "icon": "mdi:home-heart"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "state",
+              "entity": "person.christfried_balizou",
+              "name": "Christfried",
+              "show_state": true,
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "more-info"
+                }
+              },
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:account"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "name",
+              "name": "Home system",
+              "icon": "mdi:lan-connect",
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "navigate",
+                  "navigation_path": "#system"
+                }
+              },
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "#system"
+              }
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "name",
+              "name": "Back to overview",
+              "icon": "mdi:view-dashboard-outline",
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "navigate",
+                  "navigation_path": "/dashboard-overview/overview"
+                }
+              },
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "/dashboard-overview/overview"
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "type": "custom:bubble-card",
+              "card_type": "pop-up",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "hash": "#heating",
+              "name": "Heating details",
+              "icon": "mdi:radiator",
+              "width_desktop": "520px",
+              "cards": [
+                {
+                  "type": "entities",
+                  "show_header_toggle": false,
+                  "entities": [
+                    {
+                      "entity": "climate.0x881a14fffee9617e",
+                      "name": "Master bedroom"
+                    },
+                    {
+                      "entity": "sensor.0x881a14fffee9617e_local_temperature",
+                      "name": "Measured temperature"
+                    },
+                    {
+                      "entity": "sensor.0x881a14fffee9617e_battery",
+                      "name": "Thermostat battery"
+                    },
+                    {
+                      "entity": "switch.0x881a14fffee9617e_child_lock",
+                      "name": "Child lock"
+                    },
+                    {
+                      "entity": "switch.0x881a14fffee9617e_open_window",
+                      "name": "Open-window detection"
+                    },
+                    {
+                      "entity": "switch.0x881a14fffee9617e_smart_temperature_control",
+                      "name": "Smart temperature control"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "pop-up",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "hash": "#system",
+              "name": "Home system",
+              "icon": "mdi:lan-connect",
+              "width_desktop": "520px",
+              "cards": [
+                {
+                  "type": "entities",
+                  "show_header_toggle": false,
+                  "entities": [
+                    {
+                      "entity": "binary_sensor.zigbee2mqtt_bridge_connection_state",
+                      "name": "Zigbee connection"
+                    },
+                    {
+                      "entity": "sensor.pixel_6_battery_level",
+                      "name": "Phone battery"
+                    },
+                    {
+                      "entity": "sensor.0x881a14fffee9617e_battery",
+                      "name": "Thermostat battery"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:bubble-card",
+                  "card_type": "button",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": "auto"
+                  },
+                  "button_type": "name",
+                  "name": "Devices & services",
+                  "icon": "mdi:cog-outline",
+                  "card_layout": "large",
+                  "button_action": {
+                    "tap_action": {
+                      "action": "navigate",
+                      "navigation_path": "/config/integrations"
+                    }
+                  },
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/config/integrations"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cameras",
+      "path": "cameras",
+      "icon": "mdi:cctv",
+      "type": "sections",
+      "theme": "Bubble Home",
+      "max_columns": 2,
+      "dense_section_placement": false,
+      "header": {
+        "card": {
+          "type": "markdown",
+          "text_only": true,
+          "content": "# Entrance\nA live view and recent activity at your front door."
+        }
+      },
+      "sections": [
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "type": "custom:bubble-card",
+              "card_type": "separator",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "name": "Live view",
+              "icon": "mdi:video-outline"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "camera.entrance",
+              "name": "Entrance",
+              "camera_view": "live",
+              "show_name": true,
+              "show_state": false,
+              "aspect_ratio": "16:9",
+              "fit_mode": "cover",
+              "tap_action": {
+                "action": "more-info"
+              },
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "name",
+              "name": "Back to home",
+              "icon": "mdi:home-heart",
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "navigate",
+                  "navigation_path": "/dashboard-home/default_view"
+                }
+              },
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "/dashboard-home/default_view"
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "type": "custom:bubble-card",
+              "card_type": "separator",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "name": "Activity",
+              "icon": "mdi:motion-sensor"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "state",
+              "entity": "binary_sensor.entrance_person_occupancy",
+              "name": "Person detected",
+              "show_state": true,
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "more-info"
+                }
+              },
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:account-eye-outline"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "state",
+              "entity": "binary_sensor.entrance_motion",
+              "name": "Motion",
+              "show_state": true,
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "more-info"
+                }
+              },
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:motion-sensor"
+            },
+            {
+              "type": "history-graph",
+              "hours_to_show": 6,
+              "entities": [
+                {
+                  "entity": "binary_sensor.entrance_person_occupancy",
+                  "name": "Person"
+                },
+                {
+                  "entity": "binary_sensor.entrance_motion",
+                  "name": "Motion"
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "separator",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "name": "Camera status",
+              "icon": "mdi:shield-check-outline"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "state",
+              "entity": "switch.entrance_recordings",
+              "name": "Recording enabled",
+              "show_state": true,
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "more-info"
+                }
+              },
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:record-rec"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "state",
+              "entity": "switch.entrance_detect",
+              "name": "Detection enabled",
+              "show_state": true,
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "more-info"
+                }
+              },
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:account-search-outline"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

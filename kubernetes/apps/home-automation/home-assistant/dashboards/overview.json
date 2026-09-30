@@ -1,0 +1,440 @@
+{
+  "title": "Overview",
+  "views": [
+    {
+      "title": "Overview",
+      "path": "overview",
+      "icon": "mdi:home-outline",
+      "type": "sections",
+      "theme": "Bubble Home",
+      "max_columns": 2,
+      "dense_section_placement": false,
+      "header": {
+        "card": {
+          "type": "markdown",
+          "text_only": true,
+          "content": "# {% if 6 <= now().hour < 12 %}Good morning{% elif 12 <= now().hour < 18 %}Good afternoon{% else %}Good evening{% endif %}, {{ user.split(' ')[0] }}\n{{ now().strftime('%A, %-d %B') }} \u00b7 Your home at a glance"
+        }
+      },
+      "sections": [
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "type": "clock",
+              "clock_size": "large",
+              "time_format": "24",
+              "show_seconds": false,
+              "no_background": true,
+              "grid_options": {
+                "columns": 12,
+                "rows": 2
+              }
+            },
+            {
+              "type": "weather-forecast",
+              "entity": "weather.forecast_home",
+              "name": "Weather at home",
+              "show_current": true,
+              "show_forecast": true,
+              "forecast_type": "daily",
+              "forecast_slots": 5,
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "custom:bubble-card",
+                  "card_type": "separator",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": "auto"
+                  },
+                  "name": "At home",
+                  "icon": "mdi:home-heart"
+                },
+                {
+                  "type": "custom:bubble-card",
+                  "card_type": "button",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": "auto"
+                  },
+                  "button_type": "state",
+                  "entity": "person.christfried_balizou",
+                  "name": "Christfried",
+                  "show_state": true,
+                  "card_layout": "large",
+                  "button_action": {
+                    "tap_action": {
+                      "action": "more-info"
+                    }
+                  },
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "icon": "mdi:account"
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "state",
+                          "entity": "climate.0x881a14fffee9617e",
+                          "state_not": [
+                            "unavailable",
+                            "unknown"
+                          ]
+                        }
+                      ],
+                      "card": {
+                        "type": "custom:bubble-card",
+                        "card_type": "climate",
+                        "grid_options": {
+                          "columns": 12,
+                          "rows": "auto"
+                        },
+                        "entity": "climate.0x881a14fffee9617e",
+                        "name": "Master bedroom",
+                        "icon": "mdi:radiator",
+                        "show_state": true,
+                        "card_layout": "large",
+                        "sub_button": [
+                          {
+                            "name": "Heating mode",
+                            "select_attribute": "hvac_modes",
+                            "show_arrow": false,
+                            "state_background": false
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "type": "conditional",
+                      "conditions": [
+                        {
+                          "condition": "state",
+                          "entity": "climate.0x881a14fffee9617e",
+                          "state": [
+                            "unavailable",
+                            "unknown"
+                          ]
+                        }
+                      ],
+                      "card": {
+                        "type": "custom:bubble-card",
+                        "card_type": "button",
+                        "grid_options": {
+                          "columns": 12,
+                          "rows": "auto"
+                        },
+                        "button_type": "state",
+                        "entity": "climate.0x881a14fffee9617e",
+                        "name": "Bedroom heating \u00b7 offline",
+                        "show_state": true,
+                        "card_layout": "large",
+                        "button_action": {
+                          "tap_action": {
+                            "action": "more-info"
+                          }
+                        },
+                        "tap_action": {
+                          "action": "more-info"
+                        },
+                        "icon": "mdi:radiator-disabled"
+                      }
+                    }
+                  ],
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": "auto"
+                  }
+                },
+                {
+                  "type": "custom:bubble-card",
+                  "card_type": "button",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": "auto"
+                  },
+                  "button_type": "name",
+                  "name": "Home controls",
+                  "icon": "mdi:home-thermometer-outline",
+                  "card_layout": "large",
+                  "button_action": {
+                    "tap_action": {
+                      "action": "navigate",
+                      "navigation_path": "/dashboard-home/default_view"
+                    }
+                  },
+                  "tap_action": {
+                    "action": "navigate",
+                    "navigation_path": "/dashboard-home/default_view"
+                  }
+                }
+              ],
+              "visibility": [
+                {
+                  "condition": "screen",
+                  "media_query": "(min-width: 1100px)"
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "type": "custom:bubble-card",
+              "card_type": "separator",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "name": "At the entrance",
+              "icon": "mdi:cctv"
+            },
+            {
+              "type": "picture-entity",
+              "entity": "camera.entrance",
+              "name": "Entrance",
+              "camera_view": "live",
+              "show_name": true,
+              "show_state": false,
+              "aspect_ratio": "16:9",
+              "fit_mode": "cover",
+              "tap_action": {
+                "action": "more-info"
+              },
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "state",
+              "entity": "binary_sensor.entrance_person_occupancy",
+              "name": "Person detected",
+              "show_state": true,
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "more-info"
+                }
+              },
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:account-eye-outline"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "state",
+              "entity": "binary_sensor.entrance_motion",
+              "name": "Motion",
+              "show_state": true,
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "more-info"
+                }
+              },
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:motion-sensor"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "name",
+              "name": "Camera & recent activity",
+              "icon": "mdi:video-outline",
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "navigate",
+                  "navigation_path": "/dashboard-home/cameras"
+                }
+              },
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "/dashboard-home/cameras"
+              }
+            }
+          ]
+        },
+        {
+          "type": "grid",
+          "cards": [
+            {
+              "type": "custom:bubble-card",
+              "card_type": "separator",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "name": "At home",
+              "icon": "mdi:home-heart"
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "state",
+              "entity": "person.christfried_balizou",
+              "name": "Christfried",
+              "show_state": true,
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "more-info"
+                }
+              },
+              "tap_action": {
+                "action": "more-info"
+              },
+              "icon": "mdi:account"
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.0x881a14fffee9617e",
+                      "state_not": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "card": {
+                    "type": "custom:bubble-card",
+                    "card_type": "climate",
+                    "grid_options": {
+                      "columns": 12,
+                      "rows": "auto"
+                    },
+                    "entity": "climate.0x881a14fffee9617e",
+                    "name": "Master bedroom",
+                    "icon": "mdi:radiator",
+                    "show_state": true,
+                    "card_layout": "large",
+                    "sub_button": [
+                      {
+                        "name": "Heating mode",
+                        "select_attribute": "hvac_modes",
+                        "show_arrow": false,
+                        "state_background": false
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "climate.0x881a14fffee9617e",
+                      "state": [
+                        "unavailable",
+                        "unknown"
+                      ]
+                    }
+                  ],
+                  "card": {
+                    "type": "custom:bubble-card",
+                    "card_type": "button",
+                    "grid_options": {
+                      "columns": 12,
+                      "rows": "auto"
+                    },
+                    "button_type": "state",
+                    "entity": "climate.0x881a14fffee9617e",
+                    "name": "Bedroom heating \u00b7 offline",
+                    "show_state": true,
+                    "card_layout": "large",
+                    "button_action": {
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "icon": "mdi:radiator-disabled"
+                  }
+                }
+              ],
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              }
+            },
+            {
+              "type": "custom:bubble-card",
+              "card_type": "button",
+              "grid_options": {
+                "columns": 12,
+                "rows": "auto"
+              },
+              "button_type": "name",
+              "name": "Home controls",
+              "icon": "mdi:home-thermometer-outline",
+              "card_layout": "large",
+              "button_action": {
+                "tap_action": {
+                  "action": "navigate",
+                  "navigation_path": "/dashboard-home/default_view"
+                }
+              },
+              "tap_action": {
+                "action": "navigate",
+                "navigation_path": "/dashboard-home/default_view"
+              }
+            }
+          ],
+          "visibility": [
+            {
+              "condition": "screen",
+              "media_query": "(max-width: 1099px)"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

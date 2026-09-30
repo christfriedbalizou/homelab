@@ -1,0 +1,51 @@
+{
+  "Bubble Home": {
+    "primary-color": "#167D8D",
+    "accent-color": "#167D8D",
+    "ha-card-border-radius": "24px",
+    "ha-card-border-width": "1px",
+    "ha-card-box-shadow": "none",
+    "bubble-border-radius": "24px",
+    "bubble-icon-border-radius": "18px",
+    "bubble-sub-button-border-radius": "16px",
+    "bubble-accent-color": "var(--primary-color)",
+    "bubble-main-background-color": "var(--ha-card-background)",
+    "bubble-secondary-background-color": "var(--secondary-background-color)",
+    "bubble-pop-up-main-background-color": "var(--primary-background-color)",
+    "bubble-pop-up-border-radius": "28px",
+    "modes": {
+      "light": {
+        "primary-background-color": "#F3F6F6",
+        "secondary-background-color": "#E6EEEE",
+        "card-background-color": "#FFFFFF",
+        "ha-card-background": "#FFFFFF",
+        "primary-text-color": "#182D33",
+        "secondary-text-color": "#51676E",
+        "divider-color": "#D9E3E5",
+        "ha-card-border-color": "#DCE6E7",
+        "app-header-background-color": "#F3F6F6",
+        "app-header-text-color": "#182D33",
+        "sidebar-background-color": "#FFFFFF",
+        "sidebar-icon-color": "#51676E",
+        "state-icon-color": "#51676E"
+      },
+      "dark": {
+        "primary-color": "#7DD3CF",
+        "accent-color": "#7DD3CF",
+        "primary-background-color": "#111C22",
+        "secondary-background-color": "#263940",
+        "card-background-color": "#1A2A31",
+        "ha-card-background": "#1A2A31",
+        "primary-text-color": "#EBF3F5",
+        "secondary-text-color": "#B0C3CA",
+        "divider-color": "#354B54",
+        "ha-card-border-color": "#354B54",
+        "app-header-background-color": "#111C22",
+        "app-header-text-color": "#EBF3F5",
+        "sidebar-background-color": "#16242B",
+        "sidebar-icon-color": "#B0C3CA",
+        "state-icon-color": "#B0C3CA"
+      }
+    }
+  }
+}
