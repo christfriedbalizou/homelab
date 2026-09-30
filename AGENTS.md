@@ -390,10 +390,6 @@ the chart/app behavior first.
 - Use `chartRef` in HelmReleases; avoid inline `chart:` source definitions unless
   a nearby chart already requires that pattern.
 - Keep Flux remediation settings consistent with nearby HelmReleases.
-- For apps whose database migrations prohibit automatic rollback, annotate the
-  HelmRelease with `homelab.home.arpa/custom-helm-remediation: "true"` and set
-  explicit app-specific remediation. The cluster-level patch honors this opt-out;
-  without it, shared defaults override the HelmRelease's local settings.
 
 ## Validation
 
