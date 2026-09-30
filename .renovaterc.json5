@@ -41,6 +41,14 @@
   },
   packageRules: [
     {
+      description: "Translator releases require matching source/assets and a database backup",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/christfriedbalizou/translator"],
+      automerge: false,
+      pinDigests: true,
+      groupName: "translator",
+    },
+    {
       description: "Keep Talos installation and rolling upgrade versions together",
       matchDatasources: ["custom.talos-factory"],
       matchPackageNames: ["siderolabs/talos"],

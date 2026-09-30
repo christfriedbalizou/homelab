@@ -65,3 +65,6 @@ megalinter-reports
 # Template config files
 /cloudflare-tunnel.json
 /github-push-token.txt
+
+# Private deployment verification inputs and credentials
+/.private/

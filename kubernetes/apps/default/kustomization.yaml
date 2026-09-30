@@ -19,3 +19,4 @@ resources:
   - ./nextcloud/ks.yaml
   - ./immich/ks.yaml
   - ./vaultwarden/ks.yaml
+  - ./translator/ks.yaml

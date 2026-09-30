@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/databaserole_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: translator
+spec:
+  cluster:
+    name: postgres18
+  name: translator
+  login: true
+  superuser: false
+  createdb: false
+  createrole: false
+  databaseRoleReclaimPolicy: retain
+  passwordSecret:
+    name: translator-db
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: translator
+spec:
+  cluster:
+    name: postgres18
+  name: translator
+  owner: translator
+  databaseReclaimPolicy: retain

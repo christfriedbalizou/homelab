@@ -40,3 +40,5 @@ resources:
   - ./sonarr.yaml
   - ./vaultwarden.sops.yaml
   - ./vaultwarden.yaml
+  - ./translator.sops.yaml
+  - ./translator.yaml
