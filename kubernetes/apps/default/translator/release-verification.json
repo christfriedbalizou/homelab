@@ -1,0 +1,50 @@
+{
+  "image": "ghcr.io/christfriedbalizou/translator:0.2.1@sha256:c6a5f278c34af7fcc338b58bea6fa80ee328c9030fe6fee226852432b45b956f",
+  "application_revision": "546a476d3df317e2bdfb9ec3487e4116db9325d1",
+  "source_sha256": "28dd57bb45191331258db43648551d6313fb73ffe95fa8a201e74f3f4afa811b",
+  "verified": [
+    "PostgreSQL role password authentication, migrations and initial administrator/provider bootstrap",
+    "Idempotent bootstrap in disposable PostgreSQL 18",
+    "Exact published image synthetic digital PDF upload, local-model translation and combined download",
+    "Original page preservation, owner isolation and ordinary-user admin denial",
+    "Authenticated source download checksum and unauthenticated denial",
+    "182 BabelDOC asset hashes and 6 OCR model hashes",
+    "Production API frontend, health, readiness and OIDC redirect with S256",
+    "Live Authelia client secret matches the bootstrap input",
+    "Full repository kubeconform, affected Kustomize builds and Helm rendering",
+    "Kubernetes server dry run of Deployment, Service, ServiceAccount, HTTPRoute and Cilium policy",
+    "Authelia exact-version config validation and Renovate config validation",
+    "SOPS round-trip and no plaintext Translator secret values in changed tracked/candidate files",
+    "Exact published image scanned-PDF CPU OCR and local-model translation, original preservation and final source archive checksum",
+    "Talos k8s-6 and k8s-7 Landlock ABI 7 isolation and private tmpfs",
+    "Private LiteLLM key denied access to public cloud model",
+    "Two-provider bootstrap repeated successfully without overwriting existing provider settings",
+    "Published image HTTPX client authenticated successfully to public HTTPS LiteLLM models endpoint",
+    "Both LiteLLM keys configured with no-cache and no-store metadata",
+    "Full just configure pipeline including Kubernetes and Talos validation; all 55 re-rendered SOPS files semantically identical"
+  ],
+  "not_verified": [
+    "Real user MFA callback through production Envoy/Cilium/DNS after Git rollout",
+    "Matched production database/ciphertext backup restore rehearsal",
+    "Cloud completion: OpenAI reports exhausted credits (HTTP 429)",
+    "Unpublished provider-selector frontend in a final container image"
+  ],
+  "live_prerequisites_created": [
+    "retained CloudNativePG translator role/database and storage password Secret",
+    "new database schema, reserved owner identity, encrypted local and public provider configurations",
+    "separate LiteLLM keys limited to qwen3-local and openai-gpt-6-luna-cloud",
+    "Jericho documents, release assets, source bundle"
+  ],
+  "publication": "Prepared for review; Translator Kustomization suspended until the reviewed frontend is released and matched image/source artifacts are pinned",
+  "frontend_candidate": {
+    "status": "Unpublished source changes in Translator repository",
+    "verified": [
+      "24 unit tests including private default, cloud consent, changed-glossary consent reset, provider outage and pinned upload retries",
+      "Frontend typecheck, ESLint, Prettier, production build and accessibility tests",
+      "Full browser run: 53 passed; five fixture failures corrected; final affected-suite rerun: all 33 passed",
+      "Selector-before-glossaries layout at 360, 768, 1024 and 1440 pixels",
+      "Mandatory pre-commit hooks and strict type check of changed browser fixture"
+    ],
+    "release_required": true
+  }
+}

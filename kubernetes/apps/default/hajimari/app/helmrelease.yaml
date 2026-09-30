@@ -92,6 +92,10 @@ spec:
               icon: "mdi:camera"
         - group: Family
           apps:
+            - name: Translator
+              url: "https://translator.${SECRET_DOMAIN}"
+              icon: "mdi:translate"
+              info: "Private PDF translation"
             - name: actual
               url: "https://actual.${SECRET_DOMAIN}"
               icon: "simple-icons:actualbudget"
