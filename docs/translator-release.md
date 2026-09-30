@@ -6,16 +6,20 @@ process in a single Recreate deployment. A bounded init container verifies the
 release, migrates the application schema and performs idempotent initial setup.
 It does not create PostgreSQL roles or databases.
 
-## Qualified baseline and pending UI release
+## Release configuration
 
-- Image: `ghcr.io/christfriedbalizou/translator:0.2.1`, pinned by digest.
-- Application revision: `546a476d3df317e2bdfb9ec3487e4116db9325d1`.
+- Image: `ghcr.io/christfriedbalizou/translator:0.3.0`, pinned by digest.
+- Application revision: `a060883c6055465018e4aafe4d42eeed286cb5aa`.
 - PostgreSQL: `translator`, owned by the non-superuser `translator` role on
   `postgres18`. Both CloudNativePG resources use `retain`.
 - Ciphertext: Jericho `/volume1/apps/default/translator/documents`, on backed-up
   NFS APPS. PostgreSQL stores metadata and wrapped keys, not PDF files.
 - Read-only release assets and corresponding source:
-  `/volume1/apps/default/translator/releases/0.2.1`.
+  `/volume1/apps/default/translator/releases/0.3.0`.
+  Init copies the reproducible source archive to a 2 GiB ephemeral local cache
+  and verifies its checksum before startup. Application containers mount the
+  cache read-only, avoiding slow NFS reads for authenticated source downloads.
+  Documents, keys and database state are not stored in this cache.
 - Separate random 32-byte document and provider encryption keys are mounted from
   SOPS Secrets. Keep their bootstrap inputs and Age key in your existing secure
   backup; database/filesystem backups alone cannot recover encrypted content.
@@ -32,8 +36,7 @@ It does not create PostgreSQL roles or databases.
   and repeat the provider test before expecting cloud translations to work.
 - The new Translator frontend places LLM selection before Glossaries. Local is
   selected by default; cloud requires explicit confirmation covering documents
-  and glossary terms. The source changes are prepared in the Translator repo,
-  but the published 0.2.1 image does not contain this selector.
+  and glossary terms. The published 0.3.0 image includes this selector.
 - CPU OCR is enabled with six pinned, verified model files. No NVIDIA allocation
   is needed. API and worker plaintext workspaces are separate memory-backed
   volumes; the worker has a 6 GiB workspace, an 8 GiB engine address-space
@@ -66,28 +69,20 @@ records (model scopes and cache controls) live in its own PostgreSQL database;
 restore that database too. A token in the Translator Secret alone does not
 recreate its authorization record.
 
-## Review and first rollout
+## GitOps rollout
 
-**Rollout is suspended in `translator/ks.yaml`.** The 0.2.1 image and source
-bundle are a qualified baseline, not the final two-provider UI release. Do not
-remove suspension while still using that image. Review and push Translator's
-source changes first; its normal release pipeline must publish the next tag.
-Then review/publish the matching containers version, prepare its exact source
-bundle/assets using the update steps below, and update the homelab image digest,
-source revision/checksum and release directory together. Run the same acceptance
-checks, remove `spec.suspend: true`, and push the reviewed homelab changes.
-No tag, release number or digest has been invented for an unpublished image.
+Translator 0.3.0 is published from the verified source release. The matching
+container passed build, smoke tests and provenance verification. The HelmRelease
+pins the image digest, application revision, source archive checksum and release
+directory together. The Translator Kustomization is enabled for reconciliation.
 
+The database/role, storage password Secret, two scoped LiteLLM keys and Jericho
+directories were provisioned before rollout. A matched snapshot of the initial
+database was restored and verified in isolated PostgreSQL 18 before deployment.
+The application schema is unchanged from the qualified 0.2.1 baseline.
 
-The application, Authelia policy change and dashboard link are not deployed by
-this preparation. The changes are prepared for owner review. The
-new database/role, its password Secret, scoped LiteLLM keyss and Jericho directories
-have been provisioned. The new database has been migrated and initialized using
-the exact release image. These resources become GitOps-managed on rollout.
-
-Review the homelab diff, including the SOPS templates. `bootstrap/vars/config.yaml`
-and `.private/` are ignored and must never be added to Git. Push the
-reviewed files, then explicitly reconcile:
+`bootstrap/vars/config.yaml` and `.private/` are ignored and must never be added
+to Git. After merging reviewed deployment changes, explicitly reconcile:
 
 ```sh
 mise exec -- flux reconcile source git home-kubernetes -n flux-system
@@ -158,20 +153,24 @@ manifest, image, schema, source and data agree.
 
 ## Verification boundaries
 
-The full `mise exec -- just configure` pipeline passed, including rendered-secret,
-Kubernetes and Talos validation. All 55 re-rendered SOPS files were semantically
-identical; unrelated ciphertext churn was removed from the review branch.
+The full `mise exec -- just configure` pipeline passed on the final manifests,
+including rendered-secret, Kubernetes and Talos validation. All 55 re-rendered
+SOPS files were semantically identical; unrelated ciphertext churn was removed.
+Source and packaging were checked for deployment secret values. The archive
+contains 551 verified dependency-source records, and the release has 182 verified
+BabelDOC assets and six OCR models matching the published image.
 
-The exact published image passed digital and scanned PDF translation, CPU OCR,
-combined output/original preservation, ownership isolation, ordinary-user admin
-denial and authenticated source download checks. Both eligible Talos nodes
-passed the Landlock ABI 7 sandbox/private-tmpfs check. Temporary test pods were
-removed. The unpublished frontend passed 24 unit tests, typecheck, lint,
-formatting, build and accessibility checks. A complete browser run passed 53
-cases and identified five stale-fixture failures; after fixing those fixtures,
-all 33 affected cases passed on the final run. The four responsive widths passed.
-Runtime checks use the exact published image. Local HTTP/API tests are not a
-substitute for post-push verification of the production Gateway, DNS, network
-policy enforcement and real user MFA. Temporary test credentials and detailed
-verification logs are confined to ignored `.private/translator-release` with
-restricted permissions; they are not release artifacts.
+The source release passed hosted application and security checks. Its frontend
+passed 24 unit tests, typecheck, lint, formatting, build and accessibility checks.
+A complete browser run passed 53 cases and identified five stale-fixture failures;
+after correcting those fixtures, all 33 affected cases passed, including the
+four responsive widths. The production image passed container smoke tests and
+provenance verification. See `release-verification.json` for runtime qualification
+and explicit remaining verification limits.
+
+Real-user MFA callbacks through production Envoy/Cilium/DNS require an owner and
+family login after rollout. Synthetic authenticated application tests do not
+prove that interactive identity flow. Public cloud completion remains blocked
+by exhausted OpenAI credits. Temporary test credentials and detailed verification
+logs remain in ignored `.private/translator-release` with restricted permissions;
+they are not release artifacts.

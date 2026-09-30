@@ -6,8 +6,6 @@ metadata:
   name: translator
   namespace: flux-system
 spec:
-  # Publish the reviewed provider-selector release and pin its matched artifacts first.
-  suspend: true
   commonMetadata:
     labels:
       app.kubernetes.io/name: translator
