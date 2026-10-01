@@ -48,7 +48,7 @@ spec:
           app:
             image: &image
               repository: ghcr.io/christfriedbalizou/translator
-              tag: 0.4.0@sha256:726f05cd023a010425b4f4b4582cdcdd4e096ae0043b761be9da8fadb315fa15
+              tag: 0.4.1@sha256:9b8e3aa3ed404b7a4a0dfd1ae8875bad83a0a86c068aa0fccf3e2ac7a4b72355
             args: [api]
             env: &env
               TZ: ${TIMEZONE}
@@ -93,8 +93,8 @@ spec:
               TRANSLATION_MAX_ATTEMPTS: "3"
               CURRENCY__AUTOMATIC_ENABLED: "false"
               SOURCE_DISTRIBUTION__ARCHIVE: /release/source.tar.gz
-              SOURCE_DISTRIBUTION__REVISION: 6a255992c5125226b3ecb2e6ee94bf515e3f1365
-              SOURCE_DISTRIBUTION__SHA256: d63c8e51eb311debc66f304237ebfa482d0506af370e8e64afaa550932330fc5
+              SOURCE_DISTRIBUTION__REVISION: 3e8c4894afd59cefd288684efecc85fc2dca3fea
+              SOURCE_DISTRIBUTION__SHA256: 622dcae8eefdc6882e52d47d1dd96e7ff85d0f49842bfe29809d807cb68ac81d
             envFrom: &envFrom
               - secretRef:
                   name: translator-secrets
@@ -178,7 +178,7 @@ spec:
       release:
         type: nfs
         server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default/translator/releases/0.4.0
+        path: /volume1/apps/default/translator/releases/0.4.1
         globalMounts:
           - path: /release
             readOnly: true
