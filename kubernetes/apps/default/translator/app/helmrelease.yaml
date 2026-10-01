@@ -48,7 +48,7 @@ spec:
           migrate:
             image: &image
               repository: ghcr.io/christfriedbalizou/translator
-              tag: 0.4.0@sha256:726f05cd023a010425b4f4b4582cdcdd4e096ae0043b761be9da8fadb315fa15
+              tag: 0.4.0@sha256:713771b5ef01147cf7db04a2fde2a45720f9465fd0899335eda76a5bc9ed7535
             args: [migrate]
             env: &env
               TZ: ${TIMEZONE}
