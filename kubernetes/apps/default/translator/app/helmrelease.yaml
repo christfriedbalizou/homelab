@@ -48,7 +48,7 @@ spec:
           migrate:
             image: &image
               repository: ghcr.io/christfriedbalizou/translator
-              tag: 0.3.0@sha256:98d911ad65a0662a008cb5bd7ee86b8a6c779991bba48e665f6f3c3e8ab8cbfc
+              tag: 0.4.0@sha256:726f05cd023a010425b4f4b4582cdcdd4e096ae0043b761be9da8fadb315fa15
             args: [migrate]
             env: &env
               TZ: ${TIMEZONE}
@@ -95,7 +95,7 @@ spec:
               CURRENCY__AUTOMATIC_ENABLED: "false"
               SOURCE_DISTRIBUTION__ARCHIVE: /release/source.tar.gz
               SOURCE_DISTRIBUTION__REVISION: 6a255992c5125226b3ecb2e6ee94bf515e3f1365
-              SOURCE_DISTRIBUTION__SHA256: 1d0f9fb504e08987928e40672c99ca042563501bcf683ed902647888844775bf
+              SOURCE_DISTRIBUTION__SHA256: d63c8e51eb311debc66f304237ebfa482d0506af370e8e64afaa550932330fc5
             envFrom: &envFrom
               - secretRef:
                   name: translator-secrets
