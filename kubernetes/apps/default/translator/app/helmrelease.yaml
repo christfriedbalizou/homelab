@@ -48,7 +48,7 @@ spec:
           app:
             image: &image
               repository: ghcr.io/christfriedbalizou/translator
-              tag: 0.4.1@sha256:9b8e3aa3ed404b7a4a0dfd1ae8875bad83a0a86c068aa0fccf3e2ac7a4b72355
+              tag: 0.5.0@sha256:2e5662b3555a7a6dca105286392895501ea0c2117d53545a21134a38c213729b
             args: [api]
             env: &env
               TZ: ${TIMEZONE}
@@ -63,6 +63,9 @@ spec:
               HTTP_SECURITY__ALLOWED_HOSTS: '["translator.${SECRET_DOMAIN}"]'
               # Only Envoy can reach the API; use its pod subnet for forwarded IPs.
               HTTP_SECURITY__TRUSTED_PROXY_IPS: '["10.42.0.0/16"]'
+              GLOSSARY__MAX_ENTRIES: "2000"
+              GLOSSARY__MAX_CONTENT_BYTES: "1048576"
+              INGESTION__MAX_GLOSSARY_SNAPSHOT_BYTES: "1048576"
               INGESTION__MASTER_KEY_FILE: /run/secrets/document-master-key
               INGESTION__STORAGE_BACKEND: s3
               INGESTION__S3_ENDPOINT_URL: http://minio.storage.svc.cluster.local:9000
@@ -93,8 +96,8 @@ spec:
               TRANSLATION_MAX_ATTEMPTS: "3"
               CURRENCY__AUTOMATIC_ENABLED: "true"
               SOURCE_DISTRIBUTION__ARCHIVE: /release/source.tar.gz
-              SOURCE_DISTRIBUTION__REVISION: 3e8c4894afd59cefd288684efecc85fc2dca3fea
-              SOURCE_DISTRIBUTION__SHA256: 622dcae8eefdc6882e52d47d1dd96e7ff85d0f49842bfe29809d807cb68ac81d
+              SOURCE_DISTRIBUTION__REVISION: d7f4b8d49909e598d5f985ad0163c4e32b121724
+              SOURCE_DISTRIBUTION__SHA256: 981a91b0d52020b479d8cba0f316a5c1121088cddde7dba25cdf292050e9efe8
             envFrom: &envFrom
               - secretRef:
                   name: translator-secrets
@@ -178,7 +181,7 @@ spec:
       release:
         type: nfs
         server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default/translator/releases/0.4.1
+        path: /volume1/apps/default/translator/releases/0.5.0
         globalMounts:
           - path: /release
             readOnly: true
