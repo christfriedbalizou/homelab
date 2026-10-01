@@ -49,13 +49,7 @@ spec:
             image: &image
               repository: ghcr.io/christfriedbalizou/translator
               tag: 0.3.0@sha256:98d911ad65a0662a008cb5bd7ee86b8a6c779991bba48e665f6f3c3e8ab8cbfc
-            command: [/bin/sh, -ec]
-            args:
-              - >-
-                cp --remove-destination /release/source.tar.gz /source/source.tar.gz &&
-                python /deployment/bootstrap.py --verify-only &&
-                python -m translator.operations migrate &&
-                python /deployment/bootstrap.py
+            args: [migrate]
             env: &env
               TZ: ${TIMEZONE}
               PRODUCTION: "true"
@@ -99,9 +93,9 @@ spec:
               TRANSLATION_JOB_TIMEOUT_SECONDS: "1800"
               TRANSLATION_MAX_ATTEMPTS: "3"
               CURRENCY__AUTOMATIC_ENABLED: "false"
-              SOURCE_DISTRIBUTION__ARCHIVE: /source/source.tar.gz
-              SOURCE_DISTRIBUTION__REVISION: a060883c6055465018e4aafe4d42eeed286cb5aa
-              SOURCE_DISTRIBUTION__SHA256: 85c18e29b9637367a9d02a3be0c8830a1cfc5962ff64961241af5c4733fff76c
+              SOURCE_DISTRIBUTION__ARCHIVE: /release/source.tar.gz
+              SOURCE_DISTRIBUTION__REVISION: 6a255992c5125226b3ecb2e6ee94bf515e3f1365
+              SOURCE_DISTRIBUTION__SHA256: 1d0f9fb504e08987928e40672c99ca042563501bcf683ed902647888844775bf
             envFrom: &envFrom
               - secretRef:
                   name: translator-secrets
@@ -199,36 +193,16 @@ spec:
       release:
         type: nfs
         server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default/translator/releases/0.3.0
+        path: /volume1/apps/default/translator/releases/0.4.0
         globalMounts:
           - path: /release
             readOnly: true
-      source-cache:
-        # Reproducible source only; authoritative archive stays on Jericho.
-        type: emptyDir
-        sizeLimit: 2Gi
-        advancedMounts:
-          translator:
-            migrate:
-              - path: /source
-            app:
-              - path: /source
-                readOnly: true
-            worker:
-              - path: /source
-                readOnly: true
       keys:
         type: secret
         name: translator-keys
         defaultMode: 0440
         globalMounts:
           - path: /run/secrets
-            readOnly: true
-      deployment:
-        type: configMap
-        name: translator-bootstrap
-        globalMounts:
-          - path: /deployment
             readOnly: true
       tmp:
         type: emptyDir
