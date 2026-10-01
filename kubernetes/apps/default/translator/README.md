@@ -60,3 +60,20 @@ French-to-English glossaries.
   passed. The generated API and operator documentation were updated together.
 
 The deployed image digest and source settings are recorded in the HelmRelease.
+
+## Rollout verification — 2026-10-02
+
+Flux applied deployment commit `398aa696cd025d567e105ac8d77eb73e57a78ee8`;
+the Kustomization and HelmRelease were Ready, with release `translator.v11`.
+Both API and worker ran v0.5.0 / pypdf 6.19.0 at the pinned digest, with zero
+restarts. Runtime settings confirmed 2000 entries, 1048576 content bytes,
+1048576 snapshot bytes and automatic FX enabled. The API verified the mounted
+source archive against the recorded SHA-256 and application revision.
+
+A public Chromium smoke check loaded the sign-in page and received HTTP 200
+from `/health` and `/ready`; unauthenticated glossary and source requests
+returned 401. Service-level checks gave the same expected results. Non-browser
+command-line requests received 403 from the public endpoint, so they were not
+used as the browser-access acceptance check. The HTTPRoute was Accepted with
+ResolvedRefs. The initial Flux dependency readiness transition cleared during
+normal reconciliation without changing dependency configuration.
