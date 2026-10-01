@@ -67,7 +67,6 @@ spec:
               INGESTION__STORAGE_BACKEND: s3
               INGESTION__S3_ENDPOINT_URL: http://minio.storage.svc.cluster.local:9000
               INGESTION__S3_CREDENTIALS_FILE: /run/secrets/s3-credentials
-              INGESTION__LOCAL_STORAGE_PATH: /data/documents
               INGESTION__MAX_UPLOAD_BYTES: "52428800"
               INGESTION__MAX_FILES_PER_BATCH: "10"
               INGESTION__MAX_ACTIVE_JOBS_PER_USER: "10"
