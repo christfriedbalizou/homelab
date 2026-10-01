@@ -1,0 +1,45 @@
+source	target	references	scope_note
+impôt sur le revenu	income tax	TREATY	Tax category; does not import UK rates or rules.
+revenu imposable	taxable income	FR-QUOTIENT	Not take-home pay.
+revenu net imposable	net taxable income	FR-QUOTIENT	Different from net pay.
+revenu fiscal de référence	reference taxable income	FR-ACCOUNT	French tax-document measure.
+RFR	RFR	FR-ACCOUNT	Preserve French abbreviation.
+foyer fiscal	tax household	FR-HOUSEHOLD	French taxation unit.
+quotient familial	French family quotient	FR-QUOTIENT	Not a UK personal allowance; tax context only, not CAF calculation.
+parts fiscales	tax household units	FR-QUOTIENT	Units used in the French family quotient.
+nombre de parts	number of tax household units	FR-QUOTIENT	Use only on tax documents.
+imposition commune	joint taxation	FR-QUOTIENT	No equivalent UK joint return is implied.
+déclaration de revenus	income tax return	FR-FOREIGN	Document, not proof of earnings.
+déclaration des revenus	income tax return	FR-FOREIGN	Article variant used on French documents.
+déclarations de revenus	income tax returns	FR-FOREIGN	Plural form.
+déclaration fiscale	tax return	FR-FOREIGN	Generic return.
+avis d'impôt sur le revenu	income tax assessment notice	FR-ACCOUNT	French assessment document.
+avis d'imposition	tax assessment notice	FR-ACCOUNT	Generic assessment document.
+numéro fiscal	French tax identification number	FR-ACCOUNT	Not a National Insurance number or a UK tax code.
+numéro d'accès en ligne	online access number	FR-ACCOUNT	French tax-account identifier; values remain protected.
+retenue à la source	withholding tax	TREATY	Generic treaty term.
+prélèvement à la source	French income tax withholding	FR-PAYSLIP	Named French collection mechanism; do not replace with PAYE.
+taux de prélèvement à la source	French income tax withholding rate	FR-PAYSLIP	Long phrase takes priority over the base term.
+impôt dû	tax due	FR-FOREIGN	Amount due.
+remboursement d'impôt	tax refund	FR-FOREIGN	Refund, not tax relief.
+crédit d'impôt	tax credit	FR-FOREIGN	Fiscal credit; not the UK tax credits benefit scheme.
+crédit d'impôt au titre de l'impôt étranger	foreign tax credit	FR-FOREIGN	Long specific phrase takes priority.
+réduction d'impôt	tax reduction	FR-COMPENSATION	Distinguish from a refundable credit.
+revenus de source étrangère	foreign-source income	FR-FOREIGN	Income origin.
+revenus de source française	French-source income	FR-FOREIGN	Income origin.
+revenus fonciers	French property income (revenus fonciers)	FR-TAX-LAW	French category including unfurnished rents and certain property distributions; not all rental income.
+revenus locatifs	rental income	TREATY	General rental income.
+revenus d'activité salariée	income from employment	TREATY	Income category.
+plus-values	capital gains	TREATY	General gains category.
+résidence fiscale	tax residence	TREATY	No determination of status.
+résident fiscal	tax resident	TREATY	Not nationality.
+double imposition	double taxation	TREATY	No automatic relief implied.
+convention fiscale	tax treaty	TREATY	Treaty title category.
+contribution sociale généralisée	general social contribution (CSG)	TREATY,FR-PAYSLIP	French levy, not National Insurance.
+contribution au remboursement de la dette sociale	social debt repayment contribution (CRDS)	TREATY,FR-PAYSLIP	French levy, not National Insurance.
+CSG	CSG	FR-PAYSLIP	Preserve French levy abbreviation.
+CRDS	CRDS	FR-PAYSLIP	Preserve French levy abbreviation.
+taxe foncière	French property ownership tax (taxe foncière)	FR-TAX-LAW	Not Council Tax.
+taxe d'habitation	French residence tax (taxe d'habitation)	FR-TAX-LAW	Does not assert liability for a main residence; not Council Tax.
+impôt sur la fortune immobilière	French real estate wealth tax (IFI)	FR-TAX-LAW	Not UK inheritance tax.
+DGFiP	DGFiP	FR-ACCOUNT	Preserve French authority acronym.

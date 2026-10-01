@@ -1,0 +1,16 @@
+[
+  {"direction": "en", "source": "child maintenance: £250.00; spousal maintenance: £400.00", "expected": "pension alimentaire pour enfant: £250.00; pension alimentaire entre époux: £400.00"},
+  {"direction": "fr", "source": "pension alimentaire: 250,00 €; prestation compensatoire: 400,00 €", "expected": "maintenance payment: 250,00 €; divorce compensatory payment (prestation compensatoire): 400,00 €"},
+  {"direction": "en", "source": "Sheriff Court; decree nisi; conditional order; civil partnership", "expected": "Sheriff Court; decree nisi; conditional order; partenariat civil britannique"},
+  {"direction": "fr", "source": "autorité parentale; responsabilité parentale; PACS", "expected": "parental authority; parental responsibility; PACS"},
+  {"direction": "en", "source": "tax code: 1257L; National Insurance contributions: £50.00; Council Tax", "expected": "code fiscal de retenue sur salaire (tax code): 1257L; Cotisations britanniques de National Insurance: £50.00; Council Tax"},
+  {"direction": "fr", "source": "revenu fiscal de référence: 25000 €; taxe d’habitation; prélèvement à la source", "expected": "reference taxable income: 25000 €; French residence tax (taxe d'habitation); French income tax withholding"},
+  {"direction": "en", "source": "Gross Pay: £2000.00\nNet Pay: £1600.00\nPension Contributions: £100.00", "expected": "Salaire brut: £2000.00\nSalaire net: £1600.00\nCotisations de retraite: £100.00"},
+  {"direction": "fr", "source": "montant net social: 1600,00 €; net à payer avant impôt sur le revenu: 1700,00 €", "expected": "net social amount (montant net social): 1600,00 €; net pay before income tax: 1700,00 €"},
+  {"direction": "en", "source": "standing charge: £0.50; unit rate: £0.25; meter reading: 12345", "expected": "part fixe de la facture d'énergie: £0.50; tarif unitaire de l'énergie: £0.25; relevé de compteur: 12345"},
+  {"direction": "fr", "source": "facture d’électricité; puissance souscrite: 6 kVA; heures creuses; TVA: 20%", "expected": "electricity bill; contracted power capacity: 6 kVA; off-peak hours; VAT: 20%"},
+  {"direction": "en", "source": "Direct Debit; standing order; https://example.invalid/tax-code; P45; P60", "expected": "Prélèvement automatique; virement permanent; https://example.invalid/tax-code; P45; P60"},
+  {"direction": "fr", "source": "prélèvement automatique; virement permanent; https://example.invalid/CSG", "expected": "Direct Debit; standing order; https://example.invalid/CSG"},
+  {"direction": "en", "source": "maintenance; charge; order; account; invoiceable; payslipper; tax codec", "expected": "maintenance; charge; order; account; invoiceable; payslipper; tax codec"},
+  {"direction": "fr", "source": "charge; garde; pension; part; taux; domicile", "expected": "charge; garde; pension; part; taux; domicile"}
+]

@@ -1,0 +1,903 @@
+{
+  "name": "UK–France | Family law | EN → FR",
+  "source_language": "en",
+  "target_language": "fr",
+  "shared": true,
+  "entries": [
+    {
+      "source": "BEST INTERESTS OF THE CHILD",
+      "target": "INTÉRÊT SUPÉRIEUR DE L'ENFANT",
+      "mode": "translate"
+    },
+    {
+      "source": "Best Interests Of The Child",
+      "target": "Intérêt supérieur de l'enfant",
+      "mode": "translate"
+    },
+    {
+      "source": "Best interests of the child",
+      "target": "Intérêt supérieur de l'enfant",
+      "mode": "translate"
+    },
+    {
+      "source": "CHILD ARRANGEMENTS ORDER",
+      "target": "ORDONNANCE SUR LA RÉSIDENCE ET LES CONTACTS DE L'ENFANT (CHILD ARRANGEMENTS ORDER)",
+      "mode": "translate"
+    },
+    {
+      "source": "CHILD ARRANGEMENTS ORDERS",
+      "target": "ORDONNANCES SUR LA RÉSIDENCE ET LES CONTACTS DE L'ENFANT (CHILD ARRANGEMENTS ORDERS)",
+      "mode": "translate"
+    },
+    {
+      "source": "CHILD MAINTENANCE",
+      "target": "PENSION ALIMENTAIRE POUR ENFANT",
+      "mode": "translate"
+    },
+    {
+      "source": "CHILD MAINTENANCE SERVICE",
+      "target": "SERVICE BRITANNIQUE DES PENSIONS ALIMENTAIRES POUR ENFANTS (CHILD MAINTENANCE SERVICE)",
+      "mode": "translate"
+    },
+    {
+      "source": "CIVIL PARTNERSHIP",
+      "target": "PARTENARIAT CIVIL BRITANNIQUE",
+      "mode": "translate"
+    },
+    {
+      "source": "CIVIL PARTNERSHIPS",
+      "target": "PARTENARIATS CIVILS BRITANNIQUES",
+      "mode": "translate"
+    },
+    {
+      "source": "CLEAN BREAK",
+      "target": "CLÔTURE DES OBLIGATIONS FINANCIÈRES ENTRE EX-ÉPOUX (CLEAN BREAK)",
+      "mode": "translate"
+    },
+    {
+      "source": "CONDITIONAL ORDER",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "CONSENT ORDER",
+      "target": "ORDONNANCE ENTÉRINANT UN ACCORD (CONSENT ORDER)",
+      "mode": "translate"
+    },
+    {
+      "source": "COURT OF SESSION",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Child Arrangements Order",
+      "target": "Ordonnance sur la résidence et les contacts de l'enfant (child arrangements order)",
+      "mode": "translate"
+    },
+    {
+      "source": "Child Arrangements Orders",
+      "target": "Ordonnances sur la résidence et les contacts de l'enfant (child arrangements orders)",
+      "mode": "translate"
+    },
+    {
+      "source": "Child Maintenance",
+      "target": "Pension alimentaire pour enfant",
+      "mode": "translate"
+    },
+    {
+      "source": "Child Maintenance Service",
+      "target": "Service britannique des pensions alimentaires pour enfants (Child Maintenance Service)",
+      "mode": "translate"
+    },
+    {
+      "source": "Child arrangements order",
+      "target": "Ordonnance sur la résidence et les contacts de l'enfant (child arrangements order)",
+      "mode": "translate"
+    },
+    {
+      "source": "Child arrangements orders",
+      "target": "Ordonnances sur la résidence et les contacts de l'enfant (child arrangements orders)",
+      "mode": "translate"
+    },
+    {
+      "source": "Child maintenance",
+      "target": "Pension alimentaire pour enfant",
+      "mode": "translate"
+    },
+    {
+      "source": "Civil Partnership",
+      "target": "Partenariat civil britannique",
+      "mode": "translate"
+    },
+    {
+      "source": "Civil Partnerships",
+      "target": "Partenariats civils britanniques",
+      "mode": "translate"
+    },
+    {
+      "source": "Civil partnership",
+      "target": "Partenariat civil britannique",
+      "mode": "translate"
+    },
+    {
+      "source": "Civil partnerships",
+      "target": "Partenariats civils britanniques",
+      "mode": "translate"
+    },
+    {
+      "source": "Clean Break",
+      "target": "Clôture des obligations financières entre ex-époux (clean break)",
+      "mode": "translate"
+    },
+    {
+      "source": "Clean break",
+      "target": "Clôture des obligations financières entre ex-époux (clean break)",
+      "mode": "translate"
+    },
+    {
+      "source": "Conditional Order",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Conditional order",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Consent Order",
+      "target": "Ordonnance entérinant un accord (consent order)",
+      "mode": "translate"
+    },
+    {
+      "source": "Consent order",
+      "target": "Ordonnance entérinant un accord (consent order)",
+      "mode": "translate"
+    },
+    {
+      "source": "Court Of Session",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Court of Session",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "DECREE ABSOLUTE",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "DECREE NISI",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "DECREE OF DIVORCE",
+      "target": "JUGEMENT DE DIVORCE",
+      "mode": "translate"
+    },
+    {
+      "source": "DISSOLUTION OF A CIVIL PARTNERSHIP",
+      "target": "DISSOLUTION D'UN PARTENARIAT CIVIL BRITANNIQUE",
+      "mode": "translate"
+    },
+    {
+      "source": "DIVORCE APPLICATION",
+      "target": "DEMANDE DE DIVORCE",
+      "mode": "translate"
+    },
+    {
+      "source": "DIVORCE PROCEEDINGS",
+      "target": "PROCÉDURE DE DIVORCE",
+      "mode": "translate"
+    },
+    {
+      "source": "Decree Absolute",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Decree Nisi",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Decree Of Divorce",
+      "target": "Jugement de divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "Decree absolute",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Decree nisi",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Decree of divorce",
+      "target": "Jugement de divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "Dissolution Of A Civil Partnership",
+      "target": "Dissolution d'un partenariat civil britannique",
+      "mode": "translate"
+    },
+    {
+      "source": "Dissolution of a civil partnership",
+      "target": "Dissolution d'un partenariat civil britannique",
+      "mode": "translate"
+    },
+    {
+      "source": "Divorce Application",
+      "target": "Demande de divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "Divorce Proceedings",
+      "target": "Procédure de divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "Divorce application",
+      "target": "Demande de divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "Divorce proceedings",
+      "target": "Procédure de divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "FAMILY MEDIATION",
+      "target": "MÉDIATION FAMILIALE",
+      "mode": "translate"
+    },
+    {
+      "source": "FINAL ORDER",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "FINANCIAL ORDER",
+      "target": "ORDONNANCE RELATIVE AUX CONSÉQUENCES FINANCIÈRES DU DIVORCE",
+      "mode": "translate"
+    },
+    {
+      "source": "FINANCIAL SETTLEMENT",
+      "target": "ACCORD SUR LES CONSÉQUENCES FINANCIÈRES DU DIVORCE",
+      "mode": "translate"
+    },
+    {
+      "source": "Family Mediation",
+      "target": "Médiation familiale",
+      "mode": "translate"
+    },
+    {
+      "source": "Family mediation",
+      "target": "Médiation familiale",
+      "mode": "translate"
+    },
+    {
+      "source": "Final Order",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Final order",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Financial Order",
+      "target": "Ordonnance relative aux conséquences financières du divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "Financial Settlement",
+      "target": "Accord sur les conséquences financières du divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "Financial order",
+      "target": "Ordonnance relative aux conséquences financières du divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "Financial settlement",
+      "target": "Accord sur les conséquences financières du divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "HABITUAL RESIDENCE",
+      "target": "RÉSIDENCE HABITUELLE",
+      "mode": "translate"
+    },
+    {
+      "source": "Habitual Residence",
+      "target": "Résidence habituelle",
+      "mode": "translate"
+    },
+    {
+      "source": "Habitual residence",
+      "target": "Résidence habituelle",
+      "mode": "translate"
+    },
+    {
+      "source": "JOINT APPLICATION",
+      "target": "DEMANDE CONJOINTE",
+      "mode": "translate"
+    },
+    {
+      "source": "JUDICIAL SEPARATION",
+      "target": "SÉPARATION JUDICIAIRE",
+      "mode": "translate"
+    },
+    {
+      "source": "Joint Application",
+      "target": "Demande conjointe",
+      "mode": "translate"
+    },
+    {
+      "source": "Joint application",
+      "target": "Demande conjointe",
+      "mode": "translate"
+    },
+    {
+      "source": "Judicial Separation",
+      "target": "Séparation judiciaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Judicial separation",
+      "target": "Séparation judiciaire",
+      "mode": "translate"
+    },
+    {
+      "source": "LEGAL SEPARATION",
+      "target": "SÉPARATION LÉGALE",
+      "mode": "translate"
+    },
+    {
+      "source": "LUMP SUM PAYMENT",
+      "target": "VERSEMENT EN CAPITAL",
+      "mode": "translate"
+    },
+    {
+      "source": "Legal Separation",
+      "target": "Séparation légale",
+      "mode": "translate"
+    },
+    {
+      "source": "Legal separation",
+      "target": "Séparation légale",
+      "mode": "translate"
+    },
+    {
+      "source": "Lump Sum Payment",
+      "target": "Versement en capital",
+      "mode": "translate"
+    },
+    {
+      "source": "Lump sum payment",
+      "target": "Versement en capital",
+      "mode": "translate"
+    },
+    {
+      "source": "MAINTENANCE ARREARS",
+      "target": "ARRIÉRÉS DE PENSION ALIMENTAIRE",
+      "mode": "translate"
+    },
+    {
+      "source": "MAINTENANCE PAYMENTS",
+      "target": "VERSEMENTS DE PENSION ALIMENTAIRE",
+      "mode": "translate"
+    },
+    {
+      "source": "MARRIAGE CERTIFICATE",
+      "target": "ACTE DE MARIAGE",
+      "mode": "translate"
+    },
+    {
+      "source": "Maintenance Arrears",
+      "target": "Arriérés de pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Maintenance Payments",
+      "target": "Versements de pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Maintenance arrears",
+      "target": "Arriérés de pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Maintenance payments",
+      "target": "Versements de pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Marriage Certificate",
+      "target": "Acte de mariage",
+      "mode": "translate"
+    },
+    {
+      "source": "Marriage certificate",
+      "target": "Acte de mariage",
+      "mode": "translate"
+    },
+    {
+      "source": "ORDINARY DIVORCE PROCEDURE",
+      "target": "PROCÉDURE ORDINAIRE DE DIVORCE EN ÉCOSSE",
+      "mode": "translate"
+    },
+    {
+      "source": "Ordinary Divorce Procedure",
+      "target": "Procédure ordinaire de divorce en Écosse",
+      "mode": "translate"
+    },
+    {
+      "source": "Ordinary divorce procedure",
+      "target": "Procédure ordinaire de divorce en Écosse",
+      "mode": "translate"
+    },
+    {
+      "source": "PARENTAL AUTHORITY",
+      "target": "AUTORITÉ PARENTALE",
+      "mode": "translate"
+    },
+    {
+      "source": "PARENTAL RESPONSIBILITY",
+      "target": "RESPONSABILITÉ PARENTALE",
+      "mode": "translate"
+    },
+    {
+      "source": "PARENTING PLAN",
+      "target": "PLAN PARENTAL",
+      "mode": "translate"
+    },
+    {
+      "source": "PAYING PARENT",
+      "target": "PARENT DÉBITEUR DE LA PENSION ALIMENTAIRE",
+      "mode": "translate"
+    },
+    {
+      "source": "PENSION SHARING ORDER",
+      "target": "ORDONNANCE DE PARTAGE DES DROITS À PENSION (PENSION SHARING ORDER)",
+      "mode": "translate"
+    },
+    {
+      "source": "PROHIBITED STEPS ORDER",
+      "target": "ORDONNANCE INTERDISANT CERTAINS ACTES CONCERNANT L'ENFANT (PROHIBITED STEPS ORDER)",
+      "mode": "translate"
+    },
+    {
+      "source": "Parental Authority",
+      "target": "Autorité parentale",
+      "mode": "translate"
+    },
+    {
+      "source": "Parental Responsibility",
+      "target": "Responsabilité parentale",
+      "mode": "translate"
+    },
+    {
+      "source": "Parental authority",
+      "target": "Autorité parentale",
+      "mode": "translate"
+    },
+    {
+      "source": "Parental responsibility",
+      "target": "Responsabilité parentale",
+      "mode": "translate"
+    },
+    {
+      "source": "Parenting Plan",
+      "target": "Plan parental",
+      "mode": "translate"
+    },
+    {
+      "source": "Parenting plan",
+      "target": "Plan parental",
+      "mode": "translate"
+    },
+    {
+      "source": "Paying Parent",
+      "target": "Parent débiteur de la pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Paying parent",
+      "target": "Parent débiteur de la pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Pension Sharing Order",
+      "target": "Ordonnance de partage des droits à pension (pension sharing order)",
+      "mode": "translate"
+    },
+    {
+      "source": "Pension sharing order",
+      "target": "Ordonnance de partage des droits à pension (pension sharing order)",
+      "mode": "translate"
+    },
+    {
+      "source": "Prohibited Steps Order",
+      "target": "Ordonnance interdisant certains actes concernant l'enfant (prohibited steps order)",
+      "mode": "translate"
+    },
+    {
+      "source": "Prohibited steps order",
+      "target": "Ordonnance interdisant certains actes concernant l'enfant (prohibited steps order)",
+      "mode": "translate"
+    },
+    {
+      "source": "RECEIVING PARENT",
+      "target": "PARENT BÉNÉFICIAIRE DE LA PENSION ALIMENTAIRE",
+      "mode": "translate"
+    },
+    {
+      "source": "RIGHTS OF ACCESS",
+      "target": "DROIT DE VISITE",
+      "mode": "translate"
+    },
+    {
+      "source": "RIGHTS OF CUSTODY",
+      "target": "DROIT DE GARDE",
+      "mode": "translate"
+    },
+    {
+      "source": "Receiving Parent",
+      "target": "Parent bénéficiaire de la pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Receiving parent",
+      "target": "Parent bénéficiaire de la pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Rights Of Access",
+      "target": "Droit de visite",
+      "mode": "translate"
+    },
+    {
+      "source": "Rights Of Custody",
+      "target": "Droit de garde",
+      "mode": "translate"
+    },
+    {
+      "source": "Rights of access",
+      "target": "Droit de visite",
+      "mode": "translate"
+    },
+    {
+      "source": "Rights of custody",
+      "target": "Droit de garde",
+      "mode": "translate"
+    },
+    {
+      "source": "SHERIFF COURT",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "SIMPLIFIED DIVORCE PROCEDURE",
+      "target": "PROCÉDURE SIMPLIFIÉE DE DIVORCE EN ÉCOSSE",
+      "mode": "translate"
+    },
+    {
+      "source": "SOLE APPLICATION",
+      "target": "DEMANDE INDIVIDUELLE",
+      "mode": "translate"
+    },
+    {
+      "source": "SPECIFIC ISSUE ORDER",
+      "target": "ORDONNANCE TRANCHANT UNE QUESTION PRÉCISE CONCERNANT L'ENFANT (SPECIFIC ISSUE ORDER)",
+      "mode": "translate"
+    },
+    {
+      "source": "SPOUSAL MAINTENANCE",
+      "target": "PENSION ALIMENTAIRE ENTRE ÉPOUX",
+      "mode": "translate"
+    },
+    {
+      "source": "Sheriff Court",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Simplified Divorce Procedure",
+      "target": "Procédure simplifiée de divorce en Écosse",
+      "mode": "translate"
+    },
+    {
+      "source": "Simplified divorce procedure",
+      "target": "Procédure simplifiée de divorce en Écosse",
+      "mode": "translate"
+    },
+    {
+      "source": "Sole Application",
+      "target": "Demande individuelle",
+      "mode": "translate"
+    },
+    {
+      "source": "Sole application",
+      "target": "Demande individuelle",
+      "mode": "translate"
+    },
+    {
+      "source": "Specific Issue Order",
+      "target": "Ordonnance tranchant une question précise concernant l'enfant (specific issue order)",
+      "mode": "translate"
+    },
+    {
+      "source": "Specific issue order",
+      "target": "Ordonnance tranchant une question précise concernant l'enfant (specific issue order)",
+      "mode": "translate"
+    },
+    {
+      "source": "Spousal Maintenance",
+      "target": "Pension alimentaire entre époux",
+      "mode": "translate"
+    },
+    {
+      "source": "Spousal maintenance",
+      "target": "Pension alimentaire entre époux",
+      "mode": "translate"
+    },
+    {
+      "source": "WRONGFUL REMOVAL",
+      "target": "DÉPLACEMENT ILLICITE",
+      "mode": "translate"
+    },
+    {
+      "source": "WRONGFUL RETENTION",
+      "target": "NON-RETOUR ILLICITE",
+      "mode": "translate"
+    },
+    {
+      "source": "Wrongful Removal",
+      "target": "Déplacement illicite",
+      "mode": "translate"
+    },
+    {
+      "source": "Wrongful Retention",
+      "target": "Non-retour illicite",
+      "mode": "translate"
+    },
+    {
+      "source": "Wrongful removal",
+      "target": "Déplacement illicite",
+      "mode": "translate"
+    },
+    {
+      "source": "Wrongful retention",
+      "target": "Non-retour illicite",
+      "mode": "translate"
+    },
+    {
+      "source": "best interests of the child",
+      "target": "intérêt supérieur de l'enfant",
+      "mode": "translate"
+    },
+    {
+      "source": "child arrangements order",
+      "target": "ordonnance sur la résidence et les contacts de l'enfant (child arrangements order)",
+      "mode": "translate"
+    },
+    {
+      "source": "child arrangements orders",
+      "target": "ordonnances sur la résidence et les contacts de l'enfant (child arrangements orders)",
+      "mode": "translate"
+    },
+    {
+      "source": "child maintenance",
+      "target": "pension alimentaire pour enfant",
+      "mode": "translate"
+    },
+    {
+      "source": "civil partnership",
+      "target": "partenariat civil britannique",
+      "mode": "translate"
+    },
+    {
+      "source": "civil partnerships",
+      "target": "partenariats civils britanniques",
+      "mode": "translate"
+    },
+    {
+      "source": "clean break",
+      "target": "clôture des obligations financières entre ex-époux (clean break)",
+      "mode": "translate"
+    },
+    {
+      "source": "conditional order",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "consent order",
+      "target": "ordonnance entérinant un accord (consent order)",
+      "mode": "translate"
+    },
+    {
+      "source": "decree absolute",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "decree nisi",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "decree of divorce",
+      "target": "jugement de divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "dissolution of a civil partnership",
+      "target": "dissolution d'un partenariat civil britannique",
+      "mode": "translate"
+    },
+    {
+      "source": "divorce application",
+      "target": "demande de divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "divorce proceedings",
+      "target": "procédure de divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "family mediation",
+      "target": "médiation familiale",
+      "mode": "translate"
+    },
+    {
+      "source": "final order",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "financial order",
+      "target": "ordonnance relative aux conséquences financières du divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "financial settlement",
+      "target": "accord sur les conséquences financières du divorce",
+      "mode": "translate"
+    },
+    {
+      "source": "habitual residence",
+      "target": "résidence habituelle",
+      "mode": "translate"
+    },
+    {
+      "source": "joint application",
+      "target": "demande conjointe",
+      "mode": "translate"
+    },
+    {
+      "source": "judicial separation",
+      "target": "séparation judiciaire",
+      "mode": "translate"
+    },
+    {
+      "source": "legal separation",
+      "target": "séparation légale",
+      "mode": "translate"
+    },
+    {
+      "source": "lump sum payment",
+      "target": "versement en capital",
+      "mode": "translate"
+    },
+    {
+      "source": "maintenance arrears",
+      "target": "arriérés de pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "maintenance payments",
+      "target": "versements de pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "marriage certificate",
+      "target": "acte de mariage",
+      "mode": "translate"
+    },
+    {
+      "source": "ordinary divorce procedure",
+      "target": "procédure ordinaire de divorce en Écosse",
+      "mode": "translate"
+    },
+    {
+      "source": "parental authority",
+      "target": "autorité parentale",
+      "mode": "translate"
+    },
+    {
+      "source": "parental responsibility",
+      "target": "responsabilité parentale",
+      "mode": "translate"
+    },
+    {
+      "source": "parenting plan",
+      "target": "plan parental",
+      "mode": "translate"
+    },
+    {
+      "source": "paying parent",
+      "target": "parent débiteur de la pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "pension sharing order",
+      "target": "ordonnance de partage des droits à pension (pension sharing order)",
+      "mode": "translate"
+    },
+    {
+      "source": "prohibited steps order",
+      "target": "ordonnance interdisant certains actes concernant l'enfant (prohibited steps order)",
+      "mode": "translate"
+    },
+    {
+      "source": "receiving parent",
+      "target": "parent bénéficiaire de la pension alimentaire",
+      "mode": "translate"
+    },
+    {
+      "source": "rights of access",
+      "target": "droit de visite",
+      "mode": "translate"
+    },
+    {
+      "source": "rights of custody",
+      "target": "droit de garde",
+      "mode": "translate"
+    },
+    {
+      "source": "simplified divorce procedure",
+      "target": "procédure simplifiée de divorce en Écosse",
+      "mode": "translate"
+    },
+    {
+      "source": "sole application",
+      "target": "demande individuelle",
+      "mode": "translate"
+    },
+    {
+      "source": "specific issue order",
+      "target": "ordonnance tranchant une question précise concernant l'enfant (specific issue order)",
+      "mode": "translate"
+    },
+    {
+      "source": "spousal maintenance",
+      "target": "pension alimentaire entre époux",
+      "mode": "translate"
+    },
+    {
+      "source": "wrongful removal",
+      "target": "déplacement illicite",
+      "mode": "translate"
+    },
+    {
+      "source": "wrongful retention",
+      "target": "non-retour illicite",
+      "mode": "translate"
+    }
+  ]
+}

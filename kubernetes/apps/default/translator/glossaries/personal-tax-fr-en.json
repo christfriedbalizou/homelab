@@ -1,0 +1,768 @@
+{
+  "name": "UK–France | Personal taxes | FR → EN",
+  "source_language": "fr",
+  "target_language": "en",
+  "shared": true,
+  "entries": [
+    {
+      "source": "AVIS D'IMPOSITION",
+      "target": "TAX ASSESSMENT NOTICE",
+      "mode": "translate"
+    },
+    {
+      "source": "AVIS D'IMPÔT SUR LE REVENU",
+      "target": "INCOME TAX ASSESSMENT NOTICE",
+      "mode": "translate"
+    },
+    {
+      "source": "AVIS D’IMPOSITION",
+      "target": "TAX ASSESSMENT NOTICE",
+      "mode": "translate"
+    },
+    {
+      "source": "AVIS D’IMPÔT SUR LE REVENU",
+      "target": "INCOME TAX ASSESSMENT NOTICE",
+      "mode": "translate"
+    },
+    {
+      "source": "Avis d'imposition",
+      "target": "Tax assessment notice",
+      "mode": "translate"
+    },
+    {
+      "source": "Avis d'impôt sur le revenu",
+      "target": "Income tax assessment notice",
+      "mode": "translate"
+    },
+    {
+      "source": "Avis d’imposition",
+      "target": "Tax assessment notice",
+      "mode": "translate"
+    },
+    {
+      "source": "Avis d’impôt sur le revenu",
+      "target": "Income tax assessment notice",
+      "mode": "translate"
+    },
+    {
+      "source": "CONTRIBUTION AU REMBOURSEMENT DE LA DETTE SOCIALE",
+      "target": "SOCIAL DEBT REPAYMENT CONTRIBUTION (CRDS)",
+      "mode": "translate"
+    },
+    {
+      "source": "CONTRIBUTION SOCIALE GÉNÉRALISÉE",
+      "target": "GENERAL SOCIAL CONTRIBUTION (CSG)",
+      "mode": "translate"
+    },
+    {
+      "source": "CONVENTION FISCALE",
+      "target": "TAX TREATY",
+      "mode": "translate"
+    },
+    {
+      "source": "CRDS",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "CRÉDIT D'IMPÔT",
+      "target": "TAX CREDIT",
+      "mode": "translate"
+    },
+    {
+      "source": "CRÉDIT D'IMPÔT AU TITRE DE L'IMPÔT ÉTRANGER",
+      "target": "FOREIGN TAX CREDIT",
+      "mode": "translate"
+    },
+    {
+      "source": "CRÉDIT D’IMPÔT",
+      "target": "TAX CREDIT",
+      "mode": "translate"
+    },
+    {
+      "source": "CRÉDIT D’IMPÔT AU TITRE DE L’IMPÔT ÉTRANGER",
+      "target": "FOREIGN TAX CREDIT",
+      "mode": "translate"
+    },
+    {
+      "source": "CSG",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Contribution au remboursement de la dette sociale",
+      "target": "Social debt repayment contribution (CRDS)",
+      "mode": "translate"
+    },
+    {
+      "source": "Contribution sociale généralisée",
+      "target": "General social contribution (CSG)",
+      "mode": "translate"
+    },
+    {
+      "source": "Convention fiscale",
+      "target": "Tax treaty",
+      "mode": "translate"
+    },
+    {
+      "source": "Crédit d'impôt",
+      "target": "Tax credit",
+      "mode": "translate"
+    },
+    {
+      "source": "Crédit d'impôt au titre de l'impôt étranger",
+      "target": "Foreign tax credit",
+      "mode": "translate"
+    },
+    {
+      "source": "Crédit d’impôt",
+      "target": "Tax credit",
+      "mode": "translate"
+    },
+    {
+      "source": "Crédit d’impôt au titre de l’impôt étranger",
+      "target": "Foreign tax credit",
+      "mode": "translate"
+    },
+    {
+      "source": "DGFIP",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "DGFiP",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "DOUBLE IMPOSITION",
+      "target": "DOUBLE TAXATION",
+      "mode": "translate"
+    },
+    {
+      "source": "Double imposition",
+      "target": "Double taxation",
+      "mode": "translate"
+    },
+    {
+      "source": "DÉCLARATION DE REVENUS",
+      "target": "INCOME TAX RETURN",
+      "mode": "translate"
+    },
+    {
+      "source": "DÉCLARATION DES REVENUS",
+      "target": "INCOME TAX RETURN",
+      "mode": "translate"
+    },
+    {
+      "source": "DÉCLARATION FISCALE",
+      "target": "TAX RETURN",
+      "mode": "translate"
+    },
+    {
+      "source": "DÉCLARATIONS DE REVENUS",
+      "target": "INCOME TAX RETURNS",
+      "mode": "translate"
+    },
+    {
+      "source": "Déclaration de revenus",
+      "target": "Income tax return",
+      "mode": "translate"
+    },
+    {
+      "source": "Déclaration des revenus",
+      "target": "Income tax return",
+      "mode": "translate"
+    },
+    {
+      "source": "Déclaration fiscale",
+      "target": "Tax return",
+      "mode": "translate"
+    },
+    {
+      "source": "Déclarations de revenus",
+      "target": "Income tax returns",
+      "mode": "translate"
+    },
+    {
+      "source": "FOYER FISCAL",
+      "target": "TAX HOUSEHOLD",
+      "mode": "translate"
+    },
+    {
+      "source": "Foyer fiscal",
+      "target": "Tax household",
+      "mode": "translate"
+    },
+    {
+      "source": "IMPOSITION COMMUNE",
+      "target": "JOINT TAXATION",
+      "mode": "translate"
+    },
+    {
+      "source": "IMPÔT DÛ",
+      "target": "TAX DUE",
+      "mode": "translate"
+    },
+    {
+      "source": "IMPÔT SUR LA FORTUNE IMMOBILIÈRE",
+      "target": "FRENCH REAL ESTATE WEALTH TAX (IFI)",
+      "mode": "translate"
+    },
+    {
+      "source": "IMPÔT SUR LE REVENU",
+      "target": "INCOME TAX",
+      "mode": "translate"
+    },
+    {
+      "source": "Imposition commune",
+      "target": "Joint taxation",
+      "mode": "translate"
+    },
+    {
+      "source": "Impôt dû",
+      "target": "Tax due",
+      "mode": "translate"
+    },
+    {
+      "source": "Impôt sur la fortune immobilière",
+      "target": "French real estate wealth tax (IFI)",
+      "mode": "translate"
+    },
+    {
+      "source": "Impôt sur le revenu",
+      "target": "Income tax",
+      "mode": "translate"
+    },
+    {
+      "source": "NOMBRE DE PARTS",
+      "target": "NUMBER OF TAX HOUSEHOLD UNITS",
+      "mode": "translate"
+    },
+    {
+      "source": "NUMÉRO D'ACCÈS EN LIGNE",
+      "target": "ONLINE ACCESS NUMBER",
+      "mode": "translate"
+    },
+    {
+      "source": "NUMÉRO D’ACCÈS EN LIGNE",
+      "target": "ONLINE ACCESS NUMBER",
+      "mode": "translate"
+    },
+    {
+      "source": "NUMÉRO FISCAL",
+      "target": "FRENCH TAX IDENTIFICATION NUMBER",
+      "mode": "translate"
+    },
+    {
+      "source": "Nombre de parts",
+      "target": "Number of tax household units",
+      "mode": "translate"
+    },
+    {
+      "source": "Numéro d'accès en ligne",
+      "target": "Online access number",
+      "mode": "translate"
+    },
+    {
+      "source": "Numéro d’accès en ligne",
+      "target": "Online access number",
+      "mode": "translate"
+    },
+    {
+      "source": "Numéro fiscal",
+      "target": "French tax identification number",
+      "mode": "translate"
+    },
+    {
+      "source": "PARTS FISCALES",
+      "target": "TAX HOUSEHOLD UNITS",
+      "mode": "translate"
+    },
+    {
+      "source": "PLUS-VALUES",
+      "target": "CAPITAL GAINS",
+      "mode": "translate"
+    },
+    {
+      "source": "PRÉLÈVEMENT À LA SOURCE",
+      "target": "FRENCH INCOME TAX WITHHOLDING",
+      "mode": "translate"
+    },
+    {
+      "source": "Parts fiscales",
+      "target": "Tax household units",
+      "mode": "translate"
+    },
+    {
+      "source": "Plus-values",
+      "target": "Capital gains",
+      "mode": "translate"
+    },
+    {
+      "source": "Prélèvement à la source",
+      "target": "French income tax withholding",
+      "mode": "translate"
+    },
+    {
+      "source": "QUOTIENT FAMILIAL",
+      "target": "FRENCH FAMILY QUOTIENT",
+      "mode": "translate"
+    },
+    {
+      "source": "Quotient familial",
+      "target": "French family quotient",
+      "mode": "translate"
+    },
+    {
+      "source": "REMBOURSEMENT D'IMPÔT",
+      "target": "TAX REFUND",
+      "mode": "translate"
+    },
+    {
+      "source": "REMBOURSEMENT D’IMPÔT",
+      "target": "TAX REFUND",
+      "mode": "translate"
+    },
+    {
+      "source": "RETENUE À LA SOURCE",
+      "target": "WITHHOLDING TAX",
+      "mode": "translate"
+    },
+    {
+      "source": "REVENU FISCAL DE RÉFÉRENCE",
+      "target": "REFERENCE TAXABLE INCOME",
+      "mode": "translate"
+    },
+    {
+      "source": "REVENU IMPOSABLE",
+      "target": "TAXABLE INCOME",
+      "mode": "translate"
+    },
+    {
+      "source": "REVENU NET IMPOSABLE",
+      "target": "NET TAXABLE INCOME",
+      "mode": "translate"
+    },
+    {
+      "source": "REVENUS D'ACTIVITÉ SALARIÉE",
+      "target": "INCOME FROM EMPLOYMENT",
+      "mode": "translate"
+    },
+    {
+      "source": "REVENUS DE SOURCE FRANÇAISE",
+      "target": "FRENCH-SOURCE INCOME",
+      "mode": "translate"
+    },
+    {
+      "source": "REVENUS DE SOURCE ÉTRANGÈRE",
+      "target": "FOREIGN-SOURCE INCOME",
+      "mode": "translate"
+    },
+    {
+      "source": "REVENUS D’ACTIVITÉ SALARIÉE",
+      "target": "INCOME FROM EMPLOYMENT",
+      "mode": "translate"
+    },
+    {
+      "source": "REVENUS FONCIERS",
+      "target": "FRENCH PROPERTY INCOME (REVENUS FONCIERS)",
+      "mode": "translate"
+    },
+    {
+      "source": "REVENUS LOCATIFS",
+      "target": "RENTAL INCOME",
+      "mode": "translate"
+    },
+    {
+      "source": "RFR",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Remboursement d'impôt",
+      "target": "Tax refund",
+      "mode": "translate"
+    },
+    {
+      "source": "Remboursement d’impôt",
+      "target": "Tax refund",
+      "mode": "translate"
+    },
+    {
+      "source": "Retenue à la source",
+      "target": "Withholding tax",
+      "mode": "translate"
+    },
+    {
+      "source": "Revenu fiscal de référence",
+      "target": "Reference taxable income",
+      "mode": "translate"
+    },
+    {
+      "source": "Revenu imposable",
+      "target": "Taxable income",
+      "mode": "translate"
+    },
+    {
+      "source": "Revenu net imposable",
+      "target": "Net taxable income",
+      "mode": "translate"
+    },
+    {
+      "source": "Revenus d'activité salariée",
+      "target": "Income from employment",
+      "mode": "translate"
+    },
+    {
+      "source": "Revenus de source française",
+      "target": "French-source income",
+      "mode": "translate"
+    },
+    {
+      "source": "Revenus de source étrangère",
+      "target": "Foreign-source income",
+      "mode": "translate"
+    },
+    {
+      "source": "Revenus d’activité salariée",
+      "target": "Income from employment",
+      "mode": "translate"
+    },
+    {
+      "source": "Revenus fonciers",
+      "target": "French property income (revenus fonciers)",
+      "mode": "translate"
+    },
+    {
+      "source": "Revenus locatifs",
+      "target": "Rental income",
+      "mode": "translate"
+    },
+    {
+      "source": "RÉDUCTION D'IMPÔT",
+      "target": "TAX REDUCTION",
+      "mode": "translate"
+    },
+    {
+      "source": "RÉDUCTION D’IMPÔT",
+      "target": "TAX REDUCTION",
+      "mode": "translate"
+    },
+    {
+      "source": "RÉSIDENCE FISCALE",
+      "target": "TAX RESIDENCE",
+      "mode": "translate"
+    },
+    {
+      "source": "RÉSIDENT FISCAL",
+      "target": "TAX RESIDENT",
+      "mode": "translate"
+    },
+    {
+      "source": "Réduction d'impôt",
+      "target": "Tax reduction",
+      "mode": "translate"
+    },
+    {
+      "source": "Réduction d’impôt",
+      "target": "Tax reduction",
+      "mode": "translate"
+    },
+    {
+      "source": "Résidence fiscale",
+      "target": "Tax residence",
+      "mode": "translate"
+    },
+    {
+      "source": "Résident fiscal",
+      "target": "Tax resident",
+      "mode": "translate"
+    },
+    {
+      "source": "TAUX DE PRÉLÈVEMENT À LA SOURCE",
+      "target": "FRENCH INCOME TAX WITHHOLDING RATE",
+      "mode": "translate"
+    },
+    {
+      "source": "TAXE D'HABITATION",
+      "target": "FRENCH RESIDENCE TAX (TAXE D'HABITATION)",
+      "mode": "translate"
+    },
+    {
+      "source": "TAXE D’HABITATION",
+      "target": "FRENCH RESIDENCE TAX (TAXE D'HABITATION)",
+      "mode": "translate"
+    },
+    {
+      "source": "TAXE FONCIÈRE",
+      "target": "FRENCH PROPERTY OWNERSHIP TAX (TAXE FONCIÈRE)",
+      "mode": "translate"
+    },
+    {
+      "source": "Taux de prélèvement à la source",
+      "target": "French income tax withholding rate",
+      "mode": "translate"
+    },
+    {
+      "source": "Taxe d'habitation",
+      "target": "French residence tax (taxe d'habitation)",
+      "mode": "translate"
+    },
+    {
+      "source": "Taxe d’habitation",
+      "target": "French residence tax (taxe d'habitation)",
+      "mode": "translate"
+    },
+    {
+      "source": "Taxe foncière",
+      "target": "French property ownership tax (taxe foncière)",
+      "mode": "translate"
+    },
+    {
+      "source": "avis d'imposition",
+      "target": "tax assessment notice",
+      "mode": "translate"
+    },
+    {
+      "source": "avis d'impôt sur le revenu",
+      "target": "income tax assessment notice",
+      "mode": "translate"
+    },
+    {
+      "source": "avis d’imposition",
+      "target": "tax assessment notice",
+      "mode": "translate"
+    },
+    {
+      "source": "avis d’impôt sur le revenu",
+      "target": "income tax assessment notice",
+      "mode": "translate"
+    },
+    {
+      "source": "contribution au remboursement de la dette sociale",
+      "target": "social debt repayment contribution (CRDS)",
+      "mode": "translate"
+    },
+    {
+      "source": "contribution sociale généralisée",
+      "target": "general social contribution (CSG)",
+      "mode": "translate"
+    },
+    {
+      "source": "convention fiscale",
+      "target": "tax treaty",
+      "mode": "translate"
+    },
+    {
+      "source": "crédit d'impôt",
+      "target": "tax credit",
+      "mode": "translate"
+    },
+    {
+      "source": "crédit d'impôt au titre de l'impôt étranger",
+      "target": "foreign tax credit",
+      "mode": "translate"
+    },
+    {
+      "source": "crédit d’impôt",
+      "target": "tax credit",
+      "mode": "translate"
+    },
+    {
+      "source": "crédit d’impôt au titre de l’impôt étranger",
+      "target": "foreign tax credit",
+      "mode": "translate"
+    },
+    {
+      "source": "double imposition",
+      "target": "double taxation",
+      "mode": "translate"
+    },
+    {
+      "source": "déclaration de revenus",
+      "target": "income tax return",
+      "mode": "translate"
+    },
+    {
+      "source": "déclaration des revenus",
+      "target": "income tax return",
+      "mode": "translate"
+    },
+    {
+      "source": "déclaration fiscale",
+      "target": "tax return",
+      "mode": "translate"
+    },
+    {
+      "source": "déclarations de revenus",
+      "target": "income tax returns",
+      "mode": "translate"
+    },
+    {
+      "source": "foyer fiscal",
+      "target": "tax household",
+      "mode": "translate"
+    },
+    {
+      "source": "imposition commune",
+      "target": "joint taxation",
+      "mode": "translate"
+    },
+    {
+      "source": "impôt dû",
+      "target": "tax due",
+      "mode": "translate"
+    },
+    {
+      "source": "impôt sur la fortune immobilière",
+      "target": "French real estate wealth tax (IFI)",
+      "mode": "translate"
+    },
+    {
+      "source": "impôt sur le revenu",
+      "target": "income tax",
+      "mode": "translate"
+    },
+    {
+      "source": "nombre de parts",
+      "target": "number of tax household units",
+      "mode": "translate"
+    },
+    {
+      "source": "numéro d'accès en ligne",
+      "target": "online access number",
+      "mode": "translate"
+    },
+    {
+      "source": "numéro d’accès en ligne",
+      "target": "online access number",
+      "mode": "translate"
+    },
+    {
+      "source": "numéro fiscal",
+      "target": "French tax identification number",
+      "mode": "translate"
+    },
+    {
+      "source": "parts fiscales",
+      "target": "tax household units",
+      "mode": "translate"
+    },
+    {
+      "source": "plus-values",
+      "target": "capital gains",
+      "mode": "translate"
+    },
+    {
+      "source": "prélèvement à la source",
+      "target": "French income tax withholding",
+      "mode": "translate"
+    },
+    {
+      "source": "quotient familial",
+      "target": "French family quotient",
+      "mode": "translate"
+    },
+    {
+      "source": "remboursement d'impôt",
+      "target": "tax refund",
+      "mode": "translate"
+    },
+    {
+      "source": "remboursement d’impôt",
+      "target": "tax refund",
+      "mode": "translate"
+    },
+    {
+      "source": "retenue à la source",
+      "target": "withholding tax",
+      "mode": "translate"
+    },
+    {
+      "source": "revenu fiscal de référence",
+      "target": "reference taxable income",
+      "mode": "translate"
+    },
+    {
+      "source": "revenu imposable",
+      "target": "taxable income",
+      "mode": "translate"
+    },
+    {
+      "source": "revenu net imposable",
+      "target": "net taxable income",
+      "mode": "translate"
+    },
+    {
+      "source": "revenus d'activité salariée",
+      "target": "income from employment",
+      "mode": "translate"
+    },
+    {
+      "source": "revenus de source française",
+      "target": "French-source income",
+      "mode": "translate"
+    },
+    {
+      "source": "revenus de source étrangère",
+      "target": "foreign-source income",
+      "mode": "translate"
+    },
+    {
+      "source": "revenus d’activité salariée",
+      "target": "income from employment",
+      "mode": "translate"
+    },
+    {
+      "source": "revenus fonciers",
+      "target": "French property income (revenus fonciers)",
+      "mode": "translate"
+    },
+    {
+      "source": "revenus locatifs",
+      "target": "rental income",
+      "mode": "translate"
+    },
+    {
+      "source": "réduction d'impôt",
+      "target": "tax reduction",
+      "mode": "translate"
+    },
+    {
+      "source": "réduction d’impôt",
+      "target": "tax reduction",
+      "mode": "translate"
+    },
+    {
+      "source": "résidence fiscale",
+      "target": "tax residence",
+      "mode": "translate"
+    },
+    {
+      "source": "résident fiscal",
+      "target": "tax resident",
+      "mode": "translate"
+    },
+    {
+      "source": "taux de prélèvement à la source",
+      "target": "French income tax withholding rate",
+      "mode": "translate"
+    },
+    {
+      "source": "taxe d'habitation",
+      "target": "French residence tax (taxe d'habitation)",
+      "mode": "translate"
+    },
+    {
+      "source": "taxe d’habitation",
+      "target": "French residence tax (taxe d'habitation)",
+      "mode": "translate"
+    },
+    {
+      "source": "taxe foncière",
+      "target": "French property ownership tax (taxe foncière)",
+      "mode": "translate"
+    }
+  ]
+}

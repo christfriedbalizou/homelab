@@ -40,9 +40,12 @@ not shrink stored records. Preserve existing data, keys and prior release files.
 
 Application decisions and qualification evidence are maintained in the private
 [Translator repository](https://git.christfriedbalizou.app/christfried.balizou/translator/src/tag/v0.5.0/docs/evidence/configurable-glossaries.md).
-France/UK family law, personal taxes and household terminology content is a
-separate follow-up: each topic needs explicit English-to-French and
-French-to-English glossaries.
+The [UK–France terminology library](glossaries/README.md) contains six explicit
+English-to-French and French-to-English glossaries covering family law,
+personal taxes, and household invoices, payslips and utilities. Public source
+content and provenance are versioned here; saved records use the application's
+encryption, shared permissions and revisions. Content imports need no image
+release or Flux configuration change.
 
 ## v0.5.0 release receipt
 

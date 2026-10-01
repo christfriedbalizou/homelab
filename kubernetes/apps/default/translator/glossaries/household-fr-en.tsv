@@ -1,0 +1,75 @@
+source	target	references	scope_note
+numéro de facture	invoice number	FR-INVOICE,UK-INVOICE	Identifier values remain unchanged.
+date de facture	invoice date	FR-INVOICE,UK-INVOICE	Date label only.
+date d'émission	issue date	FR-INVOICE	Document date, not payment date.
+adresse de facturation	billing address	FR-INVOICE,UK-INVOICE	Label only.
+adresse de fourniture	supply address	FR-ENERGY	Utility service location.
+numéro de client	customer number	FR-ENERGY	Identifier label only.
+référence client	customer reference	FR-ENERGY	Identifier label only.
+montant total à payer	total amount due	FR-INVOICE,UK-INVOICE	Payment label.
+montant à payer	amount due	FR-INVOICE,UK-INVOICE	Payment label.
+date limite de paiement	payment due date	FR-INVOICE	Payment deadline.
+conditions de paiement	payment terms	FR-INVOICE	Invoice context.
+prix unitaire	unit price	FR-INVOICE	No currency conversion.
+montant de la TVA	VAT amount	FR-INVOICE	Amount label.
+taux de TVA	VAT rate	FR-INVOICE	No tax-rate substitution.
+hors taxes	excluding taxes	FR-INVOICE	Not necessarily VAT alone.
+toutes taxes comprises	including all taxes	FR-INVOICE	Not necessarily VAT alone.
+hors TVA	excluding VAT	FR-INVOICE	VAT-specific phrase.
+TVA comprise	including VAT	FR-INVOICE	VAT-specific phrase.
+taxe sur la valeur ajoutée	value added tax	FR-INVOICE	Tax category.
+TVA	VAT	FR-INVOICE	Tax abbreviation; numeric rates unchanged.
+virement bancaire	bank transfer	NI-PAYMENT	Payment method.
+prélèvement automatique	Direct Debit	NI-PAYMENT	Do not translate as standing order.
+virement permanent	standing order	NI-PAYMENT	Distinct from Direct Debit.
+facture d'électricité	electricity bill	FR-ENERGY	Household utility document.
+facture de gaz	gas bill	FR-ENERGY	Household utility document.
+facture d'eau	water bill	UK-WATER	Household utility document.
+facture rectificative	corrected bill	FR-CONSUMPTION	Replaces inaccurate billing.
+fournisseur d'énergie	energy supplier	FR-ENERGY	Not necessarily the network operator.
+fournisseur d'électricité	electricity supplier	FR-ENERGY	Not the network operator.
+fournisseur de gaz	gas supplier	FR-ENERGY	Not the network operator.
+gestionnaire de réseau	network operator	FR-ENERGY	Distinct from the supplier.
+période de facturation	billing period	FR-ENERGY	Invoice period.
+relevé de compteur	meter reading	FR-ENERGY	Meter index capture.
+relevés de compteur	meter readings	FR-ENERGY	Plural form.
+relevé estimé	estimated reading	FR-CONSUMPTION	Estimate, not an actual reading.
+relevé réel	actual reading	FR-CONSUMPTION	Measured index.
+compteur communicant	smart meter	FR-ENERGY	Generic category; product names remain intact.
+compteur à prépaiement	prepayment meter	GB-ENERGY	Payment arrangement.
+puissance souscrite	contracted power capacity	FR-ENERGY	Capacity, not electricity consumption.
+option tarifaire	tariff option	FR-ENERGY	Tariff choice.
+heures creuses	off-peak hours	FR-ENERGY	No UK/France schedule equivalence implied.
+heures pleines	peak hours	FR-ENERGY	No UK/France schedule equivalence implied.
+consommation d'électricité	electricity consumption	FR-ENERGY	Quantity, not cost.
+consommation de gaz	gas consumption	FR-ENERGY	Quantity, not cost.
+consommation estimée	estimated consumption	FR-CONSUMPTION	Not measured consumption.
+consommation réelle	actual consumption	FR-CONSUMPTION	Measured consumption.
+compteur d'eau	water meter	UK-WATER	Water service.
+frais d'assainissement	wastewater charges	UK-WATER	Water bill item.
+bulletin de paie	payslip	FR-PAYSLIP,UK-PAYSLIP	British English.
+bulletin de salaire	payslip	FR-PAYSLIP	Common French synonym.
+fiche de paie	payslip	FR-PAYSLIP	Common French synonym.
+bulletins de paie	payslips	FR-PAYSLIP	Plural form.
+salaire brut	gross pay	FR-PAYSLIP	Before deductions.
+salaire net	net pay	FR-PAYSLIP	Not net taxable income.
+salaire de base	basic pay	FR-PAYSLIP	Before additional components.
+taux horaire	hourly rate	FR-PAYSLIP	Pay rate.
+heures travaillées	hours worked	FR-PAYSLIP	Time worked.
+heures supplémentaires	overtime hours	FR-PAYSLIP	Hours, not overtime pay.
+période de paie	pay period	FR-PAYSLIP	Payroll period.
+date de paiement	payment date	FR-PAYSLIP	Date label.
+cotisations salariales	employee contributions	FR-PAYSLIP	Employee share.
+cotisations patronales	employer contributions	FR-PAYSLIP	Employer share.
+cotisations de retraite	pension contributions	FR-PAYSLIP	Retirement, not maintenance.
+cotisations sociales	social security contributions	FR-PAYSLIP	Not automatically UK National Insurance.
+montant net social	net social amount (montant net social)	FR-PAYSLIP	Specific French benefit-assessment measure, not take-home pay.
+net à payer avant impôt sur le revenu	net pay before income tax	FR-PAYSLIP	Long phrase takes priority over net à payer.
+net à payer	net amount payable	FR-PAYSLIP,FR-INVOICE	Usable on payslips and invoices.
+net imposable	taxable net amount	FR-PAYSLIP	Not take-home pay.
+revenu net imposable	net taxable income	FR-QUOTIENT	Same mapping as the tax glossary.
+prélèvement à la source	French income tax withholding	FR-PAYSLIP	Not the identical PAYE regime.
+taux de prélèvement à la source	French income tax withholding rate	FR-PAYSLIP	Same mapping as the tax glossary.
+impôt sur le revenu	income tax	TREATY	Same mapping as the tax glossary.
+CSG	CSG	FR-PAYSLIP	Preserve French levy abbreviation.
+CRDS	CRDS	FR-PAYSLIP	Preserve French levy abbreviation.

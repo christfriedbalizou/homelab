@@ -1,0 +1,743 @@
+{
+  "name": "UK–France | Personal taxes | EN → FR",
+  "source_language": "en",
+  "target_language": "fr",
+  "shared": true,
+  "entries": [
+    {
+      "source": "CAPITAL GAINS",
+      "target": "PLUS-VALUES",
+      "mode": "translate"
+    },
+    {
+      "source": "CAPITAL GAINS TAX",
+      "target": "IMPÔT BRITANNIQUE SUR LES PLUS-VALUES (CAPITAL GAINS TAX)",
+      "mode": "translate"
+    },
+    {
+      "source": "COUNCIL TAX",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Capital Gains",
+      "target": "Plus-values",
+      "mode": "translate"
+    },
+    {
+      "source": "Capital Gains Tax",
+      "target": "Impôt britannique sur les plus-values (Capital Gains Tax)",
+      "mode": "translate"
+    },
+    {
+      "source": "Capital gains",
+      "target": "Plus-values",
+      "mode": "translate"
+    },
+    {
+      "source": "Capital gains tax",
+      "target": "Impôt britannique sur les plus-values (Capital Gains Tax)",
+      "mode": "translate"
+    },
+    {
+      "source": "Council Tax",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Council tax",
+      "target": "Council Tax",
+      "mode": "translate"
+    },
+    {
+      "source": "DOMESTIC RATES",
+      "target": "TAXE LOCALE SUR LES LOGEMENTS EN IRLANDE DU NORD (DOMESTIC RATES)",
+      "mode": "translate"
+    },
+    {
+      "source": "DOUBLE TAXATION",
+      "target": "DOUBLE IMPOSITION",
+      "mode": "translate"
+    },
+    {
+      "source": "DOUBLE TAXATION AGREEMENT",
+      "target": "CONVENTION VISANT À ÉVITER LA DOUBLE IMPOSITION",
+      "mode": "translate"
+    },
+    {
+      "source": "Domestic Rates",
+      "target": "Taxe locale sur les logements en Irlande du Nord (domestic rates)",
+      "mode": "translate"
+    },
+    {
+      "source": "Domestic rates",
+      "target": "Taxe locale sur les logements en Irlande du Nord (domestic rates)",
+      "mode": "translate"
+    },
+    {
+      "source": "Double Taxation",
+      "target": "Double imposition",
+      "mode": "translate"
+    },
+    {
+      "source": "Double Taxation Agreement",
+      "target": "Convention visant à éviter la double imposition",
+      "mode": "translate"
+    },
+    {
+      "source": "Double taxation",
+      "target": "Double imposition",
+      "mode": "translate"
+    },
+    {
+      "source": "Double taxation agreement",
+      "target": "Convention visant à éviter la double imposition",
+      "mode": "translate"
+    },
+    {
+      "source": "FOREIGN TAX CREDIT",
+      "target": "CRÉDIT D'IMPÔT AU TITRE DE L'IMPÔT ÉTRANGER",
+      "mode": "translate"
+    },
+    {
+      "source": "FOREIGN-SOURCE INCOME",
+      "target": "REVENUS DE SOURCE ÉTRANGÈRE",
+      "mode": "translate"
+    },
+    {
+      "source": "Foreign Tax Credit",
+      "target": "Crédit d'impôt au titre de l'impôt étranger",
+      "mode": "translate"
+    },
+    {
+      "source": "Foreign tax credit",
+      "target": "Crédit d'impôt au titre de l'impôt étranger",
+      "mode": "translate"
+    },
+    {
+      "source": "Foreign-source Income",
+      "target": "Revenus de source étrangère",
+      "mode": "translate"
+    },
+    {
+      "source": "Foreign-source income",
+      "target": "Revenus de source étrangère",
+      "mode": "translate"
+    },
+    {
+      "source": "HM REVENUE AND CUSTOMS",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "HM Revenue and Customs",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "HMRC",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Hm Revenue And Customs",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Hmrc",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "INCOME FROM EMPLOYMENT",
+      "target": "REVENUS D'ACTIVITÉ SALARIÉE",
+      "mode": "translate"
+    },
+    {
+      "source": "INCOME TAX",
+      "target": "IMPÔT SUR LE REVENU",
+      "mode": "translate"
+    },
+    {
+      "source": "INCOME TAX ASSESSMENT NOTICE",
+      "target": "AVIS D'IMPÔT SUR LE REVENU",
+      "mode": "translate"
+    },
+    {
+      "source": "INCOME TAX RETURN",
+      "target": "DÉCLARATION DE REVENUS",
+      "mode": "translate"
+    },
+    {
+      "source": "Income From Employment",
+      "target": "Revenus d'activité salariée",
+      "mode": "translate"
+    },
+    {
+      "source": "Income Tax",
+      "target": "Impôt sur le revenu",
+      "mode": "translate"
+    },
+    {
+      "source": "Income Tax Assessment Notice",
+      "target": "Avis d'impôt sur le revenu",
+      "mode": "translate"
+    },
+    {
+      "source": "Income Tax Return",
+      "target": "Déclaration de revenus",
+      "mode": "translate"
+    },
+    {
+      "source": "Income from employment",
+      "target": "Revenus d'activité salariée",
+      "mode": "translate"
+    },
+    {
+      "source": "Income tax",
+      "target": "Impôt sur le revenu",
+      "mode": "translate"
+    },
+    {
+      "source": "Income tax assessment notice",
+      "target": "Avis d'impôt sur le revenu",
+      "mode": "translate"
+    },
+    {
+      "source": "Income tax return",
+      "target": "Déclaration de revenus",
+      "mode": "translate"
+    },
+    {
+      "source": "NATIONAL INSURANCE",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "NATIONAL INSURANCE CONTRIBUTIONS",
+      "target": "COTISATIONS BRITANNIQUES DE NATIONAL INSURANCE",
+      "mode": "translate"
+    },
+    {
+      "source": "NATIONAL INSURANCE NUMBER",
+      "target": "NUMÉRO BRITANNIQUE DE NATIONAL INSURANCE",
+      "mode": "translate"
+    },
+    {
+      "source": "National Insurance",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "National Insurance Contributions",
+      "target": "Cotisations britanniques de National Insurance",
+      "mode": "translate"
+    },
+    {
+      "source": "National Insurance Number",
+      "target": "Numéro britannique de National Insurance",
+      "mode": "translate"
+    },
+    {
+      "source": "National Insurance contributions",
+      "target": "Cotisations britanniques de National Insurance",
+      "mode": "translate"
+    },
+    {
+      "source": "National Insurance number",
+      "target": "Numéro britannique de National Insurance",
+      "mode": "translate"
+    },
+    {
+      "source": "PAY AS YOU EARN",
+      "target": "PRÉLÈVEMENT BRITANNIQUE SUR LES SALAIRES (PAY AS YOU EARN)",
+      "mode": "translate"
+    },
+    {
+      "source": "PAYE",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "PERSONAL ALLOWANCE",
+      "target": "ABATTEMENT PERSONNEL BRITANNIQUE (PERSONAL ALLOWANCE)",
+      "mode": "translate"
+    },
+    {
+      "source": "Pay As You Earn",
+      "target": "Prélèvement britannique sur les salaires (Pay As You Earn)",
+      "mode": "translate"
+    },
+    {
+      "source": "Paye",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Personal Allowance",
+      "target": "Abattement personnel britannique (Personal Allowance)",
+      "mode": "translate"
+    },
+    {
+      "source": "Personal allowance",
+      "target": "Abattement personnel britannique (Personal Allowance)",
+      "mode": "translate"
+    },
+    {
+      "source": "REFERENCE TAXABLE INCOME",
+      "target": "REVENU FISCAL DE RÉFÉRENCE",
+      "mode": "translate"
+    },
+    {
+      "source": "RENTAL INCOME",
+      "target": "REVENUS LOCATIFS",
+      "mode": "translate"
+    },
+    {
+      "source": "Reference Taxable Income",
+      "target": "Revenu fiscal de référence",
+      "mode": "translate"
+    },
+    {
+      "source": "Reference taxable income",
+      "target": "Revenu fiscal de référence",
+      "mode": "translate"
+    },
+    {
+      "source": "Rental Income",
+      "target": "Revenus locatifs",
+      "mode": "translate"
+    },
+    {
+      "source": "Rental income",
+      "target": "Revenus locatifs",
+      "mode": "translate"
+    },
+    {
+      "source": "SELF ASSESSMENT",
+      "target": "SYSTÈME BRITANNIQUE DE DÉCLARATION FISCALE (SELF ASSESSMENT)",
+      "mode": "translate"
+    },
+    {
+      "source": "SELF-ASSESSMENT TAX RETURN",
+      "target": "DÉCLARATION FISCALE BRITANNIQUE AU TITRE DU SELF ASSESSMENT",
+      "mode": "translate"
+    },
+    {
+      "source": "Self Assessment",
+      "target": "Système britannique de déclaration fiscale (Self Assessment)",
+      "mode": "translate"
+    },
+    {
+      "source": "Self-assessment Tax Return",
+      "target": "Déclaration fiscale britannique au titre du Self Assessment",
+      "mode": "translate"
+    },
+    {
+      "source": "Self-assessment tax return",
+      "target": "Déclaration fiscale britannique au titre du Self Assessment",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX CODE",
+      "target": "CODE FISCAL DE RETENUE SUR SALAIRE (TAX CODE)",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX CODES",
+      "target": "CODES FISCAUX DE RETENUE SUR SALAIRE (TAX CODES)",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX HOUSEHOLD",
+      "target": "FOYER FISCAL",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX LIABILITY",
+      "target": "MONTANT DE L'IMPÔT DÛ",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX OVERPAYMENT",
+      "target": "TROP-PERÇU D'IMPÔT",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX REFUND",
+      "target": "REMBOURSEMENT D'IMPÔT",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX RELIEF",
+      "target": "ALLÈGEMENT FISCAL",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX RESIDENCE",
+      "target": "RÉSIDENCE FISCALE",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX RESIDENT",
+      "target": "RÉSIDENT FISCAL",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX RETURN",
+      "target": "DÉCLARATION FISCALE",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX RETURNS",
+      "target": "DÉCLARATIONS FISCALES",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX UNDERPAYMENT",
+      "target": "INSUFFISANCE DE PAIEMENT DE L'IMPÔT",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX YEAR",
+      "target": "ANNÉE FISCALE",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX-FREE ALLOWANCE",
+      "target": "ABATTEMENT EXONÉRÉ D'IMPÔT",
+      "mode": "translate"
+    },
+    {
+      "source": "TAXABLE INCOME",
+      "target": "REVENU IMPOSABLE",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Code",
+      "target": "Code fiscal de retenue sur salaire (tax code)",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Codes",
+      "target": "Codes fiscaux de retenue sur salaire (tax codes)",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Household",
+      "target": "Foyer fiscal",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Liability",
+      "target": "Montant de l'impôt dû",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Overpayment",
+      "target": "Trop-perçu d'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Refund",
+      "target": "Remboursement d'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Relief",
+      "target": "Allègement fiscal",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Residence",
+      "target": "Résidence fiscale",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Resident",
+      "target": "Résident fiscal",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Return",
+      "target": "Déclaration fiscale",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Returns",
+      "target": "Déclarations fiscales",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Underpayment",
+      "target": "Insuffisance de paiement de l'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Year",
+      "target": "Année fiscale",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax code",
+      "target": "Code fiscal de retenue sur salaire (tax code)",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax codes",
+      "target": "Codes fiscaux de retenue sur salaire (tax codes)",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax household",
+      "target": "Foyer fiscal",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax liability",
+      "target": "Montant de l'impôt dû",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax overpayment",
+      "target": "Trop-perçu d'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax refund",
+      "target": "Remboursement d'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax relief",
+      "target": "Allègement fiscal",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax residence",
+      "target": "Résidence fiscale",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax resident",
+      "target": "Résident fiscal",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax return",
+      "target": "Déclaration fiscale",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax returns",
+      "target": "Déclarations fiscales",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax underpayment",
+      "target": "Insuffisance de paiement de l'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax year",
+      "target": "Année fiscale",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax-free Allowance",
+      "target": "Abattement exonéré d'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax-free allowance",
+      "target": "Abattement exonéré d'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "Taxable Income",
+      "target": "Revenu imposable",
+      "mode": "translate"
+    },
+    {
+      "source": "Taxable income",
+      "target": "Revenu imposable",
+      "mode": "translate"
+    },
+    {
+      "source": "WITHHOLDING TAX",
+      "target": "RETENUE À LA SOURCE",
+      "mode": "translate"
+    },
+    {
+      "source": "Withholding Tax",
+      "target": "Retenue à la source",
+      "mode": "translate"
+    },
+    {
+      "source": "Withholding tax",
+      "target": "Retenue à la source",
+      "mode": "translate"
+    },
+    {
+      "source": "capital gains",
+      "target": "plus-values",
+      "mode": "translate"
+    },
+    {
+      "source": "capital gains tax",
+      "target": "impôt britannique sur les plus-values (Capital Gains Tax)",
+      "mode": "translate"
+    },
+    {
+      "source": "council tax",
+      "target": "Council Tax",
+      "mode": "translate"
+    },
+    {
+      "source": "domestic rates",
+      "target": "taxe locale sur les logements en Irlande du Nord (domestic rates)",
+      "mode": "translate"
+    },
+    {
+      "source": "double taxation",
+      "target": "double imposition",
+      "mode": "translate"
+    },
+    {
+      "source": "double taxation agreement",
+      "target": "convention visant à éviter la double imposition",
+      "mode": "translate"
+    },
+    {
+      "source": "foreign tax credit",
+      "target": "crédit d'impôt au titre de l'impôt étranger",
+      "mode": "translate"
+    },
+    {
+      "source": "foreign-source income",
+      "target": "revenus de source étrangère",
+      "mode": "translate"
+    },
+    {
+      "source": "income from employment",
+      "target": "revenus d'activité salariée",
+      "mode": "translate"
+    },
+    {
+      "source": "income tax",
+      "target": "impôt sur le revenu",
+      "mode": "translate"
+    },
+    {
+      "source": "income tax assessment notice",
+      "target": "avis d'impôt sur le revenu",
+      "mode": "translate"
+    },
+    {
+      "source": "income tax return",
+      "target": "déclaration de revenus",
+      "mode": "translate"
+    },
+    {
+      "source": "personal allowance",
+      "target": "abattement personnel britannique (Personal Allowance)",
+      "mode": "translate"
+    },
+    {
+      "source": "reference taxable income",
+      "target": "revenu fiscal de référence",
+      "mode": "translate"
+    },
+    {
+      "source": "rental income",
+      "target": "revenus locatifs",
+      "mode": "translate"
+    },
+    {
+      "source": "self-assessment tax return",
+      "target": "déclaration fiscale britannique au titre du Self Assessment",
+      "mode": "translate"
+    },
+    {
+      "source": "tax code",
+      "target": "code fiscal de retenue sur salaire (tax code)",
+      "mode": "translate"
+    },
+    {
+      "source": "tax codes",
+      "target": "codes fiscaux de retenue sur salaire (tax codes)",
+      "mode": "translate"
+    },
+    {
+      "source": "tax household",
+      "target": "foyer fiscal",
+      "mode": "translate"
+    },
+    {
+      "source": "tax liability",
+      "target": "montant de l'impôt dû",
+      "mode": "translate"
+    },
+    {
+      "source": "tax overpayment",
+      "target": "trop-perçu d'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "tax refund",
+      "target": "remboursement d'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "tax relief",
+      "target": "allègement fiscal",
+      "mode": "translate"
+    },
+    {
+      "source": "tax residence",
+      "target": "résidence fiscale",
+      "mode": "translate"
+    },
+    {
+      "source": "tax resident",
+      "target": "résident fiscal",
+      "mode": "translate"
+    },
+    {
+      "source": "tax return",
+      "target": "déclaration fiscale",
+      "mode": "translate"
+    },
+    {
+      "source": "tax returns",
+      "target": "déclarations fiscales",
+      "mode": "translate"
+    },
+    {
+      "source": "tax underpayment",
+      "target": "insuffisance de paiement de l'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "tax year",
+      "target": "année fiscale",
+      "mode": "translate"
+    },
+    {
+      "source": "tax-free allowance",
+      "target": "abattement exonéré d'impôt",
+      "mode": "translate"
+    },
+    {
+      "source": "taxable income",
+      "target": "revenu imposable",
+      "mode": "translate"
+    },
+    {
+      "source": "withholding tax",
+      "target": "retenue à la source",
+      "mode": "translate"
+    }
+  ]
+}

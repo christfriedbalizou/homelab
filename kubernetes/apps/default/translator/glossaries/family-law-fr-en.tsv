@@ -1,0 +1,45 @@
+source	target	references	scope_note
+responsabilité parentale	parental responsibility	HAGUE	Treaty concept.
+autorité parentale	parental authority	HAGUE,FR-PARENTING	Preserves the French concept rather than equating national powers.
+résidence habituelle	habitual residence	HAGUE	Not domicile or nationality.
+droit de garde	rights of custody	HAGUE	Treaty terminology.
+droit de visite	rights of access	HAGUE	Treaty terminology; longer domestic phrase has priority.
+intérêt supérieur de l'enfant	best interests of the child	HAGUE	Child-protection context.
+déplacement illicite	wrongful removal	HAGUE	Cross-border child removal.
+non-retour illicite	wrongful retention	HAGUE	Cross-border child retention.
+juge aux affaires familiales	French family affairs judge	FR-PARENTING	French judicial office, not the name of a UK court.
+JAF	JAF	FR-PARENTING	Preserve French institutional abbreviation.
+convention parentale	parenting agreement	FR-PARENTING	Not automatically a UK child arrangements order.
+conventions parentales	parenting agreements	FR-PARENTING	Court approval remains a separate concept.
+médiation familiale	family mediation	FR-PARENTING	Descriptive equivalent.
+résidence alternée	alternating residence	FR-PARENTING	Not necessarily equal time or equal legal powers.
+résidence de l'enfant	child's residence	FR-PARENTING	Location of residence, not parental authority.
+droit de visite et d'hébergement	contact rights including overnight stays	FR-PARENTING	Avoid the narrower rights of access alone.
+exercice conjoint de l'autorité parentale	joint exercise of parental authority	FR-PARENTING	Not a UK shared residence order.
+pension alimentaire	maintenance payment	FR-PARENTING,FR-COMPENSATION	Beneficiary is context-dependent; do not force child or spouse.
+pensions alimentaires	maintenance payments	FR-PARENTING,FR-COMPENSATION	Beneficiary is context-dependent.
+pension alimentaire pour enfant	child maintenance	FR-PARENTING	Explicit child-specific phrase.
+arriérés de pension alimentaire	maintenance arrears	FR-PARENTING	Outstanding maintenance.
+contribution à l'entretien et à l'éducation de l'enfant	contribution towards the child's maintenance and education	FR-PARENTING	French statutory wording; not a separate UK institution.
+prestation compensatoire	divorce compensatory payment (prestation compensatoire)	FR-COMPENSATION	Not interchangeable with spousal maintenance or alimony.
+prestations compensatoires	divorce compensatory payments (prestations compensatoires)	FR-COMPENSATION	French remedy.
+versement en capital	lump sum payment	FR-COMPENSATION	Payment form only.
+rente viagère	life annuity	FR-COMPENSATION	Family award context.
+demande de divorce	divorce application	FR-SEPARATION	Generic application term.
+procédure de divorce	divorce proceedings	FR-SEPARATION	Generic proceedings term.
+jugement de divorce	divorce judgment	FR-SEPARATION	Not automatically an England/Wales final order.
+convention de divorce	divorce agreement	FR-COMPENSATION	Agreement, not a UK consent order.
+divorce par consentement mutuel	divorce by mutual consent	FR-COMPENSATION	Does not assert that the UK uses the same procedure.
+séparation de corps	legal separation under French law	FR-SEPARATION	French status; marriage continues.
+séparation de fait	de facto separation	FR-SEPARATION	Distinguish from legal separation.
+devoir de secours	marital duty of financial support under French law	FR-SEPARATION	Not automatically spousal maintenance after divorce.
+régime matrimonial	matrimonial property regime	FR-SEPARATION	French property-law concept.
+séparation de biens	separation of property regime	FR-SEPARATION	Not separation of the couple.
+liquidation du régime matrimonial	settlement of the matrimonial property regime	FR-COMPENSATION	Property-law settlement.
+biens communs	community property	FR-SEPARATION	French matrimonial-property context.
+biens propres	separate property	FR-SEPARATION	French matrimonial-property context.
+acte de mariage	marriage certificate	UK-DIVORCE,FR-SEPARATION	Generic document description.
+partenariat civil britannique	UK civil partnership	UK-DIVORCE	Explicit UK institution.
+pacte civil de solidarité	French civil solidarity pact (PACS)	FR-PACS	Not a UK civil partnership.
+PACS	PACS	FR-PACS	Preserve the French acronym.
+partenaires de Pacs	partners in a French civil solidarity pact	FR-PACS	Not spouses or UK civil partners.

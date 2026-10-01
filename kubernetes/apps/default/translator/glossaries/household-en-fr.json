@@ -1,0 +1,1248 @@
+{
+  "name": "UK–France | Household invoices, payslips & utilities | EN → FR",
+  "source_language": "en",
+  "target_language": "fr",
+  "shared": true,
+  "entries": [
+    {
+      "source": "ACTUAL READING",
+      "target": "RELEVÉ RÉEL",
+      "mode": "translate"
+    },
+    {
+      "source": "AMOUNT DUE",
+      "target": "MONTANT À PAYER",
+      "mode": "translate"
+    },
+    {
+      "source": "Actual Reading",
+      "target": "Relevé réel",
+      "mode": "translate"
+    },
+    {
+      "source": "Actual reading",
+      "target": "Relevé réel",
+      "mode": "translate"
+    },
+    {
+      "source": "Amount Due",
+      "target": "Montant à payer",
+      "mode": "translate"
+    },
+    {
+      "source": "Amount due",
+      "target": "Montant à payer",
+      "mode": "translate"
+    },
+    {
+      "source": "BANK TRANSFER",
+      "target": "VIREMENT BANCAIRE",
+      "mode": "translate"
+    },
+    {
+      "source": "BASIC PAY",
+      "target": "SALAIRE DE BASE",
+      "mode": "translate"
+    },
+    {
+      "source": "BILLING ADDRESS",
+      "target": "ADRESSE DE FACTURATION",
+      "mode": "translate"
+    },
+    {
+      "source": "BILLING PERIOD",
+      "target": "PÉRIODE DE FACTURATION",
+      "mode": "translate"
+    },
+    {
+      "source": "Bank Transfer",
+      "target": "Virement bancaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Bank transfer",
+      "target": "Virement bancaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Basic Pay",
+      "target": "Salaire de base",
+      "mode": "translate"
+    },
+    {
+      "source": "Basic pay",
+      "target": "Salaire de base",
+      "mode": "translate"
+    },
+    {
+      "source": "Billing Address",
+      "target": "Adresse de facturation",
+      "mode": "translate"
+    },
+    {
+      "source": "Billing Period",
+      "target": "Période de facturation",
+      "mode": "translate"
+    },
+    {
+      "source": "Billing address",
+      "target": "Adresse de facturation",
+      "mode": "translate"
+    },
+    {
+      "source": "Billing period",
+      "target": "Période de facturation",
+      "mode": "translate"
+    },
+    {
+      "source": "COUNCIL TAX",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "CUSTOMER NUMBER",
+      "target": "NUMÉRO DE CLIENT",
+      "mode": "translate"
+    },
+    {
+      "source": "CUSTOMER REFERENCE",
+      "target": "RÉFÉRENCE CLIENT",
+      "mode": "translate"
+    },
+    {
+      "source": "Council Tax",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Customer Number",
+      "target": "Numéro de client",
+      "mode": "translate"
+    },
+    {
+      "source": "Customer Reference",
+      "target": "Référence client",
+      "mode": "translate"
+    },
+    {
+      "source": "Customer number",
+      "target": "Numéro de client",
+      "mode": "translate"
+    },
+    {
+      "source": "Customer reference",
+      "target": "Référence client",
+      "mode": "translate"
+    },
+    {
+      "source": "DIRECT DEBIT",
+      "target": "PRÉLÈVEMENT AUTOMATIQUE",
+      "mode": "translate"
+    },
+    {
+      "source": "Direct Debit",
+      "target": "Prélèvement automatique",
+      "mode": "translate"
+    },
+    {
+      "source": "Direct debit",
+      "target": "Prélèvement automatique",
+      "mode": "translate"
+    },
+    {
+      "source": "ELECTRICITY BILL",
+      "target": "FACTURE D'ÉLECTRICITÉ",
+      "mode": "translate"
+    },
+    {
+      "source": "ELECTRICITY CONSUMPTION",
+      "target": "CONSOMMATION D'ÉLECTRICITÉ",
+      "mode": "translate"
+    },
+    {
+      "source": "ELECTRICITY SUPPLIER",
+      "target": "FOURNISSEUR D'ÉLECTRICITÉ",
+      "mode": "translate"
+    },
+    {
+      "source": "EMPLOYEE CONTRIBUTIONS",
+      "target": "COTISATIONS SALARIALES",
+      "mode": "translate"
+    },
+    {
+      "source": "EMPLOYER CONTRIBUTIONS",
+      "target": "COTISATIONS PATRONALES",
+      "mode": "translate"
+    },
+    {
+      "source": "ENERGY PRICE CAP",
+      "target": "PLAFONNEMENT DES TARIFS DE L'ÉNERGIE EN GRANDE-BRETAGNE",
+      "mode": "translate"
+    },
+    {
+      "source": "ENERGY SUPPLIER",
+      "target": "FOURNISSEUR D'ÉNERGIE",
+      "mode": "translate"
+    },
+    {
+      "source": "ESTIMATED READING",
+      "target": "RELEVÉ ESTIMÉ",
+      "mode": "translate"
+    },
+    {
+      "source": "EXCLUDING VAT",
+      "target": "HORS TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "Electricity Bill",
+      "target": "Facture d'électricité",
+      "mode": "translate"
+    },
+    {
+      "source": "Electricity Consumption",
+      "target": "Consommation d'électricité",
+      "mode": "translate"
+    },
+    {
+      "source": "Electricity Supplier",
+      "target": "Fournisseur d'électricité",
+      "mode": "translate"
+    },
+    {
+      "source": "Electricity bill",
+      "target": "Facture d'électricité",
+      "mode": "translate"
+    },
+    {
+      "source": "Electricity consumption",
+      "target": "Consommation d'électricité",
+      "mode": "translate"
+    },
+    {
+      "source": "Electricity supplier",
+      "target": "Fournisseur d'électricité",
+      "mode": "translate"
+    },
+    {
+      "source": "Employee Contributions",
+      "target": "Cotisations salariales",
+      "mode": "translate"
+    },
+    {
+      "source": "Employee contributions",
+      "target": "Cotisations salariales",
+      "mode": "translate"
+    },
+    {
+      "source": "Employer Contributions",
+      "target": "Cotisations patronales",
+      "mode": "translate"
+    },
+    {
+      "source": "Employer contributions",
+      "target": "Cotisations patronales",
+      "mode": "translate"
+    },
+    {
+      "source": "Energy Price Cap",
+      "target": "Plafonnement des tarifs de l'énergie en Grande-Bretagne",
+      "mode": "translate"
+    },
+    {
+      "source": "Energy Supplier",
+      "target": "Fournisseur d'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "Energy price cap",
+      "target": "Plafonnement des tarifs de l'énergie en Grande-Bretagne",
+      "mode": "translate"
+    },
+    {
+      "source": "Energy supplier",
+      "target": "Fournisseur d'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "Estimated Reading",
+      "target": "Relevé estimé",
+      "mode": "translate"
+    },
+    {
+      "source": "Estimated reading",
+      "target": "Relevé estimé",
+      "mode": "translate"
+    },
+    {
+      "source": "Excluding VAT",
+      "target": "Hors TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "Excluding Vat",
+      "target": "Hors TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "FIXED TARIFF",
+      "target": "TARIF FIXE",
+      "mode": "translate"
+    },
+    {
+      "source": "Fixed Tariff",
+      "target": "Tarif fixe",
+      "mode": "translate"
+    },
+    {
+      "source": "Fixed tariff",
+      "target": "Tarif fixe",
+      "mode": "translate"
+    },
+    {
+      "source": "GAS BILL",
+      "target": "FACTURE DE GAZ",
+      "mode": "translate"
+    },
+    {
+      "source": "GAS CONSUMPTION",
+      "target": "CONSOMMATION DE GAZ",
+      "mode": "translate"
+    },
+    {
+      "source": "GAS SUPPLIER",
+      "target": "FOURNISSEUR DE GAZ",
+      "mode": "translate"
+    },
+    {
+      "source": "GROSS PAY",
+      "target": "SALAIRE BRUT",
+      "mode": "translate"
+    },
+    {
+      "source": "Gas Bill",
+      "target": "Facture de gaz",
+      "mode": "translate"
+    },
+    {
+      "source": "Gas Consumption",
+      "target": "Consommation de gaz",
+      "mode": "translate"
+    },
+    {
+      "source": "Gas Supplier",
+      "target": "Fournisseur de gaz",
+      "mode": "translate"
+    },
+    {
+      "source": "Gas bill",
+      "target": "Facture de gaz",
+      "mode": "translate"
+    },
+    {
+      "source": "Gas consumption",
+      "target": "Consommation de gaz",
+      "mode": "translate"
+    },
+    {
+      "source": "Gas supplier",
+      "target": "Fournisseur de gaz",
+      "mode": "translate"
+    },
+    {
+      "source": "Gross Pay",
+      "target": "Salaire brut",
+      "mode": "translate"
+    },
+    {
+      "source": "Gross pay",
+      "target": "Salaire brut",
+      "mode": "translate"
+    },
+    {
+      "source": "HOURLY RATE",
+      "target": "TAUX HORAIRE",
+      "mode": "translate"
+    },
+    {
+      "source": "HOURS WORKED",
+      "target": "HEURES TRAVAILLÉES",
+      "mode": "translate"
+    },
+    {
+      "source": "Hourly Rate",
+      "target": "Taux horaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Hourly rate",
+      "target": "Taux horaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Hours Worked",
+      "target": "Heures travaillées",
+      "mode": "translate"
+    },
+    {
+      "source": "Hours worked",
+      "target": "Heures travaillées",
+      "mode": "translate"
+    },
+    {
+      "source": "INCLUDING VAT",
+      "target": "TVA COMPRISE",
+      "mode": "translate"
+    },
+    {
+      "source": "INCOME TAX",
+      "target": "IMPÔT SUR LE REVENU",
+      "mode": "translate"
+    },
+    {
+      "source": "INVOICE DATE",
+      "target": "DATE DE FACTURE",
+      "mode": "translate"
+    },
+    {
+      "source": "INVOICE NUMBER",
+      "target": "NUMÉRO DE FACTURE",
+      "mode": "translate"
+    },
+    {
+      "source": "Including VAT",
+      "target": "TVA comprise",
+      "mode": "translate"
+    },
+    {
+      "source": "Including Vat",
+      "target": "TVA comprise",
+      "mode": "translate"
+    },
+    {
+      "source": "Income Tax",
+      "target": "Impôt sur le revenu",
+      "mode": "translate"
+    },
+    {
+      "source": "Income tax",
+      "target": "Impôt sur le revenu",
+      "mode": "translate"
+    },
+    {
+      "source": "Invoice Date",
+      "target": "Date de facture",
+      "mode": "translate"
+    },
+    {
+      "source": "Invoice Number",
+      "target": "Numéro de facture",
+      "mode": "translate"
+    },
+    {
+      "source": "Invoice date",
+      "target": "Date de facture",
+      "mode": "translate"
+    },
+    {
+      "source": "Invoice number",
+      "target": "Numéro de facture",
+      "mode": "translate"
+    },
+    {
+      "source": "METER READING",
+      "target": "RELEVÉ DE COMPTEUR",
+      "mode": "translate"
+    },
+    {
+      "source": "METER READINGS",
+      "target": "RELEVÉS DE COMPTEUR",
+      "mode": "translate"
+    },
+    {
+      "source": "Meter Reading",
+      "target": "Relevé de compteur",
+      "mode": "translate"
+    },
+    {
+      "source": "Meter Readings",
+      "target": "Relevés de compteur",
+      "mode": "translate"
+    },
+    {
+      "source": "Meter reading",
+      "target": "Relevé de compteur",
+      "mode": "translate"
+    },
+    {
+      "source": "Meter readings",
+      "target": "Relevés de compteur",
+      "mode": "translate"
+    },
+    {
+      "source": "NATIONAL INSURANCE CONTRIBUTIONS",
+      "target": "COTISATIONS BRITANNIQUES DE NATIONAL INSURANCE",
+      "mode": "translate"
+    },
+    {
+      "source": "NATIONAL INSURANCE NUMBER",
+      "target": "NUMÉRO BRITANNIQUE DE NATIONAL INSURANCE",
+      "mode": "translate"
+    },
+    {
+      "source": "NET PAY",
+      "target": "SALAIRE NET",
+      "mode": "translate"
+    },
+    {
+      "source": "National Insurance Contributions",
+      "target": "Cotisations britanniques de National Insurance",
+      "mode": "translate"
+    },
+    {
+      "source": "National Insurance Number",
+      "target": "Numéro britannique de National Insurance",
+      "mode": "translate"
+    },
+    {
+      "source": "National Insurance contributions",
+      "target": "Cotisations britanniques de National Insurance",
+      "mode": "translate"
+    },
+    {
+      "source": "National Insurance number",
+      "target": "Numéro britannique de National Insurance",
+      "mode": "translate"
+    },
+    {
+      "source": "Net Pay",
+      "target": "Salaire net",
+      "mode": "translate"
+    },
+    {
+      "source": "Net pay",
+      "target": "Salaire net",
+      "mode": "translate"
+    },
+    {
+      "source": "OFF-PEAK HOURS",
+      "target": "HEURES CREUSES",
+      "mode": "translate"
+    },
+    {
+      "source": "OVERTIME PAY",
+      "target": "RÉMUNÉRATION DES HEURES SUPPLÉMENTAIRES",
+      "mode": "translate"
+    },
+    {
+      "source": "Off-peak Hours",
+      "target": "Heures creuses",
+      "mode": "translate"
+    },
+    {
+      "source": "Off-peak hours",
+      "target": "Heures creuses",
+      "mode": "translate"
+    },
+    {
+      "source": "Overtime Pay",
+      "target": "Rémunération des heures supplémentaires",
+      "mode": "translate"
+    },
+    {
+      "source": "Overtime pay",
+      "target": "Rémunération des heures supplémentaires",
+      "mode": "translate"
+    },
+    {
+      "source": "PAY PERIOD",
+      "target": "PÉRIODE DE PAIE",
+      "mode": "translate"
+    },
+    {
+      "source": "PAYE",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "PAYMENT DATE",
+      "target": "DATE DE PAIEMENT",
+      "mode": "translate"
+    },
+    {
+      "source": "PAYMENT DUE DATE",
+      "target": "DATE LIMITE DE PAIEMENT",
+      "mode": "translate"
+    },
+    {
+      "source": "PAYMENT TERMS",
+      "target": "CONDITIONS DE PAIEMENT",
+      "mode": "translate"
+    },
+    {
+      "source": "PAYSLIP",
+      "target": "BULLETIN DE PAIE",
+      "mode": "translate"
+    },
+    {
+      "source": "PAYSLIPS",
+      "target": "BULLETINS DE PAIE",
+      "mode": "translate"
+    },
+    {
+      "source": "PEAK HOURS",
+      "target": "HEURES PLEINES",
+      "mode": "translate"
+    },
+    {
+      "source": "PENSION CONTRIBUTIONS",
+      "target": "COTISATIONS DE RETRAITE",
+      "mode": "translate"
+    },
+    {
+      "source": "PREPAYMENT METER",
+      "target": "COMPTEUR À PRÉPAIEMENT",
+      "mode": "translate"
+    },
+    {
+      "source": "Pay Period",
+      "target": "Période de paie",
+      "mode": "translate"
+    },
+    {
+      "source": "Pay period",
+      "target": "Période de paie",
+      "mode": "translate"
+    },
+    {
+      "source": "Paye",
+      "target": "",
+      "mode": "preserve"
+    },
+    {
+      "source": "Payment Date",
+      "target": "Date de paiement",
+      "mode": "translate"
+    },
+    {
+      "source": "Payment Due Date",
+      "target": "Date limite de paiement",
+      "mode": "translate"
+    },
+    {
+      "source": "Payment Terms",
+      "target": "Conditions de paiement",
+      "mode": "translate"
+    },
+    {
+      "source": "Payment date",
+      "target": "Date de paiement",
+      "mode": "translate"
+    },
+    {
+      "source": "Payment due date",
+      "target": "Date limite de paiement",
+      "mode": "translate"
+    },
+    {
+      "source": "Payment terms",
+      "target": "Conditions de paiement",
+      "mode": "translate"
+    },
+    {
+      "source": "Payslip",
+      "target": "Bulletin de paie",
+      "mode": "translate"
+    },
+    {
+      "source": "Payslips",
+      "target": "Bulletins de paie",
+      "mode": "translate"
+    },
+    {
+      "source": "Peak Hours",
+      "target": "Heures pleines",
+      "mode": "translate"
+    },
+    {
+      "source": "Peak hours",
+      "target": "Heures pleines",
+      "mode": "translate"
+    },
+    {
+      "source": "Pension Contributions",
+      "target": "Cotisations de retraite",
+      "mode": "translate"
+    },
+    {
+      "source": "Pension contributions",
+      "target": "Cotisations de retraite",
+      "mode": "translate"
+    },
+    {
+      "source": "Prepayment Meter",
+      "target": "Compteur à prépaiement",
+      "mode": "translate"
+    },
+    {
+      "source": "Prepayment meter",
+      "target": "Compteur à prépaiement",
+      "mode": "translate"
+    },
+    {
+      "source": "SMART METER",
+      "target": "COMPTEUR COMMUNICANT",
+      "mode": "translate"
+    },
+    {
+      "source": "STANDING CHARGE",
+      "target": "PART FIXE DE LA FACTURE D'ÉNERGIE",
+      "mode": "translate"
+    },
+    {
+      "source": "STANDING CHARGES",
+      "target": "PARTS FIXES DE LA FACTURE D'ÉNERGIE",
+      "mode": "translate"
+    },
+    {
+      "source": "STANDING ORDER",
+      "target": "VIREMENT PERMANENT",
+      "mode": "translate"
+    },
+    {
+      "source": "STUDENT LOAN REPAYMENTS",
+      "target": "REMBOURSEMENTS DE PRÊT ÉTUDIANT",
+      "mode": "translate"
+    },
+    {
+      "source": "SUPPLY ADDRESS",
+      "target": "ADRESSE DE FOURNITURE",
+      "mode": "translate"
+    },
+    {
+      "source": "Smart Meter",
+      "target": "Compteur communicant",
+      "mode": "translate"
+    },
+    {
+      "source": "Smart meter",
+      "target": "Compteur communicant",
+      "mode": "translate"
+    },
+    {
+      "source": "Standing Charge",
+      "target": "Part fixe de la facture d'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "Standing Charges",
+      "target": "Parts fixes de la facture d'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "Standing Order",
+      "target": "Virement permanent",
+      "mode": "translate"
+    },
+    {
+      "source": "Standing charge",
+      "target": "Part fixe de la facture d'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "Standing charges",
+      "target": "Parts fixes de la facture d'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "Standing order",
+      "target": "Virement permanent",
+      "mode": "translate"
+    },
+    {
+      "source": "Student Loan Repayments",
+      "target": "Remboursements de prêt étudiant",
+      "mode": "translate"
+    },
+    {
+      "source": "Student loan repayments",
+      "target": "Remboursements de prêt étudiant",
+      "mode": "translate"
+    },
+    {
+      "source": "Supply Address",
+      "target": "Adresse de fourniture",
+      "mode": "translate"
+    },
+    {
+      "source": "Supply address",
+      "target": "Adresse de fourniture",
+      "mode": "translate"
+    },
+    {
+      "source": "TAX CODE",
+      "target": "CODE FISCAL DE RETENUE SUR SALAIRE (TAX CODE)",
+      "mode": "translate"
+    },
+    {
+      "source": "TOTAL AMOUNT DUE",
+      "target": "MONTANT TOTAL À PAYER",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax Code",
+      "target": "Code fiscal de retenue sur salaire (tax code)",
+      "mode": "translate"
+    },
+    {
+      "source": "Tax code",
+      "target": "Code fiscal de retenue sur salaire (tax code)",
+      "mode": "translate"
+    },
+    {
+      "source": "Total Amount Due",
+      "target": "Montant total à payer",
+      "mode": "translate"
+    },
+    {
+      "source": "Total amount due",
+      "target": "Montant total à payer",
+      "mode": "translate"
+    },
+    {
+      "source": "UNIT PRICE",
+      "target": "PRIX UNITAIRE",
+      "mode": "translate"
+    },
+    {
+      "source": "UNIT RATE",
+      "target": "TARIF UNITAIRE DE L'ÉNERGIE",
+      "mode": "translate"
+    },
+    {
+      "source": "Unit Price",
+      "target": "Prix unitaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Unit Rate",
+      "target": "Tarif unitaire de l'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "Unit price",
+      "target": "Prix unitaire",
+      "mode": "translate"
+    },
+    {
+      "source": "Unit rate",
+      "target": "Tarif unitaire de l'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "VALUE ADDED TAX",
+      "target": "TAXE SUR LA VALEUR AJOUTÉE",
+      "mode": "translate"
+    },
+    {
+      "source": "VARIABLE TARIFF",
+      "target": "TARIF VARIABLE",
+      "mode": "translate"
+    },
+    {
+      "source": "VAT",
+      "target": "TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "VAT AMOUNT",
+      "target": "MONTANT DE LA TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "VAT RATE",
+      "target": "TAUX DE TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "VAT amount",
+      "target": "Montant de la TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "VAT rate",
+      "target": "Taux de TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "Value Added Tax",
+      "target": "Taxe sur la valeur ajoutée",
+      "mode": "translate"
+    },
+    {
+      "source": "Value added tax",
+      "target": "Taxe sur la valeur ajoutée",
+      "mode": "translate"
+    },
+    {
+      "source": "Variable Tariff",
+      "target": "Tarif variable",
+      "mode": "translate"
+    },
+    {
+      "source": "Variable tariff",
+      "target": "Tarif variable",
+      "mode": "translate"
+    },
+    {
+      "source": "Vat",
+      "target": "TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "Vat Amount",
+      "target": "Montant de la TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "Vat Rate",
+      "target": "Taux de TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "WASTEWATER CHARGES",
+      "target": "FRAIS D'ASSAINISSEMENT",
+      "mode": "translate"
+    },
+    {
+      "source": "WATER BILL",
+      "target": "FACTURE D'EAU",
+      "mode": "translate"
+    },
+    {
+      "source": "WATER METER",
+      "target": "COMPTEUR D'EAU",
+      "mode": "translate"
+    },
+    {
+      "source": "Wastewater Charges",
+      "target": "Frais d'assainissement",
+      "mode": "translate"
+    },
+    {
+      "source": "Wastewater charges",
+      "target": "Frais d'assainissement",
+      "mode": "translate"
+    },
+    {
+      "source": "Water Bill",
+      "target": "Facture d'eau",
+      "mode": "translate"
+    },
+    {
+      "source": "Water Meter",
+      "target": "Compteur d'eau",
+      "mode": "translate"
+    },
+    {
+      "source": "Water bill",
+      "target": "Facture d'eau",
+      "mode": "translate"
+    },
+    {
+      "source": "Water meter",
+      "target": "Compteur d'eau",
+      "mode": "translate"
+    },
+    {
+      "source": "actual reading",
+      "target": "relevé réel",
+      "mode": "translate"
+    },
+    {
+      "source": "amount due",
+      "target": "montant à payer",
+      "mode": "translate"
+    },
+    {
+      "source": "bank transfer",
+      "target": "virement bancaire",
+      "mode": "translate"
+    },
+    {
+      "source": "basic pay",
+      "target": "salaire de base",
+      "mode": "translate"
+    },
+    {
+      "source": "billing address",
+      "target": "adresse de facturation",
+      "mode": "translate"
+    },
+    {
+      "source": "billing period",
+      "target": "période de facturation",
+      "mode": "translate"
+    },
+    {
+      "source": "customer number",
+      "target": "numéro de client",
+      "mode": "translate"
+    },
+    {
+      "source": "customer reference",
+      "target": "référence client",
+      "mode": "translate"
+    },
+    {
+      "source": "direct debit",
+      "target": "prélèvement automatique",
+      "mode": "translate"
+    },
+    {
+      "source": "electricity bill",
+      "target": "facture d'électricité",
+      "mode": "translate"
+    },
+    {
+      "source": "electricity consumption",
+      "target": "consommation d'électricité",
+      "mode": "translate"
+    },
+    {
+      "source": "electricity supplier",
+      "target": "fournisseur d'électricité",
+      "mode": "translate"
+    },
+    {
+      "source": "employee contributions",
+      "target": "cotisations salariales",
+      "mode": "translate"
+    },
+    {
+      "source": "employer contributions",
+      "target": "cotisations patronales",
+      "mode": "translate"
+    },
+    {
+      "source": "energy price cap",
+      "target": "plafonnement des tarifs de l'énergie en Grande-Bretagne",
+      "mode": "translate"
+    },
+    {
+      "source": "energy supplier",
+      "target": "fournisseur d'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "estimated reading",
+      "target": "relevé estimé",
+      "mode": "translate"
+    },
+    {
+      "source": "excluding VAT",
+      "target": "hors TVA",
+      "mode": "translate"
+    },
+    {
+      "source": "fixed tariff",
+      "target": "tarif fixe",
+      "mode": "translate"
+    },
+    {
+      "source": "gas bill",
+      "target": "facture de gaz",
+      "mode": "translate"
+    },
+    {
+      "source": "gas consumption",
+      "target": "consommation de gaz",
+      "mode": "translate"
+    },
+    {
+      "source": "gas supplier",
+      "target": "fournisseur de gaz",
+      "mode": "translate"
+    },
+    {
+      "source": "gross pay",
+      "target": "salaire brut",
+      "mode": "translate"
+    },
+    {
+      "source": "hourly rate",
+      "target": "taux horaire",
+      "mode": "translate"
+    },
+    {
+      "source": "hours worked",
+      "target": "heures travaillées",
+      "mode": "translate"
+    },
+    {
+      "source": "including VAT",
+      "target": "TVA comprise",
+      "mode": "translate"
+    },
+    {
+      "source": "income tax",
+      "target": "impôt sur le revenu",
+      "mode": "translate"
+    },
+    {
+      "source": "invoice date",
+      "target": "date de facture",
+      "mode": "translate"
+    },
+    {
+      "source": "invoice number",
+      "target": "numéro de facture",
+      "mode": "translate"
+    },
+    {
+      "source": "meter reading",
+      "target": "relevé de compteur",
+      "mode": "translate"
+    },
+    {
+      "source": "meter readings",
+      "target": "relevés de compteur",
+      "mode": "translate"
+    },
+    {
+      "source": "net pay",
+      "target": "salaire net",
+      "mode": "translate"
+    },
+    {
+      "source": "off-peak hours",
+      "target": "heures creuses",
+      "mode": "translate"
+    },
+    {
+      "source": "overtime pay",
+      "target": "rémunération des heures supplémentaires",
+      "mode": "translate"
+    },
+    {
+      "source": "pay period",
+      "target": "période de paie",
+      "mode": "translate"
+    },
+    {
+      "source": "payment date",
+      "target": "date de paiement",
+      "mode": "translate"
+    },
+    {
+      "source": "payment due date",
+      "target": "date limite de paiement",
+      "mode": "translate"
+    },
+    {
+      "source": "payment terms",
+      "target": "conditions de paiement",
+      "mode": "translate"
+    },
+    {
+      "source": "payslip",
+      "target": "bulletin de paie",
+      "mode": "translate"
+    },
+    {
+      "source": "payslips",
+      "target": "bulletins de paie",
+      "mode": "translate"
+    },
+    {
+      "source": "peak hours",
+      "target": "heures pleines",
+      "mode": "translate"
+    },
+    {
+      "source": "pension contributions",
+      "target": "cotisations de retraite",
+      "mode": "translate"
+    },
+    {
+      "source": "prepayment meter",
+      "target": "compteur à prépaiement",
+      "mode": "translate"
+    },
+    {
+      "source": "smart meter",
+      "target": "compteur communicant",
+      "mode": "translate"
+    },
+    {
+      "source": "standing charge",
+      "target": "part fixe de la facture d'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "standing charges",
+      "target": "parts fixes de la facture d'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "standing order",
+      "target": "virement permanent",
+      "mode": "translate"
+    },
+    {
+      "source": "student loan repayments",
+      "target": "remboursements de prêt étudiant",
+      "mode": "translate"
+    },
+    {
+      "source": "supply address",
+      "target": "adresse de fourniture",
+      "mode": "translate"
+    },
+    {
+      "source": "tax code",
+      "target": "code fiscal de retenue sur salaire (tax code)",
+      "mode": "translate"
+    },
+    {
+      "source": "total amount due",
+      "target": "montant total à payer",
+      "mode": "translate"
+    },
+    {
+      "source": "unit price",
+      "target": "prix unitaire",
+      "mode": "translate"
+    },
+    {
+      "source": "unit rate",
+      "target": "tarif unitaire de l'énergie",
+      "mode": "translate"
+    },
+    {
+      "source": "value added tax",
+      "target": "taxe sur la valeur ajoutée",
+      "mode": "translate"
+    },
+    {
+      "source": "variable tariff",
+      "target": "tarif variable",
+      "mode": "translate"
+    },
+    {
+      "source": "wastewater charges",
+      "target": "frais d'assainissement",
+      "mode": "translate"
+    },
+    {
+      "source": "water bill",
+      "target": "facture d'eau",
+      "mode": "translate"
+    },
+    {
+      "source": "water meter",
+      "target": "compteur d'eau",
+      "mode": "translate"
+    }
+  ]
+}
