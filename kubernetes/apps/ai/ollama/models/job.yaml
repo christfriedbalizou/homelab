@@ -3,7 +3,9 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: ollama-pull-local-models-v2
+  # Job specs are immutable. Bump the name whenever the model set changes so
+  # Flux creates a new pull instead of attempting to patch the completed Job.
+  name: ollama-pull-local-models-v3
 spec:
   backoffLimit: 3
   activeDeadlineSeconds: 3600
@@ -31,7 +33,7 @@ spec:
               until ollama list >/dev/null 2>&1; do
                 sleep 5
               done
-              for model in qwen3:4b-q4_K_M qwen3:1.7b-q4_K_M qwen2.5-coder:3b-instruct-q4_K_M; do
+              for model in qwen3:4b-q4_K_M qwen3:1.7b-q4_K_M qwen2.5-coder:3b-instruct-q4_K_M translategemma:4b-it-q4_K_M; do
                 ollama pull "$model"
                 ollama show "$model" >/dev/null
               done

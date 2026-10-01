@@ -91,7 +91,6 @@ spec:
               TRANSLATION_PROVIDER_CONCURRENCY: "1"
               TRANSLATION_JOB_TIMEOUT_SECONDS: "1800"
               TRANSLATION_MAX_ATTEMPTS: "3"
-              CURRENCY__AUTOMATIC_ENABLED: "false"
               SOURCE_DISTRIBUTION__ARCHIVE: /release/source.tar.gz
               SOURCE_DISTRIBUTION__REVISION: 3e8c4894afd59cefd288684efecc85fc2dca3fea
               SOURCE_DISTRIBUTION__SHA256: 622dcae8eefdc6882e52d47d1dd96e7ff85d0f49842bfe29809d807cb68ac81d

@@ -11,3 +11,4 @@ resources:
   - ./qwen3-local-think-ollama.yaml
   - ./qwen3-local-fast-ollama.yaml
   - ./qwen2-5-coder-local-ollama.yaml
+  - ./translategemma-local-ollama.yaml
