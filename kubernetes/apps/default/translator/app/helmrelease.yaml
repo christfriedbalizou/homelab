@@ -44,12 +44,12 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile:
               type: RuntimeDefault
-        initContainers:
-          migrate:
+        containers:
+          app:
             image: &image
               repository: ghcr.io/christfriedbalizou/translator
               tag: 0.4.0@sha256:726f05cd023a010425b4f4b4582cdcdd4e096ae0043b761be9da8fadb315fa15
-            args: [migrate]
+            args: [api]
             env: &env
               TZ: ${TIMEZONE}
               PRODUCTION: "true"
@@ -104,20 +104,6 @@ spec:
               readOnlyRootFilesystem: true
               capabilities:
                 drop: [ALL]
-            resources:
-              requests:
-                cpu: 100m
-                memory: 256Mi
-              limits:
-                cpu: "1"
-                memory: 1Gi
-        containers:
-          app:
-            image: *image
-            args: [api]
-            env: *env
-            envFrom: *envFrom
-            securityContext: *security
             resources:
               requests:
                 cpu: 100m
