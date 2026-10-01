@@ -209,14 +209,6 @@ spec:
               request: 0s
               backendRequest: 0s
     persistence:
-      documents:
-        # Retained for rollback and the startup check for unmigrated documents.
-        type: nfs
-        server: ${NFS_SERVER_APPS}
-        path: /volume1/apps/default/translator/documents
-        globalMounts:
-          - path: /data/documents
-            readOnly: true
       release:
         type: nfs
         server: ${NFS_SERVER_APPS}
