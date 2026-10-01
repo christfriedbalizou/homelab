@@ -174,19 +174,6 @@ spec:
               limits:
                 cpu: "2"
                 memory: 10Gi
-          retention:
-            image: *image
-            command: [/bin/sh, /deployment/retention.sh]
-            env: *env
-            envFrom: *envFrom
-            securityContext: *security
-            resources:
-              requests:
-                cpu: 10m
-                memory: 128Mi
-              limits:
-                cpu: "1"
-                memory: 512Mi
     service:
       app:
         controller: translator
@@ -228,9 +215,6 @@ spec:
               - path: /source
                 readOnly: true
             worker:
-              - path: /source
-                readOnly: true
-            retention:
               - path: /source
                 readOnly: true
       keys:

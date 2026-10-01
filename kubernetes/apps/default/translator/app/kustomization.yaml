@@ -9,6 +9,5 @@ configMapGenerator:
   - name: translator-bootstrap
     files:
       - bootstrap.py=./resources/bootstrap.py
-      - retention.sh=./resources/retention.sh
 generatorOptions:
   disableNameSuffixHash: true
