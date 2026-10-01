@@ -51,6 +51,11 @@ def verify_release(settings: Settings) -> None:
     ):
         if len(path.read_bytes()) != 32:
             raise RuntimeError("invalid_deployment_key")
+    if settings.ingestion.storage_backend == "s3":
+        # The initial cutover has no documents. Fail closed if a local writer
+        # creates one before the Recreate rollout stops the old deployment.
+        if any(settings.ingestion.local_storage_path.iterdir()):
+            raise RuntimeError("local_documents_require_s3_migration")
 
 
 async def bootstrap(settings: Settings) -> None:

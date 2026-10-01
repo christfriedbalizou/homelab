@@ -70,7 +70,9 @@ spec:
               # Only Envoy can reach the API; use its pod subnet for forwarded IPs.
               HTTP_SECURITY__TRUSTED_PROXY_IPS: '["10.42.0.0/16"]'
               INGESTION__MASTER_KEY_FILE: /run/secrets/document-master-key
-              INGESTION__STORAGE_BACKEND: local
+              INGESTION__STORAGE_BACKEND: s3
+              INGESTION__S3_ENDPOINT_URL: http://minio.storage.svc.cluster.local:9000
+              INGESTION__S3_CREDENTIALS_FILE: /run/secrets/s3-credentials
               INGESTION__LOCAL_STORAGE_PATH: /data/documents
               INGESTION__MAX_UPLOAD_BYTES: "52428800"
               INGESTION__MAX_FILES_PER_BATCH: "10"
@@ -208,11 +210,13 @@ spec:
               backendRequest: 0s
     persistence:
       documents:
+        # Retained for rollback and the startup check for unmigrated documents.
         type: nfs
         server: ${NFS_SERVER_APPS}
         path: /volume1/apps/default/translator/documents
         globalMounts:
           - path: /data/documents
+            readOnly: true
       release:
         type: nfs
         server: ${NFS_SERVER_APPS}
