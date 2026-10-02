@@ -38,7 +38,7 @@ spec:
               ENABLE_OAUTH_ROLE_MANAGEMENT: "true"
               ENABLE_SIGNUP: "false"
               DEFAULT_USER_ROLE: user
-              DEFAULT_MODELS: qwen3:4b
+              DEFAULT_MODELS: qwen3-local
               OAUTH_ADMIN_ROLES: admin
               OAUTH_ALLOWED_ROLES: family
               OAUTH_CLIENT_ID: open-webui
@@ -47,12 +47,26 @@ spec:
               OAUTH_ROLES_CLAIM: groups
               OAUTH_SCOPES: openid email profile groups
               OAUTH_TOKEN_ENDPOINT_AUTH_METHOD: client_secret_post
-              ENABLE_OPENAI_API: "false"
-              ENABLE_OLLAMA_API: "true"
-              OLLAMA_BASE_URL: http://ollama:11434
+              # Keep the GitOps connection settings authoritative over saved UI values.
+              ENABLE_PERSISTENT_CONFIG: "false"
+              ENABLE_OPENAI_API: "true"
+              ENABLE_OLLAMA_API: "false"
+              OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1
+              OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-open-webui-secrets
+                    key: OPENAI_API_KEY
+              MEMINI_BASE_URL: http://memini.ai.svc.cluster.local:8080
+              MEMINI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-memini-secrets
+                    key: MEMINI_API_KEY
               OPENID_PROVIDER_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
               OPENID_REDIRECT_URI: https://ai.${SECRET_DOMAIN}/oauth/oidc/callback
               RAG_EMBEDDING_ENGINE: ollama
+              RAG_OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local:11434
               RAG_EMBEDDING_MODEL: nomic-embed-text:latest
               RAG_EMBEDDING_MODEL_AUTO_UPDATE: "false"
               REDIS_KEY_PREFIX: open-webui
