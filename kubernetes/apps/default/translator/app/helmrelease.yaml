@@ -48,10 +48,12 @@ spec:
           app:
             image: &image
               repository: ghcr.io/christfriedbalizou/translator
-              tag: 0.6.0@sha256:183ebdd2ea23c43e65541f3822f95a47fb806d55b86e4f91a0a298dadad173e2
+              tag: 0.6.0@sha256:647e451cb125e5a2a6560dffb8ddc0a3895dcbb20815bbe68cd4baee24dab9c2
             args: [api]
             env: &env
               TZ: ${TIMEZONE}
+              TRANSLATOR_GPG_PRIVATE_KEY_FILE: /run/secrets/translator-private-key
+              TRANSLATOR_GPG_PASSPHRASE_FILE: /run/secrets/translator-passphrase
               PRODUCTION: "true"
               OIDC_ISSUER: https://auth.${SECRET_DOMAIN}
               OIDC_CLIENT_ID: translator
@@ -109,10 +111,10 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 512Mi
+                memory: 4Gi
               limits:
                 cpu: "2"
-                memory: 2Gi
+                memory: 6Gi
             probes:
               startup:
                 enabled: true
@@ -152,10 +154,10 @@ spec:
             resources:
               requests:
                 cpu: 500m
-                memory: 2Gi
+                memory: 6Gi
               limits:
                 cpu: "2"
-                memory: 10Gi
+                memory: 14Gi
     service:
       app:
         controller: translator
@@ -178,6 +180,23 @@ spec:
               request: 0s
               backendRequest: 0s
     persistence:
+      # Each container decrypts its Python environment into its own executable tmpfs.
+      api-code:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 4Gi
+        advancedMounts:
+          translator:
+            app:
+              - path: /opt/translator
+      worker-code:
+        type: emptyDir
+        medium: Memory
+        sizeLimit: 4Gi
+        advancedMounts:
+          translator:
+            worker:
+              - path: /opt/translator
       release:
         type: nfs
         server: ${NFS_SERVER_APPS}
