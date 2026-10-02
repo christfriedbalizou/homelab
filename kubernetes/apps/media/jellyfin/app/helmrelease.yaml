@@ -117,6 +117,6 @@ spec:
       transcode:
         type: emptyDir
         medium: Memory
-        sizeLimit: 2Gi
+        sizeLimit: 5Gi
         globalMounts:
           - path: /transcode
