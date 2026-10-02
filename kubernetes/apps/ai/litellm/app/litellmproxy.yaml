@@ -9,6 +9,8 @@ spec:
   image: ghcr.io/berriai/litellm:v1.103.2@sha256:f63fb81b831b170ec16851e23c36ac5bf52ef106b271406429524a2ed730bbfd
   replicas: 1
   generalSettings:
+    store_model_in_db: true
+    store_prompts_in_spend_logs: true
     health_check_endpoint: /v1/health
     disable_env_credential_login: true
     ui_access_mode: admin_only
@@ -38,6 +40,8 @@ spec:
     drop_params: true
     merge_reasoning_content_in_choices: true
   env:
+    - name: AUTO_REDIRECT_UI_LOGIN_TO_SSO
+      value: "true"
     - name: LITELLM_LOG
       value: INFO
     - name: LITELLM_MODE
