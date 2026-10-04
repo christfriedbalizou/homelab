@@ -87,7 +87,7 @@ spec:
                   - ALL
             image:
               repository: registry.erwanleboucher.dev/eleboucher/memini
-              tag: 0.7.32
+              tag: 0.7.34
               digest: sha256:1e060967d6fd11dfb79eeaa67d8745e0dde5d946ca1b7dd7469b4fad2fac0c1d
           backup:
             image:
