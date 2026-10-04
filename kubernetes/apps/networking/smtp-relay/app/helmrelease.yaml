@@ -32,7 +32,7 @@ spec:
           main:
             image:
               repository: ghcr.io/foxcpp/maddy
-              tag: 0.9.5
+              tag: 0.9.6
             env:
               DEBUG: "false"
               SMTP_DOMAIN: ${SMTP_DOMAIN}
