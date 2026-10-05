@@ -5,64 +5,64 @@ metrics:
     message: 146d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-05T03:10:08+00:00'
+    pulledAt: '2026-10-05T13:05:35+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-05T03:10:09+00:00'
+    pulledAt: '2026-10-05T13:05:35+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '165'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-05T03:10:09+00:00'
+    pulledAt: '2026-10-05T13:05:36+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 16.4%
+    message: 18.5%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-05T03:10:10+00:00'
+    pulledAt: '2026-10-05T13:05:36+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 40.1%
+    message: 42.2%
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-10-05T03:10:10+00:00'
+    pulledAt: '2026-10-05T13:05:36+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Homelab power
-    message: 422w
+    message: 435w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-10-05T03:10:10+00:00'
+    pulledAt: '2026-10-05T13:05:37+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
-    message: 3d
+    message: 4d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-05T03:10:11+00:00'
+    pulledAt: '2026-10-05T13:05:37+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.14.2
     cacheSeconds: 300
-    pulledAt: '2026-10-05T03:10:11+00:00'
+    pulledAt: '2026-10-05T13:05:38+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.37.1
     cacheSeconds: 300
-    pulledAt: '2026-10-05T03:10:11+00:00'
+    pulledAt: '2026-10-05T13:05:38+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.6
     cacheSeconds: 300
-    pulledAt: '2026-10-05T03:10:12+00:00'
+    pulledAt: '2026-10-05T13:05:38+00:00'
