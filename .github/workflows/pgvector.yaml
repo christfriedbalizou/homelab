@@ -6,6 +6,14 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - kubernetes/apps/storage/cloudnative-pg/cluster/**
+      - kubernetes/apps/storage/cloudnative-pg/databases/immich.yaml
+      - kubernetes/apps/default/immich/app/helmrelease.yaml
+      - .github/scripts/sync-pgvector*.mjs
+      - .github/workflows/pgvector.yaml
+      - .github/workflows/renovate.yaml
+      - .renovaterc.json5
   workflow_dispatch:
 
 permissions:
