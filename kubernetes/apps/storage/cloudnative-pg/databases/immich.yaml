@@ -38,5 +38,5 @@ spec:
     ensure: present
   - name: vector
     ensure: present
-    # Match the version available in PostgreSQL; Immich cannot upgrade extensions.
+    # Generated from the pinned PostgreSQL image by .github/scripts/sync-pgvector.mjs.
     version: 0.8.6

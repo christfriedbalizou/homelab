@@ -39,29 +39,23 @@
   kustomize: {
     managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
   },
-  customManagers: [
-    {
-      description: "Track Immich's declarative pgvector extension version",
-      customType: "regex",
-      managerFilePatterns: ["/^kubernetes/apps/storage/cloudnative-pg/databases/immich\\.yaml$/"],
-      matchStrings: [
-        "- name: vector\\r?\\n(?:[ \\t]+[^\\r\\n]+\\r?\\n)*?[ \\t]+version: (?<currentValue>\\d+\\.\\d+\\.\\d+)",
-      ],
-      depNameTemplate: "pgvector/pgvector",
-      datasourceTemplate: "github-tags",
-      versioningTemplate: "semver",
-      extractVersionTemplate: "^v(?<version>\\d+\\.\\d+\\.\\d+)$",
-    },
-  ],
   packageRules: [
     {
-      description: "Review pgvector updates against the deployed PostgreSQL image and Immich",
-      matchDatasources: ["github-tags"],
-      matchPackageNames: ["pgvector/pgvector"],
+      description: "Derive Immich's pgvector version from the pinned PostgreSQL image",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/cloudnative-pg/postgresql"],
+      // PostgreSQL major upgrades require a separate migration.
+      allowedVersions: "/^18\\./",
+      pinDigests: true,
       automerge: false,
-      groupName: null,
+      groupName: "postgresql",
+      postUpgradeTasks: {
+        commands: ["node .github/scripts/sync-pgvector.mjs --write"],
+        fileFilters: ["kubernetes/apps/storage/cloudnative-pg/databases/immich.yaml"],
+        executionMode: "branch",
+      },
       prBodyNotes: [
-        "Before merging, confirm this pgvector version is available in the deployed CloudNativePG PostgreSQL image and supported by Immich. Updating Database.spec.extensions only upgrades the SQL extension; it does not install extension binaries. Deploy a compatible PostgreSQL image first if needed.",
+        "The pgvector SQL version is derived from this exact PostgreSQL image on AMD64 and ARM64. The Pgvector compatibility check must pass before merging; CloudNativePG applies the database extension after the cluster dependency is ready.",
       ],
     },
     {

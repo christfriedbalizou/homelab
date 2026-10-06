@@ -9,6 +9,8 @@ on:
     paths:
       - .renovaterc.json5
       - .renovate/**.json5
+      - .github/scripts/sync-pgvector.mjs
+      - .github/workflows/renovate.yaml
   schedule:
     - cron: 0 * * * *
   workflow_dispatch:
@@ -68,6 +70,8 @@ jobs:
           RENOVATE_INTERNAL_CHECKS_FILTER: strict
           RENOVATE_PLATFORM: github
           RENOVATE_PLATFORM_COMMIT: true
+          RENOVATE_ALLOWED_COMMANDS: '["^node \\.github/scripts/sync-pgvector\\.mjs --write$"]'
         with:
           token: ${{ steps.app-token.outputs.token }}
           renovate-version: ${{ inputs.version || 'latest' }}
+          mount-docker-socket: true
