@@ -38,3 +38,5 @@ spec:
     ensure: present
   - name: vector
     ensure: present
+    # Match the version available in PostgreSQL; Immich cannot upgrade extensions.
+    version: 0.8.6

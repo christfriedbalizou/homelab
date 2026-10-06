@@ -39,7 +39,31 @@
   kustomize: {
     managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
   },
+  customManagers: [
+    {
+      description: "Track Immich's declarative pgvector extension version",
+      customType: "regex",
+      managerFilePatterns: ["/^kubernetes/apps/storage/cloudnative-pg/databases/immich\\.yaml$/"],
+      matchStrings: [
+        "- name: vector\\r?\\n(?:[ \\t]+[^\\r\\n]+\\r?\\n)*?[ \\t]+version: (?<currentValue>\\d+\\.\\d+\\.\\d+)",
+      ],
+      depNameTemplate: "pgvector/pgvector",
+      datasourceTemplate: "github-tags",
+      versioningTemplate: "semver",
+      extractVersionTemplate: "^v(?<version>\\d+\\.\\d+\\.\\d+)$",
+    },
+  ],
   packageRules: [
+    {
+      description: "Review pgvector updates against the deployed PostgreSQL image and Immich",
+      matchDatasources: ["github-tags"],
+      matchPackageNames: ["pgvector/pgvector"],
+      automerge: false,
+      groupName: null,
+      prBodyNotes: [
+        "Before merging, confirm this pgvector version is available in the deployed CloudNativePG PostgreSQL image and supported by Immich. Updating Database.spec.extensions only upgrades the SQL extension; it does not install extension binaries. Deploy a compatible PostgreSQL image first if needed.",
+      ],
+    },
     {
       description: "Translator releases require matching source/assets and a database backup",
       matchDatasources: ["docker"],
