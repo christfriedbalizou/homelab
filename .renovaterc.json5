@@ -44,8 +44,6 @@
       description: "Derive Immich's pgvector version from the pinned PostgreSQL image",
       matchDatasources: ["docker"],
       matchPackageNames: ["ghcr.io/cloudnative-pg/postgresql"],
-      // PostgreSQL major upgrades require a separate migration.
-      allowedVersions: "/^18\\./",
       pinDigests: true,
       automerge: false,
       groupName: "postgresql",
@@ -54,9 +52,6 @@
         fileFilters: ["kubernetes/apps/storage/cloudnative-pg/databases/immich.yaml"],
         executionMode: "branch",
       },
-      prBodyNotes: [
-        "The pgvector SQL version is derived from this exact PostgreSQL image on AMD64 and ARM64. The Pgvector compatibility check must pass before merging; CloudNativePG applies the database extension after the cluster dependency is ready.",
-      ],
     },
     {
       description: "Translator releases require matching source/assets and a database backup",

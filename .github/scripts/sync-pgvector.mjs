@@ -17,8 +17,8 @@ function exactlyOne(text, pattern, label) {
 
 export function imageReference(text) {
   const match = exactlyOne(text,
-    /^  imageName: (ghcr\.io\/cloudnative-pg\/postgresql:(18)\.[\w.-]+@sha256:[a-f0-9]{64})\s*$/gm,
-    'digest-pinned PostgreSQL 18 image');
+    /^  imageName: (ghcr\.io\/cloudnative-pg\/postgresql:(\d+)\.[\w.-]+@sha256:[a-f0-9]{64})\s*$/gm,
+    'digest-pinned PostgreSQL image');
   return { image: match[1], major: match[2] };
 }
 

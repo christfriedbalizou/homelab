@@ -2,11 +2,14 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { controlVersion, imageReference, supported, vectorPin } from './sync-pgvector.mjs';
 
-test('requires an immutable PostgreSQL 18 image', () => {
+test('requires an immutable PostgreSQL image and derives its major version', () => {
   const image = `ghcr.io/cloudnative-pg/postgresql:18.6@sha256:${'a'.repeat(64)}`;
   assert.equal(imageReference(`  imageName: ${image}\n`).image, image);
   assert.throws(() => imageReference('  imageName: ghcr.io/cloudnative-pg/postgresql:18.6\n'));
-  assert.throws(() => imageReference(`  imageName: ${image.replace(':18.', ':19.')}\n`));
+  for (const major of ['18', '19', '20']) {
+    const reference = image.replace(':18.', `:${major}.`);
+    assert.deepEqual(imageReference(`  imageName: ${reference}\n`), { image: reference, major });
+  }
 });
 
 test('reads the control file, rejecting missing or ambiguous defaults', () => {

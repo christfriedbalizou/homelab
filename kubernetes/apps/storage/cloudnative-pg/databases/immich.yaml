@@ -38,5 +38,4 @@ spec:
     ensure: present
   - name: vector
     ensure: present
-    # Generated from the pinned PostgreSQL image by .github/scripts/sync-pgvector.mjs.
     version: 0.8.6
