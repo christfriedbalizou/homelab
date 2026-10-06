@@ -104,5 +104,19 @@
       matchPackageNames: ["k8s-driver-manager"],
       overridePackageName: "nvcr.io/nvidia/cloud-native/k8s-driver-manager",
     },
+    {
+      description: "Review NVIDIA GPU Operator chart and controller images together",
+      matchDatasources: ["docker"],
+      matchPackageNames: [
+        "nvcr.io/nvidia/cloud-native-charts/gpu-operator",
+        "nvcr.io/nvidia/gpu-operator",
+        "gpu-operator",
+      ],
+      groupName: "nvidia-gpu-operator",
+      automerge: false,
+      prBodyNotes: [
+        "Keep the OCI chart tag and the operator/validator image versions aligned. Grouping collects available updates but does not guarantee NVIDIA publishes matching versions simultaneously; check all three before merging.",
+      ],
+    },
   ],
 }
