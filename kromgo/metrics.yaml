@@ -2,67 +2,67 @@ metrics:
   cluster_age_days:
     schemaVersion: 1
     label: Age
-    message: 148d
+    message: 149d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-07T22:27:17+00:00'
+    pulledAt: '2026-10-08T03:41:15+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-07T22:27:17+00:00'
+    pulledAt: '2026-10-08T03:41:16+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '165'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-07T22:27:18+00:00'
+    pulledAt: '2026-10-08T03:41:16+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 18.8%
+    message: 18.2%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-07T22:27:18+00:00'
+    pulledAt: '2026-10-08T03:41:16+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 41.6%
+    message: 42.4%
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-10-07T22:27:18+00:00'
+    pulledAt: '2026-10-08T03:41:17+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Homelab power
-    message: 442w
+    message: 429w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-10-07T22:27:19+00:00'
+    pulledAt: '2026-10-08T03:41:17+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
     message: 6d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-07T22:27:19+00:00'
+    pulledAt: '2026-10-08T03:41:17+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.14.2
     cacheSeconds: 300
-    pulledAt: '2026-10-07T22:27:19+00:00'
+    pulledAt: '2026-10-08T03:41:17+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.37.1
     cacheSeconds: 300
-    pulledAt: '2026-10-07T22:27:19+00:00'
+    pulledAt: '2026-10-08T03:41:18+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.6
     cacheSeconds: 300
-    pulledAt: '2026-10-07T22:27:20+00:00'
+    pulledAt: '2026-10-08T03:41:18+00:00'
