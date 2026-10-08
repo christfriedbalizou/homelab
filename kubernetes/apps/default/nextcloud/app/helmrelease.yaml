@@ -74,10 +74,18 @@ spec:
             /bin/true
 
       extraVolumes:
+        - name: startup-hooks
+          configMap:
+            name: nextcloud-startup-hooks
+            defaultMode: 0755
         - name: nextcloud-redis
           emptyDir: {}
 
       extraVolumeMounts:
+        - name: startup-hooks
+          mountPath: /docker-entrypoint-hooks.d/before-starting/helm.sh
+          subPath: before-starting.sh
+          readOnly: true
         - name: nextcloud-redis
           mountPath: /usr/local/etc/php/conf.d/redis-session.ini
           subPath: redis-session.ini
@@ -190,6 +198,15 @@ spec:
             'appstoreenabled' => true,
             'mail_domain' => '${SECRET_DOMAIN}',
           );
+        office.config.php: |-
+          <?php
+          $CONFIG = array (
+            'allow_local_remote_servers' => true,
+            'trusted_domains' => array (
+              'nextcloud.${SECRET_DOMAIN}',
+              'nextcloud.default.svc.cluster.local',
+            ),
+          );
         bulkupload.config.php: |-
           <?php
           $CONFIG = array (
@@ -232,5 +249,7 @@ spec:
             'oidc_login_code_challenge_method' => 'S256',
           );
   dependsOn:
+    - name: collabora
+      namespace: default
     - name: cloudnative-pg
       namespace: storage

@@ -109,6 +109,7 @@ access_control:
         - "memos.${SECRET_DOMAIN}"
         - "notes.${SECRET_DOMAIN}"
         - "nextcloud.${SECRET_DOMAIN}"
+        - "collabora.${SECRET_DOMAIN}"
         - "netbird.${SECRET_DOMAIN}"
         - "vaultwarden.${SECRET_DOMAIN}"
         - "ai.${SECRET_DOMAIN}"
