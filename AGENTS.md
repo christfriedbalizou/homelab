@@ -206,6 +206,11 @@ This cluster uses Envoy Gateway and Gateway API for HTTP exposure.
 
 Authelia is wired through Envoy `SecurityPolicy` resources:
 
+- Collabora is an approved exception to external auth: the embedded editor uses
+  Nextcloud-issued WOPI document tokens. Keep its WOPI host allowlist restricted
+  to Nextcloud, its iframe policy restricted to Nextcloud, and its admin console
+  disabled. Do not add interactive Authelia auth to the editor route; an expired
+  Authelia session interrupts editing even when the Nextcloud session is valid.
 - For normal protected apps, add the `../../../../components/ext-auth` component
   to the app `ks.yaml` and set `postBuild.substitute.APP` to the HTTPRoute name.
 - The ext-auth component defaults to `${APP}` and can target a different
