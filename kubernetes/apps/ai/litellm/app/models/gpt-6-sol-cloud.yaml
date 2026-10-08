@@ -6,7 +6,7 @@ metadata:
   name: gpt-6-sol-cloud
 spec:
   # Explicitly selected external model; never a fallback for a local alias.
-  modelName: openai-gpt-6-sol-cloud
+  modelName: gpt-6-sol-openai-cloud
   params:
     model: openai/gpt-6-sol
     apiBase: https://api.openai.com/v1

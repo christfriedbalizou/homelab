@@ -5,7 +5,7 @@ kind: LiteLLMModel
 metadata:
   name: qwen3-local-fast-ollama
 spec:
-  modelName: qwen3-local-fast
+  modelName: qwen3-1.7b-q4-local
   params:
     model: ollama_chat/qwen3:1.7b-q4_K_M
     apiBase: http://ollama.ai.svc.cluster.local:11434

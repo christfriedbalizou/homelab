@@ -6,7 +6,7 @@ metadata:
   name: gpt-6-luna-cloud
 spec:
   # Explicitly selected external model; never a fallback for a local alias.
-  modelName: openai-gpt-6-luna-cloud
+  modelName: gpt-6-luna-openai-cloud
   params:
     model: openai/gpt-6-luna
     apiBase: https://api.openai.com/v1

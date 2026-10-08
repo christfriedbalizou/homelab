@@ -5,7 +5,7 @@ kind: Job
 metadata:
   # Job specs are immutable. Bump the name whenever the model set changes so
   # Flux creates a new pull instead of attempting to patch the completed Job.
-  name: ollama-pull-local-models-v3
+  name: ollama-pull-local-models-v4
 spec:
   backoffLimit: 3
   activeDeadlineSeconds: 3600
@@ -29,11 +29,11 @@ spec:
             - -ec
             - |
               # A healthy Helm release can still have a temporarily unavailable
-              # server during GPU rescheduling. Wait within the Job deadline.
+              # server during rescheduling. Wait within the Job deadline.
               until ollama list >/dev/null 2>&1; do
                 sleep 5
               done
-              for model in qwen3:4b-q4_K_M qwen3:1.7b-q4_K_M qwen2.5-coder:3b-instruct-q4_K_M translategemma:4b-it-q4_K_M; do
+              for model in qwen3:8b-q4_K_M qwen3:14b-q4_K_M qwen3:32b-q4_K_M qwen3:4b-q4_K_M qwen3:1.7b-q4_K_M qwen2.5-coder:3b-instruct-q4_K_M translategemma:4b-it-q4_K_M; do
                 ollama pull "$model"
                 ollama show "$model" >/dev/null
               done

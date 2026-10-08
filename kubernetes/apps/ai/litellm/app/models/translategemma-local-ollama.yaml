@@ -5,7 +5,7 @@ kind: LiteLLMModel
 metadata:
   name: translategemma-local-ollama
 spec:
-  modelName: translategemma-local
+  modelName: translategemma-4b-q4-local
   params:
     model: ollama_chat/translategemma:4b-it-q4_K_M
     apiBase: http://ollama.ai.svc.cluster.local:11434
