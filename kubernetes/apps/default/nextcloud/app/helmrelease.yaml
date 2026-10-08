@@ -67,7 +67,6 @@ spec:
           #!/bin/sh
           set -eu
 
-          # Shared helpers. Keep configuration values out of log messages.
           log() {
             printf '[nextcloud-startup] %s\n' "$*" >&2
           }
@@ -87,7 +86,6 @@ spec:
             log "Completed: $hook_step"
           }
 
-          # Subshells isolate helper variables, including nested retry counters.
           retry() (
             description=$1
             shift
@@ -104,7 +102,6 @@ spec:
           )
 
           app_state() (
-            # Capture separately so a failed occ command cannot be hidden by a pipe.
             apps=$(occ app:list --output=json) || exit 1
             printf '%s\n' "$apps" | php -r '
               $apps = json_decode(stream_get_contents(STDIN), true, 512, JSON_THROW_ON_ERROR);
@@ -142,7 +139,6 @@ spec:
             occ config:app:set "$1" "$2" --value="$3" >/dev/null
           }
 
-          # App setup: keep each integration in its own function.
           configure_office() {
             retry "Enable richdocuments" ensure_app richdocuments
             disable_app richdocumentscode
@@ -153,7 +149,6 @@ spec:
             set_app_config richdocuments wopi_allowlist "${K8S_CLUSTER_CIDR}"
           }
 
-          # Add new configure_<app> functions above and register their steps here.
           cd /var/www/html
           run_step "Nextcloud readiness" retry "Nextcloud readiness" occ status --exit-code
           run_step "Nextcloud Office" configure_office
@@ -288,7 +283,6 @@ spec:
         office.config.php: |-
           <?php
           $CONFIG = array (
-            // Nextcloud contacts Collabora through its private Kubernetes Service.
             'allow_local_remote_servers' => true,
             'trusted_domains' => array (
               'nextcloud.${SECRET_DOMAIN}',
