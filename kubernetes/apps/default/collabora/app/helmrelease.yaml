@@ -29,30 +29,34 @@ spec:
             runAsNonRoot: true
             runAsUser: 1001
             runAsGroup: 1001
+            fsGroup: 1001
             seccompProfile: { type: RuntimeDefault }
         containers:
           app:
             image:
               repository: docker.io/collabora/code
-              tag: 25.04.10.3.1@sha256:a51dd5d1741dea5d19f49d9997de2c321bf582076015ec4015941f3f00a5f4c0
+              tag: 26.04.4.2.1@sha256:4e983196eb9878f339cc506c38c21f1cc3473bca3d6de883c5de08f9c0cc3a6c
             env:
               TZ: ${TIMEZONE}
               DONT_GEN_SSL_CERT: "1"
               # Only Nextcloud's internal WOPI callback endpoint may supply documents.
               aliasgroup1: http://nextcloud.default.svc.cluster.local:8080
+              content_security_policy: "frame-ancestors https://nextcloud.${SECRET_DOMAIN};"
+              # Copy document jails instead of requiring SYS_ADMIN for bind mounts.
               extra_params: |-
                 --o:ssl.enable=false
                 --o:ssl.termination=true
                 --o:server_name=collabora.${SECRET_DOMAIN}
                 --o:admin_console.enable=false
                 --o:logging.level=warning
-                --o:net.frame_ancestors=https://nextcloud.${SECRET_DOMAIN}
+                --o:mount_jail_tree=false
             securityContext:
-              allowPrivilegeEscalation: false
+              # The bundled coolforkit-caps helper requires its file capabilities.
+              allowPrivilegeEscalation: true
               readOnlyRootFilesystem: true
               capabilities:
                 drop: [ALL]
-                add: [MKNOD]
+                add: [CHOWN, FOWNER, SYS_CHROOT]
             probes:
               liveness:
                 enabled: true
@@ -94,6 +98,19 @@ spec:
         ports:
           http:
             port: *port
+    persistence:
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+      child-roots:
+        type: emptyDir
+        globalMounts:
+          - path: /opt/cool/child-roots
+      cache:
+        type: emptyDir
+        globalMounts:
+          - path: /opt/cool/cache
     route:
       app:
         hostnames:
