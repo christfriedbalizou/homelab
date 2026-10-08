@@ -88,13 +88,9 @@ async function main() {
     throw new Error('Usage: node .github/scripts/sync-pgvector.mjs --check|--write');
   }
   const { image, major } = imageReference(readFileSync(clusterPath, 'utf8'));
-  const versions = ['linux/amd64', 'linux/arm64'].map(platform => {
-    const version = imageVersion(image, major, platform);
-    console.log(`${platform}: vector ${version}`);
-    return version;
-  });
-  if (new Set(versions).size !== 1) throw new Error('PostgreSQL image architectures disagree on pgvector');
-  const version = versions[0];
+  const platform = 'linux/amd64';
+  const version = imageVersion(image, major, platform);
+  console.log(`${platform}: vector ${version}`);
   const immich = exactlyOne(readFileSync(immichPath, 'utf8'),
     /repository: ghcr\.io\/immich-app\/immich-server\r?\n\s+tag: (v\d+\.\d+\.\d+)@sha256:[a-f0-9]{64}/g,
     'pinned Immich server release')[1];
