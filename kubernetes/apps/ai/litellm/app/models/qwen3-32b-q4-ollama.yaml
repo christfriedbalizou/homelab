@@ -10,7 +10,7 @@ spec:
     model: ollama_chat/qwen3:32b-q4_K_M
     apiBase: http://ollama.ai.svc.cluster.local:11434
     additional:
-      reasoning_effort: none
+      reasoning_effort: medium
       num_ctx: 8192
       max_tokens: 4096
   info:
@@ -19,4 +19,5 @@ spec:
     maxOutputTokens: 4096
     supportsFunctionCalling: true
     extra:
+      supports_reasoning: true
       disable_background_health_check: true

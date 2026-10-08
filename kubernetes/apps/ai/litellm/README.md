@@ -9,13 +9,11 @@ latency before increasing concurrency or context.
 | Client model ID | Backend |
 | --- | --- |
 | `translategemma-4b-q4-local` | `translategemma:4b-it-q4_K_M` |
-| `qwen3-1.7b-q4-local` | `qwen3:1.7b-q4_K_M` |
-| `qwen3-4b-q4-local` | `qwen3:4b-q4_K_M`, reasoning disabled |
-| `qwen3-4b-q4-thinking-local` | `qwen3:4b-q4_K_M`, medium reasoning |
-| `qwen3-8b-q4-local` | `qwen3:8b-q4_K_M`, reasoning disabled |
-| `qwen3-14b-q4-local` | `qwen3:14b-q4_K_M`, reasoning disabled |
-| `qwen3-32b-q4-local` | `qwen3:32b-q4_K_M`, reasoning disabled |
-| `qwen2.5-coder-3b-q4-local` | `qwen2.5-coder:3b-instruct-q4_K_M` |
+| `qwen3-1.7b-q4-local` | `qwen3:1.7b-q4_K_M`, thinking enabled |
+| `qwen3-4b-q4-local` | `qwen3:4b-q4_K_M`, thinking enabled |
+| `qwen3-8b-q4-local` | `qwen3:8b-q4_K_M`, thinking enabled |
+| `qwen3-14b-q4-local` | `qwen3:14b-q4_K_M`, thinking enabled |
+| `qwen3-32b-q4-local` | `qwen3:32b-q4_K_M`, thinking enabled |
 | `gpt-6-astra-openai-cloud` | `openai/gpt-6-astra` |
 | `gpt-6-sol-openai-cloud` | `openai/gpt-6-sol` |
 | `gpt-6-luna-openai-cloud` | `openai/gpt-6-luna` |
@@ -25,6 +23,22 @@ family, task, and size. Its llmkube deployment is separate from Ollama.
 The router retains old chat model IDs as aliases for saved clients. Keep these
 until saved settings and restricted key permissions have migrated. There are
 no cross-provider fallbacks.
+
+All Qwen3 routes enable thinking through `reasoning_effort: medium` (Ollama
+uses an on/off switch for these models). Cloud routes use `low` reasoning;
+Luna and Sol no longer advertise Chat Completions tool calling with this setting.
+Use the Responses API for cloud tool calls. TranslateGemma remains the default
+translation model and has no supported thinking mode. Reasoning is returned
+separately from final content so it cannot be inserted into translated documents.
+Reasoning also consumes output tokens; clients with small completion budgets
+may truncate before producing a final answer and need qualification.
+
+The separate 4B thinking model and Qwen2.5-Coder route are removed. The legacy
+`qwen3-local-think` alias resolves to the regular 4B route, which now thinks.
+The permission helper maps the retired descriptive thinking ID to that route.
+Saved clients using the retired descriptive ID must switch to `qwen3-4b-q4-local`;
+Qwen2.5-Coder clients must explicitly select another model. Cached model files
+are not deleted by this catalogue change.
 
 ## Deployment order
 
@@ -53,7 +67,7 @@ no cross-provider fallbacks.
    permission migration if they have restricted model lists.
 
 2. Commit and push the reviewed manifests, then explicitly reconcile Flux.
-   The `ollama-pull-local-models-v4` Job pulls and verifies all seven local
+   The `ollama-pull-local-models-v5` Job pulls and verifies all six local
    models. Its name changes because Kubernetes Job pod templates are immutable.
    Verify the Job completes before testing new provider choices.
 3. Verify LiteLLM lists the new names with each application's own key and run

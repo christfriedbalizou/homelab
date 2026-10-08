@@ -21,9 +21,9 @@ from urllib.request import (
 
 RENAMES = {
     "qwen3-local": "qwen3-4b-q4-local",
-    "qwen3-local-think": "qwen3-4b-q4-thinking-local",
+    "qwen3-local-think": "qwen3-4b-q4-local",
+    "qwen3-4b-q4-thinking-local": "qwen3-4b-q4-local",
     "qwen3-local-fast": "qwen3-1.7b-q4-local",
-    "qwen2.5-coder-local": "qwen2.5-coder-3b-q4-local",
     "translategemma-local": "translategemma-4b-q4-local",
     "openai-gpt-6-astra-cloud": "gpt-6-astra-openai-cloud",
     "openai-gpt-6-sol-cloud": "gpt-6-sol-openai-cloud",
