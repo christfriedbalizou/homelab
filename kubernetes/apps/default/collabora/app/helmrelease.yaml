@@ -46,14 +46,7 @@ spec:
                 --o:server_name=collabora.${SECRET_DOMAIN}
                 --o:admin_console.enable=false
                 --o:logging.level=warning
-                --o:net.content_security_policy=frame-ancestors https://nextcloud.${SECRET_DOMAIN}
-            command: [/bin/sh, -c]
-            args:
-              - |-
-                # Split extra_params on newlines, preserving spaces within the CSP value.
-                IFS='
-                '
-                . /start-collabora-online.sh
+                --o:net.frame_ancestors=https://nextcloud.${SECRET_DOMAIN}
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
