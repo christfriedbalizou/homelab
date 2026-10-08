@@ -183,7 +183,8 @@ spec:
               0 => 'HTTP_X_FORWARDED_FOR',
             ),
             'overwrite.cli.url' => 'https://nextcloud.${SECRET_DOMAIN}',
-            'overwriteprotocol' => 'https',
+            // Collabora's internal callbacks use HTTP; public and CLI URLs remain HTTPS.
+            'overwriteprotocol' => ($_SERVER['HTTP_HOST'] ?? '') === 'nextcloud.default.svc.cluster.local:8080' ? 'http' : 'https',
             'quota_include_external_storage' => 'false',
             'skeletondirectory' => '',
             'knowledgebaseenabled' => 'false',
