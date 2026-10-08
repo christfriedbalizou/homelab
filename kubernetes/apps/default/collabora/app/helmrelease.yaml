@@ -40,23 +40,26 @@ spec:
               DONT_GEN_SSL_CERT: "1"
               # Only Nextcloud's internal WOPI callback endpoint may supply documents.
               aliasgroup1: http://nextcloud.default.svc.cluster.local:8080
-              extra_params: >-
+              extra_params: |-
                 --o:ssl.enable=false
                 --o:ssl.termination=true
                 --o:server_name=collabora.${SECRET_DOMAIN}
                 --o:admin_console.enable=false
                 --o:logging.level=warning
+                --o:net.content_security_policy=frame-ancestors https://nextcloud.${SECRET_DOMAIN}
+            command: [/bin/sh, -c]
             args:
-              # The browser origin differs from Nextcloud's internal WOPI URL.
-              - "--o:net.content_security_policy=frame-ancestors https://nextcloud.${SECRET_DOMAIN}"
+              - |-
+                # Split extra_params on newlines, preserving spaces within the CSP value.
+                IFS='
+                '
+                . /start-collabora-online.sh
             securityContext:
-              # Collabora's forkit uses file capabilities to isolate document workers.
-              allowPrivilegeEscalation: true
-              # The image writes its proof key, cache and worker jails locally.
-              readOnlyRootFilesystem: false
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
               capabilities:
                 drop: [ALL]
-                add: [CHOWN, FOWNER, SYS_CHROOT]
+                add: [MKNOD]
             probes:
               liveness:
                 enabled: true
