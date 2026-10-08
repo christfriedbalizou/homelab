@@ -62,6 +62,25 @@ spec:
 
     nextcloud:
       host: nextcloud.${SECRET_DOMAIN}
+      hooks:
+        before-starting: |-
+          #!/bin/sh
+          set -eu
+          cd /var/www/html
+          if [ ! -f custom_apps/richdocuments/appinfo/info.xml ] && [ ! -f apps/richdocuments/appinfo/info.xml ]; then
+            php occ app:install richdocuments
+          fi
+          php occ app:enable richdocuments
+          # Use the dedicated server even if a built-in CODE app was installed previously.
+          for app in richdocumentscode richdocumentscode_arm64; do
+            if [ -f "custom_apps/$app/appinfo/info.xml" ] || [ -f "apps/$app/appinfo/info.xml" ]; then
+              php occ app:disable "$app"
+            fi
+          done
+          php occ config:app:set richdocuments wopi_url --value=http://collabora.default.svc.cluster.local:9980
+          php occ config:app:set richdocuments public_wopi_url --value=https://collabora.${SECRET_DOMAIN}
+          php occ config:app:set richdocuments wopi_callback_url --value=http://nextcloud.default.svc.cluster.local:8080
+          php occ config:app:set richdocuments wopi_allowlist --value="${K8S_CLUSTER_CIDR}"
 
       lifecycle:
         postStartCommand:
@@ -190,6 +209,16 @@ spec:
             'appstoreenabled' => true,
             'mail_domain' => '${SECRET_DOMAIN}',
           );
+        office.config.php: |-
+          <?php
+          $CONFIG = array (
+            // Nextcloud contacts Collabora through its private Kubernetes Service.
+            'allow_local_remote_servers' => true,
+            'trusted_domains' => array (
+              'nextcloud.${SECRET_DOMAIN}',
+              'nextcloud.default.svc.cluster.local',
+            ),
+          );
         bulkupload.config.php: |-
           <?php
           $CONFIG = array (
@@ -232,5 +261,7 @@ spec:
             'oidc_login_code_challenge_method' => 'S256',
           );
   dependsOn:
+    - name: collabora
+      namespace: default
     - name: cloudnative-pg
       namespace: storage

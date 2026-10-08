@@ -1,0 +1,115 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app collabora
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  maxHistory: 3
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      collabora:
+        type: deployment
+        replicas: 1
+        strategy: Recreate
+        pod:
+          automountServiceAccountToken: false
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+            runAsGroup: 1001
+            seccompProfile: { type: RuntimeDefault }
+        containers:
+          app:
+            image:
+              repository: docker.io/collabora/code
+              tag: 25.04.10.3.1@sha256:a51dd5d1741dea5d19f49d9997de2c321bf582076015ec4015941f3f00a5f4c0
+            env:
+              TZ: ${TIMEZONE}
+              DONT_GEN_SSL_CERT: "1"
+              # Only Nextcloud's internal WOPI callback endpoint may supply documents.
+              aliasgroup1: http://nextcloud.default.svc.cluster.local:8080
+              extra_params: >-
+                --o:ssl.enable=false
+                --o:ssl.termination=true
+                --o:server_name=collabora.${SECRET_DOMAIN}
+                --o:admin_console.enable=false
+                --o:logging.level=warning
+            args:
+              # The browser origin differs from Nextcloud's internal WOPI URL.
+              - "--o:net.content_security_policy=frame-ancestors https://nextcloud.${SECRET_DOMAIN}"
+            securityContext:
+              # Collabora's forkit uses file capabilities to isolate document workers.
+              allowPrivilegeEscalation: true
+              # The image writes its proof key, cache and worker jails locally.
+              readOnlyRootFilesystem: false
+              capabilities:
+                drop: [ALL]
+                add: [CHOWN, FOWNER, SYS_CHROOT]
+            probes:
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /hosting/discovery
+                    port: &port 9980
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /hosting/discovery
+                    port: *port
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /hosting/discovery
+                    port: *port
+                  periodSeconds: 5
+                  timeoutSeconds: 5
+                  failureThreshold: 60
+            resources:
+              requests:
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                memory: 2Gi
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames:
+          - collabora.${SECRET_DOMAIN}
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+            timeouts:
+              request: 0s
+              backendRequest: 0s

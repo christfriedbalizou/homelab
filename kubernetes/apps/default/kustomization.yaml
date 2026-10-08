@@ -17,6 +17,7 @@ resources:
   - ./thelounge/ks.yaml
   - ./memos/ks.yaml
   - ./nextcloud/ks.yaml
+  - ./collabora/ks.yaml
   - ./immich/ks.yaml
   - ./vaultwarden/ks.yaml
   - ./translator/ks.yaml
