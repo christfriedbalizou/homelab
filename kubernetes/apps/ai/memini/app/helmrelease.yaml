@@ -63,7 +63,7 @@ spec:
               MEMINI_RECALL_EMBED_TIMEOUT: 10s
               MEMINI_LLM_API: openai
               MEMINI_LLM_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1
-              MEMINI_LLM_MODEL: qwen3-local
+              MEMINI_LLM_MODEL: qwen3-4b-q4-local
               MEMINI_LLM_MAX_TOKENS: '2048'
               MEMINI_DISTILL_TIMEOUT: 120s
               MEMINI_LLM_API_KEY:

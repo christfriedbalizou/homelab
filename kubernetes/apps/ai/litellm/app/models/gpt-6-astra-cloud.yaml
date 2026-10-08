@@ -6,7 +6,7 @@ metadata:
   name: gpt-6-astra-cloud
 spec:
   # Explicitly selected external model; never a fallback for a local alias.
-  modelName: openai-gpt-6-astra-cloud
+  modelName: gpt-6-astra-openai-cloud
   params:
     model: openai/gpt-6-astra
     apiBase: https://api.openai.com/v1

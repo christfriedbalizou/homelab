@@ -24,13 +24,23 @@ spec:
           reloader.stakater.com/auto: "true"
         pod:
           enableServiceLinks: false
-          runtimeClassName: nvidia
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: In
+                        values: [k8s-6, k8s-7]
         containers:
           app:
             image:
               repository: docker.io/ollama/ollama
               tag: 0.40.2@sha256:b86366bb528bbf7f1424435d165028497a5b69bf6ddb4fa5a87102e2b79f44fb
             env:
+              CUDA_VISIBLE_DEVICES: "-1"
+              ROCR_VISIBLE_DEVICES: "-1"
+              OLLAMA_VULKAN: "0"
               OLLAMA_HOST: 0.0.0.0:11434
               OLLAMA_KEEP_ALIVE: 60s
               OLLAMA_MAX_LOADED_MODELS: "1"
@@ -41,7 +51,6 @@ spec:
               OLLAMA_MODELS: /models
               OLLAMA_NO_CLOUD: "true"
               TZ: "${TIMEZONE}"
-              NVIDIA_DRIVER_CAPABILITIES: compute,utility
             probes:
               liveness: &probes
                 enabled: true
@@ -70,10 +79,8 @@ spec:
               requests:
                 cpu: 100m
                 memory: 2Gi
-                "nvidia.com/gpu.shared": 1
               limits:
-                memory: 8Gi
-                "nvidia.com/gpu.shared": 1
+                memory: 32Gi
 
     service:
       app:

@@ -17,6 +17,15 @@ spec:
     forward_client_headers_to_llm_api: false
   routerSettings:
     routing_strategy: simple-shuffle
+    # Preserve saved client model IDs while the descriptive names are adopted.
+    model_group_alias:
+      qwen3-local: qwen3-4b-q4-local
+      qwen3-local-think: qwen3-4b-q4-local
+      qwen3-local-fast: qwen3-1.7b-q4-local
+      translategemma-local: translategemma-4b-q4-local
+      openai-gpt-6-astra-cloud: gpt-6-astra-openai-cloud
+      openai-gpt-6-sol-cloud: gpt-6-sol-openai-cloud
+      openai-gpt-6-luna-cloud: gpt-6-luna-openai-cloud
     redis_host: os.environ/REDIS_HOST
     redis_port: os.environ/REDIS_PORT
     num_retries: 3
@@ -38,7 +47,8 @@ spec:
       port: os.environ/REDIS_PORT
       namespace: litellm
     drop_params: true
-    merge_reasoning_content_in_choices: true
+    # Translator consumes final content; keep reasoning in its separate field.
+    merge_reasoning_content_in_choices: false
   env:
     - name: AUTO_REDIRECT_UI_LOGIN_TO_SSO
       value: "true"

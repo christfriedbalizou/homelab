@@ -3,11 +3,11 @@
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMModel
 metadata:
-  name: qwen3-local-ollama
+  name: qwen3-8b-q4-ollama
 spec:
-  modelName: qwen3-4b-q4-local
+  modelName: qwen3-8b-q4-local
   params:
-    model: ollama_chat/qwen3:4b-q4_K_M
+    model: ollama_chat/qwen3:8b-q4_K_M
     apiBase: http://ollama.ai.svc.cluster.local:11434
     additional:
       reasoning_effort: medium
