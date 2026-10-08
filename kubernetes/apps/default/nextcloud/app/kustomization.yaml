@@ -10,6 +10,6 @@ resources:
 configMapGenerator:
   - name: nextcloud-startup-hooks
     files:
-      - before-starting.sh=./scripts/before-starting.sh
+      - before-starting.sh=./resources/before-starting.sh
 generatorOptions:
   disableNameSuffixHash: true
