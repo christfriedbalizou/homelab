@@ -81,6 +81,8 @@ configure_office() {
   set_app_config richdocuments public_wopi_url https://collabora.${SECRET_DOMAIN}
   set_app_config richdocuments wopi_callback_url http://nextcloud.default.svc.cluster.local:8080
   set_app_config richdocuments wopi_allowlist "${K8S_CLUSTER_CIDR}"
+  retry "Activate Nextcloud Office configuration" occ richdocuments:activate-config \
+    --callback-url=http://nextcloud.default.svc.cluster.local:8080
 }
 
 cd /var/www/html
