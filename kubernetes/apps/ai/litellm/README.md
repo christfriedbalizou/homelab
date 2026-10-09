@@ -1,5 +1,31 @@
 # Model catalogue and CPU rollout
 
+## Translator credentials and private provider configuration
+
+Translator's provider definitions live in `translator_providers` in the ignored
+`bootstrap/vars/config.yaml`. Preserve provider UUIDs when changing this list:
+saved jobs and the default selection refer to those IDs. The public bootstrap
+template contains variable references, not credentials, and `just configure`
+renders the list into the SOPS-encrypted Translator Secret.
+
+The private credential inputs are `translator_litellm_api_key` and
+`translator_cloud_litellm_api_key`. Providers reference `/run/secrets/litellm-api-key`
+or `/run/secrets/cloud-litellm-api-key`. These filenames are identifiers, not
+API-key values. The cloud field replaces `public-litellm-api-key`; migrate the
+provider file references and Secret together. Do not rotate document/provider
+encryption master keys as part of an API-key rotation: existing encrypted data
+depends on them.
+
+For rotation, create replacement LiteLLM keys with the existing model access,
+ownership and limits, update the private inputs, then run `just configure`.
+Deploy both Translator Secrets and verify startup synchronizes all five saved
+providers before revoking the old keys. Check access using the replacement
+keys and confirm revoked keys are rejected. If applying this before a Git push,
+suspend the Translator Flux Kustomization first; resume and explicitly reconcile
+it only after the reviewed encrypted manifests reach the GitOps branch.
+
+## Models
+
 Ollama runs one CPU-only instance on either `k8s-6` or `k8s-7`, with a
 32 GiB memory limit, one loaded model, one parallel request, and an 8192-token
 context. Node RAM is not pooled. The memory request remains 2 GiB; the scheduler

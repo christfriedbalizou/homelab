@@ -32,7 +32,7 @@ RENAMES = {
 QWEN_MODELS = [f"qwen3-{size}b-q4-local" for size in (8, 14, 32)]
 KEYS = (
     ("default", "translator-keys", "litellm-api-key", True),
-    ("default", "translator-keys", "public-litellm-api-key", False),
+    ("default", "translator-keys", "cloud-litellm-api-key", False),
     ("ai", "cluster-open-webui-secrets", "OPENAI_API_KEY", True),
     ("ai", "cluster-memini-secrets", "LITELLM_API_KEY", False),
 )
