@@ -22,7 +22,6 @@ spec:
     controllers:
       jellyfin:
         pod:
-          runtimeClassName: nvidia
           securityContext:
             runAsNonRoot: true
             runAsUser: 568
@@ -40,9 +39,6 @@ spec:
               tag: 10.11.11@sha256:aefb67e6a7ff1debdd154a78a7bbb780fd0c873d8639210a7f6a2016ad2b35db
             env:
               JELLYFIN_PublishedServerUrl: https://jellyfin.${SECRET_DOMAIN}
-              NVIDIA_VISIBLE_DEVICES: all
-              NVIDIA_DRIVER_CAPABILITIES: compute,video,utility
-              LD_LIBRARY_PATH: /usr/local/nvidia/lib64:/usr/local/nvidia/lib
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: false
@@ -58,7 +54,6 @@ spec:
                 memory: 8Gi
               limits:
                 memory: 16Gi
-                "nvidia.com/gpu.shared": 1
     service:
       app:
         controller: jellyfin
