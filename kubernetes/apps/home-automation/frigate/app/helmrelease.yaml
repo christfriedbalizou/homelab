@@ -9,17 +9,6 @@ spec:
   chartRef:
     kind: OCIRepository
     name: app-template
-  postRenderers:
-    - kustomize:
-        patches:
-          # Explicitly clear the NVIDIA runtime retained from an old manual patch.
-          - target:
-              kind: Deployment
-              name: frigate
-            patch: |-
-              - op: add
-                path: /spec/template/spec/runtimeClassName
-                value: null
   values:
     controllers:
       frigate:

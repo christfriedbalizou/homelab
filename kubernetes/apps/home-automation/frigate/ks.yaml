@@ -12,6 +12,22 @@ spec:
     - ../../../../components/persistence/jericho-nfs
     - ../../../../components/persistence/lordcommander-nfs
   path: ./kubernetes/apps/home-automation/frigate/app
+  patches:
+    # Append after the Gatus component creates the Helm post-renderer.
+    - target:
+        kind: HelmRelease
+        name: frigate
+      patch: |-
+        - op: add
+          path: /spec/postRenderers/0/kustomize/patches/-
+          value:
+            target:
+              kind: Deployment
+              name: frigate
+            patch: |-
+              - op: add
+                path: /spec/template/spec/runtimeClassName
+                value: null
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
