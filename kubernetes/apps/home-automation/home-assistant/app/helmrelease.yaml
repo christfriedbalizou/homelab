@@ -30,21 +30,11 @@ spec:
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
-        initContainers:
-          gate-notifications:
-            image: &homeAssistantImage
-              repository: ghcr.io/home-operations/home-assistant
-              tag: 2026.10.0@sha256:5d3bdf34773c59d33b868930ba021dd741f26a7c2bc9989eba3b25de16d7cd04
-            command:
-              - python3
-              - /gitops-gate-notifications/bootstrap.py
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
         containers:
           app:
-            image: *homeAssistantImage
+            image:
+              repository: ghcr.io/home-operations/home-assistant
+              tag: 2026.10.0@sha256:5d3bdf34773c59d33b868930ba021dd741f26a7c2bc9989eba3b25de16d7cd04
             securityContext:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -114,12 +104,6 @@ spec:
               - identifier: app
                 port: code-server
     persistence:
-      gate-notifications:
-        type: configMap
-        name: home-assistant-gate-notifications
-        globalMounts:
-          - path: /gitops-gate-notifications
-            readOnly: true
       config:
         enabled: true
         existingClaim: home-assistant-jericho
