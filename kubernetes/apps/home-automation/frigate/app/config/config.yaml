@@ -11,7 +11,7 @@ detectors:
     device: usb
 face_recognition:
   enabled: true
-  model_size: large
+  model_size: small
   detection_threshold: 0.7
   recognition_threshold: 0.9
   unknown_score: 0.8
@@ -25,7 +25,7 @@ audio:
     - speech
 ffmpeg:
   input_args: preset-rtsp-restream
-  hwaccel_args: preset-nvidia
+  hwaccel_args: []
 birdseye:
   enabled: true
   mode: continuous
