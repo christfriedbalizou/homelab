@@ -5,64 +5,64 @@ metrics:
     message: 151d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-10T03:29:34+00:00'
+    pulledAt: '2026-10-10T11:37:20+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-10T03:29:35+00:00'
+    pulledAt: '2026-10-10T11:37:20+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
     message: '166'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-10T03:29:35+00:00'
+    pulledAt: '2026-10-10T11:37:21+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 17.6%
+    message: 23.4%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-10T03:29:36+00:00'
+    pulledAt: '2026-10-10T11:37:21+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 43.4%
+    message: 43.6%
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-10-10T03:29:36+00:00'
+    pulledAt: '2026-10-10T11:37:21+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Homelab power
-    message: 429w
+    message: 435w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-10-10T03:29:36+00:00'
+    pulledAt: '2026-10-10T11:37:22+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
     message: 8d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-10T03:29:37+00:00'
+    pulledAt: '2026-10-10T11:37:22+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.14.2
     cacheSeconds: 300
-    pulledAt: '2026-10-10T03:29:37+00:00'
+    pulledAt: '2026-10-10T11:37:22+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.37.1
     cacheSeconds: 300
-    pulledAt: '2026-10-10T03:29:37+00:00'
+    pulledAt: '2026-10-10T11:37:22+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.6
     cacheSeconds: 300
-    pulledAt: '2026-10-10T03:29:37+00:00'
+    pulledAt: '2026-10-10T11:37:23+00:00'
