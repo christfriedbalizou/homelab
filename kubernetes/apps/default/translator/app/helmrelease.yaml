@@ -48,7 +48,7 @@ spec:
           app:
             image: &image
               repository: ghcr.io/christfriedbalizou/translator
-              tag: 0.11.0@sha256:99a371e54f1de6ce8f13b1d396279abfc577a6cf332e1538b3d5f94781c2b491
+              tag: 0.11.1@sha256:aad374af43688b08bade9d20addf26934724ef8b39e82881dd285ed0df441ba8
             args: [api]
             env: &env
               TZ: ${TIMEZONE}
