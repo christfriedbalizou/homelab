@@ -427,6 +427,8 @@ without a clear user request.
 
 ## Working Rules for Codex
 
+- Do not add per-app README files unless the user explicitly asks for one.
+
 - Inspect existing manifests before proposing new patterns.
 - Keep changes scoped to the user's request.
 - Preserve user edits and do not revert unrelated dirty files.

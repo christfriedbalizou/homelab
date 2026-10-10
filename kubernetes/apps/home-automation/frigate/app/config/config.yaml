@@ -81,3 +81,12 @@ cameras:
             - detect
             - record
             - audio
+    zones:
+      front_door_private_area:
+        friendly_name: Front Door Private Area
+        enabled: true
+        coordinates: "0.314,0.796,0.537,0.814,0.937,0.761,1,0.945,1,1,0.068,1,0.178,0.612,0.298,0.662"
+        inertia: 3
+        loitering_time: 0
+        # Empty means all tracked objects, matching the UI's All Objects option.
+        objects: []
