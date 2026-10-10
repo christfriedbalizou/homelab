@@ -15,7 +15,7 @@ face_recognition:
   detection_threshold: 0.7
   recognition_threshold: 0.9
   unknown_score: 0.8
-  min_area: 1000
+  min_area: 750
   min_faces: 2
   save_attempts: 200
   blur_confidence_filter: true
