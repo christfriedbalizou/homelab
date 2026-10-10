@@ -71,14 +71,13 @@ cameras:
   entrance:
     detect:
       enabled: true
-      width: 1920
-      height: 1080
-      fps: 5
     ffmpeg:
       inputs:
-        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_hq
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_lq
           roles:
             - detect
+        - path: rtsp://go2rtc.home-automation.svc.cluster.local:554/entrance_hq
+          roles:
             - record
             - audio
     zones:
