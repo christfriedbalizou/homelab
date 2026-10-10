@@ -4,6 +4,24 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./helmrelease.yaml
+patches:
+  # Clear the old manual runtime override after Gatus creates the post-renderer.
+  - target:
+      kind: HelmRelease
+      name: frigate
+    patch: |-
+      - op: add
+        path: /spec/postRenderers/-
+        value:
+          kustomize:
+            patches:
+              - target:
+                  kind: Deployment
+                  name: frigate
+                patch: |-
+                  - op: add
+                    path: /spec/template/spec/runtimeClassName
+                    value: null
 configMapGenerator:
   - name: frigate-config
     files:
