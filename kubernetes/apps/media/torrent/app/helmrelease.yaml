@@ -54,8 +54,8 @@ spec:
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
               WIREGUARD_ENDPOINT_PORT: 51820
-              # The configured NordVPN endpoint does not support port forwarding.
-              VPN_PORT_FORWARDING: "off"
+              VPN_PORT_FORWARDING: on
+              VPN_PORT_FORWARDING_PROVIDER: protonvpn
               FIREWALL_INPUT_PORTS: "8080,9999" # webui, healthcheck
               HEALTH_SERVER_ADDRESS: ":9999"
               FIREWALL_OUTBOUND_SUBNETS: ${K8S_CLUSTER_CIDR},${K8S_SERVICE_CIDR}
@@ -126,6 +126,30 @@ spec:
                 memory: 3Gi
               limits:
                 memory: 5Gi
+          port-forward:
+            image:
+              repository: ghcr.io/bjw-s-labs/gluetun-qb-port-sync
+              tag: 0.0.4@sha256:14ce24f2e054abf06f695f35c8c33612e49d6d0fe80a33896403d85b09a9d329
+            env:
+              GLUETUN_CONTROL_SERVER_HOST: localhost
+              GLUETUN_CONTROL_SERVER_PORT: 8000
+              GLUETUN_CONTROL_SERVER_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: qbittorrent
+                    key: GLUETUN_CONTROL_SERVER_API_KEY
+              QBITTORRENT_HOST: localhost
+              QBITTORRENT_WEBUI_PORT: *port
+              CRON_ENABLED: true
+              CRON_SCHEDULE: "*/5 * * * *"
+              LOG_TIMESTAMP: false
+            securityContext:
+              runAsUser: 568
+              runAsGroup: 568
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
     service:
       app:
         controller: qbittorrent
@@ -159,6 +183,12 @@ spec:
       media:
         enabled: true
         existingClaim: qbittorrent-lordcommander
+      empty-config:
+        type: emptyDir
+        advancedMounts:
+          qbittorrent:
+            port-forward:
+              - path: /config
       coredns:
         type: configMap
         name: qbittorrent-coredns
