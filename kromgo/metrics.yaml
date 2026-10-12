@@ -2,67 +2,67 @@ metrics:
   cluster_age_days:
     schemaVersion: 1
     label: Age
-    message: 153d
+    message: 154d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-12T13:57:11+00:00'
+    pulledAt: '2026-10-12T23:58:22+00:00'
   cluster_node_count:
     schemaVersion: 1
     label: Nodes
     message: '3'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-12T13:57:11+00:00'
+    pulledAt: '2026-10-12T23:58:23+00:00'
   cluster_pod_count:
     schemaVersion: 1
     label: Pods
-    message: '166'
+    message: '168'
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-12T13:57:12+00:00'
+    pulledAt: '2026-10-12T23:58:23+00:00'
   cluster_cpu_usage:
     schemaVersion: 1
     label: CPU
-    message: 30.6%
+    message: 24.4%
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-12T13:57:12+00:00'
+    pulledAt: '2026-10-12T23:58:24+00:00'
   cluster_memory_usage:
     schemaVersion: 1
     label: Memory
-    message: 50.7%
+    message: 46%
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-10-12T13:57:12+00:00'
+    pulledAt: '2026-10-12T23:58:24+00:00'
   cluster_power_usage:
     schemaVersion: 1
     label: Homelab power
-    message: 513w
+    message: 526w
     color: orange
     cacheSeconds: 300
-    pulledAt: '2026-10-12T13:57:13+00:00'
+    pulledAt: '2026-10-12T23:58:25+00:00'
   cluster_uptime_days:
     schemaVersion: 1
     label: Uptime
     message: 11d
     color: green
     cacheSeconds: 300
-    pulledAt: '2026-10-12T13:57:13+00:00'
+    pulledAt: '2026-10-12T23:58:25+00:00'
   talos_version:
     schemaVersion: 1
     label: Talos
     message: 1.14.2
     cacheSeconds: 300
-    pulledAt: '2026-10-12T13:57:14+00:00'
+    pulledAt: '2026-10-12T23:58:26+00:00'
   kubernetes_version:
     schemaVersion: 1
     label: Kubernetes
     message: 1.37.1
     cacheSeconds: 300
-    pulledAt: '2026-10-12T13:57:14+00:00'
+    pulledAt: '2026-10-12T23:58:26+00:00'
   flux_version:
     schemaVersion: 1
     label: Flux
     message: 2.9.6
     cacheSeconds: 300
-    pulledAt: '2026-10-12T13:57:15+00:00'
+    pulledAt: '2026-10-12T23:58:27+00:00'
