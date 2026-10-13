@@ -48,7 +48,7 @@ spec:
           app:
             image: &image
               repository: ghcr.io/christfriedbalizou/translator
-              tag: 0.11.1@sha256:aad374af43688b08bade9d20addf26934724ef8b39e82881dd285ed0df441ba8
+              tag: 0.11.2@sha256:e042424110042accf76dd9e4ad000c1c2170fb459a170eac691cf96a9e0297fa
             args: [api]
             env: &env
               TZ: ${TIMEZONE}
@@ -97,9 +97,6 @@ spec:
               TRANSLATION_JOB_TIMEOUT_SECONDS: "1800"
               TRANSLATION_MAX_ATTEMPTS: "3"
               CURRENCY__AUTOMATIC_ENABLED: "true"
-              SOURCE_DISTRIBUTION__ARCHIVE: /release/source.tar.gz
-              SOURCE_DISTRIBUTION__REVISION: dc458aa21e25636664613908bf86c4d65387d71f
-              SOURCE_DISTRIBUTION__SHA256: f032332212f569f641ede74d86de618f983f0acd2b7766d50f28c1cc44f3f323
             envFrom: &envFrom
               - secretRef:
                   name: translator-secrets
