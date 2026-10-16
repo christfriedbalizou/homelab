@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: docker.io/openwebui/open-webui
-              tag: 0.12.1@sha256:663fae21b1342d6a19c1161cf05cef8604743077069350f6a0115070237d0a3b
+              tag: 0.12.2@sha256:10e6a78ba2d172493460a9e8a92c496aaa7a64dc4d26d622a2e95e0c736081c9
             env:
               ENABLE_LOGIN_FORM: "false"
               ENABLE_OAUTH_SIGNUP: "true"
