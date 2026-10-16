@@ -55,7 +55,7 @@ spec:
             resources:
               requests:
                 cpu: 100m
-                memory: 8Gi
+                memory: 5Gi
               limits:
                 memory: 16Gi
                 "nvidia.com/gpu.shared": 1
