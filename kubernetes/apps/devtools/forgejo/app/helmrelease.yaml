@@ -52,7 +52,7 @@ spec:
       rootless: true
       registry: code.forgejo.org
       repository: forgejo/forgejo
-      tag: 16.0.5-rootless
+      tag: 16.0.6-rootless
     httpRoute:
       enabled: false
     persistence:
