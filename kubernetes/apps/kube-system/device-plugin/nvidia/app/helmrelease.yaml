@@ -43,12 +43,12 @@ spec:
     validator:
       repository: nvcr.io/nvidia
       image: gpu-operator
-      version: v26.7.1@sha256:b844f9c033e748b8f9925f791f426a531ee8a855f04d4ccea365378634bcefe5
+      version: v26.7.2@sha256:02933b43d286d1321cd0dadd460b9ae8f5e5c0ee99a087e2d10254febc94ba45
       imagePullPolicy: IfNotPresent
     operator:
       repository: nvcr.io/nvidia
       image: gpu-operator
-      version: v26.7.1@sha256:b844f9c033e748b8f9925f791f426a531ee8a855f04d4ccea365378634bcefe5
+      version: v26.7.2@sha256:02933b43d286d1321cd0dadd460b9ae8f5e5c0ee99a087e2d10254febc94ba45
       imagePullPolicy: IfNotPresent
     driver:
       enabled: false
