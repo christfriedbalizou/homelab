@@ -39,7 +39,6 @@ latency before increasing concurrency or context.
 | `qwen3-4b-q4-local` | `qwen3:4b-q4_K_M`, thinking enabled |
 | `qwen3-8b-q4-local` | `qwen3:8b-q4_K_M`, thinking enabled |
 | `qwen3-14b-q4-local` | `qwen3:14b-q4_K_M`, thinking enabled |
-| `qwen3-32b-q4-local` | `qwen3:32b-q4_K_M`, thinking enabled |
 | `gpt-6-astra-openai-cloud` | `openai/gpt-6-astra` |
 | `gpt-6-sol-openai-cloud` | `openai/gpt-6-sol` |
 | `gpt-6-luna-openai-cloud` | `openai/gpt-6-luna` |
@@ -93,14 +92,14 @@ are not deleted by this catalogue change.
    permission migration if they have restricted model lists.
 
 2. Commit and push the reviewed manifests, then explicitly reconcile Flux.
-   The `ollama-pull-local-models-v5` Job pulls and verifies all six local
+   The `ollama-pull-local-models-v6` Job pulls and verifies all five local
    models. Its name changes because Kubernetes Job pod templates are immutable.
    Verify the Job completes before testing new provider choices.
 3. Verify LiteLLM lists the new names with each application's own key and run
    small synthetic inference checks. Cloud billing remains an independent
    requirement; this change does not restore upstream credits.
 4. Verify Translator has TranslateGemma as the default and selectable Qwen3
-   8B, 14B, and 32B providers. Its existing cloud provider remains available for
+   8B and 14B providers. Its existing cloud provider remains available for
    explicit selection. Existing provider IDs are preserved; new Qwen IDs are
    stable. Renaming an existing configured provider increments its revision,
    so jobs pinned to its old revision may need an explicit retry with updated

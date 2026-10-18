@@ -12,4 +12,3 @@ resources:
   - ./translategemma-local-ollama.yaml
   - ./qwen3-8b-q4-ollama.yaml
   - ./qwen3-14b-q4-ollama.yaml
-  - ./qwen3-32b-q4-ollama.yaml
