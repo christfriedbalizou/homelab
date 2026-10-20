@@ -87,12 +87,12 @@ spec:
                   - ALL
             image:
               repository: registry.erwanleboucher.dev/eleboucher/memini
-              tag: 0.7.34
+              tag: 0.7.36
               digest: sha256:1e060967d6fd11dfb79eeaa67d8745e0dde5d946ca1b7dd7469b4fad2fac0c1d
           backup:
             image:
               repository: docker.io/library/python
-              tag: 3.15.0-alpine@sha256:ff4d3c9b1a48f646eedd93182aaea385c7a5452f4c8a8cd7cef686babacf4928
+              tag: 3.15.0-alpine@sha256:2699b90f4d562a22e2dd076c82f964032f64814204bff36d271a54ba4cc2c7e2
             command:
               - python
               - -u
