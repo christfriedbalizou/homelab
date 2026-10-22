@@ -5,3 +5,7 @@ kind: Kustomization
 namespace: ai
 resources:
   - ./qwen3-embedding-0.6b.yaml
+  - ./qwen3-local.yaml
+  - ./gemma3-local.yaml
+  - ./deepseek-local.yaml
+  - ./translategemma-local.yaml
