@@ -83,7 +83,14 @@ spec:
               INGESTION__MAX_PDF_PAGES: "200"
               INGESTION__RETENTION_DAYS: "90"
               TRANSLATION__MASTER_KEY_FILE: /run/secrets/provider-master-key
-              TRANSLATION__ALLOWED_PROVIDER_BASE_URLS: '["http://litellm.ai.svc.cluster.local:4000/v1","https://litellm.${SECRET_DOMAIN}/v1"]'
+              TRANSLATION__ALLOWED_PROVIDER_BASE_URLS: '["http://litellm.ai.svc.cluster.local:4000/v1"]'
+              # Keep the running deployment local-only while the encrypted
+              # generated Secret is regenerated from bootstrap/vars/config.yaml.
+              TRANSLATION__PROVIDERS: >-
+                [{"id":"6ffb478e-2ec6-418a-bce8-2ec7f406d73b","api_key_file":"/run/secrets/litellm-api-key","configuration":{"base_url":"http://litellm.ai.svc.cluster.local:4000/v1","concurrency":1,"kind":"local","model":"translategemma-4b-q4-local","overall_timeout_seconds":300,"read_timeout_seconds":180,"user_selectable":false}},
+                {"id":"81770d82-3f07-57c8-9f46-75cdb4716c7f","api_key_file":"/run/secrets/litellm-api-key","configuration":{"base_url":"http://litellm.ai.svc.cluster.local:4000/v1","concurrency":1,"kind":"local","model":"qwen3-1.7b-q8-local","overall_timeout_seconds":900,"read_timeout_seconds":600,"user_selectable":true,"disable_reasoning":true}},
+                {"id":"0165878e-54e7-5d03-9ca2-e5b33d2d4231","api_key_file":"/run/secrets/litellm-api-key","configuration":{"base_url":"http://litellm.ai.svc.cluster.local:4000/v1","concurrency":1,"kind":"local","model":"gemma3-1b-it-q4-local","overall_timeout_seconds":900,"read_timeout_seconds":600,"user_selectable":true,"disable_reasoning":true}},
+                {"id":"daf4ff4f-255f-5dd4-b1a9-d619be84e3ee","api_key_file":"/run/secrets/litellm-api-key","configuration":{"base_url":"http://litellm.ai.svc.cluster.local:4000/v1","concurrency":1,"kind":"local","model":"deepseek-r1-distill-qwen-1.5b-q4-local","overall_timeout_seconds":900,"read_timeout_seconds":600,"user_selectable":true,"disable_reasoning":true}}]
               TRANSLATION__ASSETS_DIRECTORY: /release/assets
               TRANSLATION__ASSETS_MANIFEST: /release/assets/manifest.json
               TRANSLATION__OCR__ENABLED: "true"

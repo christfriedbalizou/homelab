@@ -68,3 +68,6 @@ megalinter-reports
 
 # Private deployment verification inputs and credentials
 /.private/
+
+# Home Assistant dashboard definitions contain private household data
+kubernetes/apps/home-automation/home-assistant/dashboards/*.json

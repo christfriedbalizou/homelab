@@ -29,7 +29,7 @@ RENAMES = {
     "openai-gpt-6-sol-cloud": "gpt-6-sol-openai-cloud",
     "openai-gpt-6-luna-cloud": "gpt-6-luna-openai-cloud",
 }
-QWEN_MODELS = [f"qwen3-{size}b-q4-local" for size in (8, 14, 32)]
+QWEN_MODELS = [f"qwen3-{size}b-q4-local" for size in (8, 14)]
 KEYS = (
     ("default", "translator-keys", "litellm-api-key", True),
     ("default", "translator-keys", "cloud-litellm-api-key", False),
