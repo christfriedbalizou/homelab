@@ -5,3 +5,17 @@ kind: Kustomization
 namespace: ai
 resources:
   - ./qwen3-embedding-0.6b.yaml
+  - ./qwen3-local.yaml
+  - ./qwen3-balanced.yaml
+  - ./gemma3-local.yaml
+  - ./gemma3-balanced.yaml
+  - ./deepseek-local.yaml
+  - ./deepseek-balanced.yaml
+  - ./translategemma-local.yaml
+patches:
+  - path: ./inferenceservice-scheduling.yaml
+    target:
+      group: inference.llmkube.dev
+      version: v1alpha1
+      kind: InferenceService
+      name: ^(deepseek-r1-distill-qwen-1.5b-q4-local|deepseek-r1-distill-qwen-7b-q4-local|gemma3-1b-it-q4-local|gemma3-4b-it-q4-local|qwen3-1.7b-q8-local|qwen3-4b-q4-local|translategemma-4b-q4-local)$
