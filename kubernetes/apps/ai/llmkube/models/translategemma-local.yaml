@@ -1,0 +1,46 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/inference.llmkube.dev/model_v1alpha1.json
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: Model
+metadata:
+  name: translategemma-4b-q4-local
+spec:
+  source: hf://mradermacher/translategemma-4b-it-GGUF
+  files:
+    - translategemma-4b-it.Q4_K_M.gguf
+  format: gguf
+  quantization: Q4_K_M
+  hardware:
+    accelerator: cpu
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/inference.llmkube.dev/inferenceservice_v1alpha1.json
+apiVersion: inference.llmkube.dev/v1alpha1
+kind: InferenceService
+metadata:
+  name: translategemma-4b-q4-local
+spec:
+  modelRef: translategemma-4b-q4-local
+  runtime: llamacpp
+  image: ghcr.io/ggml-org/llama.cpp:server-b11804@sha256:8c74db29f1a2bef3f0a331b52c4d6214601dfceed4bee0b94cc48b3b23ff257d
+  replicas: 1
+  priority: normal
+  contextSize: 4096
+  parallelSlots: 1
+  batchSize: 512
+  uBatchSize: 512
+  extraArgs:
+    - --alias
+    - translategemma-4b-q4-local
+    - --jinja
+    - --cont-batching
+    - --threads
+    - "4"
+    - --threads-batch
+    - "8"
+  endpoint:
+    port: 8080
+    type: ClusterIP
+  resources:
+    cpu: "2"
+    memory: 4Gi
+    memoryLimit: 6Gi

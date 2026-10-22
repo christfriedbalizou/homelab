@@ -18,6 +18,8 @@
     "prEditedNotification",
     "prIgnoreNotification",
   ],
+  // Keep platform-automerge PRs current as other updates merge.
+  rebaseWhen: "behind-base-branch",
   ignorePaths: [
     "**/*.sops.*",
     "**/resources/**",
