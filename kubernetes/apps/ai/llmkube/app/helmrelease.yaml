@@ -25,7 +25,9 @@ spec:
     controllerManager:
       replicaCount: 1
       leaderElection:
-        enabled: false
+        # The watch canary uses a Lease; enable election so the chart creates
+        # the corresponding RoleBinding for the controller service account.
+        enabled: true
       resources:
         requests:
           cpu: 10m
@@ -43,8 +45,8 @@ spec:
           drop:
             - ALL
       image:
-        tag: 0.9.30
-        digest: sha256:f9296df16c4da4fb67efe29d725543e99e4b0aef1a51d6b45d86efa187b0a622
+        tag: 0.10.4
+        digest: sha256:69f6deb30d9f1709a22e15c60a80c8a3bdda35ef0b3643e382d65f5fbaf7caef
       initContainer:
         repository: docker.io/curlimages/curl
         tag: 8.22.0@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777
