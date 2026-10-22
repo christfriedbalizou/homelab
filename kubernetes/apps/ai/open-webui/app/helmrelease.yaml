@@ -38,7 +38,7 @@ spec:
               ENABLE_OAUTH_ROLE_MANAGEMENT: "true"
               ENABLE_SIGNUP: "false"
               DEFAULT_USER_ROLE: user
-              DEFAULT_MODELS: qwen3-4b-q4-local
+              DEFAULT_MODELS: qwen3-1.7b-q8-local
               OAUTH_ADMIN_ROLES: admin
               OAUTH_ALLOWED_ROLES: family
               OAUTH_CLIENT_ID: open-webui
@@ -65,9 +65,14 @@ spec:
                     key: MEMINI_API_KEY
               OPENID_PROVIDER_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
               OPENID_REDIRECT_URI: https://ai.${SECRET_DOMAIN}/oauth/oidc/callback
-              RAG_EMBEDDING_ENGINE: ollama
-              RAG_OLLAMA_BASE_URL: http://ollama.ai.svc.cluster.local:11434
-              RAG_EMBEDDING_MODEL: nomic-embed-text:latest
+              RAG_EMBEDDING_ENGINE: openai
+              RAG_OPENAI_API_BASE_URL: http://litellm.ai.svc.cluster.local:4000/v1
+              RAG_OPENAI_API_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-open-webui-secrets
+                    key: OPENAI_API_KEY
+              RAG_EMBEDDING_MODEL: qwen3-embedding
               RAG_EMBEDDING_MODEL_AUTO_UPDATE: "false"
               REDIS_KEY_PREFIX: open-webui
               REDIS_URL: redis://dragonfly.storage.svc.cluster.local:6379/4

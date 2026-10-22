@@ -8,6 +8,7 @@ spec:
   components:
     - ../../../../components/zeroscaler
     - ../../../../components/persistence/jericho-nfs
+    - ../../../../components/ext-auth
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -24,6 +25,9 @@ spec:
       APP: zigbee2mqtt
       JERICHO_PATH: /volume1/apps/home-automation
   targetNamespace: home-automation
+  dependsOn:
+    - name: authelia
+      namespace: identity
   prune: true
   sourceRef:
     kind: GitRepository
