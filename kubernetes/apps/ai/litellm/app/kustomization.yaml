@@ -7,4 +7,3 @@ resources:
   - ./secret.sops.yaml
   - ./litellmproxy.yaml
   - ./servicemonitor.yaml
-  - ./models
