@@ -12,3 +12,9 @@ resources:
   - ./deepseek-local.yaml
   - ./deepseek-balanced.yaml
   - ./translategemma-local.yaml
+patches:
+  - path: ./inferenceservice-scheduling.yaml
+    target:
+      group: inference.llmkube.dev
+      version: v1alpha1
+      kind: InferenceService
