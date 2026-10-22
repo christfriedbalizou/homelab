@@ -25,7 +25,9 @@ spec:
     controllerManager:
       replicaCount: 1
       leaderElection:
-        enabled: false
+        # The watch canary uses a Lease; enable election so the chart creates
+        # the corresponding RoleBinding for the controller service account.
+        enabled: true
       resources:
         requests:
           cpu: 10m
