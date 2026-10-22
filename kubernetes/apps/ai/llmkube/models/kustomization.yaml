@@ -18,3 +18,4 @@ patches:
       group: inference.llmkube.dev
       version: v1alpha1
       kind: InferenceService
+      name: ^(deepseek-r1-distill-qwen-1.5b-q4-local|deepseek-r1-distill-qwen-7b-q4-local|gemma3-1b-it-q4-local|gemma3-4b-it-q4-local|qwen3-1.7b-q8-local|qwen3-4b-q4-local|translategemma-4b-q4-local)$
