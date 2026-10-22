@@ -22,9 +22,12 @@ spec:
       qwen3-local: qwen3-1.7b-q8-local
       qwen3-local-think: qwen3-1.7b-q8-local
       qwen3-local-fast: qwen3-1.7b-q8-local
+      qwen3-local-balanced: qwen3-4b-q4-local
       translategemma-local: translategemma-4b-q4-local
       gemma-local: gemma3-1b-it-q4-local
+      gemma-local-balanced: gemma3-4b-it-q4-local
       deepseek-local: deepseek-r1-distill-qwen-1.5b-q4-local
+      deepseek-local-balanced: deepseek-r1-distill-qwen-7b-q4-local
     redis_host: os.environ/REDIS_HOST
     redis_port: os.environ/REDIS_PORT
     num_retries: 3
