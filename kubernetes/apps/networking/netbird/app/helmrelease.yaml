@@ -38,7 +38,7 @@ spec:
           02-render-config:
             image: &serverImage
               repository: netbirdio/netbird-server
-              tag: 0.81.4@sha256:d456702621ab1325313f711fc0264b3990a57daa872245acbe4469bc3e69d698
+              tag: 0.81.5@sha256:6799c37020ff70b9708d0e13bfe7b7a5004084caad86ba165ffe5ea1c84c0ea2
             command:
               - sh
               - -c
