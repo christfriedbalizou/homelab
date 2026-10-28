@@ -116,7 +116,5 @@ spec:
                 subPath: tmp
       transcode:
         type: emptyDir
-        medium: Memory
-        sizeLimit: 5Gi
         globalMounts:
           - path: /transcode
