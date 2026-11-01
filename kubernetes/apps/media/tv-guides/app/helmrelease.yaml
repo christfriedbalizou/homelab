@@ -1,0 +1,100 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app tv-guides
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    controllers:
+      tv-guides:
+        replicas: 1
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
+        pod:
+          automountServiceAccountToken: false
+          terminationGracePeriodSeconds: 90
+          nodeSelector:
+            kubernetes.io/arch: amd64
+          securityContext:
+            runAsNonRoot: true
+            # Jellyfin reads generated files with mode 0600 as the same UID.
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
+            seccompProfile: { type: RuntimeDefault }
+        initContainers:
+          permissions:
+            image: &image
+              repository: ghcr.io/christfriedbalizou/tv-guides
+              tag: 0.2.0@sha256:1dd893d53c44e0292658bccc558bc5223ff720feb79aa72b7510ef19a708f9c2
+            command: [sh, -ec]
+            args: ["chmod 0700 /data"]
+            securityContext: &security
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 10m
+                memory: 16Mi
+              limits:
+                cpu: 100m
+                memory: 64Mi
+        containers:
+          app:
+            image: *image
+            args: [run]
+            env:
+              TZ: ${TIMEZONE}
+              TV_GUIDES_WORK_DIR: /data
+              TV_GUIDES_PLAYLIST_URL_FILE: /run/secrets/tv-guides/playlist-url
+              TV_GUIDES_INTERVAL_SECONDS: "43200"
+              TV_GUIDES_LOG_LEVEL: INFO
+            securityContext: *security
+            probes:
+              liveness: &probes
+                enabled: false
+              readiness: *probes
+              startup: *probes
+            resources:
+              requests:
+                cpu: 50m
+                memory: 256Mi
+              limits:
+                cpu: "1"
+                memory: 1Gi
+    persistence:
+      data:
+        existingClaim: tv-guides-jericho
+        globalMounts:
+          - path: /data
+      secrets:
+        type: secret
+        name: *app
+        defaultMode: 0440
+        advancedMounts:
+          tv-guides:
+            app:
+              - path: /run/secrets/tv-guides
+                readOnly: true
+      tmp:
+        type: emptyDir
+        advancedMounts:
+          tv-guides:
+            app:
+              - path: /tmp
