@@ -31,19 +31,39 @@ spec:
             kubernetes.io/arch: amd64
           securityContext:
             runAsNonRoot: true
-            # Jellyfin reads generated files with mode 0600 as the same UID.
             runAsUser: 568
             runAsGroup: 568
             fsGroup: 568
             fsGroupChangePolicy: OnRootMismatch
             seccompProfile: { type: RuntimeDefault }
         initContainers:
-          permissions:
+          prepare-state:
             image: &image
               repository: ghcr.io/christfriedbalizou/tv-guides
               tag: 0.2.0@sha256:1dd893d53c44e0292658bccc558bc5223ff720feb79aa72b7510ef19a708f9c2
             command: [sh, -ec]
-            args: ["chmod 0700 /data"]
+            args:
+              - |
+                umask 077
+                mkdir -p /data/state
+                set -- /data/config.json /data/guide-mappings.sqlite3* \
+                  /data/discovery /data/reports /data/generations \
+                  /data/current /data/.refresh.lock
+                for entry in "$@"; do
+                  if [ ! -e "$entry" ] && [ ! -L "$entry" ]; then
+                    continue
+                  fi
+                  target="/data/state/${entry##*/}"
+                  if [ -e "$target" ] || [ -L "$target" ]; then
+                    echo "State conflict; refusing to overwrite guide data" >&2
+                    exit 1
+                  fi
+                done
+                for entry in "$@"; do
+                  if [ -e "$entry" ] || [ -L "$entry" ]; then
+                    mv "$entry" /data/state/
+                  fi
+                done
             securityContext: &security
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
@@ -61,7 +81,7 @@ spec:
             args: [run]
             env:
               TZ: ${TIMEZONE}
-              TV_GUIDES_WORK_DIR: /data
+              TV_GUIDES_WORK_DIR: /data/state
               TV_GUIDES_PLAYLIST_URL_FILE: /run/secrets/tv-guides/playlist-url
               TV_GUIDES_INTERVAL_SECONDS: "43200"
               TV_GUIDES_LOG_LEVEL: INFO
