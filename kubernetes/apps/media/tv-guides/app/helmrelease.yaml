@@ -44,7 +44,7 @@ spec:
             args: [run]
             env:
               TZ: ${TIMEZONE}
-              TV_GUIDES_WORK_DIR: /data/state
+              TV_GUIDES_WORK_DIR: /data
               TV_GUIDES_PLAYLIST_URL_FILE: /run/secrets/tv-guides/playlist-url
               TV_GUIDES_INTERVAL_SECONDS: "43200"
               TV_GUIDES_LOG_LEVEL: INFO
