@@ -45,8 +45,8 @@ spec:
           drop:
             - ALL
       image:
-        tag: 0.10.4
-        digest: sha256:69f6deb30d9f1709a22e15c60a80c8a3bdda35ef0b3643e382d65f5fbaf7caef
+        tag: 0.10.15
+        digest: sha256:77218a04f03375815cd696734d955dcab06d77bd26de7f36470abc817a581073
       initContainer:
         repository: docker.io/curlimages/curl
         tag: 8.22.0@sha256:58adaa4e8dca9c988bae2aba4ab3434a0bb2da16bbe3f92dec39ec7785166777
