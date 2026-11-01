@@ -84,6 +84,13 @@ spec:
               - identifier: app
                 port: http
     persistence:
+      tv-guides:
+        type: nfs
+        server: ${NFS_SERVER_APPS}
+        path: /volume1/apps/media/tv-guides
+        globalMounts:
+          - path: /tv-guides
+            readOnly: true
       ldap-ca:
         enabled: true
         type: secret

@@ -87,12 +87,12 @@ spec:
                   - ALL
             image:
               repository: registry.erwanleboucher.dev/eleboucher/memini
-              tag: 0.7.37
+              tag: 0.7.38
               digest: sha256:1e060967d6fd11dfb79eeaa67d8745e0dde5d946ca1b7dd7469b4fad2fac0c1d
           backup:
             image:
               repository: docker.io/library/python
-              tag: 3.15.2-alpine@sha256:1656b7eaf309cadf99069ea9de335c7f67a8355789cfc6f1835a05818996f081
+              tag: 3.15.2-alpine@sha256:20a82dbc2783112ddb91d1534603f802d222a3e63e593cd002eb2ac534e70211
             command:
               - python
               - -u
@@ -127,7 +127,7 @@ spec:
                     key: MEMINI_API_KEY
             image:
               repository: docker.io/curlimages/curl
-              tag: 8.23.0@sha256:11e64e28c5f58c8d93ee95fcf22ac055f48b0bc440e0ce7d8013bbb5ad6aa8ac
+              tag: 8.23.0@sha256:3fb7e13e5d179a845c97d78204f3f1064d1907037f26a3ebf91710571151fd93
     persistence:
       data:
         existingClaim: memini
