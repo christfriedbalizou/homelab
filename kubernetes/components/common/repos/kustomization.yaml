@@ -15,7 +15,6 @@ resources:
   - ./intel-gpu-resource-driver
   - ./k8s-gateway
   - ./kube-prometheus-stack
-  - ./kubernetes-dashboard-charts
   - ./kromgo
   - ./litellm-operator
   - ./llmkube
