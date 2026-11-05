@@ -12,7 +12,8 @@ on:
       - .github/scripts/sync-pgvector.mjs
       - .github/workflows/renovate.yaml
   schedule:
-    - cron: 0 * * * *
+    # Off the top of the hour: GitHub drops many on-the-hour scheduled runs.
+    - cron: 17 * * * *
   workflow_dispatch:
     inputs:
       dryRun:
