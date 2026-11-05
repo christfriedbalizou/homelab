@@ -1,0 +1,23 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: generic-device-plugin.rules
+  namespace: kube-system
+spec:
+  groups:
+    - name: generic-device-plugin
+      rules:
+        - alert: GenericDevicePluginUnregistered
+          expr: |
+            kube_node_status_allocatable{resource="squat_ai_tun"} == 0
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Generic device plugin is not registered on {{ $labels.node }}."
+            description:
+              "squat.ai devices (tun, coral) are unavailable on {{ $labels.node }},
+              so pods requesting them, such as Frigate, cannot start. The
+              watchdog CronJob should recycle the plugin pod within 5 minutes;
+              check generic-device-plugin-watchdog jobs if this persists."

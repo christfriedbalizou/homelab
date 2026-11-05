@@ -5,10 +5,15 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./helmrelease.yaml
+  - ./prometheusrule.yaml
+  - ./watchdog.yaml
 configMapGenerator:
   - name: generic-device-plugin
     files:
       - config.yaml=./config/config.yaml
+  - name: generic-device-plugin-watchdog
+    files:
+      - watchdog.py=./config/watchdog.py
 generatorOptions:
   disableNameSuffixHash: true
   annotations:

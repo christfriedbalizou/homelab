@@ -1,0 +1,103 @@
+---
+# Restarts the device plugin pod on a node after a kubelet restart has
+# locked it out. See config/watchdog.py.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: generic-device-plugin-watchdog
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: generic-device-plugin-watchdog
+rules:
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: generic-device-plugin-watchdog
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: generic-device-plugin-watchdog
+subjects:
+  - kind: ServiceAccount
+    name: generic-device-plugin-watchdog
+    namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: generic-device-plugin-watchdog
+  namespace: kube-system
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["list", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: generic-device-plugin-watchdog
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: generic-device-plugin-watchdog
+subjects:
+  - kind: ServiceAccount
+    name: generic-device-plugin-watchdog
+    namespace: kube-system
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: generic-device-plugin-watchdog
+  namespace: kube-system
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 120
+      ttlSecondsAfterFinished: 86400
+      template:
+        spec:
+          serviceAccountName: generic-device-plugin-watchdog
+          restartPolicy: Never
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            seccompProfile: { type: RuntimeDefault }
+          containers:
+            - name: watchdog
+              image: python:3.14-alpine@sha256:04357e8d728ac6a88a12b808f9b377762f937271ecaf5b99feb242c04de1ffc1
+              command: ["python", "/scripts/watchdog.py"]
+              env:
+                - name: PYTHONDONTWRITEBYTECODE
+                  value: "1"
+              resources:
+                requests:
+                  cpu: 10m
+                limits:
+                  memory: 64Mi
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities: { drop: ["ALL"] }
+              volumeMounts:
+                - name: scripts
+                  mountPath: /scripts
+                  readOnly: true
+          volumes:
+            - name: scripts
+              configMap:
+                name: generic-device-plugin-watchdog
