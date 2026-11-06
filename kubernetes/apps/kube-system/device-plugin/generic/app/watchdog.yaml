@@ -79,7 +79,7 @@ spec:
             seccompProfile: { type: RuntimeDefault }
           containers:
             - name: watchdog
-              image: python:3.14-alpine@sha256:04357e8d728ac6a88a12b808f9b377762f937271ecaf5b99feb242c04de1ffc1
+              image: python:3.14-alpine@sha256:b15fd707501f872b2d46a8edacb18aca52db393460d17a60a20e7231dbdb3263
               command: ["python", "/scripts/watchdog.py"]
               env:
                 - name: PYTHONDONTWRITEBYTECODE
