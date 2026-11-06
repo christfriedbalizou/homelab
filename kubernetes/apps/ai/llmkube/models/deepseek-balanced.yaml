@@ -21,7 +21,7 @@ metadata:
 spec:
   modelRef: deepseek-r1-distill-qwen-7b-q4-local
   runtime: llamacpp
-  image: ghcr.io/ggml-org/llama.cpp:server-b11804@sha256:8c74db29f1a2bef3f0a331b52c4d6214601dfceed4bee0b94cc48b3b23ff257d
+  image: ghcr.io/ggml-org/llama.cpp:server-b12124@sha256:c0a11067c72bb1eb330b8bddbf9869274c195e596bf4fae55fd527102e644b85
   replicas: 1
   priority: normal
   contextSize: 4096
