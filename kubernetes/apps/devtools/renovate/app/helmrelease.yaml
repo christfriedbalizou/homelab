@@ -42,6 +42,14 @@ spec:
                   secretKeyRef:
                     name: cluster-renovate-secrets
                     key: RENOVATE_TOKEN
+              # Read-only github.com token. Without it, anonymous API rate limits
+              # stop Renovate installing uv/node, so lockfiles are not updated.
+              GITHUB_COM_TOKEN:
+                valueFrom:
+                  secretKeyRef:
+                    name: cluster-renovate-secrets
+                    key: GITHUB_COM_TOKEN
+                    optional: true
             resources:
               requests:
                 cpu: 100m
