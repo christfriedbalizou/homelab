@@ -37,19 +37,13 @@ spec:
               RENOVATE_ENDPOINT: "https://git.${SECRET_DOMAIN}/api/v1"
               RENOVATE_AUTODISCOVER: "true"
               RENOVATE_ONBOARDING: "true"
-              RENOVATE_TOKEN:
-                valueFrom:
-                  secretKeyRef:
-                    name: cluster-renovate-secrets
-                    key: RENOVATE_TOKEN
-              # Read-only github.com token. Without it, anonymous API rate limits
-              # stop Renovate installing uv/node, so lockfiles are not updated.
-              GITHUB_COM_TOKEN:
-                valueFrom:
-                  secretKeyRef:
-                    name: cluster-renovate-secrets
-                    key: GITHUB_COM_TOKEN
-                    optional: true
+            # Provides RENOVATE_TOKEN and, once added, the read-only
+            # GITHUB_COM_TOKEN. Without the latter, anonymous api.github.com
+            # rate limits stop Renovate installing uv/node for lockfile updates.
+            # (app-template's schema rejects `optional` on secretKeyRef.)
+            envFrom:
+              - secretRef:
+                  name: cluster-renovate-secrets
             resources:
               requests:
                 cpu: 100m
