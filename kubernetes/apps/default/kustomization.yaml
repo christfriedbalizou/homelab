@@ -21,3 +21,4 @@ resources:
   - ./immich/ks.yaml
   - ./vaultwarden/ks.yaml
   - ./translator/ks.yaml
+  - ./syncthing/ks.yaml
