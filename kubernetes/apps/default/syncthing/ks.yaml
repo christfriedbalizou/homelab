@@ -1,0 +1,39 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app syncthing
+  namespace: flux-system
+spec:
+  components:
+    - ../../../../components/ext-auth
+    - ../../../../components/gatus/protected
+    - ../../../../components/zeroscaler
+    - ../../../../components/persistence/jericho-nfs
+    - ../../../../components/persistence/openebs-pvc
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  path: ./kubernetes/apps/default/syncthing/app
+  postBuild:
+    substituteFrom:
+      - name: cluster-secrets
+        kind: Secret
+    substitute:
+      APP: syncthing
+      JERICHO_PATH: /volume1/apps/default
+      OPENEBS_CAPACITY: 2Gi
+  targetNamespace: default
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+    namespace: flux-system
+  healthChecks:
+    - apiVersion: helm.toolkit.fluxcd.io/v2beta2
+      kind: HelmRelease
+      name: syncthing
+      namespace: default
+  interval: 30m
+  retryInterval: 1m
+  timeout: 3m

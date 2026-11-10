@@ -194,6 +194,9 @@ spec:
             - name: pgadmin
               url: "https://pgadmin.${SECRET_DOMAIN}"
               icon: "simple-icons:postgresql"
+            - name: syncthing
+              url: "https://syncthing.${SECRET_DOMAIN}"
+              icon: "simple-icons:syncthing"
         - group: System
           apps:
             - name: Kubernetes Dashboard
