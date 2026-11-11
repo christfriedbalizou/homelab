@@ -48,6 +48,7 @@ spec:
               STDATADIR: /var/syncthing/data
               STGUIADDRESS: 0.0.0.0:8384
               STNOUPGRADE: "true"
+              SSL_CERT_DIR: /etc/ssl/certs:/certs/lldap
               HOME: /var/syncthing/folders
             probes:
               liveness: &probe
@@ -112,6 +113,15 @@ spec:
           syncthing:
             app:
               - path: /var/syncthing/data
+      ldap-ca:
+        type: secret
+        name: lldap-client-trust
+        advancedMounts:
+          syncthing:
+            app:
+              - path: /certs/lldap/ca.crt
+                subPath: ca.crt
+                readOnly: true
       tmp:
         type: emptyDir
         advancedMounts:

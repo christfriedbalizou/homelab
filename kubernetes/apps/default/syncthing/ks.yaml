@@ -5,6 +5,9 @@ metadata:
   name: &app syncthing
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager-issuers
+      namespace: cert-manager
   components:
     - ../../../../components/ext-auth
     - ../../../../components/zeroscaler
