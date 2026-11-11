@@ -9,7 +9,6 @@ spec:
     - name: cert-manager-issuers
       namespace: cert-manager
   components:
-    - ../../../../components/ext-auth
     - ../../../../components/zeroscaler
     - ../../../../components/persistence/jericho-nfs
     - ../../../../components/persistence/openebs-pvc
