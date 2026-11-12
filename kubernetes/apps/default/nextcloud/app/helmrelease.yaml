@@ -14,7 +14,7 @@ spec:
 
     image:
       flavor: apache
-      tag: 32.0.2@sha256:8cb1dc8c26944115469dd22f4965d2ed35bab9cf8c48d2bb052c8e9f83821ded
+      tag: 32.0.15@sha256:68feaa8992524ac26b4c00194b81c1ae6dc8e9f412ac82de0c5f4d4a2ee4bbcd
 
     livenessProbe:
       enabled: false
