@@ -9,7 +9,7 @@ PYTHONPATH = "{{config_root}}/.venv/lib/python3.14/site-packages"
 
 [tools]
 "python" = "3.15.2"
-"uv" = "0.13.7" # required:template
+"uv" = "0.13.8" # required:template
 "pipx" = "1.18.13" # required:template
 "pipx:makejinja" = "2.9.2" # required:template
 "aqua:budimanjojo/talhelper" = "3.1.17"
