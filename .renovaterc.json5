@@ -79,6 +79,12 @@
       groupName: "kubernetes",
       minimumGroupSize: 1,
     },
+    {
+      description: "Nextcloud upgrades one major version at a time",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["docker.io/library/nextcloud"],
+      separateMultipleMajor: true,
+    },
     // NVIDIA chart values split the image path across repository and image.
     {
       description: "Resolve NVIDIA DCGM exporter image",
