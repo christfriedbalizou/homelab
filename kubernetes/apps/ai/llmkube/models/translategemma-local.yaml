@@ -21,7 +21,7 @@ metadata:
 spec:
   modelRef: translategemma-4b-q4-local
   runtime: llamacpp
-  image: ghcr.io/ggml-org/llama.cpp:server-b12375@sha256:c7d58273d753d33a352e5c41ab300c5ae040a16fa4b202231bb606478065c124
+  image: ghcr.io/ggml-org/llama.cpp:server-b12407@sha256:89fe93c2ef53ea2d09ca9f53db8878a8f57bb6b143eb63c76a9c218fb583b392
   replicas: 1
   priority: normal
   contextSize: 4096
