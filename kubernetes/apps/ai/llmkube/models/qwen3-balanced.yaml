@@ -21,7 +21,7 @@ metadata:
 spec:
   modelRef: qwen3-4b-q4-local
   runtime: llamacpp
-  image: ghcr.io/ggml-org/llama.cpp:server-b12407@sha256:89fe93c2ef53ea2d09ca9f53db8878a8f57bb6b143eb63c76a9c218fb583b392
+  image: ghcr.io/ggml-org/llama.cpp:server-b12429@sha256:7751a6c0dc3d019c231d42678abbb0fac1a13a24c17c956109ed27533139f280
   replicas: 1
   priority: normal
   contextSize: 4096
