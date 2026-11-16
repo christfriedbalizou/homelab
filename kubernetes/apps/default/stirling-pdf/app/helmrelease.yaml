@@ -26,6 +26,9 @@ spec:
       stirling-pdf:
         type: deployment
         replicas: 1
+        strategy: Recreate
+        annotations:
+          reloader.stakater.com/auto: "true"
         pod:
           securityContext:
             runAsNonRoot: true
@@ -46,13 +49,27 @@ spec:
               METRICS_ENABLED: false
               SYSTEM_DEFAULTLOCALE:  *lang
               SYSTEM_ENABLEANALYTICS: false
-              SECURITY_ENABLELOGIN: false
+              SECURITY_ENABLELOGIN: true
+              SECURITY_LOGINMETHOD: oauth2
+              SECURITY_SSOAUTOLOGIN: true
+              SECURITY_INITIALLOGIN_USERNAME: stirling-admin
+              SECURITY_OAUTH2_ENABLED: true
+              SECURITY_OAUTH2_PROVIDER: authelia
+              SECURITY_OAUTH2_ISSUER: https://auth.${SECRET_DOMAIN}
+              SECURITY_OAUTH2_CLIENTID: stirling-pdf
+              SECURITY_OAUTH2_SCOPES: openid, profile, email
+              SECURITY_OAUTH2_USEASUSERNAME: preferred_username
+              SECURITY_OAUTH2_AUTOCREATEUSER: true
+              SECURITY_OAUTH2_REDIRECTBASEURL: https://pdf.${SECRET_DOMAIN}
               SYSTEM_GOOGLEVISIBILITY: false
               SYSTEM_SHOW_UPDATE: false
               SYSTEM_TEMPFILEMANAGEMENT_BASETMPDIR: /tmp/stirling-pdf
               SYSTEM_TEMPFILEMANAGEMENT_MAXAGEHOURS: "1"
               SYSTEM_TEMPFILEMANAGEMENT_CLEANUPINTERVALMINUTES: "5"
               SYSTEM_TEMPFILEMANAGEMENT_STARTUPCLEANUP: "true"
+            envFrom:
+              - secretRef:
+                  name: cluster-stirling-pdf-secrets
             resources:
               requests:
                 cpu: "10m"
@@ -84,12 +101,14 @@ spec:
               - identifier: stirling-pdf
                 port: http
     persistence:
+      config:
+        existingClaim: stirling-pdf-openebs
+        globalMounts:
+          - path: /configs
       temporary:
         type: emptyDir
         medium: Memory
         globalMounts:
-          - path: /configs
-            subPath: configs
           - path: /customFiles
             subPath: customFiles
           - path: /logs

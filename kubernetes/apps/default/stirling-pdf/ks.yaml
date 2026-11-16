@@ -6,8 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   components:
-    - ../../../../components/ext-auth
-    - ../../../../components/gatus/protected
+    - ../../../../components/persistence/openebs-pvc
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
@@ -22,7 +21,7 @@ spec:
         kind: Secret
     substitute:
       APP: stirling-pdf
-      GATUS_HOST: pdf
+      OPENEBS_CAPACITY: 1Gi
   targetNamespace: default
   prune: true
   sourceRef:
