@@ -61,6 +61,7 @@ spec:
               SECURITY_OAUTH2_USEASUSERNAME: preferred_username
               SECURITY_OAUTH2_AUTOCREATEUSER: true
               SECURITY_OAUTH2_REDIRECTBASEURL: https://pdf.${SECRET_DOMAIN}
+              STORAGE_ENABLED: false
               SYSTEM_GOOGLEVISIBILITY: false
               SYSTEM_SHOW_UPDATE: false
               SYSTEM_TEMPFILEMANAGEMENT_BASETMPDIR: /tmp/stirling-pdf
