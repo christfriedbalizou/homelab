@@ -16,7 +16,7 @@ spec:
       registry: docker.io
       repository: library/nextcloud
       flavor: apache
-      tag: 34.0.6@sha256:3031e7f87baaceb863a755921ebf463bc26ea71855c07ad7858e2ae25a5a0ad7
+      tag: 35.0.3@sha256:8a7a65b8bae82a79568fec2ed9cf3e374a1944eda2a22ebe130d79463336fee3
 
     livenessProbe:
       enabled: false
