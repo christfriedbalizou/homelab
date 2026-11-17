@@ -23,3 +23,40 @@ spec:
   dependsOn:
     - name: nvidia
       namespace: kube-system
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-qwen3-1-7b-q8
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-qwen3-4b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-gemma3-1b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-gemma3-4b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-deepseek-1-5b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-deepseek-7b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-translategemma-4b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-qwen3-30b-a3b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-qwen3-embedding-0-6b
+      namespace: ai
