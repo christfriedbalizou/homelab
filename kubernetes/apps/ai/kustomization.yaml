@@ -8,6 +8,7 @@ components:
 resources:
   - ./open-webui/ks.yaml
   - ./llmkube/ks.yaml
+  - ./llama-cpp/ks.yaml
   - ./litellm-operator/ks.yaml
   - ./litellm/ks.yaml
   - ./ha-mcp/ks.yaml
