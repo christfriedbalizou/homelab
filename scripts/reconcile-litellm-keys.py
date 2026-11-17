@@ -60,7 +60,7 @@ DESIRED_GRANTS: dict[str, tuple[str, ...]] = {
         "qwen3-4b-q4-local",
     ),
 }
-RETIRED_KEYS = ("memini", "translator-cloud-20261009")
+RETIRED_KEYS: tuple[str, ...] = ()
 OPERATOR_MANAGED_KEYS = ("hermes",)
 
 
