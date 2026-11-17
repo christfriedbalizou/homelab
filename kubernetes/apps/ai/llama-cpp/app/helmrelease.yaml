@@ -1,0 +1,388 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: llama-cpp
+spec:
+  interval: 30m
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    disableWait: true
+    remediation:
+      retries: 3
+  upgrade:
+    disableWait: true
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  values:
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile:
+          type: RuntimeDefault
+
+    controllers:
+      qwen3-1-7b-q8:
+        strategy: Recreate
+        pod: &cpuPod
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: In
+                        values:
+                          - k8s-6
+                          - k8s-7
+        initContainers:
+          download:
+            image: &curl
+              repository: docker.io/curlimages/curl
+              tag: 8.23.0@sha256:3fb7e13e5d179a845c97d78204f3f1064d1907037f26a3ebf91710571151fd93
+            command: &download
+              - /bin/sh
+              - -c
+              - |
+                set -eu
+                dest="/models/$MODEL_FILE"
+                part="$dest.part"
+                verified() { echo "$MODEL_SHA256  $1" | sha256sum -c -s -; }
+                [ -f "$dest" ] && exit 0
+                if [ -f "$part" ] && verified "$part"; then mv "$part" "$dest"; exit 0; fi
+                curl -fL --retry 5 --retry-all-errors --retry-delay 10 -C - --no-progress-meter -o "$part" "$MODEL_URL"
+                if ! verified "$part"; then rm -f "$part"; echo "checksum mismatch for $MODEL_FILE" >&2; exit 1; fi
+                mv "$part" "$dest"
+            env:
+              MODEL_FILE: Qwen3-1.7B-Q8_0.gguf
+              MODEL_URL: https://huggingface.co/Qwen/Qwen3-1.7B-GGUF/resolve/90862c4b9d2787eaed51d12237eafdfe7c5f6077/Qwen3-1.7B-Q8_0.gguf
+              MODEL_SHA256: 061b54daade076b5d3362dac252678d17da8c68f07560be70818cace6590cb1a
+            resources: &downloadResources
+              requests:
+                cpu: 10m
+                memory: 32Mi
+              limits:
+                memory: 256Mi
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
+        containers:
+          app:
+            image: &image
+              repository: ghcr.io/ggml-org/llama.cpp
+              tag: server-b12429@sha256:7751a6c0dc3d019c231d42678abbb0fac1a13a24c17c956109ed27533139f280
+            args: [--model, /models/Qwen3-1.7B-Q8_0.gguf, --alias, qwen3-1.7b-q8-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
+            probes: &probes
+              startup:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 8080
+                  periodSeconds: 10
+                  failureThreshold: 60
+              liveness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 8080
+                  periodSeconds: 30
+                  timeoutSeconds: 5
+                  failureThreshold: 6
+              readiness:
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: 8080
+                  periodSeconds: 10
+                  timeoutSeconds: 5
+                  failureThreshold: 6
+            resources:
+              requests:
+                cpu: "2"
+                memory: 3Gi
+              limits:
+                memory: 5Gi
+            securityContext: *securityContext
+
+      qwen3-4b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: Qwen3-4B-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/bc640142c66e1fdd12af0bd68f40445458f3869b/Qwen3-4B-Q4_K_M.gguf
+              MODEL_SHA256: 7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/Qwen3-4B-Q4_K_M.gguf, --alias, qwen3-4b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "2"
+                memory: 4Gi
+              limits:
+                memory: 6Gi
+            securityContext: *securityContext
+
+      gemma3-1b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: google_gemma-3-1b-it-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/bartowski/google_gemma-3-1b-it-GGUF/resolve/116f76234503685a98f572982177b11d44ec8ff1/google_gemma-3-1b-it-Q4_K_M.gguf
+              MODEL_SHA256: 12bf0fff8815d5f73a3c9b586bd8fee8e7b248c935de70dec367679873d0f29d
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/google_gemma-3-1b-it-Q4_K_M.gguf, --alias, gemma3-1b-it-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "2"
+                memory: 2Gi
+              limits:
+                memory: 4Gi
+            securityContext: *securityContext
+
+      gemma3-4b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: google_gemma-3-4b-it-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF/resolve/71506238f970075ca85125cd749c28b1b0eee84e/google_gemma-3-4b-it-Q4_K_M.gguf
+              MODEL_SHA256: 4996030242583a40aa151ff93f49ed787ac8c25e4120c3ae4588b2e2a7d1ae94
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/google_gemma-3-4b-it-Q4_K_M.gguf, --alias, gemma3-4b-it-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "2"
+                memory: 4Gi
+              limits:
+                memory: 6Gi
+            securityContext: *securityContext
+
+      deepseek-1-5b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-1.5B-GGUF/resolve/9cc28b17e86fa2415fcb070f8ee5ec27c965aa61/DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf
+              MODEL_SHA256: 1741e5b2d062b07acf048bf0d2c514dadf2a48f94e2b4aa0cfe069af3838ee2f
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf, --alias, deepseek-r1-distill-qwen-1.5b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "2"
+                memory: 2Gi
+              limits:
+                memory: 4Gi
+            securityContext: *securityContext
+
+      deepseek-7b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF/resolve/361004151d4f4f6b446dc5e6d46fbf4422a80d5f/DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf
+              MODEL_SHA256: 731ece8d06dc7eda6f6572997feb9ee1258db0784827e642909d9b565641937b
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf, --alias, deepseek-r1-distill-qwen-7b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "2"
+                memory: 6Gi
+              limits:
+                memory: 8Gi
+            securityContext: *securityContext
+
+      translategemma-4b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: translategemma-4b-it.Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/mradermacher/translategemma-4b-it-GGUF/resolve/d37868f759d2f817a43d28dd80cf9f982ffa62fd/translategemma-4b-it.Q4_K_M.gguf
+              MODEL_SHA256: 81200d03e843d2ec1ece6eeafe7d13cb6e5211e1fcd336ade55790b683a08330
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/translategemma-4b-it.Q4_K_M.gguf, --alias, translategemma-4b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "2"
+                memory: 4Gi
+              limits:
+                memory: 6Gi
+            securityContext: *securityContext
+
+      qwen3-embedding-0-6b:
+        strategy: Recreate
+        pod:
+          runtimeClassName: nvidia
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: Qwen3-Embedding-0.6B-Q8_0.gguf
+              MODEL_URL: https://huggingface.co/Qwen/Qwen3-Embedding-0.6B-GGUF/resolve/370f27d7550e0def9b39c1f16d3fbaa13aa67728/Qwen3-Embedding-0.6B-Q8_0.gguf
+              MODEL_SHA256: 06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image:
+              repository: ghcr.io/ggml-org/llama.cpp
+              tag: server-cuda-b12429@sha256:d68ec493c0ff9105ddfe2e909fff304117bc6e1fffbbd8d94182bd455983c264
+            args: [--model, /models/Qwen3-Embedding-0.6B-Q8_0.gguf, --alias, qwen3-embedding, --host, 0.0.0.0, --port, "8080", --n-gpu-layers, "99", --ctx-size, "2048", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --embeddings, --pooling, last, --cont-batching, --threads, "2", --threads-batch, "4", --metrics]
+            env:
+              NVIDIA_DRIVER_CAPABILITIES: compute,utility
+            probes: *probes
+            resources:
+              requests:
+                cpu: 100m
+                memory: 1Gi
+                nvidia.com/gpu.shared: 1
+              limits:
+                memory: 2Gi
+                nvidia.com/gpu.shared: 1
+            securityContext: *securityContext
+
+    service:
+      qwen3-1-7b-q8: &service
+        controller: qwen3-1-7b-q8
+        ports:
+          http:
+            port: 8080
+      qwen3-4b-q4:
+        <<: *service
+        controller: qwen3-4b-q4
+      gemma3-1b-q4:
+        <<: *service
+        controller: gemma3-1b-q4
+      gemma3-4b-q4:
+        <<: *service
+        controller: gemma3-4b-q4
+      deepseek-1-5b-q4:
+        <<: *service
+        controller: deepseek-1-5b-q4
+      deepseek-7b-q4:
+        <<: *service
+        controller: deepseek-7b-q4
+      translategemma-4b-q4:
+        <<: *service
+        controller: translategemma-4b-q4
+      qwen3-embedding-0-6b:
+        <<: *service
+        controller: qwen3-embedding-0-6b
+
+    persistence:
+      qwen3-1-7b-q8: &cache
+        type: persistentVolumeClaim
+        storageClass: openebs-hostpath
+        accessMode: ReadWriteOnce
+        size: 5Gi
+        advancedMounts:
+          qwen3-1-7b-q8: &cacheMounts
+            download:
+              - path: /models
+            app:
+              - path: /models
+                readOnly: true
+      qwen3-4b-q4:
+        <<: *cache
+        advancedMounts:
+          qwen3-4b-q4: *cacheMounts
+      gemma3-1b-q4:
+        <<: *cache
+        advancedMounts:
+          gemma3-1b-q4: *cacheMounts
+      gemma3-4b-q4:
+        <<: *cache
+        advancedMounts:
+          gemma3-4b-q4: *cacheMounts
+      deepseek-1-5b-q4:
+        <<: *cache
+        advancedMounts:
+          deepseek-1-5b-q4: *cacheMounts
+      deepseek-7b-q4:
+        <<: *cache
+        advancedMounts:
+          deepseek-7b-q4: *cacheMounts
+      translategemma-4b-q4:
+        <<: *cache
+        advancedMounts:
+          translategemma-4b-q4: *cacheMounts
+      qwen3-embedding-0-6b:
+        <<: *cache
+        advancedMounts:
+          qwen3-embedding-0-6b: *cacheMounts
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
