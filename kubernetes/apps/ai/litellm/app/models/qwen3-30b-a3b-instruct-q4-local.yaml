@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: llama-cpp-qwen3-30b-a3b-q4
+spec:
+  modelName: qwen3-30b-a3b-instruct-q4-local
+  params:
+    model: openai/qwen3-30b-a3b-instruct-q4-local
+    apiBase: http://llama-cpp-qwen3-30b-a3b-q4.ai.svc.cluster.local:8080/v1
+    apiKey: sk-local-no-auth
+  info:
+    maxTokens: 65536
+    maxInputTokens: 65536
+    maxOutputTokens: 16384
+    supportsFunctionCalling: true

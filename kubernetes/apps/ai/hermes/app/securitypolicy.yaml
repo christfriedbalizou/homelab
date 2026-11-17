@@ -3,12 +3,12 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: SecurityPolicy
 metadata:
-  name: memini-main
+  name: hermes-webapp
 spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      name: memini-main
+      name: hermes-webapp
   extAuth:
     failOpen: false
     headersToExtAuth:
@@ -36,12 +36,12 @@ spec:
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: SecurityPolicy
 metadata:
-  name: memini-ui
+  name: hermes-dashboard
 spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: HTTPRoute
-      name: memini-ui
+      name: hermes-dashboard
   extAuth:
     failOpen: false
     headersToExtAuth:

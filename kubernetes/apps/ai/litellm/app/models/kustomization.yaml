@@ -11,4 +11,5 @@ resources:
   - ./deepseek-r1-distill-qwen-1.5b-q4-local.yaml
   - ./deepseek-r1-distill-qwen-7b-q4-local.yaml
   - ./translategemma-4b-q4-local.yaml
+  - ./qwen3-30b-a3b-instruct-q4-local.yaml
   - ./qwen3-embedding-0.6b.yaml

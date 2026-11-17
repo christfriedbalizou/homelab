@@ -280,6 +280,32 @@ spec:
                 memory: 6Gi
             securityContext: *securityContext
 
+      qwen3-30b-a3b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: Qwen3-30B-A3B-Instruct-2507-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF/resolve/eea7b2be5805a5f151f8847ede8e5f9a9284bf77/Qwen3-30B-A3B-Instruct-2507-Q4_K_M.gguf
+              MODEL_SHA256: 6c997b8af17debdfb01d890214400ccbab00db6acc0ba8da5de1cc906c4774d0
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/Qwen3-30B-A3B-Instruct-2507-Q4_K_M.gguf, --alias, qwen3-30b-a3b-instruct-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --flash-attn, "on", --cache-type-k, q8_0, --cache-type-v, q8_0, --cache-reuse, "256", --temp, "0.7", --top-p, "0.8", --top-k, "20", --min-p, "0", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "4"
+                memory: 22Gi
+              limits:
+                memory: 26Gi
+            securityContext: *securityContext
+
       qwen3-embedding-0-6b:
         strategy: Recreate
         pod:
@@ -337,6 +363,9 @@ spec:
       translategemma-4b-q4:
         <<: *service
         controller: translategemma-4b-q4
+      qwen3-30b-a3b-q4:
+        <<: *service
+        controller: qwen3-30b-a3b-q4
       qwen3-embedding-0-6b:
         <<: *service
         controller: qwen3-embedding-0-6b
@@ -378,6 +407,11 @@ spec:
         <<: *cache
         advancedMounts:
           translategemma-4b-q4: *cacheMounts
+      qwen3-30b-a3b-q4:
+        <<: *cache
+        size: 20Gi
+        advancedMounts:
+          qwen3-30b-a3b-q4: *cacheMounts
       qwen3-embedding-0-6b:
         <<: *cache
         advancedMounts:

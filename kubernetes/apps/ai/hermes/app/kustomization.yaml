@@ -5,12 +5,13 @@ kind: Kustomization
 namespace: ai
 resources:
   - ./secret.sops.yaml
-  - ./helmrelease.yaml
+  - ./litellmvirtualkey.yaml
+  - ./ciliumnetworkpolicy.yaml
   - ./securitypolicy.yaml
-  - ./pvc.yaml
+  - ./helmrelease.yaml
 configMapGenerator:
-  - name: memini-backup
+  - name: hermes-config
     files:
-      - backup.py=resources/backup.py
+      - ./resources/config.yaml
 generatorOptions:
   disableNameSuffixHash: true

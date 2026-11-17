@@ -20,9 +20,6 @@ spec:
     kind: GitRepository
     name: home-kubernetes
     namespace: flux-system
-  dependsOn:
-    - name: llmkube
-      namespace: ai
   postBuild:
     substituteFrom:
       - name: cluster-secrets

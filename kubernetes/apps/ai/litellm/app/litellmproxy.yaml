@@ -8,6 +8,10 @@ spec:
   # renovate: datasource=docker depName=ghcr.io/berriai/litellm
   image: ghcr.io/berriai/litellm:v1.109.1@sha256:11175975a3093e05e92faee2fe2fe3412a3ae2fcaa849eb0fe25d5f0d8bcb2e9
   replicas: 1
+  apiAccess:
+    masterKeyRef:
+      name: cluster-litellm-secrets
+      key: LITELLM_MASTER_KEY
   generalSettings:
     store_model_in_db: true
     store_prompts_in_spend_logs: true

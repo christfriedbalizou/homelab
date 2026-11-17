@@ -7,10 +7,9 @@ components:
   - ../../components/common
 resources:
   - ./open-webui/ks.yaml
-  - ./llmkube/ks.yaml
   - ./llama-cpp/ks.yaml
   - ./litellm-operator/ks.yaml
   - ./litellm/ks.yaml
   - ./ha-mcp/ks.yaml
   - ./context7-mcp/ks.yaml
-  - ./memini/ks.yaml
+  - ./hermes/ks.yaml
