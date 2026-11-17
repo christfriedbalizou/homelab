@@ -57,12 +57,6 @@ spec:
                   secretKeyRef:
                     name: cluster-open-webui-secrets
                     key: OPENAI_API_KEY
-              MEMINI_BASE_URL: http://memini.ai.svc.cluster.local:8080
-              MEMINI_API_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: cluster-memini-secrets
-                    key: MEMINI_API_KEY
               OPENID_PROVIDER_URL: https://auth.${SECRET_DOMAIN}/.well-known/openid-configuration
               OPENID_REDIRECT_URI: https://ai.${SECRET_DOMAIN}/oauth/oidc/callback
               RAG_EMBEDDING_ENGINE: openai
@@ -72,7 +66,7 @@ spec:
                   secretKeyRef:
                     name: cluster-open-webui-secrets
                     key: OPENAI_API_KEY
-              RAG_EMBEDDING_MODEL: qwen3-embedding
+              RAG_EMBEDDING_MODEL: qwen3-embedding-0.6b
               RAG_EMBEDDING_MODEL_AUTO_UPDATE: "false"
               REDIS_KEY_PREFIX: open-webui
               REDIS_URL: redis://dragonfly.storage.svc.cluster.local:6379/4

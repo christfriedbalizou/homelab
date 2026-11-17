@@ -23,8 +23,6 @@ spec:
   dependsOn:
     - name: litellm-operator
       namespace: ai
-    - name: llmkube-models
-      namespace: ai
     - name: cloudnative-pg-databases
       namespace: storage
     - name: dragonfly-cluster
