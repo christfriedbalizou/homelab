@@ -1,6 +1,4 @@
 ---
-# Restarts the device plugin pod on a node after a kubelet restart has
-# locked it out. See config/watchdog.py.
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -15,6 +13,9 @@ rules:
   - apiGroups: [""]
     resources: ["nodes"]
     verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["list", "delete"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -23,30 +24,6 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: generic-device-plugin-watchdog
-subjects:
-  - kind: ServiceAccount
-    name: generic-device-plugin-watchdog
-    namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: generic-device-plugin-watchdog
-  namespace: kube-system
-rules:
-  - apiGroups: [""]
-    resources: ["pods"]
-    verbs: ["list", "delete"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: generic-device-plugin-watchdog
-  namespace: kube-system
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
   name: generic-device-plugin-watchdog
 subjects:
   - kind: ServiceAccount

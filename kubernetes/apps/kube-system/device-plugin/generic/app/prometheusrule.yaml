@@ -21,3 +21,26 @@ spec:
               so pods requesting them, such as Frigate, cannot start. The
               watchdog CronJob should recycle the plugin pod within 5 minutes;
               check generic-device-plugin-watchdog jobs if this persists."
+        - alert: GenericDevicePluginStaleAllocation
+          expr: |
+            max by (namespace, pod) (
+              kube_pod_container_status_waiting_reason{reason="CreateContainerError"}
+            )
+            * on (namespace, pod) group_left ()
+            (
+              max by (namespace, pod) (
+                kube_pod_container_resource_limits{resource=~"squat_ai_.*"}
+              ) > 0
+            )
+            > 0
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            summary: "{{ $labels.namespace }}/{{ $labels.pod }} cannot start with its squat.ai device allocation."
+            description:
+              "The pod requests a squat.ai device (for example the Coral) and
+              its container cannot be created, usually because the USB device
+              re-enumerated under a new /dev path. The watchdog CronJob should
+              delete the pod within 5 minutes; check
+              generic-device-plugin-watchdog jobs if this persists."
