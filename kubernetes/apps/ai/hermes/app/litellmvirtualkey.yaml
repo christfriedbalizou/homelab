@@ -6,8 +6,6 @@ metadata:
   name: hermes
 spec:
   keyAlias: hermes
-  models:
-    - qwen3-30b-a3b-instruct-q4-local
   maxParallelRequests: 2
   proxyRef: litellm
   secretName: hermes-litellm
