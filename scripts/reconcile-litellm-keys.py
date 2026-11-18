@@ -51,14 +51,12 @@ SAVED_CHAT_ALIASES = (
     "qwen3-local-think",
     "translategemma-local",
 )
+ALL_MODELS: tuple[str, ...] = ()
 DESIRED_GRANTS: dict[str, tuple[str, ...]] = {
     "translator-local-20261009": TRANSLATOR_MODELS,
     "open-webui": CHAT_MODELS + ("qwen3-embedding-0.6b",) + SAVED_CHAT_ALIASES,
     "n8n": ("qwen3-local-fast",),
-    "opencode-admin": (
-        "qwen3-30b-a3b-instruct-q4-local",
-        "qwen3-4b-q4-local",
-    ),
+    "opencode-admin": ALL_MODELS,
 }
 RETIRED_KEYS: tuple[str, ...] = ()
 OPERATOR_MANAGED_KEYS = ("hermes",)
