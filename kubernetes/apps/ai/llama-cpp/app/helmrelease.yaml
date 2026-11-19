@@ -124,136 +124,6 @@ spec:
                 memory: 5Gi
             securityContext: *securityContext
 
-      qwen3-4b-q4:
-        strategy: Recreate
-        pod: *cpuPod
-        initContainers:
-          download:
-            image: *curl
-            command: *download
-            env:
-              MODEL_FILE: Qwen3-4B-Q4_K_M.gguf
-              MODEL_URL: https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/bc640142c66e1fdd12af0bd68f40445458f3869b/Qwen3-4B-Q4_K_M.gguf
-              MODEL_SHA256: 7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5
-            resources: *downloadResources
-            securityContext: *securityContext
-        containers:
-          app:
-            image: *image
-            args: [--model, /models/Qwen3-4B-Q4_K_M.gguf, --alias, qwen3-4b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
-            probes: *probes
-            resources:
-              requests:
-                cpu: "2"
-                memory: 4Gi
-              limits:
-                memory: 6Gi
-            securityContext: *securityContext
-
-      gemma3-1b-q4:
-        strategy: Recreate
-        pod: *cpuPod
-        initContainers:
-          download:
-            image: *curl
-            command: *download
-            env:
-              MODEL_FILE: google_gemma-3-1b-it-Q4_K_M.gguf
-              MODEL_URL: https://huggingface.co/bartowski/google_gemma-3-1b-it-GGUF/resolve/116f76234503685a98f572982177b11d44ec8ff1/google_gemma-3-1b-it-Q4_K_M.gguf
-              MODEL_SHA256: 12bf0fff8815d5f73a3c9b586bd8fee8e7b248c935de70dec367679873d0f29d
-            resources: *downloadResources
-            securityContext: *securityContext
-        containers:
-          app:
-            image: *image
-            args: [--model, /models/google_gemma-3-1b-it-Q4_K_M.gguf, --alias, gemma3-1b-it-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
-            probes: *probes
-            resources:
-              requests:
-                cpu: "2"
-                memory: 2Gi
-              limits:
-                memory: 4Gi
-            securityContext: *securityContext
-
-      gemma3-4b-q4:
-        strategy: Recreate
-        pod: *cpuPod
-        initContainers:
-          download:
-            image: *curl
-            command: *download
-            env:
-              MODEL_FILE: google_gemma-3-4b-it-Q4_K_M.gguf
-              MODEL_URL: https://huggingface.co/bartowski/google_gemma-3-4b-it-GGUF/resolve/71506238f970075ca85125cd749c28b1b0eee84e/google_gemma-3-4b-it-Q4_K_M.gguf
-              MODEL_SHA256: 4996030242583a40aa151ff93f49ed787ac8c25e4120c3ae4588b2e2a7d1ae94
-            resources: *downloadResources
-            securityContext: *securityContext
-        containers:
-          app:
-            image: *image
-            args: [--model, /models/google_gemma-3-4b-it-Q4_K_M.gguf, --alias, gemma3-4b-it-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
-            probes: *probes
-            resources:
-              requests:
-                cpu: "2"
-                memory: 4Gi
-              limits:
-                memory: 6Gi
-            securityContext: *securityContext
-
-      deepseek-1-5b-q4:
-        strategy: Recreate
-        pod: *cpuPod
-        initContainers:
-          download:
-            image: *curl
-            command: *download
-            env:
-              MODEL_FILE: DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf
-              MODEL_URL: https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-1.5B-GGUF/resolve/9cc28b17e86fa2415fcb070f8ee5ec27c965aa61/DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf
-              MODEL_SHA256: 1741e5b2d062b07acf048bf0d2c514dadf2a48f94e2b4aa0cfe069af3838ee2f
-            resources: *downloadResources
-            securityContext: *securityContext
-        containers:
-          app:
-            image: *image
-            args: [--model, /models/DeepSeek-R1-Distill-Qwen-1.5B-Q4_K_M.gguf, --alias, deepseek-r1-distill-qwen-1.5b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
-            probes: *probes
-            resources:
-              requests:
-                cpu: "2"
-                memory: 2Gi
-              limits:
-                memory: 4Gi
-            securityContext: *securityContext
-
-      deepseek-7b-q4:
-        strategy: Recreate
-        pod: *cpuPod
-        initContainers:
-          download:
-            image: *curl
-            command: *download
-            env:
-              MODEL_FILE: DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf
-              MODEL_URL: https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF/resolve/361004151d4f4f6b446dc5e6d46fbf4422a80d5f/DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf
-              MODEL_SHA256: 731ece8d06dc7eda6f6572997feb9ee1258db0784827e642909d9b565641937b
-            resources: *downloadResources
-            securityContext: *securityContext
-        containers:
-          app:
-            image: *image
-            args: [--model, /models/DeepSeek-R1-Distill-Qwen-7B-Q4_K_M.gguf, --alias, deepseek-r1-distill-qwen-7b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
-            probes: *probes
-            resources:
-              requests:
-                cpu: "2"
-                memory: 6Gi
-              limits:
-                memory: 8Gi
-            securityContext: *securityContext
-
       translategemma-4b-q4:
         strategy: Recreate
         pod: *cpuPod
@@ -280,7 +150,7 @@ spec:
                 memory: 6Gi
             securityContext: *securityContext
 
-      qwen3-30b-a3b-q4:
+      qwen3-5-0-8b-q4:
         strategy: Recreate
         pod: *cpuPod
         initContainers:
@@ -288,22 +158,126 @@ spec:
             image: *curl
             command: *download
             env:
-              MODEL_FILE: Qwen3-30B-A3B-Instruct-2507-Q4_K_M.gguf
-              MODEL_URL: https://huggingface.co/unsloth/Qwen3-30B-A3B-Instruct-2507-GGUF/resolve/eea7b2be5805a5f151f8847ede8e5f9a9284bf77/Qwen3-30B-A3B-Instruct-2507-Q4_K_M.gguf
-              MODEL_SHA256: 6c997b8af17debdfb01d890214400ccbab00db6acc0ba8da5de1cc906c4774d0
+              MODEL_FILE: Qwen3.5-0.8B-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_K_M.gguf
+              MODEL_SHA256: bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517
             resources: *downloadResources
             securityContext: *securityContext
         containers:
           app:
             image: *image
-            args: [--model, /models/Qwen3-30B-A3B-Instruct-2507-Q4_K_M.gguf, --alias, qwen3-30b-a3b-instruct-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --flash-attn, "on", --cache-type-k, q8_0, --cache-type-v, q8_0, --cache-reuse, "256", --temp, "0.7", --top-p, "0.8", --top-k, "20", --min-p, "0", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
+            args: [--model, /models/Qwen3.5-0.8B-Q4_K_M.gguf, --alias, qwen3.5-0.8b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
             probes: *probes
             resources:
               requests:
-                cpu: "4"
-                memory: 22Gi
+                cpu: "2"
+                memory: 2Gi
               limits:
-                memory: 26Gi
+                memory: 3Gi
+            securityContext: *securityContext
+
+      granite-4-h-1b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: granite-4.0-h-1b-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/unsloth/granite-4.0-h-1b-GGUF/resolve/74f5511840300fdee7c70ccfc5bd57ecde0c8bbc/granite-4.0-h-1b-Q4_K_M.gguf
+              MODEL_SHA256: fd3b85f09520df9d898e2bbcf5da22fc518dbf9d662bb52e214d946c72aafacc
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/granite-4.0-h-1b-Q4_K_M.gguf, --alias, granite-4.0-h-1b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "2"
+                memory: 2Gi
+              limits:
+                memory: 3Gi
+            securityContext: *securityContext
+
+      gemma4-e2b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: gemma-4-E2B-it-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF/resolve/0314792d7f1f7e229411f620751375812bb9faf2/gemma-4-E2B-it-Q4_K_M.gguf
+              MODEL_SHA256: 740185b21d22ceb83a11c3aa62ad5842ef32c70f6096d756bbee85a1e4ec34b8
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/gemma-4-E2B-it-Q4_K_M.gguf, --alias, gemma4-e2b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "2"
+                memory: 4Gi
+              limits:
+                memory: 6Gi
+            securityContext: *securityContext
+
+      ministral3-3b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: Ministral-3-3B-Instruct-2512-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/unsloth/Ministral-3-3B-Instruct-2512-GGUF/resolve/7564922f37fa5bbb62b87f09a55c12f1f91d7a6a/Ministral-3-3B-Instruct-2512-Q4_K_M.gguf
+              MODEL_SHA256: fd46fc371ff0509bfa8657ac956b7de8534d7d9baaa4947975c0648c3aa397f4
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/Ministral-3-3B-Instruct-2512-Q4_K_M.gguf, --alias, ministral3-3b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "2"
+                memory: 10Gi
+              limits:
+                memory: 12Gi
+            securityContext: *securityContext
+
+      deepseek-r1-8b-q4:
+        strategy: Recreate
+        pod: *cpuPod
+        initContainers:
+          download:
+            image: *curl
+            command: *download
+            env:
+              MODEL_FILE: DeepSeek-R1-0528-Qwen3-8B-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF/resolve/eb48357c179d34dbf515983f798dfb8752a0f261/DeepSeek-R1-0528-Qwen3-8B-Q4_K_M.gguf
+              MODEL_SHA256: a86349a4180c4e6bb43f874c29c404fa2be3f90b15509bd6d86f697dba724ec1
+            resources: *downloadResources
+            securityContext: *securityContext
+        containers:
+          app:
+            image: *image
+            args: [--model, /models/DeepSeek-R1-0528-Qwen3-8B-Q4_K_M.gguf, --alias, deepseek-r1-0528-qwen3-8b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
+            probes: *probes
+            resources:
+              requests:
+                cpu: "2"
+                memory: 14Gi
+              limits:
+                memory: 18Gi
             securityContext: *securityContext
 
       qwen3-embedding-0-6b:
@@ -345,27 +319,24 @@ spec:
         ports:
           http:
             port: 8080
-      qwen3-4b-q4:
-        <<: *service
-        controller: qwen3-4b-q4
-      gemma3-1b-q4:
-        <<: *service
-        controller: gemma3-1b-q4
-      gemma3-4b-q4:
-        <<: *service
-        controller: gemma3-4b-q4
-      deepseek-1-5b-q4:
-        <<: *service
-        controller: deepseek-1-5b-q4
-      deepseek-7b-q4:
-        <<: *service
-        controller: deepseek-7b-q4
       translategemma-4b-q4:
         <<: *service
         controller: translategemma-4b-q4
-      qwen3-30b-a3b-q4:
+      qwen3-5-0-8b-q4:
         <<: *service
-        controller: qwen3-30b-a3b-q4
+        controller: qwen3-5-0-8b-q4
+      granite-4-h-1b-q4:
+        <<: *service
+        controller: granite-4-h-1b-q4
+      gemma4-e2b-q4:
+        <<: *service
+        controller: gemma4-e2b-q4
+      ministral3-3b-q4:
+        <<: *service
+        controller: ministral3-3b-q4
+      deepseek-r1-8b-q4:
+        <<: *service
+        controller: deepseek-r1-8b-q4
       qwen3-embedding-0-6b:
         <<: *service
         controller: qwen3-embedding-0-6b
@@ -383,35 +354,31 @@ spec:
             app:
               - path: /models
                 readOnly: true
-      qwen3-4b-q4:
-        <<: *cache
-        advancedMounts:
-          qwen3-4b-q4: *cacheMounts
-      gemma3-1b-q4:
-        <<: *cache
-        advancedMounts:
-          gemma3-1b-q4: *cacheMounts
-      gemma3-4b-q4:
-        <<: *cache
-        advancedMounts:
-          gemma3-4b-q4: *cacheMounts
-      deepseek-1-5b-q4:
-        <<: *cache
-        advancedMounts:
-          deepseek-1-5b-q4: *cacheMounts
-      deepseek-7b-q4:
-        <<: *cache
-        advancedMounts:
-          deepseek-7b-q4: *cacheMounts
       translategemma-4b-q4:
         <<: *cache
         advancedMounts:
           translategemma-4b-q4: *cacheMounts
-      qwen3-30b-a3b-q4:
+      qwen3-5-0-8b-q4:
         <<: *cache
-        size: 20Gi
         advancedMounts:
-          qwen3-30b-a3b-q4: *cacheMounts
+          qwen3-5-0-8b-q4: *cacheMounts
+      granite-4-h-1b-q4:
+        <<: *cache
+        advancedMounts:
+          granite-4-h-1b-q4: *cacheMounts
+      gemma4-e2b-q4:
+        <<: *cache
+        advancedMounts:
+          gemma4-e2b-q4: *cacheMounts
+      ministral3-3b-q4:
+        <<: *cache
+        advancedMounts:
+          ministral3-3b-q4: *cacheMounts
+      deepseek-r1-8b-q4:
+        <<: *cache
+        size: 8Gi
+        advancedMounts:
+          deepseek-r1-8b-q4: *cacheMounts
       qwen3-embedding-0-6b:
         <<: *cache
         advancedMounts:

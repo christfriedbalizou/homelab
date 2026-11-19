@@ -29,21 +29,10 @@ from urllib.request import (
 
 NAMESPACE = "ai"
 LOCAL_PORT = 15441
-TRANSLATOR_MODELS = (
-    "translategemma-4b-q4-local",
+AGENT_ACCESS_GROUP = "agents"
+SHARED_MODELS = (
     "qwen3-1.7b-q8-local",
-    "gemma3-1b-it-q4-local",
-    "deepseek-r1-distill-qwen-1.5b-q4-local",
-)
-CHAT_MODELS = (
-    "qwen3-1.7b-q8-local",
-    "qwen3-4b-q4-local",
-    "gemma3-1b-it-q4-local",
-    "gemma3-4b-it-q4-local",
-    "deepseek-r1-distill-qwen-1.5b-q4-local",
-    "deepseek-r1-distill-qwen-7b-q4-local",
     "translategemma-4b-q4-local",
-    "qwen3-30b-a3b-instruct-q4-local",
 )
 SAVED_CHAT_ALIASES = (
     "qwen3-local",
@@ -53,10 +42,12 @@ SAVED_CHAT_ALIASES = (
 )
 ALL_MODELS: tuple[str, ...] = ()
 DESIRED_GRANTS: dict[str, tuple[str, ...]] = {
-    "translator-local-20261009": TRANSLATOR_MODELS,
-    "open-webui": CHAT_MODELS + ("qwen3-embedding-0.6b",) + SAVED_CHAT_ALIASES,
+    "translator-local-20261009": ALL_MODELS,
+    "open-webui": (AGENT_ACCESS_GROUP, "qwen3-embedding-0.6b")
+    + SHARED_MODELS
+    + SAVED_CHAT_ALIASES,
     "n8n": ("qwen3-local-fast",),
-    "opencode-admin": ALL_MODELS,
+    "opencode-admin": (AGENT_ACCESS_GROUP,),
 }
 RETIRED_KEYS: tuple[str, ...] = ()
 OPERATOR_MANAGED_KEYS = ("hermes",)
@@ -177,7 +168,7 @@ def plan_changes(
         model
         for models in DESIRED_GRANTS.values()
         for model in models
-        if model not in served
+        if model not in served and model != AGENT_ACCESS_GROUP
     }
     if unknown:
         raise ReconcileError(f"models not served by LiteLLM: {sorted(unknown)}")
