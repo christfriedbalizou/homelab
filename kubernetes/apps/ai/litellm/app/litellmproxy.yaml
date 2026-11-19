@@ -46,6 +46,12 @@ spec:
     drop_params: true
     # Translator consumes final content; keep reasoning in its separate field.
     merge_reasoning_content_in_choices: false
+  extraConfig:
+    search_tools:
+      - search_tool_name: searxng
+        litellm_params:
+          search_provider: searxng
+          api_base: http://searxng.default.svc.cluster.local:8080
   env:
     - name: AUTO_REDIRECT_UI_LOGIN_TO_SSO
       value: "true"
