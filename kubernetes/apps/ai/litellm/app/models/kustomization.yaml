@@ -4,7 +4,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: ai
 resources:
-  - ./deepseek-r1-0528-qwen3-8b-q4-local.yaml
   - ./gemma4-e2b-q4-local.yaml
   - ./granite-4.0-h-1b-q4-local.yaml
   - ./qwen3-1.7b-q8-local.yaml
