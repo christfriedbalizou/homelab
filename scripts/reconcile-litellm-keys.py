@@ -30,26 +30,13 @@ from urllib.request import (
 NAMESPACE = "ai"
 LOCAL_PORT = 15441
 AGENT_ACCESS_GROUP = "agents"
-SHARED_MODELS = (
-    "qwen3-1.7b-q8-local",
-    "translategemma-4b-q4-local",
-)
-SAVED_CHAT_ALIASES = (
-    "qwen3-local",
-    "qwen3-local-fast",
-    "qwen3-local-think",
-    "translategemma-local",
-)
 ALL_MODELS: tuple[str, ...] = ()
 DESIRED_GRANTS: dict[str, tuple[str, ...]] = {
     "translator-local-20261009": ALL_MODELS,
-    "open-webui": (AGENT_ACCESS_GROUP, "qwen3-embedding-0.6b")
-    + SHARED_MODELS
-    + SAVED_CHAT_ALIASES,
     "n8n": ("qwen3-local-fast",),
     "opencode-admin": (AGENT_ACCESS_GROUP,),
 }
-RETIRED_KEYS: tuple[str, ...] = ()
+RETIRED_KEYS: tuple[str, ...] = ("open-webui",)
 OPERATOR_MANAGED_KEYS = ("hermes",)
 
 

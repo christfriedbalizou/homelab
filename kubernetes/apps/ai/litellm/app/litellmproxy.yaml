@@ -21,12 +21,8 @@ spec:
     forward_client_headers_to_llm_api: false
   routerSettings:
     routing_strategy: simple-shuffle
-    # Preserve saved client model IDs while the descriptive names are adopted.
     model_group_alias:
-      qwen3-local: qwen3-1.7b-q8-local
-      qwen3-local-think: qwen3-1.7b-q8-local
       qwen3-local-fast: qwen3-1.7b-q8-local
-      translategemma-local: translategemma-4b-q4-local
     redis_host: os.environ/REDIS_HOST
     redis_port: os.environ/REDIS_PORT
     num_retries: 3

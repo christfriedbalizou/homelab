@@ -28,8 +28,6 @@ resources:
   - ./netbird.yaml
   - ./nextcloud.sops.yaml
   - ./nextcloud.yaml
-  - ./open-webui.sops.yaml
-  - ./open-webui.yaml
   - ./paperless.sops.yaml
   - ./paperless.yaml
   - ./prowlarr.sops.yaml
