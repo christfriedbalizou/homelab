@@ -228,32 +228,6 @@ spec:
                 memory: 6Gi
             securityContext: *securityContext
 
-      deepseek-r1-8b-q4:
-        strategy: Recreate
-        pod: *cpuPod
-        initContainers:
-          download:
-            image: *curl
-            command: *download
-            env:
-              MODEL_FILE: DeepSeek-R1-0528-Qwen3-8B-Q4_K_M.gguf
-              MODEL_URL: https://huggingface.co/unsloth/DeepSeek-R1-0528-Qwen3-8B-GGUF/resolve/eb48357c179d34dbf515983f798dfb8752a0f261/DeepSeek-R1-0528-Qwen3-8B-Q4_K_M.gguf
-              MODEL_SHA256: a86349a4180c4e6bb43f874c29c404fa2be3f90b15509bd6d86f697dba724ec1
-            resources: *downloadResources
-            securityContext: *securityContext
-        containers:
-          app:
-            image: *image
-            args: [--model, /models/DeepSeek-R1-0528-Qwen3-8B-Q4_K_M.gguf, --alias, deepseek-r1-0528-qwen3-8b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
-            probes: *probes
-            resources:
-              requests:
-                cpu: "2"
-                memory: 14Gi
-              limits:
-                memory: 18Gi
-            securityContext: *securityContext
-
       qwen3-embedding-0-6b:
         strategy: Recreate
         pod:
@@ -305,9 +279,6 @@ spec:
       gemma4-e2b-q4:
         <<: *service
         controller: gemma4-e2b-q4
-      deepseek-r1-8b-q4:
-        <<: *service
-        controller: deepseek-r1-8b-q4
       qwen3-embedding-0-6b:
         <<: *service
         controller: qwen3-embedding-0-6b
@@ -341,11 +312,6 @@ spec:
         <<: *cache
         advancedMounts:
           gemma4-e2b-q4: *cacheMounts
-      deepseek-r1-8b-q4:
-        <<: *cache
-        size: 8Gi
-        advancedMounts:
-          deepseek-r1-8b-q4: *cacheMounts
       qwen3-embedding-0-6b:
         <<: *cache
         advancedMounts:

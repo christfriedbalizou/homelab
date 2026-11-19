@@ -46,9 +46,5 @@ spec:
       namespace: ai
     - apiVersion: apps/v1
       kind: Deployment
-      name: llama-cpp-deepseek-r1-8b-q4
-      namespace: ai
-    - apiVersion: apps/v1
-      kind: Deployment
       name: llama-cpp-qwen3-embedding-0-6b
       namespace: ai
