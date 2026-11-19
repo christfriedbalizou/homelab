@@ -6,7 +6,6 @@ namespace: ai
 components:
   - ../../components/common
 resources:
-  - ./open-webui/ks.yaml
   - ./llama-cpp/ks.yaml
   - ./litellm-operator/ks.yaml
   - ./litellm/ks.yaml

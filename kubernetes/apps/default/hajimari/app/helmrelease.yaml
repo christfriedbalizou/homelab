@@ -99,10 +99,6 @@ spec:
             - name: paperless
               url: "https://paperless.${SECRET_DOMAIN}"
               icon: "arcticons:paperless"
-            - name: Open WebUI
-              url: "https://ai.${SECRET_DOMAIN}"
-              icon: "mdi:chat-processing-outline"
-              info: "Private AI chat"
         - group: Home Automation
           apps:
             - name: code-server
