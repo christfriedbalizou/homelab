@@ -3,12 +3,12 @@
 apiVersion: litellm.home-operations.com/v1alpha1
 kind: LiteLLMModel
 metadata:
-  name: llama-cpp-granite-4-h-1b-q4
+  name: llama-cpp-granite-4-h-tiny-q4
 spec:
-  modelName: granite-4.0-h-1b-q4-local
+  modelName: granite-4.0-h-tiny-q4-local
   params:
-    model: openai/granite-4.0-h-1b-q4-local
-    apiBase: http://llama-cpp-granite-4-h-1b-q4.ai.svc.cluster.local:8080/v1
+    model: openai/granite-4.0-h-tiny-q4-local
+    apiBase: http://llama-cpp-granite-4-h-tiny-q4.ai.svc.cluster.local:8080/v1
     apiKey: sk-local-no-auth
     additional:
       timeout: 3600

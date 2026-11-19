@@ -38,13 +38,9 @@ spec:
       namespace: ai
     - apiVersion: apps/v1
       kind: Deployment
-      name: llama-cpp-granite-4-h-1b-q4
+      name: llama-cpp-granite-4-h-tiny-q4
       namespace: ai
     - apiVersion: apps/v1
       kind: Deployment
       name: llama-cpp-gemma4-e2b-q4
-      namespace: ai
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: llama-cpp-qwen3-embedding-0-6b
       namespace: ai
