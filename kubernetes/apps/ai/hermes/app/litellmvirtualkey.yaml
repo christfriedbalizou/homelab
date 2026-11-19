@@ -6,6 +6,8 @@ metadata:
   name: hermes
 spec:
   keyAlias: hermes
+  models:
+    - agents
   maxParallelRequests: 2
   proxyRef: litellm
   secretName: hermes-litellm

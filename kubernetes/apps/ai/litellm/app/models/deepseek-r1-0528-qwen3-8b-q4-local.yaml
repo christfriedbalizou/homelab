@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/litellm.home-operations.com/litellmmodel_v1alpha1.json
+apiVersion: litellm.home-operations.com/v1alpha1
+kind: LiteLLMModel
+metadata:
+  name: llama-cpp-deepseek-r1-8b-q4
+spec:
+  modelName: deepseek-r1-0528-qwen3-8b-q4-local
+  params:
+    model: openai/deepseek-r1-0528-qwen3-8b-q4-local
+    apiBase: http://llama-cpp-deepseek-r1-8b-q4.ai.svc.cluster.local:8080/v1
+    apiKey: sk-local-no-auth
+    additional:
+      timeout: 3600
+      stream_timeout: 3600
+      num_retries: 0
+  info:
+    maxTokens: 65536
+    maxInputTokens: 65536
+    maxOutputTokens: 8192
+    supportsFunctionCalling: true
+    extra:
+      access_groups:
+        - agents
+      supports_reasoning: true

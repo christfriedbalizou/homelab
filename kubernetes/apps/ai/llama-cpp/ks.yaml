@@ -30,31 +30,27 @@ spec:
       namespace: ai
     - apiVersion: apps/v1
       kind: Deployment
-      name: llama-cpp-qwen3-4b-q4
-      namespace: ai
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: llama-cpp-gemma3-1b-q4
-      namespace: ai
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: llama-cpp-gemma3-4b-q4
-      namespace: ai
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: llama-cpp-deepseek-1-5b-q4
-      namespace: ai
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: llama-cpp-deepseek-7b-q4
-      namespace: ai
-    - apiVersion: apps/v1
-      kind: Deployment
       name: llama-cpp-translategemma-4b-q4
       namespace: ai
     - apiVersion: apps/v1
       kind: Deployment
-      name: llama-cpp-qwen3-30b-a3b-q4
+      name: llama-cpp-qwen3-5-0-8b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-granite-4-h-1b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-gemma4-e2b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-ministral3-3b-q4
+      namespace: ai
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: llama-cpp-deepseek-r1-8b-q4
       namespace: ai
     - apiVersion: apps/v1
       kind: Deployment

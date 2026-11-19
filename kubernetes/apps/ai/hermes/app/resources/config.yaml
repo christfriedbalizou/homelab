@@ -1,6 +1,6 @@
 ---
 model:
-  default: qwen3-30b-a3b-instruct-q4-local
+  default: qwen3.5-0.8b-q4-local
   provider: custom:litellm
 
 providers:
@@ -10,9 +10,8 @@ providers:
     key_env: LITELLM_API_KEY
     name: LiteLLM
     transport: chat_completions
-    models:
-      qwen3-30b-a3b-instruct-q4-local:
-        context_length: 65536
+    request_timeout_seconds: 3600
+    stale_timeout_seconds: 3600
 
 dashboard:
   oauth:
