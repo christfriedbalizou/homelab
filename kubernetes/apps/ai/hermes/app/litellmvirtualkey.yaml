@@ -8,6 +8,6 @@ spec:
   keyAlias: hermes
   models:
     - agents
-  maxParallelRequests: 2
+  maxParallelRequests: 16
   proxyRef: litellm
   secretName: hermes-litellm
