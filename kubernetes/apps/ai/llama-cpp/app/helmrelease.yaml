@@ -228,32 +228,6 @@ spec:
                 memory: 6Gi
             securityContext: *securityContext
 
-      ministral3-3b-q4:
-        strategy: Recreate
-        pod: *cpuPod
-        initContainers:
-          download:
-            image: *curl
-            command: *download
-            env:
-              MODEL_FILE: Ministral-3-3B-Instruct-2512-Q4_K_M.gguf
-              MODEL_URL: https://huggingface.co/unsloth/Ministral-3-3B-Instruct-2512-GGUF/resolve/7564922f37fa5bbb62b87f09a55c12f1f91d7a6a/Ministral-3-3B-Instruct-2512-Q4_K_M.gguf
-              MODEL_SHA256: fd46fc371ff0509bfa8657ac956b7de8534d7d9baaa4947975c0648c3aa397f4
-            resources: *downloadResources
-            securityContext: *securityContext
-        containers:
-          app:
-            image: *image
-            args: [--model, /models/Ministral-3-3B-Instruct-2512-Q4_K_M.gguf, --alias, ministral3-3b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
-            probes: *probes
-            resources:
-              requests:
-                cpu: "2"
-                memory: 10Gi
-              limits:
-                memory: 12Gi
-            securityContext: *securityContext
-
       deepseek-r1-8b-q4:
         strategy: Recreate
         pod: *cpuPod
@@ -331,9 +305,6 @@ spec:
       gemma4-e2b-q4:
         <<: *service
         controller: gemma4-e2b-q4
-      ministral3-3b-q4:
-        <<: *service
-        controller: ministral3-3b-q4
       deepseek-r1-8b-q4:
         <<: *service
         controller: deepseek-r1-8b-q4
@@ -370,10 +341,6 @@ spec:
         <<: *cache
         advancedMounts:
           gemma4-e2b-q4: *cacheMounts
-      ministral3-3b-q4:
-        <<: *cache
-        advancedMounts:
-          ministral3-3b-q4: *cacheMounts
       deepseek-r1-8b-q4:
         <<: *cache
         size: 8Gi

@@ -7,7 +7,6 @@ resources:
   - ./deepseek-r1-0528-qwen3-8b-q4-local.yaml
   - ./gemma4-e2b-q4-local.yaml
   - ./granite-4.0-h-1b-q4-local.yaml
-  - ./ministral3-3b-q4-local.yaml
   - ./qwen3-1.7b-q8-local.yaml
   - ./qwen3-embedding-0.6b.yaml
   - ./qwen3.5-0.8b-q4-local.yaml
