@@ -5,7 +5,7 @@ kind: Kustomization
 namespace: ai
 resources:
   - ./gemma4-e2b-q4-local.yaml
-  - ./granite-4.0-h-1b-q4-local.yaml
+  - ./granite-4.0-h-tiny-q4-local.yaml
   - ./qwen3-1.7b-q8-local.yaml
   - ./qwen3.5-0.8b-q4-local.yaml
   - ./translategemma-4b-q4-local.yaml

@@ -85,7 +85,7 @@ spec:
             image: &image
               repository: ghcr.io/ggml-org/llama.cpp
               tag: server-b12464@sha256:5b43086e3ba7ea5794d72904654f6cd41224a9b1c6ac0398f4940ee380d30f23
-            args: [--model, /models/Qwen3-1.7B-Q8_0.gguf, --alias, qwen3-1.7b-q8-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
+            args: [--model, /models/Qwen3-1.7B-Q8_0.gguf, --alias, qwen3-1.7b-q8-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --cache-ram, "256", --threads, "4", --threads-batch, "8", --metrics]
             probes: &probes
               startup:
                 enabled: true
@@ -140,7 +140,7 @@ spec:
         containers:
           app:
             image: *image
-            args: [--model, /models/translategemma-4b-it.Q4_K_M.gguf, --alias, translategemma-4b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --threads, "4", --threads-batch, "8", --metrics]
+            args: [--model, /models/translategemma-4b-it.Q4_K_M.gguf, --alias, translategemma-4b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --cache-ram, "256", --threads, "4", --threads-batch, "8", --metrics]
             probes: *probes
             resources:
               requests:
@@ -166,17 +166,17 @@ spec:
         containers:
           app:
             image: *image
-            args: [--model, /models/Qwen3.5-0.8B-Q4_K_M.gguf, --alias, qwen3.5-0.8b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
+            args: [--model, /models/Qwen3.5-0.8B-Q4_K_M.gguf, --alias, qwen3.5-0.8b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --cache-ram, "1024", --ctx-checkpoints, "8", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
             probes: *probes
             resources:
               requests:
                 cpu: "2"
-                memory: 2Gi
-              limits:
                 memory: 3Gi
+              limits:
+                memory: 4Gi
             securityContext: *securityContext
 
-      granite-4-h-1b-q4:
+      granite-4-h-tiny-q4:
         strategy: Recreate
         pod: *cpuPod
         initContainers:
@@ -184,22 +184,22 @@ spec:
             image: *curl
             command: *download
             env:
-              MODEL_FILE: granite-4.0-h-1b-Q4_K_M.gguf
-              MODEL_URL: https://huggingface.co/unsloth/granite-4.0-h-1b-GGUF/resolve/74f5511840300fdee7c70ccfc5bd57ecde0c8bbc/granite-4.0-h-1b-Q4_K_M.gguf
-              MODEL_SHA256: fd3b85f09520df9d898e2bbcf5da22fc518dbf9d662bb52e214d946c72aafacc
+              MODEL_FILE: granite-4.0-h-tiny-Q4_K_M.gguf
+              MODEL_URL: https://huggingface.co/ibm-granite/granite-4.0-h-tiny-GGUF/resolve/240a43d5efe7bdcfa4205b0019bb95e4cc6e5315/granite-4.0-h-tiny-Q4_K_M.gguf
+              MODEL_SHA256: 5a38b08c441ae1adbafb1d2b8a7167e0d48734d83af68b268cefea1eec553dcd
             resources: *downloadResources
             securityContext: *securityContext
         containers:
           app:
             image: *image
-            args: [--model, /models/granite-4.0-h-1b-Q4_K_M.gguf, --alias, granite-4.0-h-1b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
+            args: [--model, /models/granite-4.0-h-tiny-Q4_K_M.gguf, --alias, granite-4.0-h-tiny-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --cache-ram, "2048", --ctx-checkpoints, "8", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
             probes: *probes
             resources:
               requests:
                 cpu: "2"
-                memory: 2Gi
+                memory: 6Gi
               limits:
-                memory: 3Gi
+                memory: 8Gi
             securityContext: *securityContext
 
       gemma4-e2b-q4:
@@ -218,7 +218,7 @@ spec:
         containers:
           app:
             image: *image
-            args: [--model, /models/gemma-4-E2B-it-Q4_K_M.gguf, --alias, gemma4-e2b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
+            args: [--model, /models/gemma-4-E2B-it-Q4_K_M.gguf, --alias, gemma4-e2b-q4-local, --host, 0.0.0.0, --port, "8080", --ctx-size, "65536", --parallel, "1", --batch-size, "2048", --ubatch-size, "512", --cache-reuse, "256", --cache-ram, "1024", --ctx-checkpoints, "8", --jinja, --cont-batching, --threads, "8", --threads-batch, "16", --metrics]
             probes: *probes
             resources:
               requests:
@@ -226,39 +226,6 @@ spec:
                 memory: 4Gi
               limits:
                 memory: 6Gi
-            securityContext: *securityContext
-
-      qwen3-embedding-0-6b:
-        strategy: Recreate
-        pod:
-          runtimeClassName: nvidia
-        initContainers:
-          download:
-            image: *curl
-            command: *download
-            env:
-              MODEL_FILE: Qwen3-Embedding-0.6B-Q8_0.gguf
-              MODEL_URL: https://huggingface.co/Qwen/Qwen3-Embedding-0.6B-GGUF/resolve/370f27d7550e0def9b39c1f16d3fbaa13aa67728/Qwen3-Embedding-0.6B-Q8_0.gguf
-              MODEL_SHA256: 06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439
-            resources: *downloadResources
-            securityContext: *securityContext
-        containers:
-          app:
-            image:
-              repository: ghcr.io/ggml-org/llama.cpp
-              tag: server-cuda-b12464@sha256:ae96e52f8b2106ea82bad786ee2d08bb9b0a8c93403df9c27ae1bf065a118089
-            args: [--model, /models/Qwen3-Embedding-0.6B-Q8_0.gguf, --alias, qwen3-embedding, --host, 0.0.0.0, --port, "8080", --n-gpu-layers, "99", --ctx-size, "2048", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --embeddings, --pooling, last, --cont-batching, --threads, "2", --threads-batch, "4", --metrics]
-            env:
-              NVIDIA_DRIVER_CAPABILITIES: compute,utility
-            probes: *probes
-            resources:
-              requests:
-                cpu: 100m
-                memory: 1Gi
-                nvidia.com/gpu.shared: 1
-              limits:
-                memory: 2Gi
-                nvidia.com/gpu.shared: 1
             securityContext: *securityContext
 
     service:
@@ -273,15 +240,12 @@ spec:
       qwen3-5-0-8b-q4:
         <<: *service
         controller: qwen3-5-0-8b-q4
-      granite-4-h-1b-q4:
+      granite-4-h-tiny-q4:
         <<: *service
-        controller: granite-4-h-1b-q4
+        controller: granite-4-h-tiny-q4
       gemma4-e2b-q4:
         <<: *service
         controller: gemma4-e2b-q4
-      qwen3-embedding-0-6b:
-        <<: *service
-        controller: qwen3-embedding-0-6b
 
     persistence:
       qwen3-1-7b-q8: &cache
@@ -304,18 +268,14 @@ spec:
         <<: *cache
         advancedMounts:
           qwen3-5-0-8b-q4: *cacheMounts
-      granite-4-h-1b-q4:
+      granite-4-h-tiny-q4:
         <<: *cache
         advancedMounts:
-          granite-4-h-1b-q4: *cacheMounts
+          granite-4-h-tiny-q4: *cacheMounts
       gemma4-e2b-q4:
         <<: *cache
         advancedMounts:
           gemma4-e2b-q4: *cacheMounts
-      qwen3-embedding-0-6b:
-        <<: *cache
-        advancedMounts:
-          qwen3-embedding-0-6b: *cacheMounts
       tmp:
         type: emptyDir
         globalMounts:
