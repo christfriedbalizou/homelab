@@ -59,6 +59,35 @@ spec:
               capabilities:
                 drop:
                   - ALL
+          firecrawl-extra:
+            image: *image
+            command:
+              - /opt/hermes/.venv/bin/python
+              - -c
+              - |
+                import sys
+                from pm.paths import repo_root
+                from pm.environments import selected_venv, site_packages
+                try:
+                    if (site_packages(selected_venv(repo_root())) / "firecrawl").is_dir():
+                        sys.exit(0)
+                except Exception:
+                    pass
+                from pm.client import sync_venv
+                try:
+                    sync_venv(["firecrawl"], explicit=True)
+                except Exception as error:
+                    print(f"firecrawl extra not installed: {error}", file=sys.stderr)
+            workingDir: /opt/hermes
+            env:
+              HOME: /opt/data
+              HERMES_HOME: /opt/data
+            resources:
+              requests:
+                cpu: 10m
+              limits:
+                memory: 1Gi
+            securityContext: *securityContext
         containers:
           app:
             image: *image
@@ -85,6 +114,7 @@ spec:
                   secretKeyRef:
                     name: hermes-litellm
                     key: key
+              FIRECRAWL_API_URL: http://firecrawl-app.ai.svc.cluster.local:3002
               SEARXNG_URL: http://searxng.default.svc.cluster.local:8080
               TZ: ${TIMEZONE}
             probes:
