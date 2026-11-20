@@ -29,8 +29,6 @@ spec:
     name: home-kubernetes
     namespace: flux-system
   dependsOn:
-    - name: cloudnative-pg-databases
-      namespace: storage
     - name: dragonfly-cluster
       namespace: storage
     - name: searxng

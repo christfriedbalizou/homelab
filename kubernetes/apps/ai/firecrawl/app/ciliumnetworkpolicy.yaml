@@ -34,8 +34,9 @@ spec:
               protocol: ANY
     - toEndpoints:
         - matchLabels:
-            k8s:io.kubernetes.pod.namespace: storage
-            cnpg.io/cluster: postgres18
+            k8s:io.kubernetes.pod.namespace: ai
+            app.kubernetes.io/name: firecrawl
+            app.kubernetes.io/controller: postgres
       toPorts:
         - ports:
             - port: "5432"
@@ -123,3 +124,26 @@ spec:
         - 169.254.0.0/16
         - 172.16.0.0/12
         - 192.168.0.0/16
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: firecrawl-postgres
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: firecrawl
+      app.kubernetes.io/controller: postgres
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: ai
+            app.kubernetes.io/name: firecrawl
+            app.kubernetes.io/controller: firecrawl
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP
+  egress:
+    - {}

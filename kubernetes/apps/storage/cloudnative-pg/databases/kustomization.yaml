@@ -10,8 +10,6 @@ resources:
   - ./authelia.yaml
   - ./autobrr.sops.yaml
   - ./autobrr.yaml
-  - ./firecrawl.sops.yaml
-  - ./firecrawl.yaml
   - ./forgejo.sops.yaml
   - ./forgejo.yaml
   - ./immich.sops.yaml
