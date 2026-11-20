@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: firecrawl-db
+  namespace: storage
+  labels:
+    cnpg.io/reload: "true"
+type: kubernetes.io/basic-auth
+stringData:
+  username: ENC[AES256_GCM,data:Q8/ii40zkT+T,iv:+xfEdz5Le6kUcs2K53ZpEpKrv3+RoIJ+p33xVdsSXDc=,tag:fEhee2X82FkAotJPT8GtgA==,type:str]
+  password: ENC[AES256_GCM,data:iqfx02wXz6RMmibP8KyJFT8Nt0rAodkuGCTKEW2+UiQqgWaAi6J5nelwRm+StdltdwdsJWD15vOtrHriJVf3hA==,iv:/6JE/3qqiEiZCx2YtvF+gDwJ5R7CUhjuE33UzP/mzUc=,tag:ZLRrTeQ0JlU61ykVjacV2w==,type:str]
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArb3Jlbm5jRTFFKzFMWHp1
+        dFV4blBNVkhqbnA4UE0zWFZnQXN5MUtHeW1vCm1vRVUxMGJORTVKRUdITHh5bDdF
+        alJ2SExDOFdXYTBmRndvTmdUSGUvSmMKLS0tIHVGZnNIOFpnbFYzNGdlaWdlNk9r
+        RndjcHpSY3Rya1N0Q2RUR2tDbzRGMUkKQ44dbn+jM1fRRm7xUlJG+S/fpjiQZafW
+        Qs35d9YpbSAitAujfCLou7mrphX9Zs+YDot5UD8cRBHrwZGS53xH7g==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1undkver5jqs36xk2djfjemx8hyq4zl4wkfkrq3yx36zmedmduvkqkgs0rg
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-11-20T00:51:57Z"
+  mac: ENC[AES256_GCM,data:hcpPbR7ozy009RWFOc4B9k4ZchdQ6//E/akYlyGra+5jp63kG98YtndRnS0FpxTTs4/2mzbAMhfMLoJ3K7npVlPRscIr0ZNEuSPkyblB19v/khN2KukhQe8SVebJOLlyD4dYh7qPHGsWfnaU4VqR4MmvzbhlTcM9rmceF2ebV70=,iv:UY/qzSvFNnWTph1HyTDlVHUB5zaDjGbj+pn66tukW88=,tag:fVTM2JrhrKM48UMHgDhJDQ==,type:str]
+  mac_only_encrypted: true
+  version: 3.13.3

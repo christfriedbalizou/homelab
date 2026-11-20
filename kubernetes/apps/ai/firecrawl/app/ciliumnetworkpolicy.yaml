@@ -1,0 +1,125 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: firecrawl
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: firecrawl
+      app.kubernetes.io/controller: firecrawl
+  ingress:
+    - fromEntities:
+        - host
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: ai
+            app.kubernetes.io/name: hermes
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: networking
+            gateway.networking.k8s.io/gateway-name: envoy-external
+      toPorts:
+        - ports:
+            - port: "3002"
+              protocol: TCP
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: storage
+            cnpg.io/cluster: postgres18
+      toPorts:
+        - ports:
+            - port: "5432"
+              protocol: TCP
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: storage
+            app: dragonfly
+      toPorts:
+        - ports:
+            - port: "6379"
+              protocol: TCP
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: default
+            app.kubernetes.io/name: searxng
+      toPorts:
+        - ports:
+            - port: "8080"
+              protocol: TCP
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: ai
+            app.kubernetes.io/name: firecrawl
+            app.kubernetes.io/controller: playwright
+      toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP
+    - toEntities:
+        - world
+  egressDeny:
+    - toCIDRSet:
+        - cidr: 10.0.0.0/8
+          except:
+            - 10.42.0.0/16
+            - 10.43.0.0/16
+    - toCIDR:
+        - 100.64.0.0/10
+        - 169.254.0.0/16
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: firecrawl-playwright
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: firecrawl
+      app.kubernetes.io/controller: playwright
+  ingress:
+    - fromEntities:
+        - host
+    - fromEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: ai
+            app.kubernetes.io/name: firecrawl
+            app.kubernetes.io/controller: firecrawl
+      toPorts:
+        - ports:
+            - port: "3000"
+              protocol: TCP
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            k8s:io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: ANY
+    - toEntities:
+        - world
+  egressDeny:
+    - toCIDRSet:
+        - cidr: 10.0.0.0/8
+          except:
+            - 10.42.0.0/16
+            - 10.43.0.0/16
+    - toCIDR:
+        - 100.64.0.0/10
+        - 169.254.0.0/16
+        - 172.16.0.0/12
+        - 192.168.0.0/16
