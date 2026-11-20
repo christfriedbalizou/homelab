@@ -20,6 +20,12 @@ tools:
   connectors:
     enabled: false
 
+web:
+  search_backend: searxng
+  extract_backend: searxng
+  keyless_fallback: false
+  keyless_rescue: false
+
 dashboard:
   oauth:
     provider: self-hosted
