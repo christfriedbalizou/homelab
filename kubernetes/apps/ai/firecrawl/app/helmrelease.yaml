@@ -60,7 +60,7 @@ spec:
           api:
             image: &image
               repository: ghcr.io/firecrawl/firecrawl
-              tag: latest@sha256:d4d1a89a195532677beaf8f80ae35f67f1e00d36c0fe3caf71c30ed8b7b4f017
+              tag: latest@sha256:0763c7941ef606173f31af7363e032514dab543f0f1a416a88395e18f1dd981c
             command:
               - node
               - /app/dist/src/main.js
