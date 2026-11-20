@@ -22,7 +22,7 @@ tools:
 
 web:
   search_backend: searxng
-  extract_backend: searxng
+  extract_backend: firecrawl
   keyless_fallback: false
   keyless_rescue: false
 
