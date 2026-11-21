@@ -40,7 +40,7 @@ spec:
           app:
             image:
               repository: ghcr.io/christfriedbalizou/tv-guides
-              tag: 0.5.0@sha256:260b97077d6f5e9de8fa4debecb4973dcd28bd20177004ebded0bdca89e0ac81
+              tag: 0.5.0@sha256:7338d1e2a75d588cf677e1cd775bfea68e6c78a43237b390f2c7b028fe7a8118
             args: [run]
             env:
               TZ: ${TIMEZONE}
