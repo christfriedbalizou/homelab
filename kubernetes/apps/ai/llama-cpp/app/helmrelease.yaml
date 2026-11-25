@@ -84,7 +84,7 @@ spec:
           app:
             image: &image
               repository: ghcr.io/ggml-org/llama.cpp
-              tag: server-b12679@sha256:6fab63852916c294cc8a2f1515079c4ca40248193eea8868ae742134335b989b
+              tag: server-b12723@sha256:b0cd5490eefff30b40dcd47f7249a7d7211136908f73fe440a2a86b35a22b23b
             args: [--model, /models/Qwen3-1.7B-Q8_0.gguf, --alias, qwen3-1.7b-q8-local, --host, 0.0.0.0, --port, "8080", --load-mode, none, --ctx-size, "4096", --parallel, "1", --batch-size, "512", --ubatch-size, "512", --jinja, --cont-batching, --cache-ram, "256", --threads, "4", --threads-batch, "8", --metrics]
             probes: &probes
               startup:
