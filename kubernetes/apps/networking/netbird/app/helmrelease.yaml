@@ -90,7 +90,7 @@ spec:
           app:
             image:
               repository: netbirdio/dashboard
-              tag: v2.98.0@sha256:3e8a714e2966f96201b817657cf5b6e4304b947b88341fe99639214fb440ea9c
+              tag: v2.99.0@sha256:8005cb3bfbb1433de117af5070b27b175f10730f8acb548e398ab6d20cddf9f4
             env:
               AUTH_AUDIENCE: netbird-dashboard
               AUTH_AUTHORITY: https://netbird.${SECRET_DOMAIN}/oauth2
